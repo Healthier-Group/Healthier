@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage'
 
 function AppGlobal() {
-  return (
+	return (
 		<BrowserRouter>
 
 			<Switch> 
@@ -11,7 +11,7 @@ function AppGlobal() {
 			</Switch>
 			
 		</BrowserRouter>
-  );
+	);
 }
 
 export default AppGlobal;
