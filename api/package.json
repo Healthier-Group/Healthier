@@ -1,0 +1,14 @@
+{
+  "name": "healthier",
+  "version": "1.0.0",
+  "description": "e-commerce focused on special diets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolas Sanchez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
