@@ -3,30 +3,34 @@ import {AppBar, Toolbar, Typography, makeStyles, IconButton} from '@material-ui/
 import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles(theme => ({
-    offset: theme.mixins.toolbar,
-    root:{
-        display: 'flex',
+    menuButton: {
+        marginLeft: theme.spacing(2),
     },
     grow: {
         flexGrow: 1,
+    },
+    appBar: {
+        [theme.breakpoints.up('sm')]:{
+            width: `calc(100% - ${240}px)`,
+            marginRight: 240
+        }
     }
 }))
 
-export const NavBar = () => {
+export const NavBar = (props) => {
     const classes = useStyles()
     return (
-        <div className={classes.root}>
-            <AppBar position="fixed" color="primary">
+            <AppBar className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" color="secondary" className={classes.grow}>
                         Healthier
                     </Typography>
-                    <IconButton onClick={null} aria-label="menu-button">
+                    <IconButton color='inherit' aria-label="menu-button" className={classes.menuButton} onClick={()=>props.actionMenuButton()}>
                         <MenuIcon color="secondary"/>
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <div className={classes.offset}/>
-        </div>
     )
 }
+
+export default NavBar
