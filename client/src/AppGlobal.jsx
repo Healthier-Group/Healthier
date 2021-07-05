@@ -1,16 +1,18 @@
 import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import LandingPage from './components/LandingPage/LandingPage'
+import {ThemeProvider} from '@material-ui/core/styles'
+import theme from './utils/Theme.js'
+import { NavBar } from './components/NavBar/NavBar';
 
 function AppGlobal() {
 	return (
-		<BrowserRouter>
-
-			<Switch> 
-        <Route path='/' component={LandingPage}/>
-			</Switch>
-			
-		</BrowserRouter>
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Switch> 
+					<Route path='/' component={NavBar}/>
+				</Switch>
+			</BrowserRouter>
+		</ThemeProvider>
 	);
 }
 
