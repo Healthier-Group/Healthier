@@ -7,8 +7,16 @@ module.exports = sequelize => {
 			primaryKey: true,
 			autoIncrement: true,
 		},
+		isReseller:{
+			type: DataTypes.BOOLEAN,	
+			defaultValue: false,
+		},
 		name: {
 			type: DataTypes.STRING,
+		},
+		username:{
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
 		email: {
 			type: DataTypes.STRING(60),
