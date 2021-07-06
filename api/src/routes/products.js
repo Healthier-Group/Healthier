@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const express = require("express");
 
-const addProduct = require("../controllers/products/addProductsController");
-const putProduct = require("../controllers/products/putProductsController");
-const deleteProduct = require("../controllers/products/deleteProductsController");
+const addProduct = require("../controllers/products/addProductController");
+const putProduct = require("../controllers/products/updateProductController");
+const deleteProduct = require("../controllers/products/deleteProductController");
 const getAllProducts = require("../controllers/products/getProductController");
-const getProductById = require("../controllers/users/getUserByIdController");
+const getProductById = require("../controllers/products/getProductByIdController");
 
 router.use(express.json());
 
