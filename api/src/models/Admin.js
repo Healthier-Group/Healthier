@@ -10,10 +10,10 @@ module.exports = sequelize => {
 			allowNull: false,
 			validate: {
 				isEmail: {
-					msg: 'Email Invalido',
+					msg: 'Email inválido',
 				},
 				notEmpty: {
-					msg: 'El email no puede estar vacio',
+					msg: 'El email no puede estar vacío',
 				},
 			},
 			unique: {
@@ -26,7 +26,7 @@ module.exports = sequelize => {
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: 'La contraseña no puede estar vacia',
+					msg: 'La contraseña no puede estar vacía',
 				},
 			},
 		},
