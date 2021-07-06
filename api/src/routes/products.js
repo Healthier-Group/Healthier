@@ -1,16 +1,18 @@
 const router = require("express").Router();
 const express = require("express");
 
-const addProducts = require("../controllers/products/addProductsController");
-const putProducts = require("../controllers/products/putProductsController");
-const deleteProducts = require("../controllers/products/deleteProductsController");
-const getProducts = require("../controllers/products/getProductController");
+const addProduct = require("../controllers/products/addProductsController");
+const putProduct = require("../controllers/products/putProductsController");
+const deleteProduct = require("../controllers/products/deleteProductsController");
+const getAllProducts = require("../controllers/products/getProductController");
+const getProductById = require("../controllers/users/getUserByIdController");
 
 router.use(express.json());
 
-router.post("/", addProducts);
-router.put("/:id", putProducts);
-router.delete("/:id", deleteProducts);
-router.get("/", getProducts); // Verificar la ruta para get
+router.get("/getAll", getAllProducts); // Check get route
+router.get("/getProduct/:id'", getProductById);
+router.post("/addProduct", addProduct);
+router.put("/updateProduct/:id", putProduct);
+router.delete("/deleteProduct/:id", deleteProduct);
 
 module.exports = router;

@@ -1,10 +1,12 @@
 const { Products } = require("../../db");
 
 module.exports = async (req, res, next) => {
-  let product = req.body;
+  const { id } = req.params;
   try {
-    product = await Products.create({ ...product });
-    return res.json(product).status(200);
+    const product = await Products.findOne({
+      where: { id }, // Check if curly brackets are necessary
+    });
+    res.json(product);
   } catch (err) {
     res.json(err);
     return console.log(err);
