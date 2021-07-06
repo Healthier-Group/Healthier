@@ -5,7 +5,7 @@ module.exports = sequelize => {
         id:{
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true // Es necesaria?
+            primaryKey: true  // Es necesaria?
         },
         orderId:{
             type: DataTypes.INTEGER,
@@ -24,13 +24,13 @@ module.exports = sequelize => {
             allowNull: false
         },
         // De vuelta, esto se crea automaticamente???
-        /* createdAt:{
+        createdAt:{
             type: DataTypes.TIME,
             allowNull: false
         },
         updatedAt:{
             type: DataTypes.TIME,
             allowNull: false
-        } */
+        }
 	});
 };

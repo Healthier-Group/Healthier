@@ -5,7 +5,7 @@ module.exports = sequelize => {
         orderId:{
             type: DataTypes.INTEGER,
             allowNull: false,
-            primaryKey: true // Es necesaria?
+            primaryKey: true  // Es necesaria?
         },
         productId:{
             type: DataTypes.INTEGER,

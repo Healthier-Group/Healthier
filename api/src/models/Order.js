@@ -20,14 +20,14 @@ module.exports = sequelize => {
             allowNull: false
         }, 
         // Esto se crea automaticamente?? el tipo de dato TIME está bien? que es TIMESTAMP?
-        /* createdAt:{
+        createdAt:{
             type: DataTypes.TIME,
             allowNull: false
         },
         updatedAt:{
             type: DataTypes.TIME,
             allowNull: false
-        } */
+        }
 	});
 };
 
