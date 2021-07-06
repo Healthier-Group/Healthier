@@ -4,13 +4,14 @@ module.exports = sequelize => {
 	sequelize.define('admin', {
 		name: {
 			type: DataTypes.STRING,
+			allowNull: false,
 		},
 		email: {
 			type: DataTypes.STRING(60),
 			allowNull: false,
 			validate: {
 				isEmail: {
-					msg: 'Email Invalido',
+					msg: 'Email Inválido',
 				},
 				notEmpty: {
 					msg: 'El email no puede estar vacio',
@@ -32,10 +33,6 @@ module.exports = sequelize => {
 		},
 		contact: {
 			type: DataTypes.STRING,
-		},
-		firstLogging: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true,
 		}
 	});
 };
