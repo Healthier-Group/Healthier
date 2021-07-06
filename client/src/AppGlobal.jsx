@@ -2,9 +2,9 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core/styles'
 import theme from './utils/Theme.js'
-import Navigation from './components/NavBar/Navigation';
+// import Navigation from './components/NavBar/Navigation';
 import LandingPage from './components/LandingPage/LandingPage'
-import CreateUserForm from './components/Users/UserAdd/CreateUserForm';
+import CreateUser from './components/Users/UserAdd/CreateUser';
 
 function AppGlobal() {
 	return (
@@ -12,7 +12,7 @@ function AppGlobal() {
 			<BrowserRouter>
 				<Switch> 
 					{/* <Route path='/' component={Navigation}/> */}
-					<Route path='/createuser' component={CreateUserForm}/>
+					<Route path='/createuser' component={CreateUser}/>
 					<Route exact path='/' component={LandingPage}/>
 				</Switch>
 			</BrowserRouter>

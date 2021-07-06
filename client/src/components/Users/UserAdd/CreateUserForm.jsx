@@ -17,21 +17,21 @@ const useStyles = makeStyles((theme) => ({
     width: "fit-content",
     backgroundColor: "#00000033",
     flexDirection: "column",
-    margin: "20px",
+    margin: "0vh",
     boxShadow: "0 4px 5px black",
-    padding: "20px",
-    borderRadius: "20px",
+    padding: "4vh",
+    borderRadius: "3vh",
   },
   input1: {
     display: "flex",
     justifyContent: "space-between",
   },
   inputs: {
-    margin: "20px",
-    minWidth: "25vw",
+    margin: "2vw",
+    minWidth: "2.5vw",
   },
   btn: {
-    marginTop: "40px",
+    marginTop: "4vh",
     backgroundColor: "orange",
   },
 }));
@@ -146,6 +146,9 @@ const CreateUserForm = () => {
           setError({ ...error, password: false });
           setHelperText({ ...helperText, password: "" });
         }
+        break;
+      default:
+        console.log("test");
         break;
     }
   };
