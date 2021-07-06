@@ -1,6 +1,7 @@
-const {DataTypes} = require('sequelize');
+const {DataTypes} = require('sequelize')
 
 module.exports = sequelize => {
+
 	sequelize.define('order_products', {
         orderId:{
             type: DataTypes.INTEGER,
@@ -15,7 +16,7 @@ module.exports = sequelize => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
-	});
-};
+	})
+}
 
 

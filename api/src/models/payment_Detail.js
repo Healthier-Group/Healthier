@@ -1,7 +1,8 @@
-const {DataTypes} = require('sequelize');
+const {DataTypes} = require('sequelize')
 
 module.exports = sequelize => {
 	sequelize.define('payment_detail', {
+
         id:{
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -32,5 +33,5 @@ module.exports = sequelize => {
             type: DataTypes.TIME,
             allowNull: false
         }
-	});
-};
+	})
+}
