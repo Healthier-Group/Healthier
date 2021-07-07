@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100vw",
     height: "100vh",
+    margin:'auto'
   },
   root: {
     display: "flex",
@@ -17,21 +18,21 @@ const useStyles = makeStyles((theme) => ({
     width: "fit-content",
     backgroundColor: "#00000033",
     flexDirection: "column",
-    margin: "0vh",
+    margin: "20px",
     boxShadow: "0 4px 5px black",
-    padding: "4vh",
-    borderRadius: "3vh",
+    padding: "20px",
+    borderRadius: "20px",
   },
   input1: {
     display: "flex",
     justifyContent: "space-between",
   },
   inputs: {
-    margin: "2vw",
-    minWidth: "2.5vw",
+    margin: "20px",
+    minWidth: "25vw",
   },
   btn: {
-    marginTop: "4vh",
+    marginTop: "40px",
     backgroundColor: "orange",
   },
 }));

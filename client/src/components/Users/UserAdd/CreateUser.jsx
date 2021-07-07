@@ -36,7 +36,7 @@ const CreateUser = () => {
 
 	return (
 		<>  
-            <Typography align='center' display="inline"> 
+            <Typography align='center'> 
                 <Link to = "/"> Back </Link>
             </Typography>
 			<CreateUserForm id="createUserForm" input={input} setInput={setInput} handleSubmit={handleSubmit}/>
