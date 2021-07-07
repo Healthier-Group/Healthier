@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.STRING,
     },
-    SKU: {
+    sku: {
       type: DataTypes.STRING(60),
       allowNull: false,
       validate: {

@@ -4,7 +4,7 @@ const users = require("./users");
 const admin = require("./admin");
 const products = require("./products");
 const review = require("./reviews");
-const inventory = require("./inventory");
+const inventory = require("./productInventory");
 const category = require("./category");
 
 const router = Router();

@@ -56,6 +56,7 @@ export const CreateProductForm = () => {
     price: 0,
     image: "",
   });
+    
 
   function handleInputChange(e) {
     setInput({
@@ -70,7 +71,7 @@ export const CreateProductForm = () => {
     return axios
       .post(PRODUCTSPOST_URL, input)
       .then((r) => {
-        alert("Product created successfully");
+        e.target.reset();
         setInput({
           name: "",
           sku: "",
@@ -78,9 +79,11 @@ export const CreateProductForm = () => {
           inventory: 0,
           price: 0,
           image: "",
-        });
+        });        
+        console.log("State", input);
+        alert("Product created successfully");
       })
-      .catch((error) => alert("Some error ocurred, please try again"))
+      .catch((error) => alert("Some error ocurred, please try again"));
   }
 
   const classes = useStyles();
@@ -98,6 +101,7 @@ export const CreateProductForm = () => {
               onChange={handleInputChange}
               label="Nombre"
               className={classes.inputs}
+              required={true}
             />
 
             <TextField
@@ -106,6 +110,7 @@ export const CreateProductForm = () => {
               onChange={handleInputChange}
               label="SKU"
               className={classes.inputs}
+              required={true}
             />
           </div>
 
@@ -135,6 +140,7 @@ export const CreateProductForm = () => {
               label="Precio"
               type="number"
               className={classes.inputs}
+              required={true}
             />
             <TextField
               id="standard-multiline-flexible"
