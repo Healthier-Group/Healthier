@@ -27,10 +27,6 @@ module.exports = (sequelize) => {
         msg: "Ese SKU ya está registrado",
       },
     },
-    inventory: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
