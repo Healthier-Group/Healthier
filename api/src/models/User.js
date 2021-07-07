@@ -7,6 +7,10 @@ module.exports = sequelize => {
 			primaryKey: true,
 			autoIncrement: true,
 		},
+		isAdmin: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
 		isReseller:{
 			type: DataTypes.BOOLEAN,	
 			defaultValue: false,

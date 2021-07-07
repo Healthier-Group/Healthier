@@ -8,7 +8,11 @@ export default function LandingPage() {
             <h1>Testing LandingPage</h1>
             <h1>Testing LandingPage</h1>
             <h1>Testing LandingPage</h1>
-            <Link to = "/createUser"> createUser </Link>
+            <Link to="/createUser"> createUser </Link>
+            <br/>
+            <Link to="/userList"> userList </Link>
+            <br/>
+            <Link to="/userUpdate"> userUpdate </Link>
         </div>
     )
 };

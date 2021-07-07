@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux';
 import { Button, TextField, makeStyles,Grid, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
 import { Person, Home, MeetingRoom, Email, VpnKey, Phone } from '@material-ui/icons';
-import { getUser, updateUser } from '../../../redux/users/userActions';
+import {readUserr, updateUser} from '../../../redux/users/userActions';
 import { Link, useHistory } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themeStyle';

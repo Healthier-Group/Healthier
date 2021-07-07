@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core";
 import { Hidden, Button } from "@material-ui/core";
+import { createUser } from '../../../redux/users/userActions';
+import swal from "sweetalert";
+import {useDispatch} from 'react-redux'
+import axios from 'axios'
+
+
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -28,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
   inputs: {
-    margin: "20px",
+    margin: "10px",
     minWidth: "25vw",
   },
   btn: {
@@ -38,7 +44,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateUserForm = () => {
-  const [input, setInput] = useState({});
+  
+
+
+  const [input, setInput] = useState({
+    isReseller: '',
+    name: '',
+    username: '',
+    email:'',
+    password: '',
+    contact: '',
+    firstLogging: ''
+  });
   const [error, setError] = useState({
     //Control the error red border of the inputs
     name: false,
@@ -54,7 +71,7 @@ const CreateUserForm = () => {
     name: "Ingrese un Nombre",
     username: "Ingrese un nombre de usuario válido",
     email: "Ingrese un email válido",
-    password: "Debe contener al menos un numero, una mayuscula y 8 caracteres",
+    password: "Un numero, una mayuscula y 8 caracteres",
     contact: "Numero de Telefono",
     isDeleted: "Ingrese un is deleted",
   });
@@ -153,24 +170,43 @@ const CreateUserForm = () => {
         break;
     }
   };
+  const dispatch = useDispatch() 
 
   useEffect(() => {
     validate("email");
+    validate("username");
+    validate("password");
+
   }, [error]);
 
-  const handleInputChange = function (e) {
+  function handleInputChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
     validate(e.target);
   };
+
+  function handleSubmit(e){
+    e.preventDefault();
+    axios.post('http://localhost:3001/users/addUser', input)
+        setInput({
+            isReseller: '',
+            name: '',
+            username: '',
+            email:'',
+            password: '',
+            contact: '',
+            firstLogging: ''
+        })
+		swal('Usuario creado exitosamente', "Gracias!", "success");
+	};
   const classes = useStyles();
 
   return (
     <div className={classes.main}>
       <Hidden only={["sm", "xs"]}>
-        <form className={classes.root}>
+        <form className={classes.root} onSubmit={handleSubmit}>
           <div className={classes.input1}>
             <TextField
               id="standard-basic"
@@ -179,7 +215,7 @@ const CreateUserForm = () => {
               className={classes.inputs}
               autoComplete="new"
               value={input.name}
-              onChange={handleInputChange}
+              onChange={ handleInputChange}
               error={error["name"]}
               helperText={[helperText["name"]]}
             />
@@ -191,7 +227,7 @@ const CreateUserForm = () => {
               className={classes.inputs}
               value={input.username}
               autoComplete="new"
-              onChange={handleInputChange}
+              onChange={ handleInputChange}
               error={error["username"]}
               helperText={[helperText["username"]]}
             />
@@ -272,7 +308,7 @@ const CreateUserForm = () => {
             className={classes.inputs}
             error={error["email"]}
             value={input.email}
-            autoComplete="off"
+          
             onChange={handleInputChange}
             helperText={[helperText["email"]]}
           />
@@ -295,7 +331,7 @@ const CreateUserForm = () => {
             className={classes.inputs}
           />
 
-          <Button variant="contained" color="primary" className={classes.btn}>
+          <Button variant="contained" color="primary" className={classes.btn} type="submit">
             Crear
           </Button>
         </form>
