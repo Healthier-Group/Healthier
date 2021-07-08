@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import ProductCard from '../Products/ProductCard'
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -90,6 +91,7 @@ export const CreateProductForm = () => {
   return (
     <div className={classes.main}>
       <Hidden only={["sm", "xs"]}>
+        
         <form onSubmit={handleSubmit} className={classes.root}>
           <Typography variant="h6" className={classes.title}>
             Crear producto

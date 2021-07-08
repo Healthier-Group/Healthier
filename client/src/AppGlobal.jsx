@@ -5,6 +5,7 @@ import theme from './utils/Theme.js'
 import Navigation from './components/NavBar/Navigation';
 import LandingPage from './components/LandingPage/LandingPage'
 import CreateProductForm from './components/Products/CreateProductForm';
+import ProductCard from './components/Products/ProductCard';
 
 function AppGlobal() {
 	return (
@@ -13,7 +14,8 @@ function AppGlobal() {
 				<Switch> 
 					<Route path='/nav' component={Navigation}/>
 					<Route exact path='/' component={LandingPage}/>
-					<Route exact path='/productos' component={CreateProductForm}/>
+					<Route exact path='/productForm' component={CreateProductForm}/>
+					<Route path ='/products'  component={ProductCard} />
 				</Switch>
 			</BrowserRouter>
 		</ThemeProvider>
