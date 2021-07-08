@@ -9,10 +9,10 @@ const getProductById = require("../controllers/products/getProductByIdController
 
 router.use(express.json());
 
-router.get("/getAll", getAllProducts); // Check get route
-router.get("/getProduct/:id'", getProductById);
-router.post("/addProduct", addProduct);
-router.put("/updateProduct/:id", putProduct);
-router.delete("/deleteProduct/:id", deleteProduct);
+router.get("/", getAllProducts); // Check get route
+router.get("/:id'", getProductById);
+router.post("/", addProduct);
+router.put("/:id", putProduct);
+router.delete("/:id", deleteProduct); // JM  esto lo rompio ed y cia. 
 
 module.exports = router;

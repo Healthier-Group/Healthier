@@ -1,9 +1,9 @@
-const { Products } = require("../../db");
+const { Product } = require("../../db");
 
 module.exports = async (req, res, next) => {
   const { id } = req.params;
   try {
-    await Products.destroy({
+    await Product.destroy({
       where: {
         id: { id }, // Check if curly brackets are necessary
       },

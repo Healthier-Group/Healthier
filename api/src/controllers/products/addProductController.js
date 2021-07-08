@@ -1,12 +1,12 @@
-const { Products } = require("../../db");
+const { Product } = require("../../db");
 
 module.exports = async (req, res, next) => {
   let product = req.body;
   try {
-    product = await Products.create({ ...product });
+    product = await Product.create({ ...product });
     return res.json(product).status(200);
   } catch (err) {
-    res.json(err);
+    next(err);
     return console.log(err);
   }
 };

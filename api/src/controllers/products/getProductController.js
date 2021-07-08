@@ -1,8 +1,8 @@
-const { Products } = require("../../db");
+const { Product } = require("../../db");
 
 module.exports = async (req, res, next) => {
   try {
-    const products = await Products.findAll();
+    const products = await Product.findAll();
     return res.json(products);
   } catch (error) {
     next(error);
