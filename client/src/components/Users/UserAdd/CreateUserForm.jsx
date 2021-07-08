@@ -1,343 +1,232 @@
-import React, { useEffect, useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core";
-import { Hidden, Button } from "@material-ui/core";
-import { createUser } from '../../../redux/users/userActions';
-import swal from "sweetalert";
-import {useDispatch} from 'react-redux'
-import axios from 'axios'
+import {useState, useEffect} from 'react'
+import { useDispatch } from 'react-redux'
+import {makeStyles, Grid, Button, TextField, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core'
+import { Fingerprint, Person, Email, VpnKey, Phone } from '@material-ui/icons';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from '../../themeStyle';
 
-
-
-const useStyles = makeStyles((theme) => ({
-  main: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100vw",
-    height: "100vh",
-    margin:'auto'
-  },
-  root: {
-    display: "flex",
-    height: "fit-content",
-    width: "fit-content",
-    backgroundColor: "#00000033",
-    flexDirection: "column",
-    margin: "20px",
-    boxShadow: "0 4px 5px black",
-    padding: "20px",
-    borderRadius: "20px",
-  },
-  input1: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  inputs: {
-    margin: "10px",
-    minWidth: "25vw",
-  },
-  btn: {
-    marginTop: "40px",
-    backgroundColor: "orange",
-  },
+const useStyles = makeStyles((theme)=>({
+    root: {
+		marginTop: 50,
+		marginBottom: 30,
+		border:5,
+		display:'flex'
+	},
+	formControl: {
+		margin: theme.spacing(1),
+		minWidth: 120,
+		width:500,
+	},
+	last: {
+		padding: 8,
+	}
 }));
 
-const CreateUserForm = () => {
-  
+const CreateUserForm = ({ input, setInput, handleSubmit }) => {
+	
+	const dispatch = useDispatch();
+	
+	const classes = useStyles();
 
+	const [error, setError] = useState({//Control the error red border of the inputs
+		name: false,
+		username: false,
+        email: false,
+		password: false,
+		contact: false,
+        isDeleted:false
+    })
+	const [helperText, setHelperText] = useState({//Control the warning message
+		name: "Ingrese un Nombre",
+		username: "Ingrese un Usuario",
+        email: "Ingrese un Correo",
+        password: "Ingrese un Password",
+		contact: "Numero de Telefono",
+        isDeleted:"Ingrese un is deleted"
+    })
 
-  const [input, setInput] = useState({
-    isReseller: '',
-    name: '',
-    username: '',
-    email:'',
-    password: '',
-    contact: '',
-    firstLogging: ''
-  });
-  const [error, setError] = useState({
-    //Control the error red border of the inputs
-    name: false,
-    username: false,
-    email: false,
-    password: false,
-    contact: false,
-    isDeleted: false,
-  });
+	useEffect(() => {
+		Validate("name")
+		Validate("username")
+		Validate("email")
+		Validate("password")
+		Validate("contact")
+	}, [error])
+	
 
-  const [helperText, setHelperText] = useState({
-    //Control the warning message
-    name: "Ingrese un Nombre",
-    username: "Ingrese un nombre de usuario válido",
-    email: "Ingrese un email válido",
-    password: "Un numero, una mayuscula y 8 caracteres",
-    contact: "Numero de Telefono",
-    isDeleted: "Ingrese un is deleted",
-  });
-
-  const validate = (field) => {
-    switch (field.name) {
-      case "username":
-        if (!/^([A-Za-z0-9]){4,20}$/.test(field.value)) {
-          setError({ ...error, username: true });
-          if (field.value.length < 4) {
-            setHelperText({
-              ...helperText,
-              username: "Nombre de usuario muy corto",
-            });
-          } else if (field.value.length > 20) {
-            setHelperText({
-              ...helperText,
-              username: "Nombre de usuario demasiado largo",
-            });
-          } else {
-            setHelperText({
-              ...helperText,
-              username: "Contiene caracteres no aceptados",
-            });
-          }
-        } else {
-          setError({ ...error, username: false });
-          setHelperText({ ...helperText, username: "" });
-        }
-        break;
-
-      case "name":
-        if (!/^[A-Za-z .'-]{3,20}$/.test(field.value)) {
-          setError({ ...error, name: true });
-          if (field.value.length < 3) {
-            setHelperText({ ...helperText, name: "Es muy corto" });
-          } else if (field.value.length > 20) {
-            setHelperText({ ...helperText, name: "Es muy largo" });
-          } else {
-            setHelperText({
-              ...helperText,
-              name: "No se permiten caracteres especiales",
-            });
-          }
-        } else {
-          setError({ ...error, name: false });
-          setHelperText({ ...helperText, name: "" });
-        }
-        break;
-      case "email":
-        if (
-          !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
-            field.value
-          )
-        ) {
-          setError({ ...error, name: true });
-          if (field.value.length < 3) {
-            setHelperText({ ...helperText, email: "Es muy corto" });
-          } else if (field.value.length > 40) {
-            setHelperText({ ...helperText, email: "Es muy largo" });
-          } else {
-            setHelperText({
-              ...helperText,
-              email: "Ingrese un email válido",
-            });
-          }
-        } else {
-          setError({ ...error, email: false });
-          setHelperText({ ...helperText, email: "" });
-        }
-        break;
-      case "password":
-        if (
-          !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,60}$/.test(
-            field.value
-          )
-        ) {
-          setError({ ...error, password: true });
-          if (field.value.length < 8) {
-            setHelperText({ ...helperText, password: "Es muy corto" });
-          } else if (field.value.length > 60) {
-            setHelperText({ ...helperText, password: "Es muy largo" });
-          } else {
-            setHelperText({
-              ...helperText,
-              password: "Password",
-            });
-          }
-        } else {
-          setError({ ...error, password: false });
-          setHelperText({ ...helperText, password: "" });
-        }
-        break;
-      default:
-        console.log("test");
-        break;
-    }
-  };
-  const dispatch = useDispatch() 
-
-  useEffect(() => {
-    validate("email");
-    validate("username");
-    validate("password");
-
-  }, [error]);
-
-  function handleInputChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    validate(e.target);
-  };
-
-  function handleSubmit(e){
-    e.preventDefault();
-    axios.post('http://localhost:3001/users/addUser', input)
-        setInput({
-            isReseller: '',
-            name: '',
-            username: '',
-            email:'',
-            password: '',
-            contact: '',
-            firstLogging: ''
-        })
-		swal('Usuario creado exitosamente', "Gracias!", "success");
+	const Validate = (field) => {
+		switch (field.name){
+			case "name":
+				if(!/^[A-Za-z .'-]{3,20}$/.test(field.value)) {
+					setError({...error, name: true})
+					if(field.value.length < 3) {setHelperText({...helperText, name: "Es muy corto"})}
+                    else if (field.value.length > 20) {setHelperText({...helperText, name: "Es muy largo"})}
+                    else{setHelperText({...helperText, name: "No se permiten caracteres especiales"})}
+				}else{
+					setError({...error, name: false})
+					setHelperText({...helperText, name: ""})
+				}
+				break;
+			case "username":
+				if(!/^[A-Za-z0-9]{3,20}$/.test(field.value)) {
+					setError({...error, username: true})
+					if(field.value.length < 3) {setHelperText({...helperText, username: "Es muy corto"})}
+                    else if (field.value.length > 20) {setHelperText({...helperText, username: "Es muy largo"})}
+                    else{setHelperText({...helperText, username: "Solo números y letras"})}
+				}else{
+					setError({...error, name: false})
+					setHelperText({...helperText, name: ""})
+				}
+				break;
+			case "email":
+				if(!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(field.value)) {
+					setError({...error, email: true})
+					if(field.value.length < 3) {setHelperText({...helperText, email: "Es muy corto"})}
+					else if(field.value.length > 20) {setHelperText({...helperText, email: "Es muy largo"})}
+					else{setHelperText({...helperText, email: "Contiene caracteres no aceptados"})}
+				}
+				else{
+					setError({...error, email: false})
+					setHelperText({...helperText, email: ""})
+				}
+				break;
+			case "password":
+				if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,60}$/.test(field.value)) {
+					setError({...error, password: true})
+					if(field.value.length < 8) {setHelperText({...helperText, password: "Es muy corto"})}
+					else if(field.value.length > 60) {setHelperText({...helperText, password: "Es muy largo"})}
+					else{setHelperText({...helperText, password: "1 nro, 1 mayus y 1 min"})}
+				}
+				else{
+					setError({...error, password: false})
+					setHelperText({...helperText, password: ""})
+				}
+				break;
+			case "contact":
+				if(!/^[+0-9-]{8,20}$/.test(field.value)) {
+					setError({...error, contact: true})
+					if(field.value.length < 8) {setHelperText({...helperText, contact: "Es muy corto"})}
+					else if(field.value.length > 20) {setHelperText({...helperText, contact: "Es muy largo"})}
+					else{setHelperText({...helperText, contact: "Solo se permiten numeros"})}
+				}
+				else{
+					setError({...error, contact: false})
+					setHelperText({...helperText, contact: ""})
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	const handleInputChange = function (e) {
+		setInput({
+			...input,
+			[e.target.name]: e.target.value, 
+		});
+		Validate(e.target)
 	};
-  const classes = useStyles();
 
-  return (
-    <div className={classes.main}>
-      <Hidden only={["sm", "xs"]}>
-        <form className={classes.root} onSubmit={handleSubmit}>
-          <div className={classes.input1}>
-            <TextField
-              id="standard-basic"
-              label="Nombre"
-              name="name"
-              className={classes.inputs}
-              autoComplete="new"
-              value={input.name}
-              onChange={ handleInputChange}
-              error={error["name"]}
-              helperText={[helperText["name"]]}
-            />
+    return (
+		<ThemeProvider theme={theme}>
+        <div className= 'extContCAF'>
+            <h1>
+				Crear Usuario
+			</h1>
+			<form noValidate autoComplete="off" >
+			<Grid container direction="row" justify="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
+                <Grid >
+                    <Grid container spacing={1} alignItems="center">
+                        <Grid item >
+                            <Fingerprint />
+                        </Grid>
+                        <Grid item >
+                            <TextField 
+								error={error["name"]}
+								helperText={[helperText["name"]]}
+								id="name" 
+								label="Nombre" 
+								name="name"
+								value={input.name}
+								onChange={handleInputChange} 
+							/>
+                        </Grid>
+                    </Grid>
 
-            <TextField
-              id="standard-basic"
-              label="Nombre de usuario"
-              name="username"
-              className={classes.inputs}
-              value={input.username}
-              autoComplete="new"
-              onChange={ handleInputChange}
-              error={error["username"]}
-              helperText={[helperText["username"]]}
-            />
-          </div>
-
-          <TextField
-            id="standard-basic"
-            name="email"
-            label="Email"
-            className={classes.inputs}
-            error={error["email"]}
-            value={input.email}
-            autoComplete="off"
-            onChange={handleInputChange}
-            helperText={[helperText["email"]]}
-          />
-
-          <div className={classes.input1}>
-            <TextField
-              id="standard-basic"
-              label="Contraseña"
-              type="password"
-              name="password"
-              className={classes.inputs}
-              value={input.password}
-              onChange={handleInputChange}
-              error={error["password"]}
-              helperText={[helperText["password"]]}
-            />
-            <TextField
-              id="standard-multiline-flexible"
-              label="Repetir contraseña"
-              type="password"
-              className={classes.inputs}
-            />
-          </div>
-          <Button
-            variant="contained"
-            color="primary"
-            size="medium"
-            className={classes.btn}
-          >
-            Crear
-          </Button>
+					<Grid container spacing={1} alignItems="center">
+                        <Grid item >
+                            <Person />
+                        </Grid>
+                        <Grid item >
+                            <TextField 
+								error={error["username"]}
+								helperText={[helperText["username"]]}
+								id="username" 
+								label="Usuario" 
+								name="username"
+								value={input.username}
+								onChange={handleInputChange} 
+							/>
+                        </Grid>
+                    </Grid>
+					
+					<Grid container spacing={1} alignItems="center">
+                        <Grid item>
+                            <Email />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+								error={error["email"]}
+								helperText={[helperText["email"]]}  
+								id="email" 
+								label="Correo" 
+								name='email'
+								value={input.email}
+								onChange={handleInputChange}
+							/>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={1} alignItems="center">
+                        <Grid item>
+							<VpnKey />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+								error={error["password"]}
+								helperText={[helperText["password"]]}  
+								id="password" 
+								label="Contraseña" 
+								name='password'
+								value={input.password}
+								onChange={handleInputChange}
+							/>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={1} alignItems="center">
+                        <Grid item>
+							<Phone />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+								error={error["contact"]}
+								helperText={[helperText["contact"]]}
+								id="contact"
+								name="contact"
+								label="Nº Telefono" 
+								value={input.contact}
+								onChange={handleInputChange}
+							/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid container direction="row" justify="center" alignItems="center">
+                    <Grid item>
+                        <Button style={{fontWeight: 1000, marginTop: 50}} color="secondary" onClick={handleSubmit} variant="contained">Agregar Usuario</Button>
+                    </Grid>
+                </Grid>
+			</Grid>
         </form>
-      </Hidden>
-      <Hidden only={["md", "lg", "xl"]}>
-        <form className={classes.root}>
-          <TextField
-            id="standard-basic"
-            label="Nombre"
-            name="name"
-            className={classes.inputs}
-            autoComplete="new"
-            value={input.name}
-            onChange={handleInputChange}
-            error={error["name"]}
-            helperText={[helperText["name"]]}
-          />
-
-          <TextField
-            id="standard-basic"
-            name="username"
-            label="Nombre de usuario"
-            className={classes.inputs}
-            value={input.username}
-            autoComplete="new"
-            onChange={handleInputChange}
-            error={error["username"]}
-            helperText={[helperText["username"]]}
-          />
-
-          <TextField
-            id="standard-basic"
-            label="Email"
-            name="email"
-            autoComplete="new"
-            className={classes.inputs}
-            error={error["email"]}
-            value={input.email}
-          
-            onChange={handleInputChange}
-            helperText={[helperText["email"]]}
-          />
-
-          <TextField
-            id="standard-basic"
-            label="Contraseña"
-            name="password"
-            type="password"
-            className={classes.inputs}
-            value={input.password}
-            onChange={handleInputChange}
-            error={error["password"]}
-            helperText={[helperText["password"]]}
-          />
-          <TextField
-            id="standard-multiline-flexible"
-            label="Repetir contraseña"
-            type="password"
-            className={classes.inputs}
-          />
-
-          <Button variant="contained" color="primary" className={classes.btn} type="submit">
-            Crear
-          </Button>
-        </form>
-      </Hidden>
-    </div>
-  );
-};
-
+		</div>
+		</ThemeProvider>
+    )
+}
 export default CreateUserForm;
