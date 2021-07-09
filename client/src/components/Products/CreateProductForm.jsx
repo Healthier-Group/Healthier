@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import ProductCard from '../Products/ProductCard'
+//import ProductCard from '../Products/ProductCard'
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -53,6 +53,7 @@ export const CreateProductForm = () => {
     name: "",
     sku: "",
     description: "",
+    ingredients: "",
     inventory: 0,
     price: 0,
     image: "",
@@ -77,6 +78,7 @@ export const CreateProductForm = () => {
           name: "",
           sku: "",
           description: "",
+          ingredients: "",
           inventory: 0,
           price: 0,
           image: "",
@@ -120,6 +122,16 @@ export const CreateProductForm = () => {
             id="standard-basic"
             label="Descripción"
             name="description"
+            onChange={handleInputChange}
+            className={classes.inputs}
+            multiline
+            variant="outlined"
+          />
+
+          <TextField
+            id="standard-basic"
+            label="Ingredientes"
+            name="ingredients"
             onChange={handleInputChange}
             className={classes.inputs}
             multiline
@@ -187,6 +199,15 @@ export const CreateProductForm = () => {
             name="description"
             onChange={handleInputChange}
             label="Descripción"
+            className={classes.inputs}
+            multiline
+            variant="outlined"
+          />
+          <TextField
+            id="standard-basic"
+            name="ingredients"
+            onChange={handleInputChange}
+            label="Ingredientes"
             className={classes.inputs}
             multiline
             variant="outlined"
