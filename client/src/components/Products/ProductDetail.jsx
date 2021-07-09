@@ -20,12 +20,12 @@ const useStyles= makeStyles({
   },
     card: {
         width: '300px',
-        height: '350px'
+        height: '400px'
     },
     cont1: {
         display:'flex',
         justifyContent:'space-between',
-        margin:50
+        margin:20
     },
     fav : {
       textAlign:'center',
@@ -36,6 +36,20 @@ const useStyles= makeStyles({
       width: '280px',
       margin: 'auto'
     
+    },
+    name: {
+      fontSize:'25px',
+      fontFamily:'Roboto',
+      fontWeight:'bold',
+      textAlign:'center',
+      marginBottom:'20px'
+
+      
+    },
+    price: {
+      fontSize:'25px',
+      fontWeight:'bold',
+      marginBottom:'30px'
     }
   
 })
@@ -57,22 +71,25 @@ const product = useSelector(state=> state.productDetail)
       <div>
            {product?.map(p => {
            return (
-            <Grid container spacing={2} className={classes.root} >
+            <Grid container spacing={1} className={classes.root} >
             <Grid item xs={10}>
                   <Paper>ESTA ES LA BARRA DE NAVEGACION</Paper>
             </Grid>
               <Grid container className={classes.root}>
                   <Grid item xs={6}>
                       <Paper className={classes.cont1}>
-                      <img src={p.image} alt="Not Found" />
+                      <img src={p.image} alt="Not Found" width="400px" height="400px" />
                         <Card className={classes.card}>
                               <CardActionArea>
                               
                        <CardContent>
                        
-                       <Typography>{p.name}</Typography>
+                       <Typography className={classes.name}>{p.name}</Typography>
+                       <Typography ><b>Marca:  </b>Nestlé</Typography>
+                       <Typography > 100gr.</Typography>
                        
-                       <Typography>${p.price}</Typography>
+                       <Typography className={classes.price}>${p.price}</Typography>
+                       <Typography >Antes ${Math.ceil(p.price*(1.15))}</Typography>
 
                        </CardContent>
                               </CardActionArea>
