@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
-import { useDispatch } from 'react-redux'
-import {makeStyles, Grid, Button, TextField, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core'
+import {makeStyles, Grid, Button, TextField} from '@material-ui/core'
 import { Fingerprint, Person, Email, VpnKey, Phone } from '@material-ui/icons';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themeStyle';
+import Validate from '../../../utils/Validate'
 
 const useStyles = makeStyles((theme)=>({
     root: {
@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme)=>({
 		marginBottom: 30,
 		border:5,
 		display:'flex'
+	},
+	title: {
+		display:'flex',
+		justifyContent: 'center'
 	},
 	formControl: {
 		margin: theme.spacing(1),
@@ -23,8 +27,6 @@ const useStyles = makeStyles((theme)=>({
 }));
 
 const CreateUserForm = ({ input, setInput, handleSubmit }) => {
-	
-	const dispatch = useDispatch();
 	
 	const classes = useStyles();
 
@@ -44,95 +46,20 @@ const CreateUserForm = ({ input, setInput, handleSubmit }) => {
 		contact: "Numero de Telefono",
         isDeleted:"Ingrese un is deleted"
     })
-
-	useEffect(() => {
-		Validate("name")
-		Validate("username")
-		Validate("email")
-		Validate("password")
-		Validate("contact")
-	}, [error])
 	
-
-	const Validate = (field) => {
-		switch (field.name){
-			case "name":
-				if(!/^[A-Za-z .'-]{3,20}$/.test(field.value)) {
-					setError({...error, name: true})
-					if(field.value.length < 3) {setHelperText({...helperText, name: "Es muy corto"})}
-                    else if (field.value.length > 20) {setHelperText({...helperText, name: "Es muy largo"})}
-                    else{setHelperText({...helperText, name: "No se permiten caracteres especiales"})}
-				}else{
-					setError({...error, name: false})
-					setHelperText({...helperText, name: ""})
-				}
-				break;
-			case "username":
-				if(!/^[A-Za-z0-9]{3,20}$/.test(field.value)) {
-					setError({...error, username: true})
-					if(field.value.length < 3) {setHelperText({...helperText, username: "Es muy corto"})}
-                    else if (field.value.length > 20) {setHelperText({...helperText, username: "Es muy largo"})}
-                    else{setHelperText({...helperText, username: "Solo números y letras"})}
-				}else{
-					setError({...error, name: false})
-					setHelperText({...helperText, name: ""})
-				}
-				break;
-			case "email":
-				if(!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(field.value)) {
-					setError({...error, email: true})
-					if(field.value.length < 3) {setHelperText({...helperText, email: "Es muy corto"})}
-					else if(field.value.length > 20) {setHelperText({...helperText, email: "Es muy largo"})}
-					else{setHelperText({...helperText, email: "Contiene caracteres no aceptados"})}
-				}
-				else{
-					setError({...error, email: false})
-					setHelperText({...helperText, email: ""})
-				}
-				break;
-			case "password":
-				if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,60}$/.test(field.value)) {
-					setError({...error, password: true})
-					if(field.value.length < 8) {setHelperText({...helperText, password: "Es muy corto"})}
-					else if(field.value.length > 60) {setHelperText({...helperText, password: "Es muy largo"})}
-					else{setHelperText({...helperText, password: "1 nro, 1 mayus y 1 min"})}
-				}
-				else{
-					setError({...error, password: false})
-					setHelperText({...helperText, password: ""})
-				}
-				break;
-			case "contact":
-				if(!/^[+0-9-]{8,20}$/.test(field.value)) {
-					setError({...error, contact: true})
-					if(field.value.length < 8) {setHelperText({...helperText, contact: "Es muy corto"})}
-					else if(field.value.length > 20) {setHelperText({...helperText, contact: "Es muy largo"})}
-					else{setHelperText({...helperText, contact: "Solo se permiten numeros"})}
-				}
-				else{
-					setError({...error, contact: false})
-					setHelperText({...helperText, contact: ""})
-				}
-				break;
-			default:
-				break;
-		}
-	}
 	const handleInputChange = function (e) {
 		setInput({
 			...input,
 			[e.target.name]: e.target.value, 
 		});
-		Validate(e.target)
+		Validate(e.target,error,setError,helperText,setHelperText)
 	};
 
     return (
 		<ThemeProvider theme={theme}>
         <div className= 'extContCAF'>
-            <h1>
-				Crear Usuario
-			</h1>
 			<form noValidate autoComplete="off" >
+			<h1 className={classes.title}>Crear Usuario</h1>
 			<Grid container direction="row" justify="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
                 <Grid >
                     <Grid container spacing={1} alignItems="center">

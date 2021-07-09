@@ -1,23 +1,33 @@
-import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {ThemeProvider} from '@material-ui/core/styles'
-import theme from './utils/Theme.js'
-// import Navigation from './components/NavBar/Navigation';
-import LandingPage from './components/LandingPage/LandingPage'
-import CreateUser from './components/Users/UserAdd/CreateUser';
+import { useState } from 'react';
+import { ThemeProvider } from '@material-ui/core'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import AppPrivate from './components/App/AppPrivate.jsx';
+import AppPublic from './components/App/AppPublic.jsx';
+import theme from './utils/Theme';
 
-function AppGlobal() {
+const AppGlobal = () => {
+
+	const [currentUser, setCurrentUser] = useState({isAdmin: true});
+
+	
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Switch> 
-					{/* <Route path='/' component={Navigation}/> */}
-					<Route path='/createuser' component={CreateUser}/>
-					<Route exact path='/' component={LandingPage}/>
+					<Route 
+						path="/private"
+						component={ () => (
+							( (currentUser && currentUser?.isAdmin) )
+							? ( <AppPrivate /> )
+							: ( <Redirect to="/logging" /> )
+						)}
+					/>
+					
+					<Route path="/" component={ () => <AppPublic />}/>
 				</Switch>
 			</BrowserRouter>
 		</ThemeProvider>
-	);
+	)
 }
 
 export default AppGlobal;

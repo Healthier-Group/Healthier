@@ -2,11 +2,11 @@ import {useState,useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux';
 import { Button, TextField, makeStyles,Grid, Radio, RadioGroup, FormControlLabel } from '@material-ui/core';
-import { Person, Home, MeetingRoom, Email, VpnKey, Phone } from '@material-ui/icons';
-import {readUserr, updateUser} from '../../../redux/users/userActions';
-import { Link, useHistory } from 'react-router-dom';
+import { Person, Email, VpnKey, Phone } from '@material-ui/icons';
+import { readUser } from '../../../redux/users/userActions';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themeStyle';
+import Validate from '../../../utils/Validate'
 
 import swal from "sweetalert";
 
@@ -29,47 +29,45 @@ const useStyles = makeStyles((theme)=>({
 	}
 }));
 
-export function UserUpdate() {
+export function UserUpdate({ input, setInput, handleSubmit }) {
     const {id} = useParams();
     const {userDetail} = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
     const classes = useStyles();
-	const history = useHistory();
-
-
-    const [input, setInput] = useState({})
 
     useEffect(() => {
         if(userDetail !== undefined){
             setInput({
                 id: id,
-                name : userDetail.name,
+				isAdmin: userDetail.isAdmin,
+				isReseller: userDetail.isReseller,
+				isDeleted : userDetail.isDeleted,
+				username: userDetail.username,
                 email : userDetail.email,
-                password : userDetail.password,
+                password : "",
                 contact : userDetail.contact,
-                isDeleted : userDetail.isDeleted
             })
         }else{
-            dispatch(getUser(id))
+            dispatch(readUser(id))
 		}	
     },[dispatch, id, userDetail])
 
 	useEffect(() => {
-		dispatch(getUser(id))
+		dispatch(readUser(id))
 	},[])
     useEffect(() => {
 
     },[input,setInput])
 
     const [error, setError] = useState({//Control the error red border of the inputs
-		name: false,
+		username: false,
         email: false,
 		password: false,
 		contact: false,
         isDeleted:false
     })
 	const [helperText, setHelperText] = useState({//Control the warning message
-		name: "Ingrese un Nombre",
+		username: "Ingrese un Usuario",
         email: "Ingrese un Correo",
         password: "Ingrese un Password",
 		contact: "Numero de Telefono",
@@ -77,20 +75,12 @@ export function UserUpdate() {
     })
     
 
-    const handleInputChange = e => {
-        Validate(e.target)
-        setInput({
-            ...input,
-            [e.target.name]:e.target.value
-        })
-    }
-
-    const handleSubmit = e => {
-		dispatch(updateUser(input));
-        swal('Usuario actualizado exitosamente', "Gracias!", "success");
-		//add redirect
-		//history.push('/userDetail')
-		history.goBack()
+	const handleInputChange = function (e) {
+		setInput({
+			...input,
+			[e.target.name]: e.target.value, 
+		});
+		Validate(e.target,error,setError,helperText,setHelperText)
 	};
 
     const handleRadio = function (e) {
@@ -99,67 +89,6 @@ export function UserUpdate() {
             isDeleted: e.target.value === "BANNED" ? true : false,
         })
     }
-
-    const Validate = (field) => {
-		switch (field.name){
-			case "name":
-				if(!/^[A-Za-z .'-]{3,20}$/.test(field.value)) {
-					setError({...error, name: true})
-					if(field.value.length < 3) {setHelperText({...helperText, name: "Es muy corto"})}
-                    else if (field.value.length > 20) {setHelperText({...helperText, name: "Es muy largo"})}
-                    else{setHelperText({...helperText, name: "No se permiten caracteres especiales"})}
-				}else{
-					setError({...error, name: false})
-					setHelperText({...helperText, name: ""})
-				}
-				break;
-			case "email":
-				if(!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(field.value)) {
-					setError({...error, email: true})
-					if(field.value.length < 3) {setHelperText({...helperText, email: "Es muy corto"})}
-					else if(field.value.length > 20) {setHelperText({...helperText, email: "Es muy largo"})}
-					else{setHelperText({...helperText, email: "Contiene caracteres no aceptados"})}
-				}
-				else{
-					setError({...error, email: false})
-					setHelperText({...helperText, email: ""})
-				}
-				break;
-			case "password":
-				if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,60}$/.test(field.value)) {
-					setError({...error, password: true})
-					if(field.value.length < 8) {setHelperText({...helperText, password: "Es muy corto"})}
-					else if(field.value.length > 60) {setHelperText({...helperText, password: "Es muy largo"})}
-					else{setHelperText({...helperText, password: "1 nro, 1 mayus y 1 min"})}
-				}
-				else{
-					setError({...error, password: false})
-					setHelperText({...helperText, password: ""})
-				}
-				break;
-			case "contact":
-				if(!/^[+0-9-]{8,20}$/.test(field.value)) {
-					setError({...error, contact: true})
-					if(field.value.length < 8) {setHelperText({...helperText, contact: "Es muy corto"})}
-					else if(field.value.length > 20) {setHelperText({...helperText, contact: "Es muy largo"})}
-					else{setHelperText({...helperText, contact: "Solo se permiten numeros"})}
-				}
-				else{
-					setError({...error, contact: false})
-					setHelperText({...helperText, contact: ""})
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
-	function cancelHandle (){
-        history.goBack()
-    }
-
-
-	
 
     return(
 		<ThemeProvider theme={theme}>
@@ -173,12 +102,12 @@ export function UserUpdate() {
                         </Grid>
                         <Grid item>
                             <TextField 
-								error={error["name"]}
-								helperText={[helperText["name"]]}
-								id="name" 
+								error={error["username"]}
+								helperText={[helperText["username"]]}
+								id="username" 
 								label="Nombre" 
-								name="name"
-								value={input.name || ''}
+								name="username"
+								value={input.username ? input.username : ''}
 								onChange={handleInputChange} 
 							/>
                         </Grid>
@@ -233,7 +162,17 @@ export function UserUpdate() {
                         </Grid>
                     </Grid>
                 </Grid>
+				<Grid container direction="row" justify="center" alignItems="center">
+                    <RadioGroup value={input.isAdmin ? "YES" : "NO"} onChange={handleRadio} >
+                        <FormControlLabel value={"YES"} control={<Radio/>} label="ADMINISTRADOR"/>
+                        <FormControlLabel value={"NO"} control={<Radio/>} label="CLIENTE"/>
+                    </RadioGroup>
+                </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
+					<RadioGroup value={input.isReseller ? "YES" : "NO"} onChange={handleRadio} >
+                        <FormControlLabel value={"YES"} control={<Radio/>} label="MAYORISTA"/>
+                        <FormControlLabel value={"NO"} control={<Radio/>} label="MINORISTA"/>
+                    </RadioGroup>
                     <RadioGroup value={input.isDeleted ? "BANNED" : "ALLOWED"} onChange={handleRadio} >
                         <FormControlLabel value={"ALLOWED"} control={<Radio/>} label="PERMITIDO"/>
                         <FormControlLabel value={"BANNED"} control={<Radio/>} label="BANNEADO"/>
@@ -242,9 +181,6 @@ export function UserUpdate() {
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item>
                         <Button style={{fontWeight: 1000, marginTop: 50}} color="secondary" onClick={handleSubmit} variant="contained">Guardar Cambios</Button>
-                    </Grid>
-					<Grid item>
-						<Button style={{ fontWeight: 1000 }} color="secondary" variant="contained" onClick={cancelHandle}>Cancelar</Button>
                     </Grid>
                 </Grid>
 			</Grid>

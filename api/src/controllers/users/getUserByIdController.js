@@ -1,5 +1,6 @@
 const {User} = require('../../db');
 
+
 module.exports = async (req, res, next) => {
 	const {id} = req.params;
 	try {
