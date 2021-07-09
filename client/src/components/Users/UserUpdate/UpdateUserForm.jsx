@@ -84,10 +84,28 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
 	};
 
     const handleRadio = function (e) {
-        setInput({
-            ...input,
-            isDeleted: e.target.value === "BANNED" ? true : false,
-        })
+        switch (e.target.name){
+            case "isAdmin":
+                setInput({
+                    ...input,
+                    isAdmin: e.target.value === "YES" ? true : false
+                })
+                break;
+            case "isReseller":
+                setInput({
+                    ...input,
+                    isReseller: e.target.value === "YES" ? true : false
+                })
+                break;
+            case "isDeleted":
+                setInput({
+                    ...input,
+                    isDeleted: e.target.value === "BANNED" ? true : false
+                })
+                break;
+            default:
+                break;
+        }
     }
 
     return(
@@ -163,17 +181,17 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
                     </Grid>
                 </Grid>
 				<Grid container direction="row" justify="center" alignItems="center">
-                    <RadioGroup value={input.isAdmin ? "YES" : "NO"} onChange={handleRadio} >
+                    <RadioGroup name="isAdmin" value={input.isAdmin ? "YES" : "NO"} onChange={handleRadio} >
                         <FormControlLabel value={"YES"} control={<Radio/>} label="ADMINISTRADOR"/>
                         <FormControlLabel value={"NO"} control={<Radio/>} label="CLIENTE"/>
                     </RadioGroup>
                 </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
-					<RadioGroup value={input.isReseller ? "YES" : "NO"} onChange={handleRadio} >
+					<RadioGroup name="isReseller" value={input.isReseller ? "YES" : "NO"} onChange={handleRadio} >
                         <FormControlLabel value={"YES"} control={<Radio/>} label="MAYORISTA"/>
                         <FormControlLabel value={"NO"} control={<Radio/>} label="MINORISTA"/>
                     </RadioGroup>
-                    <RadioGroup value={input.isDeleted ? "BANNED" : "ALLOWED"} onChange={handleRadio} >
+                    <RadioGroup name="isDeleted" value={input.isDeleted ? "BANNED" : "ALLOWED"} onChange={handleRadio} >
                         <FormControlLabel value={"ALLOWED"} control={<Radio/>} label="PERMITIDO"/>
                         <FormControlLabel value={"BANNED"} control={<Radio/>} label="BANNEADO"/>
                     </RadioGroup>
