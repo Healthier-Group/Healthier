@@ -17,27 +17,45 @@ const useStyles = makeStyles({
   root: {
     
     minWidth: 250,
-    margin: 25
+    
+    height: 550,
+    margin: 25,
     
   },
   media: {
     width: 250,
-    height: 140,
+    height: 300,
     margin: 'auto',
   },
   wrapped: {
+    
+    justifyContent:'center',
+   
     display:'flex',
     flexWrap: 'wrap',
+    backgroundColor:'#f1f1f1',
     margin: 50
   },
   name: {
+   position:'relative',
     textAlign:"center",
-    // display:'none',
-    // '&:hover': {
-    //   display:'block',
-    // },
-    width:218
+    width:218,
+    height:50,
+    marginBottom:'10px'
     
+  },
+  btn: {
+    position: 'absolut',
+    top: '40px'
+  },
+  space: {
+    display:'flex',
+    justifyContent:'center'
+  },
+  price : {
+    fontFamily:'Roboto',
+    fontWeight:'bold',
+    fontSize:'30px',
   }
 });
 
@@ -65,20 +83,20 @@ export default function ProductCard() {
           image={p.image}
           title={p.name}
         />
-        <CardContent>
-          <Typography gutterBottom variant="p" component="h2" className={classes.name}>
-            {p.name.toUpperCase()}
-          </Typography>
-          <Typography gutterBottom variant="h6" component="h3">
+        <CardContent >
+          <div className={classes.name}>
+            <h2>{p.name.toUpperCase()}</h2>
+          </div>
+          <Typography className={classes.price} component="h3">
             $ {p.price}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
+      <CardActions className={classes.space}>
+        <Button  className={classes.btn} size="small" color="primary">
           Add to cart
         </Button>
-        <Button size="small" color="primary">
+        <Button className={classes.btn} size="small" color="primary">
           Add to favs
         </Button>
       </CardActions>

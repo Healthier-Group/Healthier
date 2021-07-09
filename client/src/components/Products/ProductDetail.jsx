@@ -10,12 +10,14 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea  from '@material-ui/core/CardActionArea';
 import Button from '@material-ui/core/Button'
 import CardActions from '@material-ui/core/CardActions'
+import Hidden from '@material-ui/core/Hidden'
 import {getProductById} from '../../redux/products/productActions'
 
 
 const useStyles= makeStyles({
   root:{
     margin:'auto',
+    marginBottom:'20px',
     justifyContent:'center',
   },
     card: {
@@ -29,13 +31,21 @@ const useStyles= makeStyles({
     },
     fav : {
       textAlign:'center',
-      marginTop: '25px'
+      marginTop: '25px',
+      marginBottom: '25px',
+      
+
       
     },
     btn: {
       width: '280px',
       margin: 'auto'
     
+    },
+    btnMobile:{
+      width:'80vw',
+      display:'flex',
+      margin:'auto'
     },
     name: {
       fontSize:'25px',
@@ -50,6 +60,34 @@ const useStyles= makeStyles({
       fontSize:'25px',
       fontWeight:'bold',
       marginBottom:'30px'
+    },
+   p:{
+     fontSize:'20px',
+     fontFamily:'Roboto',
+     backgroundColor:'lightblue',
+      width:'fit-content',
+      margin:'auto',
+      padding:'10px',
+      
+   },
+   favMobile:{
+    marginTop: '25px',
+   
+   },
+   cont1Mobile:{
+     height:'fit-content',
+     padding:10
+   },
+   root1:{
+     margin:'auto',
+      marginTop:20,
+      marginBottom:10,
+     justifyContent:'center'
+   },
+   
+    bg: {
+      
+      backgroundColor:'#f1f1f1',
     }
   
 })
@@ -68,10 +106,12 @@ const product = useSelector(state=> state.productDetail)
 //console.log('STATE ACA', product )
 
     return (
-      <div>
+      <div className={classes.bg}>
            {product?.map(p => {
            return (
-            <Grid container spacing={1} className={classes.root} >
+           <div>
+            <Hidden only={['xs','sm']}>
+              <Grid container spacing={1} className={classes.root} >
             <Grid item xs={10}>
                   <Paper>ESTA ES LA BARRA DE NAVEGACION</Paper>
             </Grid>
@@ -105,7 +145,9 @@ const product = useSelector(state=> state.productDetail)
                               </CardActions>
                               
                               <div className={classes.fav}>
-                              <i class="far fa-heart"></i>
+                              
+                                <i class="far fa-heart"></i>
+                                
 
                               </div>
                              
@@ -129,6 +171,58 @@ const product = useSelector(state=> state.productDetail)
               </Grid>
   
           </Grid>
+            </Hidden>
+
+
+
+            <Hidden only={['md', 'lg', 'xl']}> 
+            <Grid container className={classes.root} >
+            <Grid item xs={11}>
+                  <Paper>ESTA ES LA BARRA DE NAVEGACION</Paper>
+            </Grid>
+              <Grid container className={classes.root1}>
+                  <Grid item xs={11}>
+                      <Paper className={classes.cont1Mobile}>
+                       
+                       <Typography className={classes.name}>{p.name}</Typography>
+                      <img src={p.image} alt="Not Found" width="100%" height="300px" />
+                       <Typography ><b>Marca:  </b>Nestlé</Typography>
+                       <Typography > 100gr.</Typography>
+                       
+                       <Typography className={classes.price}>${p.price}</Typography>
+                       <Typography >Antes ${Math.ceil(p.price*(1.15))}</Typography>
+
+                      <Button className={classes.btnMobile}  variant="contained" color="primary">
+                            Comprar 
+                      </Button>
+                              <div className={classes.favMobile}>
+                              <p className={classes.p}>
+                              <i class="far fa-heart"> Agregar a favoritos</i>
+                              </p>
+                              </div> 
+                      </Paper>
+                    
+                      
+                      
+                  </Grid>
+
+                  
+                    
+                  
+              </Grid>
+              <Grid item xs={11}>
+                <Paper className={classes.cont1Mobile}>
+              <Typography className={classes.descMobile}>
+                DESCRIPCION{p.description}
+                </Typography>
+
+                </Paper>
+
+              </Grid>
+  
+          </Grid>
+            </Hidden>
+            </div>
            )
        })}
       </div>
