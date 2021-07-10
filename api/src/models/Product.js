@@ -12,11 +12,17 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
-    // ingredients: {
-    //   type: DataTypes.STRING,
-    // },
+    ingredients: {
+      type: DataTypes.TEXT,
+    },
+    size: {
+      type:DataTypes.STRING,
+    },
+    brand:{
+      type:DataTypes.STRING,
+    },
     sku: {
       type: DataTypes.STRING(60),
       allowNull: false,
@@ -35,7 +41,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   });
 };
