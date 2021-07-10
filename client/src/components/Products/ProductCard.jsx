@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom'
 //
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/products/productActions';
+import SearchBar from './SearchBar';
 
 const useStyles = makeStyles({
   root: {
@@ -73,6 +74,8 @@ export default function ProductCard() {
   const product = useSelector(state => state.foundProducts)
   return (
       <div className={classes.wrapped}>
+        <SearchBar/>
+        
         {product?.map(p => {
           return (
             <Link to={`/products/${p.id}`} style={{color:'black', textDecoration:'none'}}>

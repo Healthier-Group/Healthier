@@ -1,8 +1,12 @@
-import { GET_PRODUCTS, GET_PRODUCT_BY_ID } from "./productActions";
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT_BY_ID,
+  GET_PRODUCT_BY_NAME,
+} from "./productActions";
 
 const initialState = {
   foundProducts: [],
-  productDetail: {}
+  productDetail: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,9 +21,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         productDetail: action.payload,
       };
+    case GET_PRODUCT_BY_NAME:
+      return {
+        ...state,
+        foundProducts: action.payload,
+      };
     default:
       return {
-        state
+        state,
       };
   }
 };
