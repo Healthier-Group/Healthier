@@ -33,7 +33,7 @@ export const Navigation = () => {
                 <DrawerBox variant="temporary" open={open} onClose={actionMenuButton}/>
             </Hidden>
             <div className={classes.content}>
-                <div className={classes.toolbar}/>
+                {/* <div className={classes.toolbar}/> */}
             </div>
         </div>
     )
