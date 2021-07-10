@@ -1,16 +1,16 @@
 const router = require("express").Router();
 const express = require("express");
 
-const addOrderProduct = require ("../controllers/orderProduct/addOrderProduct");
-const getOrderProduct = require ("../controllers/orderProduct/getOrderProduct");
-const putOrderProduct = require ("../controllers/orderProduct/putOrderProduct");
-const deleteOrderProduct = require ("../controllers/orderProduct/deleteOrderProduct");
+const addOrderProducts = require ("../controllers/orderProducts/addOrderProducts");
+const getOrderProducts = require ("../controllers/orderProducts/getOrderProducts");
+const putOrderProducts = require ("../controllers/orderProducts/putOrderProducts");
+const deleteOrderProducts = require ("../controllers/orderProducts/deleteOrderProducts");
 
 router.use(express.json())
 
-router.post("/", addOrderProduct);
-router.get("/", getOrderProduct);
-router.put("/:id", putOrderProduct);
-router.delete("/:id", deleteOrderProduct);
+router.post("/", addOrderProducts);
+router.get("/", getOrderProducts);
+router.put("/:id", putOrderProducts);
+router.delete("/:id", deleteOrderProducts);
 
 module.exports = router;
