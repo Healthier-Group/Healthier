@@ -1,64 +1,62 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import Button from "@material-ui/core/Button";
-import CardActions from "@material-ui/core/CardActions";
-import Hidden from "@material-ui/core/Hidden";
+import { makeStyles, 
+         Grid, 
+         Paper, 
+         Card, 
+         Typography, 
+         CardContent, 
+         CardActionArea, 
+         Button, 
+         CardActions, 
+         Hidden} from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
-
+import NavBar from "../NavBar/NavBar";
 
 const useStyles = makeStyles({
-  root: {
+  root:{
     margin: "auto",
     marginBottom: "20px",
-    
     justifyContent: "center",
   },
-  card: {
+  card:{
     width: "300px",
     height: "400px",
   },
-  cont1: {
+  cont1:{
     display: "flex",
     marginTop:'100px',
     minWidth: "60vw",
     justifyContent: "space-between",
     margin: 20,
   },
-  fav: {
+  fav:{
     textAlign: "center",
     marginTop: "25px",
     marginBottom: "25px",
   },
-  btn: {
+  btn:{
     width: "280px",
     margin: "auto",
   },
-  btnMobile: {
+  btnMobile:{
     width: "80vw",
     display: "flex",
     margin: "auto",
   },
-  name: {
+  name:{
     fontSize: "25px",
     fontFamily: "Roboto",
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: "20px",
   },
-  price: {
+  price:{
     fontSize: "25px",
     fontWeight: "bold",
     marginBottom: "30px",
   },
-  p: {
+  p:{
     fontSize: "20px",
     fontFamily: "Roboto",
     backgroundColor: "lightblue",
@@ -66,32 +64,30 @@ const useStyles = makeStyles({
     margin: "auto",
     padding: "10px",
   },
-  favMobile: {
+  favMobile:{
     marginTop: "25px",
   },
-  cont1Mobile: {
+  cont1Mobile:{
     height: "fit-content",
     padding: 10,
   },
-  root1: {
+  root1:{
     margin: "auto",
     marginTop: 20,
     marginBottom: 10,
     justifyContent: "center",
   },
-
-  bg: {
+  bg:{
     backgroundColor: "#f1f1f1",
   },
-  description: {
+  description:{
     padding: 20,
   },
-});
+})
 
-const ProductDetail = ({ match }) => {
+const ProductDetail = ({match}) => {
   const classes = useStyles();
-  const { id } = match.params;
-
+  const {id} = match.params;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -99,13 +95,13 @@ const ProductDetail = ({ match }) => {
   }, []);
 
   const product = useSelector((state) => state.productDetail);
-  //console.log('STATE ACA', product )
 
   return (
     <div className={classes.bg}>
       {product?.map((p) => {
         return (
-          <div>
+          <div className = {classes.bg}>
+            <NavBar />
             <Hidden only={["sm", "xs"]}>
               <Grid container spacing={1} className={classes.root}>
                 <Grid container className={classes.root}>
