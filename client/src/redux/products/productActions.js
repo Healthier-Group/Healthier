@@ -5,6 +5,8 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const ORDER_AZ = "ORDER_AZ";
 export const ORDER_ZA = "ORDER_ZA";
+export const ORDER_CHEAP = "ORDER_CHEAP";
+export const ORDER_EXPENSIVE = "ORDER_EXPENSIVE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -68,6 +70,36 @@ export function orderZA() {
       dispatch({
         type: "ORDER_ZA",
         payload: orderZA,
+      });
+    });
+  };
+}
+export function priceLower() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/products").then((product) => {
+      const orderLow = product.data.sort((a, b) => {
+        if (a.price > b.price) return 1;
+        if (a.price < b.price) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_CHEAP",
+        payload: orderLow,
+      });
+    });
+  };
+}
+export function priceHigh() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/products").then((product) => {
+      const orderHigh = product.data.sort((b, a) => {
+        if (a.price > b.price) return 1;
+        if (a.price < b.price) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_EXPENSIVE",
+        payload: orderHigh,
       });
     });
   };

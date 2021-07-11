@@ -1,5 +1,5 @@
 import React from 'react'
-import { orderAZ, orderZA } from '../../redux/products/productActions'
+import { orderAZ, orderZA, priceHigh, priceLower } from '../../redux/products/productActions'
 import {useDispatch, useSelector} from 'react-redux'
 
 const OrderFilter = () => {
@@ -13,14 +13,28 @@ function orderDesc(e){
     e.preventDefault()
     dispatch(orderZA())
 }
+function orderLow(e){
+    e.preventDefault()
+    dispatch(priceLower())
+}
+function orderHigh(e){
+    e.preventDefault()
+    dispatch(priceHigh())
+}
 
     return (
         <div>
-            <button onClick={(e)=> orderAsc(e)}>
+            <span onClick={(e)=> orderAsc(e)} style={{cursor:'pointer'}}>
                 orderAZ
-            </button>
+            </span>
             <button onClick={(e)=> orderDesc(e)}>
                 orderZA
+            </button>
+            <button onClick={(e)=> orderLow(e)}>
+                CHEAP
+            </button>
+            <button onClick={(e)=> orderHigh(e)}>
+                EXPENSIVE
             </button>
         </div>
     )

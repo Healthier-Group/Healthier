@@ -3,7 +3,9 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   ORDER_AZ,
-  ORDER_ZA
+  ORDER_ZA,
+  ORDER_CHEAP,
+  ORDER_EXPENSIVE
 } from "./productActions";
 
 const initialState = {
@@ -33,11 +35,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         foundProducts: action.payload,
       };
-      case ORDER_ZA: 
+    case ORDER_ZA:
       return {
         ...state,
-        foundProducts: action.payload
-      }
+        foundProducts: action.payload,
+      };
+    case ORDER_CHEAP:
+      return {
+        ...state,
+        foundProducts: action.payload,
+      };
+    case ORDER_EXPENSIVE:
+      return {
+        ...state,
+        foundProducts: action.payload,
+      };
+
     default:
       return {
         state,
