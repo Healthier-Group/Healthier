@@ -1,6 +1,18 @@
 import React from 'react'
+import {makeStyles} from "@material-ui/core"
 import { orderAZ, orderZA, priceHigh, priceLower } from '../../redux/products/productActions'
 import {useDispatch, useSelector} from 'react-redux'
+
+const style = makeStyles((theme) => ({
+    view:{
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    spans:{
+        margin:'10%',
+        cursor: 'pointer'
+    }
+}))
 
 const OrderFilter = () => {
     const dispatch = useDispatch()
@@ -22,20 +34,21 @@ function orderHigh(e){
     dispatch(priceHigh())
 }
 
+const classes = style()
     return (
-        <div>
-            <span onClick={(e)=> orderAsc(e)} style={{cursor:'pointer'}}>
-                orderAZ
+        <div className = {classes.view}>
+            <span onClick={(e)=> orderAsc(e)} className = {classes.spans}>
+                Ordenar <span style = {{color: '#999'}}>(A - Z)</span>
             </span>
-            <button onClick={(e)=> orderDesc(e)}>
-                orderZA
-            </button>
-            <button onClick={(e)=> orderLow(e)}>
-                CHEAP
-            </button>
-            <button onClick={(e)=> orderHigh(e)}>
-                EXPENSIVE
-            </button>
+            <span onClick={(e)=> orderDesc(e)} className = {classes.spans}>
+                Ordenar <span style = {{color: '#999'}}>(Z - A)</span>
+            </span>
+            <span onClick={(e)=> orderLow(e)} className = {classes.spans}>
+                Lo más barato
+            </span>
+            <span onClick={(e)=> orderHigh(e)} className = {classes.spans}>
+                Lo más caro
+            </span>
         </div>
     )
 }

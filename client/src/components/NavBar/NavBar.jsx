@@ -74,12 +74,11 @@ export default function NavBar() {
           <SearchBar />
         </Hidden>
 
-        <Hidden only={["sm","md", "lg", "xl"]}>
+        <Hidden only={["sm", "md", "lg", "xl"]}>
           <IconButton color="secondary" onClick={openAction}>
             <MenuIcon />
           </IconButton>
         </Hidden>
-
 
         <Drawer
           className={classes.drawer}
@@ -92,7 +91,6 @@ export default function NavBar() {
           <Divider />
           <List />
         </Drawer>
-
 
       </Toolbar>
     </AppBar>

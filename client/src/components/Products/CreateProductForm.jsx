@@ -1,14 +1,14 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { PRODUCTSPOST_URL } from "../../utils/Constants";
+import axios from "axios"
+import React, { useState } from "react"
+import { PRODUCTSPOST_URL } from "../../utils/Constants"
 import {
   makeStyles,
   Hidden,
   Button,
   TextField,
   Typography,
-} from "@material-ui/core";
-//import ProductCard from '../Products/ProductCard'
+} from "@material-ui/core"
+import NavBar from '../NavBar/NavBar'
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -19,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   root: {
+    marginTop: '10%',
     display: "flex",
     height: "fit-content",
     width: "fit-content",
-    backgroundColor: "#E01111",
+    /* backgroundColor: "#E01111", */
     flexDirection: "column",
     margin: "20px",
     boxShadow: "0 4px 5px black",
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     marginTop: "40px",
-    backgroundColor: "orange",
+    /* backgroundColor: "orange", */
+    backgroundColor: '#8FBF26'
   },
   title: {
     display: "flex",
@@ -92,6 +94,7 @@ export const CreateProductForm = () => {
   const classes = useStyles();
   return (
     <div className={classes.main}>
+      <NavBar />
       <Hidden only={["sm", "xs"]}>
         
         <form onSubmit={handleSubmit} className={classes.root}>
@@ -247,4 +250,4 @@ export const CreateProductForm = () => {
   );
 };
 
-export default CreateProductForm;
+export default CreateProductForm
