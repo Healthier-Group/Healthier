@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getProducts} from '../../redux/products/productActions'
 import NavBar from '../NavBar/NavBar'
+import OrderFilter from './OrderFilter'
 
 const useStyles = makeStyles({
   root:{
@@ -67,6 +68,7 @@ export default function ProductCard(){
   return (
       <div>
         <NavBar />
+        <OrderFilter/>
         <div className={classes.wrapped}>
           {product?.map(p => {
             return (

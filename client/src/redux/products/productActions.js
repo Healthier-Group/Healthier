@@ -3,6 +3,8 @@ import { PRODUCTS_URL } from "../../utils/Constants";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
+export const ORDER_AZ = "ORDER_AZ";
+export const ORDER_ZA = "ORDER_ZA";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -38,5 +40,35 @@ export function getProductByName(q) {
           payload: product.data,
         });
       });
+  };
+}
+export function orderAZ() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/products").then((product) => {
+      const orderAZ = product.data.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_AZ",
+        payload: orderAZ,
+      });
+    });
+  };
+}
+export function orderZA() {
+  return function (dispatch) {
+    return axios.get("http://localhost:3001/products").then((product) => {
+      const orderZA = product.data.sort((b, a) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+      dispatch({
+        type: "ORDER_ZA",
+        payload: orderZA,
+      });
+    });
   };
 }

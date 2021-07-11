@@ -17,6 +17,7 @@ const useStyles = makeStyles({
   root:{
     margin: "auto",
     marginBottom: "20px",
+    marginTop: "70px",
     justifyContent: "center",
   },
   card:{
