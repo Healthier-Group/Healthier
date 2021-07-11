@@ -70,11 +70,11 @@ export default function NavBar() {
           <Button color="secondary">Recetas</Button>
         </Link>
 
-        <Hidden only={["xs", "sm"]}>
+        <Hidden only={"xs"}>
           <SearchBar />
         </Hidden>
 
-        <Hidden only={["md", "lg", "xl"]}>
+        <Hidden only={["sm","md", "lg", "xl"]}>
           <IconButton color="secondary" onClick={openAction}>
             <MenuIcon />
           </IconButton>
