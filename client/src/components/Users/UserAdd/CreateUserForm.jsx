@@ -60,7 +60,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit }) => {
         <div className= 'extContCAF'>
 			<form noValidate autoComplete="off" >
 			<h1 className={classes.title}>Crear Usuario</h1>
-			<Grid container direction="row" justify="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
+			<Grid container direction="row" justifyContent="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
                 <Grid >
                     <Grid container spacing={1} alignItems="center">
                         <Grid item >
@@ -145,7 +145,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit }) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid container direction="row" justify="center" alignItems="center">
+                <Grid container direction="row" justifyContent="center" alignItems="center">
                     <Grid item>
                         <Button style={{fontWeight: 1000, marginTop: 50}} color="secondary" onClick={handleSubmit} variant="contained">Agregar Usuario</Button>
                     </Grid>

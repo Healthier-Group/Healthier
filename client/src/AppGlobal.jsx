@@ -31,12 +31,3 @@ const AppGlobal = () => {
 }
 
 export default AppGlobal;
-
-/*
-Index
-		AppGlobal
-				App private
-						Componentes
-				App public
-						Componentes
-*/

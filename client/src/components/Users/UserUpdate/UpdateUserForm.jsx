@@ -112,9 +112,9 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
 		<ThemeProvider theme={theme}>
         <>
             <form noValidate autoComplete="off" >
-			<Grid container direction="row" justify="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
+			<Grid container direction="row" justifyContent="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
                 <Grid item xs={6}>
-                    <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid>
                             <Person />
                         </Grid>
@@ -123,7 +123,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
 								error={error["username"]}
 								helperText={[helperText["username"]]}
 								id="username" 
-								label="Nombre" 
+								label="Usuario" 
 								name="username"
 								value={input.username ? input.username : ''}
 								onChange={handleInputChange} 
@@ -131,7 +131,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
                         </Grid>
                     </Grid>
 					
-					<Grid container spacing={1} alignItems="center" justify="center">
+					<Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid item>
 							<Email />
                         </Grid>
@@ -147,7 +147,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
 							/>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid item>
 							<VpnKey />
                         </Grid>
@@ -163,7 +163,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
 							/>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid container spacing={1} alignItems="center" justifyContent="center">
                         <Grid item>
                             <Phone />
                         </Grid>
@@ -180,13 +180,13 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
                         </Grid>
                     </Grid>
                 </Grid>
-				<Grid container direction="row" justify="center" alignItems="center">
+				<Grid container direction="row" justifyContent="center" alignItems="center">
                     <RadioGroup name="isAdmin" value={input.isAdmin ? "YES" : "NO"} onChange={handleRadio} >
                         <FormControlLabel value={"YES"} control={<Radio/>} label="ADMINISTRADOR"/>
                         <FormControlLabel value={"NO"} control={<Radio/>} label="CLIENTE"/>
                     </RadioGroup>
                 </Grid>
-                <Grid container direction="row" justify="center" alignItems="center">
+                <Grid container direction="row" justifyContent="center" alignItems="center">
 					<RadioGroup name="isReseller" value={input.isReseller ? "YES" : "NO"} onChange={handleRadio} >
                         <FormControlLabel value={"YES"} control={<Radio/>} label="MAYORISTA"/>
                         <FormControlLabel value={"NO"} control={<Radio/>} label="MINORISTA"/>
@@ -196,7 +196,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
                         <FormControlLabel value={"BANNED"} control={<Radio/>} label="BANNEADO"/>
                     </RadioGroup>
                 </Grid>
-                <Grid container direction="row" justify="center" alignItems="center">
+                <Grid container direction="row" justifyContent="center" alignItems="center">
                     <Grid item>
                         <Button style={{fontWeight: 1000, marginTop: 50}} color="secondary" onClick={handleSubmit} variant="contained">Guardar Cambios</Button>
                     </Grid>
