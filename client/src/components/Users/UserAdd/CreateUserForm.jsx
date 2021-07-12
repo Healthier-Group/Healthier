@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme)=>({
 	}
 }));
 
-const CreateUserForm = ({ input, setInput, handleSubmit }) => {
+const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
 	
 	const classes = useStyles();
 
@@ -59,7 +59,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit }) => {
 		<ThemeProvider theme={theme}>
         <div className= 'extContCAF'>
 			<form noValidate autoComplete="off" >
-			<h1 className={classes.title}>Crear Usuario</h1>
+			<h1 className={classes.title}>{window.location.href.includes("register") ? "Registrate" : "Crear Usuario"}</h1>
 			<Grid container direction="row" justifyContent="space-around" alignItems="center" className={`componentDataBox ${classes.root}`} spacing={1}>
                 <Grid >
                     <Grid container spacing={1} alignItems="center">
