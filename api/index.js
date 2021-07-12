@@ -147,7 +147,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a11",
         size: "48 g",
         brand:"Crowie",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/choco-negro1-d60b8debcc5af1302615510487738179-640-01-0944a331959ac7d19415813782701700-1024-1024.jpg"
+        image:"https://i.postimg.cc/TwRB0bYw/choco-negro1-d60b8debcc5af1302615510487738179-640-01-0944a331959ac7d19415813782701700-1024-1024.jpg"
     }
     })
   let p12 = Product.findOrCreate({
@@ -159,7 +159,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a12",
         size: "50 g",
         brand:"Nativo",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/alfajor-nativos-dulce-de-leche11-d66b41928c3da5d7c315778961998660-1024-102411-fdce70190b5622c29815814561141179-1024-1024.jpg"
+        image:"https://i.postimg.cc/G2qV5pHj/alfajor-nativos-dulce-de-leche11-d66b41928c3da5d7c315778961998660-1024-102411-fdce70190b5622c2981581.jpg"
         }
     })
   let p13 = Product.findOrCreate({
@@ -171,7 +171,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a13",
         size: "1 l",
         brand:"Vivet",
-        image:"https://i.imgur.com/SsOyoqe.png"
+        image:"https://i.postimg.cc/x88hDSmV/SsOyoqe.png"
     }
     })
   let p14 = Product.findOrCreate({
@@ -183,7 +183,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a14",
         size: "450 g",
         brand:"Beepure",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/beepure-ddl-sinazucar1-a2a204a4a0259c462d15496338282047-640-01-963915891db8bf612b15819780969854-1024-1024.png"
+        image:"https://i.postimg.cc/Y0PVtyNG/beepure-ddl-sinazucar1-a2a204a4a0259c462d15496338282047-640-01-963915891db8bf612b15819780969854-1024.png"
     }
     })
   let p15 = Product.findOrCreate({
@@ -195,7 +195,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a15",
         size: "50 g",
         brand:"Cereal Sol",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/snacks-arroz-queso-cereal-sol1-a07f579b8841f2460815517316211479-640-01-944396f554288fe36415819763277697-1024-1024.jpg"
+        image:"https://i.postimg.cc/QxHGvcgK/snacks-arroz-queso-cereal-sol1-a07f579b8841f2460815517316211479-640-01-944396f554288fe36415819763277.jpg"
       }
     })
   let p16 = Product.findOrCreate({
@@ -207,7 +207,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a16",
         size: "80 g",
         brand:"Nuestros Sabores",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/diseno-sin-titulo1-655b00677c8fd6be7c15683189603526-640-01-03575fd6585b110ddf15814607856981-1024-1024.png"
+        image:"https://i.postimg.cc/sx2djht8/diseno-sin-titulo1-655b00677c8fd6be7c15683189603526-640-01-03575fd6585b110ddf15814607856981-1024-102.png"
       }
     })
     let p17 = Product.findOrCreate({
@@ -219,7 +219,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a17",
         size: "1 kg",
         brand:"Terra Sana",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/harina-integral-organica-fina-terra-sana-6-kg-d_nq_np_817432-mla32171074477_092019-f1-2898269610c99f0d7d15813812412634-1024-1024.jpg"
+        image:"https://i.postimg.cc/4NqkGnwL/harina-integral-organica-fina-terra-sana-6-kg-d-nq-np-817432-mla32171074477-092019-f1-2898269610c99f.jpg"
       }
     })
     let p18 = Product.findOrCreate({
@@ -231,7 +231,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a18",
         size: "560 g",
         brand:"Wakas",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/fideos_multicereal_con_kale_sin_tacc_imagen11-6f2e12c55fbac55e4b15810810116019-1024-1024.jpg"
+        image:"https://i.postimg.cc/zDdYdxh1/fideos-multicereal-con-kale-sin-tacc-imagen11-6f2e12c55fbac55e4b15810810116019-1024-1024.jpg"
       }
     })
     let p19 = Product.findOrCreate({
@@ -243,7 +243,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a19",
         size: "180 g",
         brand:"Chiagraal",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/958d91_e2a72f0429a246ad886600d85f0074e6_mv2_d_1459_2180_s_21-7d4b166ec18b8e083f15815108841277-1024-1024.png"
+        image:"https://i.postimg.cc/02L33F2h/958d91-e2a72f0429a246ad886600d85f0074e6-mv2-d-1459-2180-s-21-7d4b166ec18b8e083f15815108841277-1024-1.png"
       }
     })
     let p20 = Product.findOrCreate({
@@ -255,7 +255,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a20",
         size: "180 g",
         brand:"Dell Isola",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/pasta-tomate-seco-dellisola-fitmarket1-0737e196d33c58228515665648589820-480-01-afd076e0bf0c9eec5115815143223504-1024-1024.jpg"
+        image:"https://i.postimg.cc/tJm0Ygbg/pasta-tomate-seco-dellisola-fitmarket1-0737e196d33c58228515665648589820-480-01-afd076e0bf0c9eec51158.jpg"
       }
     })
     let p21 = Product.findOrCreate({
@@ -267,7 +267,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a21",
         size: "50 g",
         brand:"Organikal Superalimentos",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/te_matcha_en_polvo_imagen11-c7f32a27027b58887715816250023206-1024-1024.jpg"
+        image:"https://i.postimg.cc/q7c92wrS/te-matcha-en-polvo-imagen11-c7f32a27027b58887715816250023206-1024-1024.jpg"
       }
     })
     let p22 = Product.findOrCreate({
@@ -279,7 +279,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a22",
         size: "150 g",
         brand:"Life",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/sal_11-99cf06b6ddd6078d3d15820621132955-1024-1024.jpg"
+        image:"https://i.postimg.cc/L8Pd8RbH/sal-11-99cf06b6ddd6078d3d15820621132955-1024-1024.jpg"
       }
     })
     let p23 = Product.findOrCreate({
@@ -291,7 +291,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a23",
         size: "250 ml",
         brand:"Chiagraal",
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/958d91_7a492d203f49470fa7b1f81cbfa7162d_mv2_d_1459_2763_s_21-1377f4e81d14406e0215814611431018-1024-1024.png"
+        image:"https://i.postimg.cc/yYJtLsBF/958d91-7a492d203f49470fa7b1f81cbfa7162d-mv2-d-1459-2763-s-21-1377f4e81d14406e0215814611431018-1024-1.png"
       }
     })
     let p24 = Product.findOrCreate({
@@ -303,7 +303,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Terra Sana",
         sku:"a24",
         price:810,
-        image:"https://d3ugyf2ht6aenh.cloudfront.net/stores/366/822/Products/aceite-de-oliva-extra-virgen-organica-500-ml-terrasana1-f2ba91b07dfaa3919315827203220038-1024-1024.jpg"
+        image:"https://i.postimg.cc/MGJCc4C1/aceite-de-oliva-extra-virgen-organica-500-ml-terrasana1-f2ba91b07dfaa3919315827203220038-1024-1024.jpg"
       }
     })
 
