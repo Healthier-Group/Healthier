@@ -86,14 +86,14 @@ const useStyles = makeStyles({
   },
 })
 
-const ProductDetail = ({match,history}) => {
+const ProductDetail = ({match, history}) => {
   const classes = useStyles();
   const {id} = match.params;
   const dispatch = useDispatch();
 
-  // const addToCartHandler = () => {
-  //   history.push(`/cart/${id}?qty`);
-  // };
+  const addToCartHandler = () => {
+    history.push(`/cart/${id}?qty`);
+  };
 
   useEffect(() => {
     dispatch(getProductById(id));
@@ -141,7 +141,7 @@ const ProductDetail = ({match,history}) => {
                             className={classes.btn}
                             variant="contained"
                             color="primary"
-                            // onClick={addToCartHandler}
+                            onClick={addToCartHandler}
                           >
                             Comprar
                           </Button>

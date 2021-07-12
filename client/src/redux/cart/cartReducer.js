@@ -2,15 +2,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./cartActions";
 
 const cartReducer = (
   state = {
-    cartItems: [
-      {
-        name: "Frutos secos deshidratados",
-        image:
-          "https://i.postimg.cc/RhpJVMrM/andrey-metelev-Q4-STMNFlo-I-unsplash.jpg",
-        qty: 1,
-        price: 500,
-      },
-    ],
+    cartItems: [],
   },
   action
 ) => {

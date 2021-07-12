@@ -7,7 +7,7 @@ import cartReducer from './cart/cartReducer';
 export const reducers = combineReducers({
 	userReducer: userReducer,
 	productReducer: productReducer,
-	cartReducer: cartReducer
+	cart: cartReducer
 });
 
 export default reducers;
