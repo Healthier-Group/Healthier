@@ -1,6 +1,19 @@
-import {CART_ADD_ITEM, CART_REMOVE_ITEM} from './cartActions'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "./cartActions";
 
-const cartReducer = (state = { cartItems: [] }, action) => {
+const cartReducer = (
+  state = {
+    cartItems: [
+      {
+        name: "Frutos secos deshidratados",
+        image:
+          "https://i.postimg.cc/RhpJVMrM/andrey-metelev-Q4-STMNFlo-I-unsplash.jpg",
+        qty: 1,
+        price: 500,
+      },
+    ],
+  },
+  action
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;
@@ -16,7 +29,10 @@ const cartReducer = (state = { cartItems: [] }, action) => {
         return { ...state, cartItems: [...state.cartItems, item] };
       }
     case CART_REMOVE_ITEM:
-        return{...state, cartItems: state.cartItems.filter(x=>x.product!==action.payload)}
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+      };
     default:
       return state;
   }
