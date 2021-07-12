@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 			});
 			user.password = old.password;
 		}
-		await User.update({user},
+		await User.update({...user},
 		{where: 
 			{id}
 		});
