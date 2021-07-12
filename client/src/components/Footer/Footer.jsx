@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 export default function Footer(){
     const classes = useStyles()
     return(
-         <BottomNavigation className = {classes.position}>
+        <BottomNavigation className = {classes.position}>
                 <Container maxWidth = 'lg'>
                     <Grid container spacing = {5}>
                         <Grid item xs = {12} sm = {4}>
@@ -40,6 +40,6 @@ export default function Footer(){
                     <Box textAlign = 'center' margin = '1.5%'>Copyright &reg; {new Date().getFullYear()}</Box>
                 </Container>
             </BottomNavigation>
-  
+
     )
 }

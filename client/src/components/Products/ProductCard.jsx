@@ -75,7 +75,7 @@ export default function ProductCard(){
     dispatch(getProducts())
   }, [])
  
-  const product = useSelector(state => state.foundProducts)
+  const product = useSelector(state => state.productReducer.foundProducts)
   return (
       <div className={classes.view}>
         <NavBar />

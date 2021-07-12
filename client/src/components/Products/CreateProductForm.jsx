@@ -8,7 +8,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core"
-import NavBar from '../NavBar/NavBar'
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -94,7 +93,6 @@ export const CreateProductForm = () => {
   const classes = useStyles();
   return (
     <div className={classes.main}>
-      <NavBar />
       <Hidden only={["sm", "xs"]}>
         
         <form onSubmit={handleSubmit} className={classes.root}>

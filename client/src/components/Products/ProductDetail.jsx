@@ -86,16 +86,20 @@ const useStyles = makeStyles({
   },
 })
 
-const ProductDetail = ({match}) => {
+const ProductDetail = ({match,history}) => {
   const classes = useStyles();
   const {id} = match.params;
   const dispatch = useDispatch();
+
+  // const addToCartHandler = () => {
+  //   history.push(`/cart/${id}?qty`);
+  // };
 
   useEffect(() => {
     dispatch(getProductById(id));
   }, []);
 
-  const product = useSelector((state) => state.productDetail);
+  const product = useSelector((state) => state.productReducer.productDetail);
 
   return (
     <div className={classes.bg}>
@@ -137,6 +141,7 @@ const ProductDetail = ({match}) => {
                             className={classes.btn}
                             variant="contained"
                             color="primary"
+                            // onClick={addToCartHandler}
                           >
                             Comprar
                           </Button>

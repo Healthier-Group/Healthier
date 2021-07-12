@@ -1,34 +1,34 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
-import Container from '@material-ui/core/Container';
 import LandingPage from '../LandingPage/LandingPage'
-import Navigation from '../NavBar/Navigation'
+import NavBar from '../NavBar/NavBar'
 import CreateUser from '../Users/UserAdd/CreateUser';
-import Container from "./Components/Container/Container";
-import ProductCard from "./Components/Products/ProductCard";
-import ProductDetail from "./Components/Products/ProductDetail";
-import Recipes from "./Components/Recipes/Recipes";
+import ProductCard from "../Products/ProductCard";
+import ProductDetail from "../Products/ProductDetail";
+import Recipes from "../Recipes/Recipes";
+import CartScreen from "../Cart/CartScreen";
 
 function AppPublic() {
 	return (
-		<Container className="App">
 			<BrowserRouter>
 
-				<Route path="/" component={Navigation} />
+				{/* ============ LandingPage ==================== */}
+				<Route path="/" component={NavBar} />
 				<Route exact path="/" component={LandingPage} />
+
+				{/* ============ User ==================== */}
 				<Route exact path="/register" component={CreateUser} />
 
-				/* ============ Productos ==================== */
-				<Route path="/" exact component={Container} />
+				{/* ============ Productos ==================== */}
 				<Route path="/recipes" exact component={Recipes} />
 				<Route path="/products/:id" component={ProductDetail} />
 				<Route path="/products" component={ProductCard} />
-                //update de datos propios de
-                //leer su perfil
+
+				{/* ============ Cart ==================== */}
+				<Route exact path='/cart/:id?' component={CartScreen}></Route>
 
             </BrowserRouter>
-		</Container>
 	);
 }
 

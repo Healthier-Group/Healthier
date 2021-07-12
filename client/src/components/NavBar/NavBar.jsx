@@ -55,44 +55,47 @@ export default function NavBar() {
     setOpenApp(!openApp);
   }
   return (
-    <AppBar className={classes.appBar}>
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          <Link to="/">
-            <img src={Logo} className={classes.image} />
+    <div>
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            <Link to="/">
+              <img src={Logo} className={classes.image} />
+            </Link>
+            Healthier Club
+          </Typography>
+          <Link to="/products" className={classes.buttons}>
+            <Button color="secondary">Productos</Button>
           </Link>
-          Healthier Club
-        </Typography>
-        <Link to="/products" className={classes.buttons}>
-          <Button color="secondary">Productos</Button>
-        </Link>
-        <Link to="/recipes" className={classes.buttons}>
-          <Button color="secondary">Recetas</Button>
-        </Link>
+          <Link to="/recipes" className={classes.buttons}>
+            <Button color="secondary">Recetas</Button>
+          </Link>
 
-        <Hidden only={"xs"}>
-          <SearchBar />
-        </Hidden>
+          <Hidden only={"xs"}>
+            <SearchBar />
+          </Hidden>
 
-        <Hidden only={["sm", "md", "lg", "xl"]}>
-          <IconButton color="secondary" onClick={openAction}>
-            <MenuIcon />
-          </IconButton>
-        </Hidden>
+          <Hidden only={["sm", "md", "lg", "xl"]}>
+            <IconButton color="secondary" onClick={openAction}>
+              <MenuIcon />
+            </IconButton>
+          </Hidden>
 
-        <Drawer
-          className={classes.drawer}
-          classes={{ paper: classes.drawerPaper }}
-          anchor="right"
-          open={openApp}
-          onClose={openAction}
-        >
-          <div className={classes.toolbar}></div>
-          <Divider />
-          <List />
-        </Drawer>
+          <Drawer
+            className={classes.drawer}
+            classes={{ paper: classes.drawerPaper }}
+            anchor="right"
+            open={openApp}
+            onClose={openAction}
+          >
+            <div className={classes.toolbar}/>
+            <Divider />
+            <List />
+          </Drawer>
 
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+      <div className={classes.toolbar}/>
+    </div>
   );
 }

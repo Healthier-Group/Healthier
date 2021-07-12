@@ -71,7 +71,7 @@ export function UserProfile(props) {
 					<Grid
 						container
 						direction="row"
-						justify="space-between"
+						justifyContent="space-between"
 						alignItems="center"
 					>
 						<Grid style={{marginRigth: '50px'}}>

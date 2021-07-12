@@ -1,30 +1,32 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
-import Container from '@material-ui/core/Container';
 import LandingPage from '../LandingPage/LandingPage'
-import Navigation from '../NavBar/Navigation'
+import NavBar from '../NavBar/NavBar'
 import CreateUser from '../Users/UserAdd/CreateUser';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
 import UserList from '../Users/UserList/UserList';
-import CreateProductForm from "./Components/Products/CreateProductForm";
+import CreateProductForm from "../Products/CreateProductForm";
 
 function AppPrivate() {
 	return (
-		<Container className="App">
+
 			<BrowserRouter>
 				
-				<Route path="/" component={Navigation} />
+				{/* ============ LandingPage =================== */}
+				<Route path="/" component={NavBar} />
 				<Route exact path="/" component={LandingPage} />
+
+				{/* ============ User ==================== */}
 				<Route exact path="/private/createuser" component={CreateUser} />
                 <Route exact path="/private/updateuser/:id" component={UpdateUser} />
 				<Route exact path="/private/userlist" component={UserList} />
-                //ver todos los usuarios y sus detalles
 
-                <Route path="/form" component={CreateProductForm} />
+				{/* ============ Productos =================== */}
+                <Route path="/private/form" component={CreateProductForm} />
 
             </BrowserRouter>
-		</Container>
+
 	);
 }
 

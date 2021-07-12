@@ -42,6 +42,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.TEXT,
+      defaultValue: "https://i.pinimg.com/originals/24/58/5f/24585fc9b7433a224a6ff5506e346969.png",
     },
   });
 };
