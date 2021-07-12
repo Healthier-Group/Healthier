@@ -70,7 +70,6 @@ export const CreateProductForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("SUBMIT");
     return axios
       .post(PRODUCTSPOST_URL, input)
       .then((r) => {
@@ -84,7 +83,6 @@ export const CreateProductForm = () => {
           price: 0,
           image: "",
         });        
-        console.log("State", input);
         alert("Product created successfully");
       })
       .catch((error) => alert("Some error ocurred, please try again"));

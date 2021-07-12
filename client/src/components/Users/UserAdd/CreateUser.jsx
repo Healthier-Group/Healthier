@@ -34,6 +34,7 @@ const CreateUser = () => {
 			}
 		} else {
 			typeof(userDetail) !== 'undefined' && swal('Usuario creado exitosamente', 'Bienvenido!', 'success')
+			setInput(wipedInput)
 		}
 	},[userDetail])
 

@@ -28,6 +28,10 @@ module.exports = sequelize => {
 			validate: {
 				notEmpty: {
 					msg: 'El campo Usuario no debe estar vacio',
+				},
+				is: {
+					args: /^[A-Za-z0-9]{3,20}$/,
+					msg: 'El campo Usuario contiene errores'
 				}
 			},
 			unique: {

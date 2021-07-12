@@ -31,13 +31,9 @@ const UpdateUser = () => {
 				swal(aux, 'Lo sentimos!', 'error')
 			}
 		} else {
-			(typeof(userDetail) !== 'undefined' && input === userDetail) && swal('Usuario creado exitosamente', 'Bienvenido!', 'success')
+			(typeof(userDetail) !== 'undefined' && userDetail.success) && swal('Usuario actualizado exitosamente', 'Bienvenido!', 'success')
 		}
 	},[userDetail])
-	console.log('userDetail')
-	console.log(userDetail)
-	console.log('input')
-	console.log(input)
 
 	return (
 		<>

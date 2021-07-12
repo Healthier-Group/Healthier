@@ -16,9 +16,7 @@ module.exports = async (req, res, next) => {
 		{where: 
 			{id}
 		});
-		const updatedUser = await User.findOne({where:{id}})
-		console.log(updatedUser)
-		return res.json(updatedUser).status(200);
+		return res.json({success: true}).status(200);
 	} catch (err) {
 		return res.send(err.message).status(409);
 	}
