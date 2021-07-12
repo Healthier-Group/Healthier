@@ -22,8 +22,8 @@ function AppPublic() {
 
 				{/* ============ Productos ==================== */}
 				<Route path="/recipes" exact component={Recipes} />
-				<Route path="/products/:id" component={ProductDetail} />
-				<Route path="/products" component={ProductCard} />
+				<Route exact path="/products/:id" component={ProductDetail} />
+				<Route  exact path="/products" component={ProductCard} />
 
 				{/* ============ Cart ==================== */}
 				<Route exact path='/cart/:id?' component={CartScreen}></Route>
