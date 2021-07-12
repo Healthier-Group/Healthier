@@ -106,7 +106,7 @@ const ProductDetail = ({match,history}) => {
       {product?.map((p) => {
         return (
           <div className = {classes.bg}>
-            <NavBar />
+          
             <Hidden only={["sm", "xs"]}>
               <Grid container spacing={1} className={classes.root}>
                 <Grid container className={classes.root}>
