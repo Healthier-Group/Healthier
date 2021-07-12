@@ -1,7 +1,21 @@
-import {createStore, applyMiddleware} from 'redux'
-import reducer from '../redux/products/productReducer'
-import thunk from 'redux-thunk'
+import {createStore, applyMiddleware, compose} from 'redux';
+import combineReducer from './combineReducer';
+import thunk from 'redux-thunk';
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default store
+const initialState = {
+	cart: {
+		cartItems: localStorage.getItem("cartItems")
+		? JSON.parse(localStorage.getItem("cartItems"))
+		: [],
+	},
+};
+
+export const store = createStore(
+	combineReducer,
+	initialState,
+	composeEnhancers(applyMiddleware(thunk))
+);
+
+export default store;

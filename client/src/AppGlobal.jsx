@@ -1,28 +1,33 @@
-import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "./utils/Theme.js";
-import Container from "./Components/Container/Container";
-import ProductCard from "./Components/Products/ProductCard";
-import ProductDetail from "./Components/Products/ProductDetail";
-import CreateProductForm from "./Components/Products/CreateProductForm";
-import Recipes from "./Components/Recipes/Recipes";
+import { useState } from 'react';
+import { ThemeProvider } from '@material-ui/core'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import AppPrivate from './components/App/AppPrivate.jsx';
+import AppPublic from './components/App/AppPublic.jsx';
+import theme from './utils/Theme';
 
+const AppGlobal = () => {
 
-function AppGlobal() {
-  return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Container} />
-          <Route path="/recipes" exact component={Recipes} />
-          <Route path="/products/:id" component={ProductDetail} />
-          <Route path="/products" component={ProductCard} />
-          <Route path="/form" component={CreateProductForm} />
-        </Switch>
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+	const [currentUser, setCurrentUser] = useState({isAdmin: true});
+
+	
+	return (
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Switch> 
+					<Route 
+						path="/private"
+						component={ () => (
+							( (currentUser && currentUser?.isAdmin) )
+							? ( <AppPrivate /> )
+							: ( <Redirect to="/logging" /> )
+						)}
+					/>
+					
+					<Route path="/" component={ () => <AppPublic />}/>
+				</Switch>
+			</BrowserRouter>
+		</ThemeProvider>
+	)
 }
 
 export default AppGlobal;

@@ -10,13 +10,11 @@ const review = require("./reviews");
 const inventory = require("./productInventory");
 const category = require("./category");
 
-
 const router = Router();
 
 router.get("/unauthorized", (req, res) => {
   res.json("No authorization");
 });
-
 
 router.use('/order_products', order_products)
 router.use('/order', order)
