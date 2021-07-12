@@ -6,6 +6,7 @@ import LandingPage from '../LandingPage/LandingPage'
 import Navigation from '../NavBar/Navigation'
 import CreateUser from '../Users/UserAdd/CreateUser';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
+import UserList from '../Users/UserList/UserList';
 
 function AppPrivate() {
 	return (
@@ -16,6 +17,7 @@ function AppPrivate() {
 				<Route exact path="/" component={LandingPage} />
 				<Route exact path="/private/createuser" component={CreateUser} />
                 <Route exact path="/private/updateuser/:id" component={UpdateUser} />
+				<Route exact path="/private/userlist" component={UserList} />
                 //ver todos los usuarios y sus detalles
 
             </BrowserRouter>

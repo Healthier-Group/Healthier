@@ -7,6 +7,6 @@ conn.sync({force: true}).then(() => {
         console.log('Healthier API is now listening on port 3001');
     })
 })
-
-userMockUp();
 adminMockUp();
+userMockUp();
+
