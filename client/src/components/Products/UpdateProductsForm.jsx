@@ -10,7 +10,6 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@material-ui/core";
-import { Person, Email, VpnKey, Phone } from "@material-ui/icons";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../themeStyle";
 import Validate from "../../utils/Validate";
@@ -116,9 +115,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid>
-                  <Person />
-                </Grid>
+                <Grid></Grid>
                 <Grid item>
                   <TextField
                     error={error["name"]}
@@ -126,7 +123,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="name"
                     label="Nombre"
                     name="name"
-                    value={input.name ? input.name : ""}
+                    value={input?.name ? input.name : ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -146,7 +143,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="description"
                     label="Descripción"
                     name="description"
-                    value={input.description || ""}
+                    value={input?.description || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -157,9 +154,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                  <VpnKey />
-                </Grid>
+                <Grid item></Grid>
                 <Grid item>
                   <TextField
                     error={error["ingredients"]}
@@ -167,7 +162,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="ingredients"
                     label="Ingredientes"
                     name="ingredients"
-                    value={input.ingredients || ""}
+                    value={input?.ingredients || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -179,7 +174,6 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 justifyContent="center"
               >
                 <Grid item>
-                  <Phone />
                 </Grid>
                 <Grid item>
                   <TextField
@@ -188,7 +182,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="size"
                     name="size"
                     label="Tamaño"
-                    value={input.size || ""}
+                    value={input?.size || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -200,7 +194,6 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 justifyContent="center"
               >
                 <Grid item>
-                  <Phone />
                 </Grid>
                 <Grid item>
                   <TextField
@@ -209,7 +202,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="brand"
                     name="brand"
                     label="Marca"
-                    value={input.brand || ""}
+                    value={input?.brand || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -221,7 +214,6 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 justifyContent="center"
               >
                 <Grid item>
-                  <Phone />
                 </Grid>
                 <Grid item>
                   <TextField
@@ -230,7 +222,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                     id="price"
                     name="price"
                     label="Precio"
-                    value={input.price || ""}
+                    value={input?.price || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -248,7 +240,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                       id="image"
                       name="image"
                       label="Imagen"
-                      value={input.image || ""}
+                      value={input?.image || ""}
                       onChange={handleInputChange}
                     />
                   </Grid>
@@ -267,7 +259,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                       id="sku"
                       name="sku"
                       label="SKU"
-                      value={input.sku || ""}
+                      value={input?.sku || ""}
                       onChange={handleInputChange}
                     />
                   </Grid>

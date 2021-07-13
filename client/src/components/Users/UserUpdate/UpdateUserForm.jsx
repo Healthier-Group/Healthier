@@ -53,7 +53,7 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
     },[dispatch, id, userDetail])
 
 	useEffect(() => {
-		dispatch(getProductById(id))
+		dispatch(readUser(id))
 	},[])
     useEffect(() => {
 
