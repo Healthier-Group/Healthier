@@ -5,7 +5,8 @@ import {
   ORDER_AZ,
   ORDER_ZA,
   ORDER_CHEAP,
-  ORDER_EXPENSIVE
+  ORDER_EXPENSIVE,
+  UPDATE_PRODUCT,
 } from "./productActions";
 
 const initialState = {
@@ -50,11 +51,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         foundProducts: action.payload,
       };
-      case UPDATE_PRODUCT:
-			return {
-				...state,
-				productDetail: action.payload,
-      }
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        productDetail: action.payload,
+      };
     default:
       return {
         state,

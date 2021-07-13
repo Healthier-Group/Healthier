@@ -11,12 +11,12 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import { Person, Email, VpnKey, Phone } from "@material-ui/icons";
-import { readUser } from "../../../redux/users/userActions";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../themeStyle";
-import Validate from "../../../utils/Validate";
+import theme from "../themeStyle";
+import Validate from "../../utils/Validate";
 
 import swal from "sweetalert";
+import { getProductById } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,10 +47,6 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
     if (productDetail !== undefined) {
       setInput({
         id: id,
-        // username: userDetail.username,
-        // email: userDetail.email,
-        // password: "",
-        // contact: userDetail.contact,
         name: productDetail.name,
         description: productDetail.description,
         ingredients: productDetail.ingredients,
@@ -61,12 +57,12 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
         sku: productDetail.sku,
       });
     } else {
-      dispatch(readUser(id));
+      dispatch(getProductById(id));
     }
-  }, [dispatch, id, userDetail]);
+  }, [dispatch, id, productDetail]);
 
   useEffect(() => {
-    dispatch(readUser(id));
+    dispatch(getProductById(id));
   }, []);
   useEffect(() => {}, [input, setInput]);
 
@@ -84,9 +80,9 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
   const [helperText, setHelperText] = useState({
     //Control the warning message
     name: "Ingrese un nombre de producto",
-    description: "Ingrese una descripcion",
+    description: "Ingrese una descripción",
     ingredients: "Ingrese los ingredientes",
-    size: "Ingrese un tamaño de presentacion",
+    size: "Ingrese un tamaño de presentación",
     brand: "Ingrese la marca del producto",
     price: "Ingrese un precio",
     image: "Ingrese una imagen",
@@ -99,31 +95,6 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
       [e.target.name]: e.target.value,
     });
     Validate(e.target, error, setError, helperText, setHelperText);
-  };
-
-  const handleRadio = function (e) {
-    switch (e.target.name) {
-      case "isAdmin":
-        setInput({
-          ...input,
-          isAdmin: e.target.value === "YES" ? true : false,
-        });
-        break;
-      case "isReseller":
-        setInput({
-          ...input,
-          isReseller: e.target.value === "YES" ? true : false,
-        });
-        break;
-      case "isDeleted":
-        setInput({
-          ...input,
-          isDeleted: e.target.value === "BANNED" ? true : false,
-        });
-        break;
-      default:
-        break;
-    }
   };
 
   return (
@@ -150,12 +121,12 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 </Grid>
                 <Grid item>
                   <TextField
-                    error={error["username"]}
-                    helperText={[helperText["username"]]}
-                    id="username"
-                    label="Usuario"
-                    name="username"
-                    value={input.username ? input.username : ""}
+                    error={error["name"]}
+                    helperText={[helperText["name"]]}
+                    id="name"
+                    label="Nombre"
+                    name="name"
+                    value={input.name ? input.name : ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -167,17 +138,15 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                  <Email />
-                </Grid>
+                <Grid item>{/* <DescriptionIcon /> */}</Grid>
                 <Grid item>
                   <TextField
-                    error={error["email"]}
-                    helperText={[helperText["email"]]}
-                    id="email"
-                    label="Correo"
-                    name="email"
-                    value={input.email || ""}
+                    error={error["description"]}
+                    helperText={[helperText["description"]]}
+                    id="description"
+                    label="Descripción"
+                    name="description"
+                    value={input.description || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -193,12 +162,12 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 </Grid>
                 <Grid item>
                   <TextField
-                    error={error["password"]}
-                    helperText={[helperText["password"]]}
-                    id="password"
-                    label="Contraseña"
-                    name="password"
-                    value={input.password || ""}
+                    error={error["ingredients"]}
+                    helperText={[helperText["ingredients"]]}
+                    id="ingredients"
+                    label="Ingredientes"
+                    name="ingredients"
+                    value={input.ingredients || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
@@ -214,18 +183,98 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                 </Grid>
                 <Grid item>
                   <TextField
-                    error={error["contact"]}
-                    helperText={[helperText["contact"]]}
-                    id="contact"
-                    name="contact"
-                    label="Nº Telefono"
-                    value={input.contact || ""}
+                    error={error["size"]}
+                    helperText={[helperText["size"]]}
+                    id="size"
+                    name="size"
+                    label="Tamaño"
+                    value={input.size || ""}
                     onChange={handleInputChange}
                   />
                 </Grid>
               </Grid>
+              <Grid
+                container
+                spacing={1}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Grid item>
+                  <Phone />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    error={error["brand"]}
+                    helperText={[helperText["brand"]]}
+                    id="brand"
+                    name="brand"
+                    label="Marca"
+                    value={input.brand || ""}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                spacing={1}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Grid item>
+                  <Phone />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    error={error["price"]}
+                    helperText={[helperText["price"]]}
+                    id="price"
+                    name="price"
+                    label="Precio"
+                    value={input.price || ""}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid
+                  container
+                  spacing={1}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Grid item>{/* <ImageIcon /> */}</Grid>
+                  <Grid item>
+                    <TextField
+                      error={error["image"]}
+                      helperText={[helperText["image"]]}
+                      id="image"
+                      name="image"
+                      label="Imagen"
+                      value={input.image || ""}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  spacing={1}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Grid item>{/* <DocumentScannerIcon /> */}</Grid>
+                  <Grid item>
+                    <TextField
+                      error={error["sku"]}
+                      helperText={[helperText["sku"]]}
+                      id="sku"
+                      name="sku"
+                      label="SKU"
+                      value={input.sku || ""}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid
+            {/* <Grid
               container
               direction="row"
               justifyContent="center"
@@ -286,7 +335,7 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
                   label="BANNEADO"
                 />
               </RadioGroup>
-            </Grid>
+            </Grid> */}
             <Grid
               container
               direction="row"
@@ -310,4 +359,4 @@ export function ProductUpdate({ input, setInput, handleSubmit }) {
     </ThemeProvider>
   );
 }
-export default UserUpdate;
+export default ProductUpdate;

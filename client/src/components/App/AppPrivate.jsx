@@ -7,6 +7,7 @@ import CreateUser from '../Users/UserAdd/CreateUser';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
 import UserList from '../Users/UserList/UserList';
 import CreateProductForm from "../Products/CreateProductForm";
+import ProductUpdate from '../Products/UpdateProductsForm';
 
 function AppPrivate() {
 	return (
@@ -24,6 +25,7 @@ function AppPrivate() {
 
 				{/* ============ Productos =================== */}
                 <Route path="/private/form" component={CreateProductForm} />
+				<Route path="/private/updateproduct" component={ProductUpdate} />
 
             </BrowserRouter>
 
