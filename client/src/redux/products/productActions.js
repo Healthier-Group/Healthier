@@ -1,6 +1,7 @@
 import axios from "axios";
 import { PRODUCTS_URL } from "../../utils/Constants";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const ORDER_AZ = "ORDER_AZ";
@@ -44,6 +45,18 @@ export function getProductByName(q) {
       });
   };
 }
+
+export function updateProduct(product) {
+  return async function (dispatch) {
+    const {data} = await axios.put(`${API_URL}products/updateproduct/${product.id}`, product)
+    dispatch({
+      type: UPDATE_PRODUCT,
+      payload: data
+      })
+  }
+}
+
+
 export function orderAZ() {
   return function (dispatch) {
     return axios.get("http://localhost:3001/products").then((product) => {

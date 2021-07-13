@@ -50,7 +50,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         foundProducts: action.payload,
       };
-
+      case UPDATE_PRODUCT:
+			return {
+				...state,
+				productDetail: action.payload,
+      }
     default:
       return {
         state,
