@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 
 export default function CartScreen(props) {
+
+  console.log(props);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const qty = props.location.search
