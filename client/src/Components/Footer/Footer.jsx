@@ -1,4 +1,4 @@
-import {Container, Grid, Box, Link, makeStyles, Divider} from '@material-ui/core'
+import {Container, Grid, Box, Link, makeStyles} from '@material-ui/core'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import InstagramIcon from '@material-ui/icons/Instagram'
 import FacebookIcon from '@material-ui/icons/Facebook'
