@@ -1,36 +1,34 @@
-import React from "react";
-import {makeStyles} from "@material-ui/core";
-import NavBar from "../NavBar/NavBar";
+import React from "react"
+import {makeStyles} from "@material-ui/core"
+import ProductCard from "../Products/ProductCard"
 import Footer from "../Footer/Footer";
-import ProductCard from "../Products/ProductCard";
 
 const style = makeStyles((theme) => ({
-  root: {
+  root:{
     display: "flex",
     flexDirection: "column",
   },
   toolbar: theme.mixins.toolbar,
-  content: {
+  content:{
     flexGrow: 1,
     backgroundColor: "#f1f1f1",
     padding: theme.spacing(3),
   },
-  center: {
+  center:{
     textAlign: "center",
   },
 }));
 
-export default function Container() {
-  const classes = style();
+export default function Container(){
+  const classes = style()
 
-  return (
+  return(
     <div className={classes.root}>
         <div className={classes.toolbar}/>
         <div className={classes.content}>
         <div className={classes.center}>Acá iría un carrusel!</div>
-        <ProductCard />
       </div>
-      <Footer />
+        <ProductCard />
     </div>
   )
 }

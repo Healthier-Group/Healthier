@@ -10,12 +10,12 @@ import {Card,
         Grid
 } from '@material-ui/core'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getProducts} from '../../redux/products/productActions'
-import NavBar from '../NavBar/NavBar'
 import OrderFilter from './OrderFilter'
+import Footer from '../Footer/Footer'
 
 const useStyles = makeStyles({
   root:{
@@ -78,7 +78,6 @@ export default function ProductCard(){
   const product = useSelector(state => state.productReducer.foundProducts)
   return (
       <div className={classes.view}>
-        <NavBar />
         <Grid container spacing = {1}>
           <Grid item xs = {2} className = {classes.viewItem}>
             <OrderFilter/>
@@ -119,6 +118,7 @@ export default function ProductCard(){
             </div>
           </Grid>
         </Grid>
+        <Footer />
       </div>
   )
 }

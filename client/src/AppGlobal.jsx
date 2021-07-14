@@ -30,4 +30,4 @@ const AppGlobal = () => {
 	)
 }
 
-export default AppGlobal;
+export default AppGlobal

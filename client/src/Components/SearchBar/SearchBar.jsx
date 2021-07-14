@@ -3,9 +3,15 @@ import {useDispatch} from "react-redux"
 import {getProductByName} from "../../redux/products/productActions"
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles'
+import {Box} from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
+  search:{
+    // marginRight: '6rem',
+    display: 'flex',
+    
+  },
     searchIcon:{
       padding: theme.spacing(0, 2.5),
       height: '100%',
@@ -20,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
-      [theme.breakpoints.up('md')]: {
+      [theme.breakpoints.up('md')]:{
         width: '20ch',
       }
     }
@@ -44,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
      dispatch(getProductByName(input))
   }, [input])
 
-  return (
-      <div className={classes.search}>
+  return(
+      <Box className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
@@ -56,9 +62,8 @@ const useStyles = makeStyles((theme) => ({
               input: classes.inputInput,
             }}
             onChange={(e)=>handleChange(e.target.value)}
-            /* onSubmit={(e)=>{handleSubmit(e)}} */
           />
-      </div>
+      </Box>
   )
 }
 

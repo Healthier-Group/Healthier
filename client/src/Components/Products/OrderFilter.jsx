@@ -1,7 +1,7 @@
 import React from 'react'
 import {makeStyles} from "@material-ui/core"
-import { orderAZ, orderZA, priceHigh, priceLower } from '../../redux/products/productActions'
-import {useDispatch, useSelector} from 'react-redux'
+import {orderAZ, orderZA, priceHigh, priceLower} from '../../redux/products/productActions'
+import {useDispatch} from 'react-redux'
 
 const style = makeStyles((theme) => ({
     view:{
@@ -44,10 +44,10 @@ const classes = style()
                 Ordenar <span style = {{color: '#999'}}>(Z - A)</span>
             </span>
             <span onClick={(e)=> orderLow(e)} className = {classes.spans}>
-                Lo más barato
+                Precio Mínimo
             </span>
             <span onClick={(e)=> orderHigh(e)} className = {classes.spans}>
-                Lo más caro
+                Precio Máximo
             </span>
         </div>
     )

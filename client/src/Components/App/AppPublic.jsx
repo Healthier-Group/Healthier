@@ -1,13 +1,13 @@
-import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import {Route} from 'react-router';
+import React from 'react'
+import {BrowserRouter} from 'react-router-dom'
+import {Route} from 'react-router'
 import LandingPage from '../LandingPage/LandingPage'
 import NavBar from '../NavBar/NavBar'
-import CreateUser from '../Users/UserAdd/CreateUser';
-import ProductCard from "../Products/ProductCard";
-import ProductDetail from "../Products/ProductDetail";
-import Recipes from "../Recipes/Recipes";
-import CartScreen from "../Cart/CartScreen";
+import CreateUser from '../Users/UserAdd/CreateUser'
+import ProductCard from "../Products/ProductCard"
+import ProductDetail from "../Products/ProductDetail"
+import Recipes from "../Recipes/Recipes"
+import CartScreen from "../Cart/CartScreen"
 
 function AppPublic() {
 	return (
