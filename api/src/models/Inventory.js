@@ -6,8 +6,5 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // description: { // Check if it is necessary
-    //   type: DataTypes.STRING,
-    // }
   });
 };

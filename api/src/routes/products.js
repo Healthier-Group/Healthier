@@ -13,7 +13,7 @@ router.use(express.json());
 router.get('/', getAllProducts); // Check get route
 router.get('/:id', getProductById);
 router.post('/', addProduct);
-router.put('/:id', putProduct);
+//router.put('/:id', putProduct);
 router.delete('/:id', deleteProduct); // JM  esto lo rompio ed y cia. 
 router.put('/:id', updateProduct); 
 

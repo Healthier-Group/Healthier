@@ -25,9 +25,9 @@ function AppPrivate() {
 				<Route exact path="/private/userlist" component={UserList} />
 
 				{/* ============ Productos =================== */}
-                <Route path="/private/form" component={CreateProductForm} />
-				<Route path="/private/updateproduct" component={ProductUpdate} />
-				<Route path="/private/productlist" component={ProductList} />
+                <Route exact path="/private/form" component={CreateProductForm} />
+				<Route exact path="/private/updateproduct/:id" component={ProductUpdate} />
+				<Route exact path="/private/productlist" component={ProductList} />
 
             </BrowserRouter>
 

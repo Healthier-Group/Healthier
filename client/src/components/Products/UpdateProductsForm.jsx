@@ -36,11 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function ProductUpdate({ input, setInput, handleSubmit }) {
+export function ProductUpdate({ handleSubmit }) {
   const { id } = useParams();
   const { productDetail } = useSelector((state) => state.productReducer); //action y reducer pdte
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const [input, setInput] = useState({
+    name: "",
+    description: "",
+    ingredients: "",
+    size: "",
+    brand: "",
+    price: 0,
+    image: "",
+    sku: "",
+  });
 
   useEffect(() => {
     if (productDetail !== undefined) {
