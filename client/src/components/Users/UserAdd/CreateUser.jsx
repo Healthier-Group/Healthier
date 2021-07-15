@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import {useLocation} from 'react-router-dom'
 import CreateUserForm from './CreateUserForm'
 import {createUser} from '../../../redux/users/userActions'
 
 import swal from "sweetalert";
 
-const CreateUser = () => {
+const CreateUser = (props) => {
+
+	const search = useLocation().search;
+	const next = new URLSearchParams(search).get('next');
 
 	const dispatch = useDispatch();
 	const {userDetail} = useSelector(state => state.userReducer);
@@ -35,6 +39,7 @@ const CreateUser = () => {
 		} else {
 			typeof(userDetail) !== 'undefined' && swal('Usuario creado exitosamente', 'Bienvenido!', 'success')
 			setInput(wipedInput)
+			if(Boolean(next)) { console.log('redirigir') }
 		}
 	},[userDetail])
 

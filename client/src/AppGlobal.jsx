@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import {useEffect,useState} from 'react'
+import { useSelector } from 'react-redux'
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import AppPrivate from './Components/App/AppPrivate.jsx';
-import AppPublic from './Components/App/AppPublic.jsx';
+import AppPrivate from './components/App/AppPrivate';
+import AppPublic from './components/App/AppPublic';
 import theme from './utils/Theme';
+import useStickyState from './utils/useStickyState';
 
 const AppGlobal = () => {
-
-	const [currentUser, setCurrentUser] = useState({isAdmin: true});
+	const user = useSelector(state => state.userReducer.currentUser);
+	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
 	
 	return (
@@ -16,10 +18,10 @@ const AppGlobal = () => {
 				<Switch> 
 					<Route 
 						path="/private"
-						component={ () => (
-							( (currentUser && currentUser?.isAdmin) )
-							? ( <AppPrivate /> )
-							: ( <Redirect to="/logging" /> )
+						component={ (props) => (
+							( (currentUser && currentUser.isAdmin) )
+							? ( <AppPrivate { ...props } /> )
+							: ( <Redirect to="/login" /> )
 						)}
 					/>
 					
@@ -31,3 +33,4 @@ const AppGlobal = () => {
 }
 
 export default AppGlobal;
+//<Redirect to="/login" /> ( <AppPrivate { ...props } /> )

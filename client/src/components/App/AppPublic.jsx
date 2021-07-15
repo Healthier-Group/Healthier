@@ -8,6 +8,7 @@ import ProductCard from "../Products/ProductCard";
 import ProductDetail from "../Products/ProductDetail";
 import Recipes from "../Recipes/Recipes";
 import CartScreen from "../Cart/CartScreen";
+import UserLogin from "../Users/UserLogin/UserLogin";
 
 function AppPublic() {
 	return (
@@ -18,6 +19,7 @@ function AppPublic() {
 				<Route exact path="/" component={LandingPage} />
 
 				{/* ============ User ==================== */}
+				<Route exact path="/login" component={UserLogin} />
 				<Route exact path="/register" component={CreateUser} />
 
 				{/* ============ Productos ==================== */}
