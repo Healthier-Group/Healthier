@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 
 export default function CartScreen(props) {
-
   console.log(props);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
@@ -28,7 +27,7 @@ export default function CartScreen(props) {
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
-    } 
+    }
     //despacho a cartAction
   }, [dispatch, productId, qty]);
 
@@ -41,10 +40,9 @@ export default function CartScreen(props) {
   };
 
   return (
-    
-    <div style={{height:'100vh'}}>
+    <div style={{ height: "100vh" }}>
       <Paper
-      elevation={3}
+        elevation={3}
         style={{
           margin: "auto",
           width: "80vw",
@@ -52,26 +50,48 @@ export default function CartScreen(props) {
           padding: "50px",
         }}
       >
-        <Typography variant="h6" style={{color:"red"}}>Tu carrito</Typography>
-       
+        <Typography variant="h6" style={{ color: "blue" }}>
+          Tu carrito
+        </Typography>
+
         <Divider />
         {cartItems.length === 0 ? (
-          <Typography variant="h5" style={{marginTop:'20px', marginBottom:'20px', textAlign:'center'}}>
-            Carrito vacío.  <Link to="/" style={{color:'black', textDecoration:'none'}}>-Presiona aquí para seguir comprando-</Link>
+          <Typography
+            variant="h5"
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            Carrito vacío.{" "}
+            <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+              -Presiona aquí para seguir comprando-
+            </Link>
           </Typography>
         ) : (
           <List>
             {cartItems.map((item) => (
               <List item key={item.product}>
                 <Grid container>
-                  <Grid item xs={3} style={{margin:'auto'}}>
-                    <img src={item.image} alt={item.name} width="150px" height="100px" />
+                  <Grid item xs={3} style={{ margin: "auto" }}>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      width="150px"
+                      height="100px"
+                    />
                   </Grid>
 
-                  <Grid item xs={6} style={{margin:'auto'}}>
-                    <Link to={`/product/${item.product}`} style={{color:'black', textDecoration:'none'}}>{item.name}</Link>
+                  <Grid item xs={6} style={{ margin: "auto" }}>
+                    <Link
+                      to={`/product/${item.product}`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
+                      {item.name}
+                    </Link>
                   </Grid>
-                  <Grid item xs={2} style={{margin:'auto'}}>
+                  <Grid item xs={2} style={{ margin: "auto" }}>
                     <select
                       value={item.qty}
                       onChange={(e) =>
@@ -87,7 +107,7 @@ export default function CartScreen(props) {
                       ))}
                     </select>
                   </Grid>
-                  <Grid xs={1} style={{margin:'auto'}}>
+                  <Grid xs={1} style={{ margin: "auto" }}>
                     <Button
                       variant="contained"
                       color="primary"
@@ -103,31 +123,37 @@ export default function CartScreen(props) {
           </List>
         )}
         <Divider />
-        <Grid container >
-         <Grid item xs={12} >
-          <List>
-           <List style={{position:'relative', left:'50vw'}}>
-               <h2>
-                 Total  ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
-                 {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
-               </h2>
-             </List>
-             <Divider/>
-             <List style={{position:'relative', left:'65vw', marginTop:'20px'}}>
-               <Button
-               variant="contained"
-               color="primary"
-                type='button'
-                onClick={checkoutHandler}
-                className='primary block'
-                disable={cartItems.length === 0}
+        <Grid container>
+          <Grid item xs={12}>
+            <List>
+              <List style={{ position: "relative", left: "50vw" }}>
+                <h2>
+                  Total ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
+                  {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                </h2>
+              </List>
+              <Divider />
+              <List
+                style={{
+                  position: "relative",
+                  left: "65vw",
+                  marginTop: "20px",
+                }}
               >
-                Pasar al pago
-              </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="button"
+                  onClick={checkoutHandler}
+                  className="primary block"
+                  disable={cartItems.length === 0}
+                >
+                  Pasar al pago
+                </Button>
+              </List>
             </List>
-          </List>
+          </Grid>
         </Grid>
-      </Grid>
       </Paper>
     </div>
   );
