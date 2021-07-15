@@ -8,6 +8,10 @@ import ProductCard from "../Products/ProductCard";
 import ProductDetail from "../Products/ProductDetail";
 import Recipes from "../Recipes/Recipes";
 import CartScreen from "../Cart/CartScreen";
+import SigninScreen from "../Cart/SigninSceen";
+import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
+import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
+import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 
 function AppPublic() {
 	return (
@@ -19,6 +23,8 @@ function AppPublic() {
 
 				{/* ============ User ==================== */}
 				<Route exact path="/register" component={CreateUser} />
+				<Route exact path="/signin" component={SigninScreen} />
+				
 
 				{/* ============ Productos ==================== */}
 				<Route path="/recipes" exact component={Recipes} />
@@ -27,7 +33,9 @@ function AppPublic() {
 
 				{/* ============ Cart ==================== */}
 				<Route exact path='/cart/:id?' component={CartScreen}></Route>
-
+				<Route exact path="/shipping" component={ShippingAddressScreen} />
+				<Route exact path="/payment" component={PaymentMethodScreen} />
+				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
             </BrowserRouter>
 	);
 }

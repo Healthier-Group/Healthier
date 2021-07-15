@@ -17,16 +17,19 @@ export default function CartScreen(props) {
   console.log(props);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
+  //si no le pasamos una propiedad qty nos da 1 por defecto
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
     : 1;
   const cart = useSelector((state) => state.cart);
+
   const { cartItems } = cart;
+  console.log("cartItems", cartItems);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
-    } else {
-    }
+    } 
+    //despacho a cartAction
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
@@ -53,7 +56,7 @@ export default function CartScreen(props) {
         <Divider />
         {cartItems.length === 0 ? (
           <Typography variant="h5" style={{marginTop:'20px', marginBottom:'20px', textAlign:'center'}}>
-            Cart is empty  <Link to="/" style={{color:'black', textDecoration:'none'}}>click here to go shopping</Link>
+            Carrito vacío.  <Link to="/" style={{color:'black', textDecoration:'none'}}>-Presiona aquí para seguir comprando-</Link>
           </Typography>
         ) : (
           <List>
@@ -90,7 +93,7 @@ export default function CartScreen(props) {
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      Delete
+                      Eliminar
                     </Button>
                   </Grid>
                 </Grid>
@@ -104,7 +107,7 @@ export default function CartScreen(props) {
           <List>
            <List style={{position:'relative', left:'50vw'}}>
                <h2>
-                 Total con envio ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
+                 Total  ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
                  {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                </h2>
              </List>
@@ -118,7 +121,7 @@ export default function CartScreen(props) {
                 className='primary block'
                 disable={cartItems.length === 0}
               >
-                Proceed to Checkout
+                Pasar al pago
               </Button>
             </List>
           </List>
