@@ -1,70 +1,69 @@
-import React, {useState, useEffect} from "react"
-import {useDispatch} from "react-redux"
-import {getProductByName} from "../../redux/products/productActions"
-import SearchIcon from '@material-ui/icons/Search'
-import InputBase from '@material-ui/core/InputBase'
-import {makeStyles} from '@material-ui/core/styles'
-import {Box} from '@material-ui/core'
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getProductByName } from "../../redux/products/productActions";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+import { makeStyles } from "@material-ui/core/styles";
+import axios from 'axios'
+import { useSelector } from "react-redux";
+import { Box, Button, Divider, TextField } from "@material-ui/core";
+import {Autocomplete} from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
-  search:{
-    // marginRight: '6rem',
-    display: 'flex',
-    
+  search: {
+    display: "flex",
+    justifyContent: "space-between",
+    backgroundColor: "#f1f1f1",
+    padding: "0px 0",
+    margin: "0 20px",
+    minWidth: "40vw",
+    borderRadius: "5px",
+    margin: "auto",
+    minHeight: "36px",
   },
-    searchIcon:{
-      padding: theme.spacing(0, 2.5),
-      height: '100%',
-      position: 'absolute',
-      marginTop: '0.6%'
-    },
-    inputRoot:{
-      color: 'inherit',
-    },
-    inputInput:{
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]:{
-        width: '20ch',
-      }
-    }
-}))
+  input: {
+    minWidth: "34vw",
+    padding: "0 10px",
+  },
+}));
 
-  const SearchBar = () => {
-  const classes = useStyles()
-  const [input, setInput] = useState("")
+const SearchBar = () => {
+  const classes = useStyles();
+  const [input, setInput] = useState("");
+  
   const handleChange = (q) => {
-    setInput(q)
+    setInput(q);
+  };
+
+  const dispatch = useDispatch();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(getProductByName(input));
   }
 
-  const dispatch = useDispatch()
+  // useEffect(() => {
+  //   axios.get("http://localhost:3001/products").then((data) => setData(data.data));
+  //   console.log(data)
+  // }, []);
 
-  function handleSubmit(e){
-      e.preventDefault()
-      dispatch(getProductByName(input))
-  }
+  const options = useSelector(state => state.foundProducts)
+  
+  return (
+    <form className={classes.search} onSubmit={handleSubmit}>
+    <InputBase
+      placeholder="Busca tu producto"
+      className={classes.input}
+      onChange={(e) => handleChange(e.target.value)}
+    />
+    <Divider orientation="vertical" flexItem/>
+    <Button type="submit" onSubmit={handleSubmit} style={{minWidth:"6vw", justifyContent:"center", display:"flex"}}>
+      <SearchIcon  />
+    </Button>
+  </form>
+  );
+};
 
-  useEffect(() => {
-     dispatch(getProductByName(input))
-  }, [input])
 
-  return(
-      <Box className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            onChange={(e)=>handleChange(e.target.value)}
-          />
-      </Box>
-  )
-}
 
-export default SearchBar
+export default SearchBar;

@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import{
+import React, { useState } from "react";
+import {
   AppBar,
   Toolbar,
   Typography,
@@ -8,103 +8,170 @@ import{
   IconButton,
   Hidden,
   Drawer,
-  Divider
-} from "@material-ui/core"
-import {Link} from "react-router-dom"
-import MenuIcon from "@material-ui/icons/Menu"
-import SearchBar from "../SearchBar/SearchBar"
-import Logo from "../../Images/h.png"
-import List from "../List/List"
+  Divider,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import MenuIcon from "@material-ui/icons/Menu";
+import SearchBar from "../SearchBar/SearchBar";
+import Logo from "../../Images/h.png";
+import List from "../List/List";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 const useStyles = makeStyles((theme) => ({
-  menuButton:{
+  menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]:{display: "none"},
+    [theme.breakpoints.up("sm")]: { display: "none" },
   },
-  title:{
+  title: {
     fontFamily: "Merienda One",
-    marginTop: '2%'
+    minWidth: "150px",
   },
-  image:{
-    float: 'left',
+  image: {
     borderRadius: "50%",
-    marginRight: '3%',
-    maxWidth: '13%',
-    // maxWidth: "50px",
-    // marginTop: '2%'
+    marginRight: "20px",
+    width: "50px",
+    height: "50px",
   },
-  buttons:{
+  buttons: {
     textDecoration: "none",
     marginRight: "2%",
   },
-  drawer:{
+  drawer: {
     width: 240,
     flexShrink: 0,
   },
-  drawerPaper:{
+  drawerPaper: {
     width: 240,
   },
-  center:{
-    margin: 'auto'
+
+  center: {
+    // margin: "auto",
+    justifyContent: "space-between",
   },
   toolbar: theme.mixins.toolbar,
-}))
+}));
 
-export default function NavBar(){
-  const classes = useStyles()
+export default function NavBar() {
+  const classes = useStyles();
 
-  const[openApp, setOpenApp] = useState(false)
+  const [openApp, setOpenApp] = useState(false);
 
-  function openAction(){
-    setOpenApp(!openApp)
+  function openAction() {
+    setOpenApp(!openApp);
   }
-  return(
+  return (
     <div>
-      <AppBar>
-        <Toolbar>
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              <Link to="/" style = {{textDecoration: 'none', color: 'inherit'}}>
+      <Hidden only={["xs", "sm"]}>
+        <AppBar position="fixed">
+          <Toolbar style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <img src={Logo} className={classes.image} />
-                Healthier Club
-              </Link>
-            </Typography>
-          </Toolbar>
 
-          <Hidden only={"xs"}>
-            <Toolbar className = {classes.center}>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  margin: "auto",
+                }}
+              >
+                <Hidden>
+                  <Typography variant="h6" className={classes.title}>
+                    Healthier Club
+                  </Typography>
+                </Hidden>
+              </Link>
+            </div>
+
+            <Toolbar>
               <SearchBar />
             </Toolbar>
-          </Hidden>
 
-          <Toolbar className = {classes.center}>
-            <Link to="/products" className={classes.buttons}>
-              <Button color="secondary">Productos</Button>
-            </Link>
-            <Link to="/recipes" className={classes.buttons}>
-              <Button color="secondary">Recetas</Button>
-            </Link>
-            <Hidden only={["sm", "md", "lg", "xl"]}>
-              <IconButton color="secondary" onClick={openAction}>
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
+            <Toolbar>
+              <Hidden>
+                <Link to="/products" className={classes.buttons}>
+                  <Button color="secondary">Productos</Button>
+                </Link>
+                <Link to="/recipes" className={classes.buttons}>
+                  <Button color="secondary">Recetas</Button>
+                </Link>
+              </Hidden>
+              <Link
+                to="/cart"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <AddShoppingCartIcon  />
+              </Link>
+            </Toolbar>
+          </Toolbar>
+        </AppBar>
+      </Hidden>
+
+      {/*Mobile Screen  */}
+
+      <Hidden only={["md", "lg", "xl"]}>
+        <AppBar position="static">
+          <Toolbar style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+              <Hidden only={["xs", "sm"]}>
+                <img src={Logo} className={classes.image} />
+              </Hidden>
+
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  margin: "auto",
+                }}
+              >
+                <Hidden only={["xs", "sm"]}>
+                  <Typography variant="h6" className={classes.title}>
+                    Healthier Club
+                  </Typography>
+                </Hidden>
+              </Link>
+            </div>
+
+            <IconButton color="secondary" onClick={openAction}>
+              <MenuIcon />
+            </IconButton>
+
+            <Toolbar>
+              <SearchBar />
+            </Toolbar>
+
+            <Toolbar>
+              <Hidden only={["xs", "sm"]}>
+                <Link to="/products" className={classes.buttons}>
+                  <Button color="secondary">Productos</Button>
+                </Link>
+                <Link to="/recipes" className={classes.buttons}>
+                  <Button color="secondary">Recetas</Button>
+                </Link>
+              </Hidden>
+              <Link
+                to="/cart"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <AddShoppingCartIcon />
+              </Link>
+            </Toolbar>
+
             <Drawer
               className={classes.drawer}
               classes={{ paper: classes.drawerPaper }}
-              anchor="right"
+              anchor="left"
               open={openApp}
               onClose={openAction}
             >
-              <div className={classes.toolbar}/>
-                <Divider />
-                <List />
+              <div className={classes.toolbar} />
+              <Divider />
+              <List />
             </Drawer>
           </Toolbar>
-
-        </Toolbar>
-      </AppBar>
-      <div className={classes.toolbar}/>
+        </AppBar>
+      </Hidden>
     </div>
-  )
+  );
 }

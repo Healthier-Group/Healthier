@@ -8,6 +8,8 @@ import ProductCard from "../Products/ProductCard"
 import ProductDetail from "../Products/ProductDetail"
 import Recipes from "../Recipes/Recipes"
 import CartScreen from "../Cart/CartScreen"
+import Footer from '../Footer/Footer'
+import SearchBar from '../SearchBar/SearchBar'
 
 function AppPublic() {
 	return (
@@ -16,6 +18,8 @@ function AppPublic() {
 				{/* ============ LandingPage ==================== */}
 				<Route path="/" component={NavBar} />
 				<Route exact path="/" component={LandingPage} />
+				<Route path="/" component={Footer}/>
+				
 
 				{/* ============ User ==================== */}
 				<Route exact path="/register" component={CreateUser} />
