@@ -15,7 +15,7 @@ import theme from "../themeStyle";
 import ValidateProduct from "../../utils/ValidateProduct";
 
 import swal from "sweetalert";
-import { getProductById } from "../../redux/products/productActions";
+import { getProductById, updateProduct } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function ProductUpdate({ handleSubmit }) {
+export function ProductUpdate() {
+
+
+
   const { id } = useParams();
+  console.log('Aca hay ID', id)
   const productDetail = useSelector(
     (state) => state.productReducer.productDetail
-  ); //action y reducer pdte
-  console.log("a ver que trae", productDetail);
-  console.log(
-    "Acá entramos al objeto name",
-    productDetail ? productDetail[0].name : "JEJEJE"
   );
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -60,10 +59,14 @@ export function ProductUpdate({ handleSubmit }) {
     sku: "",
   });
 
+  const handleSubmit = (e) => {
+    dispatch(updateProduct(input)); // const id = this.props.match.params.id;
+  };
+
   useEffect(() => {
     if (productDetail !== undefined) {
       setInput({
-        id: productDetail.id,
+        id: id,
         name: productDetail[0].name,
         description: productDetail[0].description,
         ingredients: productDetail[0].ingredients,
@@ -126,15 +129,14 @@ export function ProductUpdate({ handleSubmit }) {
             className={`componentDataBox ${classes.root}`}
             spacing={1}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Grid
                 container
                 spacing={1}
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid></Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["name"]}
                     helperText={[helperText["name"]]}
@@ -143,18 +145,17 @@ export function ProductUpdate({ handleSubmit }) {
                     name="name"
                     value={input?.name ? input.name : ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
               </Grid>
-
               <Grid
                 container
                 spacing={1}
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>{/* <DescriptionIcon /> */}</Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["description"]}
                     helperText={[helperText["description"]]}
@@ -163,6 +164,7 @@ export function ProductUpdate({ handleSubmit }) {
                     name="description"
                     value={input?.description || ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
               </Grid>
@@ -172,8 +174,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item></Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["ingredients"]}
                     helperText={[helperText["ingredients"]]}
@@ -182,6 +183,7 @@ export function ProductUpdate({ handleSubmit }) {
                     name="ingredients"
                     value={input?.ingredients || ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
               </Grid>
@@ -191,8 +193,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item></Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["size"]}
                     helperText={[helperText["size"]]}
@@ -201,6 +202,7 @@ export function ProductUpdate({ handleSubmit }) {
                     label="Tamaño"
                     value={input?.size || ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
               </Grid>
@@ -210,8 +212,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item></Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["brand"]}
                     helperText={[helperText["brand"]]}
@@ -220,6 +221,7 @@ export function ProductUpdate({ handleSubmit }) {
                     label="Marca"
                     value={input?.brand || ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
               </Grid>
@@ -229,8 +231,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item></Grid>
-                <Grid item>
+                <Grid item xs={8}>
                   <TextField
                     error={error["price"]}
                     helperText={[helperText["price"]]}
@@ -239,6 +240,7 @@ export function ProductUpdate({ handleSubmit }) {
                     label="Precio"
                     value={input?.price || ""}
                     onChange={handleInputChange}
+                    fullWidth={true}
                   />
                 </Grid>
                 <Grid
@@ -247,8 +249,7 @@ export function ProductUpdate({ handleSubmit }) {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Grid item>{/* <ImageIcon /> */}</Grid>
-                  <Grid item>
+                  <Grid item xs={8}>
                     <TextField
                       error={error["image"]}
                       helperText={[helperText["image"]]}
@@ -257,6 +258,7 @@ export function ProductUpdate({ handleSubmit }) {
                       label="Imagen"
                       value={input?.image || ""}
                       onChange={handleInputChange}
+                      fullWidth={true}
                     />
                   </Grid>
                 </Grid>
@@ -266,8 +268,7 @@ export function ProductUpdate({ handleSubmit }) {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Grid item>{/* <DocumentScannerIcon /> */}</Grid>
-                  <Grid item>
+                  <Grid item xs={8}>
                     <TextField
                       error={error["sku"]}
                       helperText={[helperText["sku"]]}
@@ -276,73 +277,12 @@ export function ProductUpdate({ handleSubmit }) {
                       label="SKU"
                       value={input?.sku || ""}
                       onChange={handleInputChange}
+                      fullWidth={true}
                     />
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            {/* <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <RadioGroup
-                name="isAdmin"
-                value={input.isAdmin ? "YES" : "NO"}
-                onChange={handleRadio}
-              >
-                <FormControlLabel
-                  value={"YES"}
-                  control={<Radio />}
-                  label="ADMINISTRADOR"
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  control={<Radio />}
-                  label="CLIENTE"
-                />
-              </RadioGroup>
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <RadioGroup
-                name="isReseller"
-                value={input.isReseller ? "YES" : "NO"}
-                onChange={handleRadio}
-              >
-                <FormControlLabel
-                  value={"YES"}
-                  control={<Radio />}
-                  label="MAYORISTA"
-                />
-                <FormControlLabel
-                  value={"NO"}
-                  control={<Radio />}
-                  label="MINORISTA"
-                />
-              </RadioGroup>
-              <RadioGroup
-                name="isDeleted"
-                value={input.isDeleted ? "BANNED" : "ALLOWED"}
-                onChange={handleRadio}
-              >
-                <FormControlLabel
-                  value={"ALLOWED"}
-                  control={<Radio />}
-                  label="PERMITIDO"
-                />
-                <FormControlLabel
-                  value={"BANNED"}
-                  control={<Radio />}
-                  label="BANNEADO"
-                />
-              </RadioGroup>
-            </Grid> */}
             <Grid
               container
               direction="row"

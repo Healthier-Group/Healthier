@@ -20,9 +20,7 @@ const UpdateProduct = () => {
     sku: "",
   });
 
-  const handleSubmit = (e) => {
-    dispatch(updateProduct(input));
-  };
+
 
   useEffect(() => {
     if (typeof productDetail === "string") {

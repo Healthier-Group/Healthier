@@ -48,14 +48,16 @@ export function getProductByName(q) {
 
 export function updateProduct(product) {
   return async function (dispatch) {
-    const {data} = await axios.put(`${API_URL}products/updateproduct/${product.id}`, product)
+    const { data } = await axios.put(
+      `${API_URL}products/${product.id}`,
+      product
+    );
     dispatch({
       type: UPDATE_PRODUCT,
-      payload: data
-      })
-  }
+      payload: data,
+    });
+  };
 }
-
 
 export function orderAZ() {
   return function (dispatch) {
