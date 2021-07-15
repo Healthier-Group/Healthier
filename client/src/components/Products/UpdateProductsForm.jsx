@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../themeStyle";
-import Validate from "../../utils/Validate";
+import ValidateProduct from "../../utils/ValidateProduct";
 
 import swal from "sweetalert";
 import { getProductById } from "../../redux/products/productActions";
@@ -38,7 +38,14 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProductUpdate({ handleSubmit }) {
   const { id } = useParams();
-  const { productDetail } = useSelector((state) => state.productReducer); //action y reducer pdte
+  const productDetail = useSelector(
+    (state) => state.productReducer.productDetail
+  ); //action y reducer pdte
+  console.log("a ver que trae", productDetail);
+  console.log(
+    "Acá entramos al objeto name",
+    productDetail ? productDetail[0].name : "JEJEJE"
+  );
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -56,15 +63,15 @@ export function ProductUpdate({ handleSubmit }) {
   useEffect(() => {
     if (productDetail !== undefined) {
       setInput({
-        id: id,
-        name: productDetail.name,
-        description: productDetail.description,
-        ingredients: productDetail.ingredients,
-        size: productDetail.size,
-        brand: productDetail.brand,
-        price: productDetail.price,
-        image: productDetail.image,
-        sku: productDetail.sku,
+        id: productDetail.id,
+        name: productDetail[0].name,
+        description: productDetail[0].description,
+        ingredients: productDetail[0].ingredients,
+        size: productDetail[0].size,
+        brand: productDetail[0].brand,
+        price: productDetail[0].price,
+        image: productDetail[0].image,
+        sku: productDetail[0].sku,
       });
     } else {
       dispatch(getProductById(id));
@@ -104,7 +111,7 @@ export function ProductUpdate({ handleSubmit }) {
       ...input,
       [e.target.name]: e.target.value,
     });
-    Validate(e.target, error, setError, helperText, setHelperText);
+    ValidateProduct(e.target, error, setError, helperText, setHelperText);
   };
 
   return (
@@ -184,8 +191,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                </Grid>
+                <Grid item></Grid>
                 <Grid item>
                   <TextField
                     error={error["size"]}
@@ -204,8 +210,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                </Grid>
+                <Grid item></Grid>
                 <Grid item>
                   <TextField
                     error={error["brand"]}
@@ -224,8 +229,7 @@ export function ProductUpdate({ handleSubmit }) {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item>
-                </Grid>
+                <Grid item></Grid>
                 <Grid item>
                   <TextField
                     error={error["price"]}
