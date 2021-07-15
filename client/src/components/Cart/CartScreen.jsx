@@ -53,6 +53,7 @@ export default function CartScreen(props) {
         }}
       >
         <Typography variant="h6" style={{color:"red"}}>Tu carrito</Typography>
+       
         <Divider />
         {cartItems.length === 0 ? (
           <Typography variant="h5" style={{marginTop:'20px', marginBottom:'20px', textAlign:'center'}}>
