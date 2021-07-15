@@ -5,7 +5,7 @@ const ExtractJwt = passportJwt.ExtractJwt;
 const StrategyJwt = passportJwt.Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("../../models/User");
+const {User} = require("../../db");
 const { SECRET_KEY } = process.env
 
 passport.use(
@@ -36,16 +36,16 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
-  console.log("Serializing user:", user);
   cb(null, user.id);
 });
 
 passport.deserializeUser(async (id, cb) => {
-  console.log("deserialize USER")
-  const user = await User.findOne({ where: { id } })
-  .catch((err) => {
-    console.log("Error deserializing", err);
+  console.log("deserialize USER", id)
+  try{
+    const user = await User.findOne({ where: { id } })
+    if (user) cb(null, user);
+  }catch(e){
+    console.log("Error deserializing", err.message);
     cb(err, null);
-  });
-  if (user) cb(null, user);
+  }
 });

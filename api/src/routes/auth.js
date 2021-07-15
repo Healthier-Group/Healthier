@@ -37,10 +37,23 @@ router.post("/login", async (req, res) => {
     res.json({ message: "Welcome Back!", token: jwtToken });
 });
 
+router.get("/login/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+router.get(
+    "/google/redirect",
+    passport.authenticate("google", {
+        failureMessage: "Cannot login to Google, please try again later!"
+    }),
+    (req, res) => {
+        res.send("Thank you for signing in!");
+    }
+);
+
 router.get('/logout', passport.authenticate("bearer",{session:true}) , (req, res, next) => {
     req.logOut();
     req.session.destroy();
-    console.log(req.user)
     res.json("Sesión cerrada exitosamente.")
 })
 

@@ -65,3 +65,19 @@ export function logOutUser() {
 		console.log(data)
 	}
 }
+
+export function fetchAuthUser () {
+	return async function (dispatch) {
+		try {
+			const {data} = await axios.get(`${API_URL}auth/user`)
+			if (data){
+				console.log('user:' , data)
+				localStorage.setItem('profile', JSON.stringify(data));
+				dispatch({type: LOGIN, payload:data})
+			}
+		}catch (e){
+			console.log("Not properly authenticated");
+			// history.push("/login/error");
+		}
+	}
+};

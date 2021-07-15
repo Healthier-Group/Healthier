@@ -8,9 +8,8 @@ import theme from './utils/Theme';
 import useStickyState from './utils/useStickyState';
 
 const AppGlobal = () => {
-	const user = useSelector(state => state.userReducer.currentUser);
-	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
+	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	
 	return (
 		<ThemeProvider theme={theme}>
