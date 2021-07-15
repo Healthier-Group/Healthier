@@ -1,0 +1,12 @@
+.extContUserListTable{
+    margin-bottom: 50px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+.componentHeaderUserListTable{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 50px;
+}

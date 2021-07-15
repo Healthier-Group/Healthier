@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from 'react-redux'
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import LandingPage from '../LandingPage/LandingPage'
@@ -9,6 +10,7 @@ import UserList from '../Users/UserList/UserList';
 import CreateProductForm from "../Products/CreateProductForm";
 
 function AppPrivate() {
+
 	return (
 
 			<BrowserRouter>
