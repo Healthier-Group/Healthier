@@ -2,7 +2,7 @@ const router = require("express").Router();
 const express = require("express");
 
 const addProduct = require("../controllers/products/addProductController");
-const putProduct = require("../controllers/products/updateProductController");
+//const putProduct = require("../controllers/products/updateProductController");
 const deleteProduct = require("../controllers/products/deleteProductController");
 const updateProduct = require("../controllers/products/updateProductController");
 const getAllProducts = require("../controllers/products/getProductController");

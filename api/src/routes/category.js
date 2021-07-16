@@ -9,10 +9,10 @@ const getCategoryById = require("../controllers/category/getCategoryByIdControll
 
 router.use(express.json());
 
-router.get("/getAll", getAllCategory); // Check get route
-router.get("/getCategory/:id'", getCategoryById);
-router.post("/addCategory", addCategory);
-router.put("/updateCategory/:id", putCategory);
-router.delete("/deleteCategory/:id", deleteCategory);
+router.get("/", getAllCategory); // Check get route
+router.get("/:id'", getCategoryById);
+router.post("/", addCategory);
+router.put("/:id", putCategory);
+router.delete("/:id", deleteCategory);
 
 module.exports = router;
