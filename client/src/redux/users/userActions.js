@@ -62,9 +62,16 @@ export function loginUser(login) {
 export function logOutUser() {
 	console.log('LOGOUT ACTION')
 	return async function (dispatch) {
-		const {data} = await axios.get(`${API_URL}logout`)
-		console.log(data)
-		dispatch({type: LOGOUT})
+		try{
+			await localStorage.removeItem('profile')
+			console.log("pase la wea")
+			const {data} = await axios.get(`${API_URL}auth/logout`, 
+			{withCredentials: true})
+			console.log(data)
+			dispatch({type: LOGOUT})
+		}catch (e){
+			console.log(e.message)
+		}
 	}
 }
 

@@ -1,11 +1,9 @@
-import {useEffect,useState} from 'react'
-import { useSelector } from 'react-redux'
+import {useState} from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import AppPrivate from './components/App/AppPrivate';
-import AppPublic from './components/App/AppPublic';
+import AppPrivate from './Components/App/AppPrivate';
+import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
-import useStickyState from './utils/useStickyState';
 
 const AppGlobal = () => {
 
@@ -15,11 +13,17 @@ const AppGlobal = () => {
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Switch> 
+				{/* <Route 
+					path="/passwordreset" 
+					component = {ResetPassword}
+				/> */}
+				
+				
 					<Route 
 						path="/private"
-						component={ (props) => (
+						component={ () => (
 							( (currentUser && currentUser.isAdmin) )
-							? ( <AppPrivate { ...props } /> )
+							? ( <AppPrivate /> )
 							: ( <Redirect to="/login" /> )
 						)}
 					/>
@@ -32,4 +36,3 @@ const AppGlobal = () => {
 }
 
 export default AppGlobal;
-//<Redirect to="/login" /> ( <AppPrivate { ...props } /> )

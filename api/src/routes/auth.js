@@ -35,10 +35,11 @@ router.get(
     }
 );
 
-router.get('/logout', isLogedIn , (req, res, next) => {
+router.get('/logout', (req, res, next) => {
+    console.log("logout")
     req.logOut();
-    req.session.destroy();
-    res.json("Sesión cerrada exitosamente.")
+    req.session = null;
+    res.json("logged out");
 })
 
 router.get("/user", isLogedIn, async(req, res) => {
