@@ -29,7 +29,6 @@ server.get('/', (req, res, next) => {
                   },
         }
 
-
 mercadopago.preferences.create(preference)
 
     .then(function(response){
@@ -78,7 +77,6 @@ server.get("/pagos", (req, res)=>{
   //proceso los datos del pago 
   //redirijo de nuevo a react con mensaje de exito, falla o pendiente
 })
-
 
 //Busco información de una orden de pago
 server.get("/pagos/:id", (req, res)=>{
