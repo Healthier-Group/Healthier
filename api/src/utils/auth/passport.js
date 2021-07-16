@@ -10,10 +10,7 @@ passport.use(
       passwordField: 'password'
     },
     async (email, password, done) => {
-      console.log("new local strategy callback")
       user = await User.findOne({where:{ email: email }})
-      console.log("user")
-      console.log(user)
       if (!user) return done(null, false);
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) throw err;
@@ -27,17 +24,14 @@ passport.use(
 );
 
 passport.serializeUser((user, cb) => {
-  console.log("serializeUser", user)
   cb(null, user.id);
 });
 
 passport.deserializeUser(async (id, cb) => {
-  console.log("deserializeUser", id)
   try{
     const user = await User.findOne({ where: { id } })
     if (user) cb(null, user);
   }catch(e){
-    console.log("Error deserializing", err.message);
     cb(err, null);
   }
 });

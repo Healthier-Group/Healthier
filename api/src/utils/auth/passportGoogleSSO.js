@@ -21,14 +21,10 @@ passport.use(
         password: profile.id,
         googleId: profile.id,
       };
-
-      console.log("DEFAULT USERNAME",defaultUser.username)
-
       const user = await User.findOrCreate({
         where: { googleId: profile.id },
         defaults: defaultUser,
       }).catch((err) => {
-        console.log("Error signing up", err);
         cb(err, null);
       });
 

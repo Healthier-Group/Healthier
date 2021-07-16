@@ -8,14 +8,12 @@ router.use(express.json());
 
 router.post("/login", (req, res, next) => {
     passport.authenticate("local",{session:true}, (err, user, info) => {
-        console.log("autenticate local")
         if (err) throw err;
         if (!user) res.send("No User Exists");
         else {
             req.logIn(user, (err) => {
                 if (err) throw err;
                 res.send("Successfully Authenticated");
-                console.log(req.user);
             });
         }
     })(req, res, next);
@@ -33,7 +31,6 @@ router.get( "/google/redirect", passport.authenticate("google",
 );
 
 router.get('/logout', (req, res, next) => {
-    console.log("logout")
     req.logOut();
     req.session = null;
     res.json("logged out");
