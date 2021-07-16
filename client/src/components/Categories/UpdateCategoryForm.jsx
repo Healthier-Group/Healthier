@@ -156,7 +156,13 @@ export function CategoryUpdate() {
                   />
                 </Grid>
               </Grid>
-            
+              </Grid>
+              <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Grid item>
                 <Button
                   style={{ fontWeight: 1000, marginTop: 50 }}
