@@ -46,8 +46,8 @@ export default function UserLogin() {
         if (newWindow) {
             timer = setInterval(() => {
                 if (newWindow.closed) {
-                    // swal("Yay we're authenticated");
-                    fetchAuthUser();
+                    swal("");
+                    dispatch(fetchAuthUser());
                     if (timer) clearInterval(timer);
                 }
             }, 500);

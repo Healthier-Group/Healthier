@@ -1,6 +1,5 @@
 const { Router } = require("express");
 
-
 const order_products = require('./orderProducts');
 const order = require('./order');
 const users = require("./users");
@@ -24,8 +23,6 @@ router.use("/review", review);
 router.use("/inventory", inventory);
 router.use("/category", category);
 router.use("/auth", auth)
-router.get("/profile", (req, res) => {
-  res.send(req.user); // The req.user stores the entire user that has been authenticated inside of it.
-});
+
 
 module.exports = router;

@@ -25,11 +25,8 @@ router.get("/login/google",
     passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-router.get(
-    "/google/redirect",
-    passport.authenticate("google", {
-        failureMessage: "Cannot login to Google, please try again later!"
-    }),
+router.get( "/google/redirect", passport.authenticate("google", 
+{ failureMessage: "Cannot login to Google, please try again later!"}),
     (req, res) => {
         res.send("Thank you for signing in!");
     }

@@ -41,6 +41,27 @@ export function deleteUser(id) {
 	};
 }
 
+export function fetchAuthUser () {
+	console.log("Fetching")
+	return async (dispatch) => {
+		console.log("pre try")
+		try {
+			const user = await axios.get(`${API_URL}auth/user`, 
+			{withCredentials: true})
+			if (user){
+				console.log('user:' , user)
+				localStorage.setItem('profile', JSON.stringify(user));
+				dispatch({type: LOGIN, payload:user})
+			} else {
+				console.log('user:', user);
+			}
+		}catch (e){
+			console.log("Not properly authenticated");
+			// history.push("/login/error");
+		}
+	}
+};
+
 export function loginUser(login) {
 	console.log('LOGIN ACTION', login)
 	return async function (dispatch) {
@@ -75,18 +96,4 @@ export function logOutUser() {
 	}
 }
 
-export function fetchAuthUser () {
-	return async function (dispatch) {
-		try {
-			const {data} = await axios.get(`${API_URL}auth/user`)
-			if (data){
-				console.log('user:' , data)
-				localStorage.setItem('profile', JSON.stringify(data));
-				dispatch({type: LOGIN, payload:data})
-			}
-		}catch (e){
-			console.log("Not properly authenticated");
-			// history.push("/login/error");
-		}
-	}
-};
+
