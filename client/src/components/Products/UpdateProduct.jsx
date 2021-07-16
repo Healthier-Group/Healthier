@@ -15,7 +15,7 @@ const UpdateProduct = () => {
     ingredients: "",
     size: "",
     brand: "",
-    price: 0,
+    price: 0, 
     image: "",
     sku: "",
   });
