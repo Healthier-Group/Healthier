@@ -12,6 +12,7 @@ import SigninScreen from "../Cart/SigninSceen";
 import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
 import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
 import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
+import OrderScreen from '../Cart/OrderScreen';
 
 function AppPublic() {
 	return (
@@ -36,6 +37,7 @@ function AppPublic() {
 				<Route exact path="/shipping" component={ShippingAddressScreen} />
 				<Route exact path="/payment" component={PaymentMethodScreen} />
 				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
+				<Route path='/order/:id' component={OrderScreen} exact></Route>
             </BrowserRouter>
 	);
 }

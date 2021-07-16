@@ -48,7 +48,7 @@ export default function PlaceOrderScreen(props) {
             Adress:{" "}
             <b>
               {cart.shippingAddress.address},{cart.shippingAddress.city},
-              {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
+              {cart.shippingAddress.postalCode}
             </b>
           </Typography>
           <Typography>
@@ -158,7 +158,7 @@ export default function PlaceOrderScreen(props) {
             Dirección:{" "}
             <b>
               {cart.shippingAddress.address},{cart.shippingAddress.city},
-              {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
+              {cart.shippingAddress.postalCode}
             </b>
           </Typography>
           <Typography>

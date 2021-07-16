@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
-import MessageBox from "./MessageBox";
+
 import {
   Paper,
   Typography,
