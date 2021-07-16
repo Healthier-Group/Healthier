@@ -67,14 +67,14 @@ export function ProductUpdate() {
     if (productDetail !== undefined) {
       setInput({
         id: id,
-        name: productDetail[0].name,
-        description: productDetail[0].description,
-        ingredients: productDetail[0].ingredients,
-        size: productDetail[0].size,
-        brand: productDetail[0].brand,
-        price: productDetail[0].price,
-        image: productDetail[0].image,
-        sku: productDetail[0].sku,
+        name: productDetail[0]?.name,
+        description: productDetail[0]?.description,
+        ingredients: productDetail[0]?.ingredients,
+        size: productDetail[0]?.size,
+        brand: productDetail[0]?.brand,
+        price: productDetail[0]?.price,
+        image: productDetail[0]?.image,
+        sku: productDetail[0]?.sku,
       });
     } else {
       dispatch(getProductById(id));
