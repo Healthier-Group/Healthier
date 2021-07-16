@@ -7,6 +7,9 @@ module.exports = sequelize => {
 			primaryKey: true,
 			autoIncrement: true,
 		},
+		googleId: {
+			type: DataTypes.STRING
+		},
 		isAdmin: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false,

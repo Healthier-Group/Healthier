@@ -67,7 +67,6 @@ const useStyles = makeStyles({
   viewItem: {
     textAlign: "center",
     position: "relative",
-    top: "200px",
   },
 });
 

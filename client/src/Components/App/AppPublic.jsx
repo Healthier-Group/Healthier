@@ -3,13 +3,13 @@ import {BrowserRouter} from 'react-router-dom'
 import {Route} from 'react-router'
 import LandingPage from '../LandingPage/LandingPage'
 import NavBar from '../NavBar/NavBar'
-import CreateUser from '../Users/UserAdd/CreateUser'
-import ProductCard from "../Products/ProductCard"
-import ProductDetail from "../Products/ProductDetail"
-import Recipes from "../Recipes/Recipes"
-import CartScreen from "../Cart/CartScreen"
 import Footer from '../Footer/Footer'
-import SearchBar from '../SearchBar/SearchBar'
+import CreateUser from '../Users/UserAdd/CreateUser';
+import ProductCard from "../Products/ProductCard";
+import ProductDetail from "../Products/ProductDetail";
+import Recipes from "../Recipes/Recipes";
+import CartScreen from "../Cart/CartScreen";
+import UserLogin from "../Users/UserLogin/UserLogin";
 
 function AppPublic() {
 	return (
@@ -19,9 +19,8 @@ function AppPublic() {
 				<Route path="/" component={NavBar} />
 				<Route exact path="/" component={LandingPage} />
 				<Route path="/" component={Footer}/>
-				
-
 				{/* ============ User ==================== */}
+				<Route exact path="/login" component={UserLogin} />
 				<Route exact path="/register" component={CreateUser} />
 
 				{/* ============ Productos ==================== */}

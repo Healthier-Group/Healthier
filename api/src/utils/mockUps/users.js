@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const {	User } = require('../db');
+const {	User } = require('../../db');
 
 const userMockUp = async () => {
     // --- Users ---
@@ -48,7 +48,7 @@ const adminMockUp = async() => {
             name: 'System',
             username: 'Administrador',
             isAdmin: true,
-            email: 'admin@gmail.com',
+            email: 'admin@admin.com',
             password: hashedPasswordB,
             contact: '1127257701',
         });
