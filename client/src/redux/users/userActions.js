@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API_URL, CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, SAVE_TOKEN} from '../../utils/Constants';
+import {API_URL, CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, LOGOUT} from '../../utils/Constants';
 
 export function getAllUsers() {
 	return async function (dispatch) {
@@ -45,11 +45,12 @@ export function loginUser(login) {
 	console.log('LOGIN ACTION', login)
 	return async function (dispatch) {
 		try{
-			const {data} = await axios.post(`${API_URL}auth/login`,
-			{email: login.email, password: login.password});
-			dispatch({type: SAVE_TOKEN, payload: data.token});
+			const {data} = await axios.post(`${API_URL}auth/login`, 
+			{email:login.email, password: login.password},
+			{withCredentials: true})
+			console.log(data)
 			const user = await axios.get(`${API_URL}auth/user`, 
-			{headers: { Authorization: `Bearer ${data.token}` }})
+			{withCredentials: true})
 			localStorage.setItem('profile', JSON.stringify(user.data));
 			dispatch({type: LOGIN, payload:user.data})
 		}catch (e){
@@ -63,6 +64,7 @@ export function logOutUser() {
 	return async function (dispatch) {
 		const {data} = await axios.get(`${API_URL}logout`)
 		console.log(data)
+		dispatch({type: LOGOUT})
 	}
 }
 

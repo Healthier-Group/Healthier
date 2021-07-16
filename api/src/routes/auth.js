@@ -1,40 +1,24 @@
 const router = require("express").Router();
 const express = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs")
 const {User} = require("../db")
-const {SECRET_KEY} = process.env
+const {isLogedIn, isLogedAsAdmin} = require("../middlewares")
 
 router.use(express.json());
 
-router.post("/login", async (req, res) => {
-    console.log('/login')
-    const { email, password } = req.body;
-
-    const userWithEmail = await User.findOne({ where: { email } })
-    .catch(
-    (err) => {
-        console.log("Error: ", err);
-    }
-    );
-
-    if (!userWithEmail)
-        return res
-            .status(400)
-            .json({ message: "Email or password does not match!" });
-    if (! await bcrypt.compare(password,userWithEmail.password))
-        return res
-            .status(400)
-            .json({ message: "Email or password does not match!" });
-
-    const jwtToken = jwt.sign(
-        { id: userWithEmail.id, email: userWithEmail.email },
-        SECRET_KEY
-    );
-    await bcrypt.compare(password,userWithEmail.password) && console.log("autenticado")
-    
-    res.json({ message: "Welcome Back!", token: jwtToken });
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local",{session:true}, (err, user, info) => {
+        console.log("autenticate local")
+        if (err) throw err;
+        if (!user) res.send("No User Exists");
+        else {
+            req.logIn(user, (err) => {
+                if (err) throw err;
+                res.send("Successfully Authenticated");
+                console.log(req.user);
+            });
+        }
+    })(req, res, next);
 });
 
 router.get("/login/google",
@@ -51,13 +35,13 @@ router.get(
     }
 );
 
-router.get('/logout', passport.authenticate("bearer",{session:true}) , (req, res, next) => {
+router.get('/logout', isLogedIn , (req, res, next) => {
     req.logOut();
     req.session.destroy();
     res.json("Sesión cerrada exitosamente.")
 })
 
-router.get("/user", passport.authenticate("bearer",{session:true}), async(req, res) => {
+router.get("/user", isLogedIn, async(req, res) => {
     try {
 		const user = await User.findOne({
 		where: {id:req.user.id}

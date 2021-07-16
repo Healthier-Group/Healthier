@@ -1,46 +1,38 @@
 const passport = require("passport");
-const passportJwt = require("passport-jwt");
-const jwt = require('jsonwebtoken');
-const ExtractJwt = passportJwt.ExtractJwt;
-const StrategyJwt = passportJwt.Strategy;
-const BearerStrategy = require('passport-http-bearer').Strategy;
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require('bcryptjs');
 const {User} = require("../../db");
-const { SECRET_KEY } = process.env
 
 passport.use(
-  new StrategyJwt(
+  new LocalStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: SECRET_KEY,
+      usernameField: 'email', 
+      passwordField: 'password'
     },
-    function (jwtPayload, done) {
-      return User.findOne({ where: { id: jwtPayload.id } })
-        .then((user) => {
+    async (email, password, done) => {
+      console.log("new local strategy callback")
+      user = await User.findOne({where:{ email: email }})
+      console.log("user")
+      console.log(user)
+      if (!user) return done(null, false);
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (err) throw err;
+        if (result === true) {
           return done(null, user);
-        })
-        .catch((err) => {
-          return done(err);
-        });
-    }
-  )
-)
-
-passport.use(
-  new BearerStrategy((token, done) => {
-    jwt.verify(token, SECRET_KEY, function (err, usuario) {
-      if (err) return done(err);
-      return done(null, usuario ? usuario : false);
-    });
-  })
+        } else {
+          return done(null, false);
+        }
+      });
+    })
 );
 
 passport.serializeUser((user, cb) => {
+  console.log("serializeUser", user)
   cb(null, user.id);
 });
 
 passport.deserializeUser(async (id, cb) => {
-  console.log("deserialize USER", id)
+  console.log("deserializeUser", id)
   try{
     const user = await User.findOne({ where: { id } })
     if (user) cb(null, user);

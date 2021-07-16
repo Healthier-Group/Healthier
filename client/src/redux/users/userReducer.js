@@ -1,10 +1,9 @@
-import { GET_ALL_USERS, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER, LOGIN, SAVE_TOKEN} from '../../utils/Constants';
+import { GET_ALL_USERS, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER, LOGIN, LOGOUT} from '../../utils/Constants';
 
 const initialState = {
 	users: [],
 	userDetail: undefined,
-	currentUser: undefined,
-	userToken: undefined,
+	currentUser: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -34,17 +33,17 @@ const userReducer = (state = initialState, action) => {
 				...state,
 				userDetail: action.payload,
 			};
-		case SAVE_TOKEN:
-			console.log(SAVE_TOKEN)
-			return {
-				...state,
-				userToken: action.payload,
-			}
 		case LOGIN:
 			console.log('LOGIN REDUCER', action.payload)
 			return {
 				...state,
 				currentUser: action.payload,
+			}
+		case LOGOUT:
+			console.log('LOGOUT REDUCER')
+			return {
+				...state,
+				currentUser: null
 			}
 		default:
 			return state;

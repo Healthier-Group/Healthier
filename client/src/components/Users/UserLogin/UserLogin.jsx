@@ -22,7 +22,6 @@ export default function UserLogin() {
     })
 
     useEffect(() => {
-        console.log('useEffect Login');
         if(currentUser) {currentUser?.isAdmin ? history.push('/private/panel') : history.push('/')}
     },[currentUser])
 
@@ -47,7 +46,7 @@ export default function UserLogin() {
         if (newWindow) {
             timer = setInterval(() => {
                 if (newWindow.closed) {
-                    swal("Yay we're authenticated");
+                    // swal("Yay we're authenticated");
                     fetchAuthUser();
                     if (timer) clearInterval(timer);
                 }
