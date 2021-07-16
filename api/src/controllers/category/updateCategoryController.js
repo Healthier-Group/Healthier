@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
       }
     );
     const updatedCategory = await Category.findOne({ where: { id } });
-    console.log(updatedCategory);
     return res.json(updatedCategory).status(200);
   } catch (err) {
     res.json(err);

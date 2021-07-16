@@ -1,5 +1,4 @@
-import {useEffect,useState} from 'react'
-import { useSelector } from 'react-redux'
+import {useState} from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import AppPrivate from './Components/App/AppPrivate';
@@ -7,14 +6,19 @@ import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-	const user = useSelector(state => state.userReducer.currentUser);
-	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
+	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Switch> 
+				{/* <Route 
+					path="/passwordreset" 
+					component = {ResetPassword}
+				/> */}
+				
+				
 					<Route 
 						path="/private"
 						component={ () => (
@@ -31,4 +35,4 @@ const AppGlobal = () => {
 	)
 }
 
-export default AppGlobal
+export default AppGlobal;

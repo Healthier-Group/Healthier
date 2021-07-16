@@ -1,18 +1,25 @@
-function notFound(req, res, next) {
-  res.status(404);
-  const error = new Error(`🔍 - Not Found - ${req.originalUrl}`);
-  next(error);
+const isLogedIn = (req,res,next) => {
+    if(req.isAuthenticated()){
+        //req.isAuthenticated() will return true if user is logged in
+        next();
+    } else{
+        res.redirect("/login");
+    }
 }
 
-
-function errorHandler(err, req, res, next) {
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
-  res.status(status).send(message);
+const isLogedAsAdmin = (req,res,next) => {
+    if(req.isAuthenticated()){
+        if(req.user.isAdmin){
+            next();
+        }else{
+            res.status(400)
+        }
+    }else{
+        res.redirect("/login");
+    }
 }
 
 module.exports = {
-  notFound,
-  errorHandler
-};
+    isLogedIn,
+    isLogedAsAdmin
+}

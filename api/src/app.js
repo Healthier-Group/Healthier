@@ -7,12 +7,11 @@ const passport = require("passport");
 const cookieSession = require("cookie-session");
 
 const routes = require('./routes/index.js');
-const middlewares = require("./middlewares");
 const { SECRET_KEY } = process.env;
 const {CLIENT_DOMAIN} = require('./utils/constants')
 require('./db.js');
 require("./utils/auth/passport");
-// require("./utils/auth/passportGoogleSSO");
+require("./utils/auth/passportGoogleSSO");
 
 const server = express();
 server.name = 'HEALTHIER-API';
@@ -45,9 +44,6 @@ server.use((req, res, next) => {
 });
 
 server.use('/', routes);
-
-server.use(middlewares.notFound);
-server.use(middlewares.errorHandler);
 
 module.exports = {
     server

@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
       }
     );
     const updatedProduct = await Product.findOne({ where: { id } });
-    console.log(updatedProduct);
     return res.json(updatedProduct).status(200);
   } catch (err) {
     next(err);
