@@ -8,6 +8,8 @@ const products = require("./products");
 const review = require("./reviews");
 const inventory = require("./productInventory");
 const category = require("./category");
+const mercadopago = require('./mercadopago');
+
 
 const router = Router();
 
@@ -22,5 +24,7 @@ router.use("/products", products);
 router.use("/review", review);
 router.use("/inventory", inventory);
 router.use("/category", category);
+router.use('/mercadopago', mercadopago);
+
 
 module.exports = router;
