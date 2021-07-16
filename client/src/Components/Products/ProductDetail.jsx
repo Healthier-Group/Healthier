@@ -86,18 +86,18 @@ const useStyles = makeStyles({
   },
 })
 
-const ProductDetail = ({match, history}) => {
+const ProductDetail = (props) => {
   const classes = useStyles();
-  const {id} = match.params;
+  const id = props.match.params.id;
   const dispatch = useDispatch();
-
+   let qty=1
   const addToCartHandler = () => {
-    history.push(`/cart/${id}?qty`);
+    props.history.push(`/cart/${id}?qty=${qty}`);
   };
 
   useEffect(() => {
     dispatch(getProductById(id));
-  }, []);
+  }, [dispatch,id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
 
