@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
-import Footer from "../Footer/Footer";
 import MercadoPago from "../MercadoPago/MercadoPago";
 
 const style = makeStyles((theme) => ({

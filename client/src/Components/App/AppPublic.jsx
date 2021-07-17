@@ -17,7 +17,7 @@ import OrderScreen from '../Cart/OrderScreen';
 import ResetPassword from '../Users/UserResetPassword/ResetPassword'
 
 function AppPublic() {
-
+// eslint-disable-next-line
 	const [currentUser, setCurrentUser] = React.useState(JSON.parse(localStorage.getItem('profile')));
 
 	return (

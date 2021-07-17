@@ -23,7 +23,7 @@ export default function Recipes(){
             <div className = {classes.view}>
                 Acá deberían de ir las recetas!!!
             </div>
-            <img src = {Hierbas} width = '400px' height = '300px' className = {classes.imageView}/>
+            <img src = {Hierbas} alt="Not found" width = '400px' height = '300px' className = {classes.imageView}/>
             <Footer />
         </div>
 
