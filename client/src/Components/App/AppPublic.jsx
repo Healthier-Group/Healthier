@@ -10,6 +10,10 @@ import CartScreen from "../Cart/CartScreen";
 import CreateUser from '../Users/UserAdd/CreateUser';
 import UserLogin from "../Users/UserLogin/UserLogin";
 import Footer from '../Footer/Footer'
+import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
+import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
+import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
+import OrderScreen from '../Cart/OrderScreen';
 
 function AppPublic() {
 
@@ -64,7 +68,10 @@ function AppPublic() {
 
 				{/* ============ Cart ==================== */}
 				<Route exact path='/cart/:id?' component={CartScreen}></Route>
-
+				<Route exact path="/shipping" component={ShippingAddressScreen} />
+				<Route exact path="/payment" component={PaymentMethodScreen} />
+				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
+				<Route path='/order/:id' component={OrderScreen} exact></Route>
             </BrowserRouter>
 	);
 }
