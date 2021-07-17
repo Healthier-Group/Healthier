@@ -14,6 +14,7 @@ import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
 import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
 import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 import OrderScreen from '../Cart/OrderScreen';
+import WishListScreen from '../WishList/WishListScreen';
 
 function AppPublic() {
 
@@ -72,6 +73,7 @@ function AppPublic() {
 				<Route exact path="/payment" component={PaymentMethodScreen} />
 				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
 				<Route path='/order/:id' component={OrderScreen} exact></Route>
+				<Route path='/wishlist' component={WishListScreen} exact></Route>
             </BrowserRouter>
 	);
 }
