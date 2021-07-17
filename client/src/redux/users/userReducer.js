@@ -34,13 +34,11 @@ const userReducer = (state = initialState, action) => {
 				userDetail: action.payload,
 			};
 		case LOGIN:
-			console.log('LOGIN REDUCER', action.payload)
 			return {
 				...state,
 				currentUser: action.payload,
 			}
 		case LOGOUT:
-			console.log('LOGOUT REDUCER')
 			return {
 				...state,
 				currentUser: null

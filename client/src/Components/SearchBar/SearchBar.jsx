@@ -42,11 +42,6 @@ const SearchBar = () => {
     dispatch(getProductByName(input));
   }
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:3001/products").then((data) => setData(data.data));
-  //   console.log(data)
-  // }, []);
-
   const options = useSelector(state => state.foundProducts)
   
   return (
