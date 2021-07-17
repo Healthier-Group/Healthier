@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 
 export default function CartScreen(props) {
-  console.log(props);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -24,7 +23,6 @@ export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
 
   const { cartItems } = cart;
-  console.log("cartItems", cartItems);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));

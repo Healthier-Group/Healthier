@@ -12,13 +12,7 @@ const AppGlobal = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<Switch> 
-				{/* <Route 
-					path="/passwordreset" 
-					component = {ResetPassword}
-				/> */}
-				
-				
+				<Switch> 			
 					<Route 
 						path="/private"
 						component={ () => (
