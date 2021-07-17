@@ -11,7 +11,7 @@ import {
   Hidden,
   Drawer,
   Divider,
-  Grid,
+
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -74,7 +74,7 @@ export default function NavBar() {
         <AppBar position="fixed">
           <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-              <img src={Logo} className={classes.image} />
+              <img src={Logo} alt="Not found"className={classes.image} />
 
               <Link
                 to="/"
@@ -139,7 +139,7 @@ export default function NavBar() {
           <Toolbar style={{ display: "flex", justifyContent: "space-evenly" }}>
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               <Hidden only={["xs", "sm"]}>
-                <img src={Logo} className={classes.image} />
+                <img src={Logo} alt="Not found" className={classes.image} />
               </Hidden>
 
               <Link

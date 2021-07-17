@@ -6,7 +6,7 @@ import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-
+// eslint-disable-next-line
 	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	
 	return (

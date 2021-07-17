@@ -16,7 +16,7 @@ import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 import OrderScreen from '../Cart/OrderScreen';
 
 function AppPublic() {
-
+// eslint-disable-next-line
 	const [currentUser, setCurrentUser] = React.useState(JSON.parse(localStorage.getItem('profile')));
 
 	return (

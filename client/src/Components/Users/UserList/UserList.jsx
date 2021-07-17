@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector} from 'react-redux';
-import { makeStyles, Grid, Button, FormControl, InputLabel, Select, MenuItem, Container } from '@material-ui/core'
+import { makeStyles,  Button,  Container } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { DataGrid } from '@material-ui/data-grid';
 import theme from '../../themeStyle';
@@ -30,7 +30,9 @@ const UserList = () => {
 
 	useEffect(() => {
 		dispatch(getAllUsers())
-	},[])
+	},
+	// eslint-disable-next-line
+	[])
 
     const columns = [
         {field: 'id', headerName: '#', width: 90 },
@@ -79,7 +81,7 @@ const UserList = () => {
 	];
 
     return(
-        <>  
+        <div className={classes.root}>  
             <ThemeProvider theme={theme}>
 
 					<Container style={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
@@ -100,7 +102,7 @@ const UserList = () => {
 				</Container>
 
 			</ThemeProvider>
-        </>
+        </div>
     )
 
 }
