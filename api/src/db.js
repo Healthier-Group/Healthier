@@ -4,7 +4,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-const sequelize =
+let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
         database: DB_NAME,
