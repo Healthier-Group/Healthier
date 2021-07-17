@@ -63,7 +63,7 @@ export function loginUser(login) {
 	return async function (dispatch) {
 		try{
 			await axios.post(`${API_URL}auth/login`, 
-			{email:login.email, password: login.password},
+			{email:login.email.toLowerCase(), password: login.password},
 			{withCredentials: true})
 			const user = await axios.get(`${API_URL}auth/user`, 
 			{withCredentials: true})
@@ -82,6 +82,26 @@ export function logOutUser() {
 			await axios.get(`${API_URL}auth/logout`, 
 			{withCredentials: true})
 			dispatch({type: LOGOUT})
+		}catch (e){
+			console.log(e.message)
+		}
+	}
+}
+
+export function sendEmail(email,type){
+	return async function (dispatch) {
+		try{
+			let {data} = await axios.post(`${API_URL}auth/email`,{email,type})
+		}catch (e){
+			console.log(e.message)
+		}
+	}
+}
+
+export function	resetPass(token,newPassword){
+	return async function (dispatch) {
+		try{
+			let {data} = await axios.post(`${API_URL}auth/passwordreset`,{token,newPassword})
 		}catch (e){
 			console.log(e.message)
 		}

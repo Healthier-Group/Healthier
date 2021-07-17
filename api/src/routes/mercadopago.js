@@ -35,7 +35,6 @@ mercadopago.preferences.create(preference)
     console.info('respondio')
     //Este valor reemplazará el string"<%= global.id %>" en tu HTML
     global.id = response.body.init_point
-    console.log(response.body)
     res.json({ link: global.id });
     })
     .catch(function(error){
@@ -49,7 +48,6 @@ server.get("/pagos", (req, res)=>{
     const payment_status= req.query.status
     const external_reference = req.query.external_reference
     const merchant_order_id= req.query.merchant_order_id
-    console.log("EXTERNAL REFERENCE ", external_reference)
 
   //Aquí edito el status de mi orden
   OrderMp.findByPk(external_reference)

@@ -10,7 +10,7 @@ const userMockUp = async () => {
         var userN = await User.create({
             name: 'Nicolas Sanchez',
             username: 'Drivello',
-            email: 'Nico@gmail.com',
+            email: 'nico@gmail.com',
             password: hashedPasswordA,
             contact: '1127257701',
             isDeleted: false,
@@ -19,7 +19,7 @@ const userMockUp = async () => {
         var userS = await User.create({
             name: 'Santiago',
             username: 'CazOfficial',
-            email: 'Santi@gmail.com',
+            email: 'santi@gmail.com',
             password: hashedPasswordA,
             contact: '8869038',
             isDeleted: false,
@@ -28,7 +28,7 @@ const userMockUp = async () => {
         var userJ = await User.create({
             name: 'Marcelo',
             username: 'AgachateyConocelo',
-            email: 'Marce@hotmail.com',
+            email: 'marce@hotmail.com',
             password: hashedPasswordA,
             contact: '696969',
             isDeleted: false,

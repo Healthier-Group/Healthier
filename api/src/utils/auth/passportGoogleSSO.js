@@ -17,12 +17,12 @@ passport.use(
       const defaultUser = {
         name: `${profile.name.givenName} ${profile.name.familyName}`,
         username: profile.emails[0].value.split("@")[0].replace(/([^A-Za-z0-9]+)/gi, ''),
-        email: profile.emails[0].value,
+        email: profile.emails[0].value.toLowerCase(),
         password: profile.id,
         googleId: profile.id,
       };
       const user = await User.findOrCreate({
-        where: { googleId: profile.id },
+        where: { email: defaultUser.email },
         defaults: defaultUser,
       }).catch((err) => {
         cb(err, null);
