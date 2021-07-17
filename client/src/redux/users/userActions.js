@@ -91,7 +91,7 @@ export function logOutUser() {
 export function sendEmail(email,type){
 	return async function (dispatch) {
 		try{
-			let {data} = await axios.post(`${API_URL}auth/email`,{email,type})
+			await axios.post(`${API_URL}auth/email`,{email,type})
 		}catch (e){
 			console.log(e.message)
 		}
@@ -101,7 +101,7 @@ export function sendEmail(email,type){
 export function	resetPass(token,newPassword){
 	return async function (dispatch) {
 		try{
-			let {data} = await axios.post(`${API_URL}auth/passwordreset`,{token,newPassword})
+			await axios.post(`${API_URL}auth/passwordreset`,{token,newPassword})
 		}catch (e){
 			console.log(e.message)
 		}
