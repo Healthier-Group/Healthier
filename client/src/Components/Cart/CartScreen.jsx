@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 export default function CartScreen(props) {
-  console.log(props);
+ 
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -24,7 +24,7 @@ export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
 
   const { cartItems } = cart;
-  console.log("cartItems", cartItems);
+  
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -37,7 +37,8 @@ export default function CartScreen(props) {
   };
 
   const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
+    //cambiar la ruta de signin 
+    props.history.push("/login?redirect=shipping");
   };
 
   return (
@@ -146,7 +147,7 @@ export default function CartScreen(props) {
                     variant="contained"
                     color="primary"
                     type="button"
-                    href="/placeorder"
+                    href="/shipping"
                     onClick={checkoutHandler}
                     className="primary block"
                     disable={cartItems.length === 0}
@@ -277,7 +278,7 @@ export default function CartScreen(props) {
                     variant="contained"
                     color="primary"
                     type="button"
-                    href="/placeorder"
+                    href="/shipping"
                     onClick={checkoutHandler}
                     className="primary block"
                     disable={cartItems.length === 0}

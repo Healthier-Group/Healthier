@@ -14,6 +14,14 @@ const initialState = {
       : {},
     paymentMethod: "Paypal",
   },
+  wishList:{
+    wishListItems:localStorage.getItem("wishListItems")
+  ? JSON.parse(localStorage.getItem("wishListItems"))
+  : [],
+  }
+  
+
+  
 };
 
 export const store = createStore(

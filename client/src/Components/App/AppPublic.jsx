@@ -73,7 +73,7 @@ function AppPublic() {
 				<Route exact path="/payment" component={PaymentMethodScreen} />
 				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
 				<Route path='/order/:id' component={OrderScreen} exact></Route>
-				<Route path='/wishlist' component={WishListScreen} exact></Route>
+				<Route path='/wishlist/:id?' component={WishListScreen} exact></Route>
             </BrowserRouter>
 	);
 }

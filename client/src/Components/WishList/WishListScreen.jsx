@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
@@ -12,33 +12,38 @@ import {
   Button,
   Hidden,
 } from "@material-ui/core";
+import { addToWishList, removeFromWishList } from "../../redux/wishlist/actionsWishList";
 
 export default function WishListScreen(props) {
-  console.log(props);
+  console.log("wl", props);
+  
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
-  const qty = props.location.search
-    ? Number(props.location.search.split("=")[1])
-    : 1;
-  const cart = useSelector((state) => state.cart);
-
-  const { cartItems } = cart;
-  console.log("cartItems", cartItems);
+  let qty=1
+  const wishList = useSelector((state) => state.wishList);
+  const{wishListItems}=wishList
+  //estado local de la wishList
+    
+  console.log("wishList", wishList);
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToWishList(productId));
     }
     //despacho a cartAction
-  }, [dispatch, productId, qty]);
+  }, [dispatch, productId]);
 
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+  const removeFromWishListHandler = (id) => {
+    dispatch(removeFromWishList(id));
   };
 
-  const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
+  
+  const addToCartHandler = (id) => {
+    props.history.push(`/cart/${id}?qty=${qty}`);
+    dispatch(removeFromWishList(id));
   };
+  
+  
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -55,7 +60,7 @@ export default function WishListScreen(props) {
           <Typography variant='h6'>Tu Lista de Deseos</Typography>
 
           <Divider />
-          {cartItems.length === 0 ? (
+          {wishListItems.length === 0 ? (
             <Typography
               variant='h5'
               style={{
@@ -71,7 +76,7 @@ export default function WishListScreen(props) {
             </Typography>
           ) : (
             <List>
-              {cartItems.map((item) => (
+              {wishListItems.map((item) => (
                 <List item key={item.product}>
                   <Grid container>
                     <Grid item xs={3} style={{ margin: "auto" }}>
@@ -92,27 +97,21 @@ export default function WishListScreen(props) {
                       </Link>
                     </Grid>
                     <Grid item xs={2} style={{ margin: "auto" }}>
-                      <select
-                        value={item.qty}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(item.product, Number(e.target.value))
-                          )
-                        }
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        type='button'
+                        onClick={() => addToCartHandler(item.product)}
                       >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                        Enviar al carrito
+                      </Button>
                     </Grid>
                     <Grid xs={2} style={{ margin: "auto" }}>
                       <Button
                         variant='contained'
                         color='primary'
                         type='button'
-                        onClick={() => removeFromCartHandler(item.product)}
+                        onClick={() => removeFromWishListHandler(item.product)}
                       >
                         Eliminar
                       </Button>
@@ -137,10 +136,18 @@ export default function WishListScreen(props) {
                     variant='contained'
                     color='primary'
                     type='button'
-                    href='/placeorder'
-                    onClick={checkoutHandler}
+                    href='/'
                     className='primary block'
-                    disable={cartItems.length === 0}
+                    >
+                    Ver más productos
+                  </Button>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    type='button'
+                    href='/cart'
+                    className='primary block'
+                    disable={wishListItems.length === 0}
                   >
                     Ir al carrito
                   </Button>
@@ -163,7 +170,7 @@ export default function WishListScreen(props) {
           <Typography variant='h6'>Tu Lista de Deseos</Typography>
 
           <Divider style={{ margin: "20px 0" }} />
-          {cartItems.length === 0 ? (
+          {wishListItems.length === 0 ? (
             <Typography
               variant='h5'
               style={{
@@ -179,7 +186,7 @@ export default function WishListScreen(props) {
             </Typography>
           ) : (
             <List>
-              {cartItems.map((item) => (
+              {wishListItems.map((item) => (
                 <List item key={item.product}>
                   <Grid
                     container
@@ -214,27 +221,14 @@ export default function WishListScreen(props) {
                         {item.name}
                       </Link>
                       <br />
-                      <select
-                        value={item.qty}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(item.product, Number(e.target.value))
-                          )
-                        }
-                      >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                    
                       <br />
                       <Button
                         variant='contained'
                         style={{ width: "220px" }}
                         color='primary'
                         type='button'
-                        onClick={() => removeFromCartHandler(item.product)}
+                        onClick={() => addToCartHandler(item.product)}
                       >
                         Enviar al carrito
                       </Button>
@@ -243,7 +237,7 @@ export default function WishListScreen(props) {
                         style={{ width: "220px" }}
                         color='primary'
                         type='button'
-                        onClick={() => removeFromCartHandler(item.product)}
+                        onClick={() => removeFromWishListHandler(item.product)}
                       >
                         Eliminar
                       </Button>
@@ -268,11 +262,18 @@ export default function WishListScreen(props) {
                     variant='contained'
                     color='primary'
                     type='button'
-                    href='/placeorder'
-                    onClick={checkoutHandler}
+                    href='/'
                     className='primary block'
-                    disable={cartItems.length === 0}
-                  >
+                    >
+                    Ver más productos
+                  </Button>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    type='button'
+                    href='/cart'
+                    className='primary block'
+                    >
                     Ir al carrito
                   </Button>
                 </List>
