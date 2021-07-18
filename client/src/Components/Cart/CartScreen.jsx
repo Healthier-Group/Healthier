@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
 
 import {
@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 export default function CartScreen(props) {
- 
+  const history = useHistory();
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -24,7 +24,8 @@ export default function CartScreen(props) {
   const cart = useSelector((state) => state.cart);
 
   const { cartItems } = cart;
-  
+  const { currentUser } = useSelector((state) => state.userReducer);
+  console.log("estoy en carrito", currentUser);
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -37,8 +38,13 @@ export default function CartScreen(props) {
   };
 
   const checkoutHandler = () => {
-    //cambiar la ruta de signin 
-    props.history.push("/login?redirect=shipping");
+    //cambiar la ruta de signin
+    if (currentUser) {
+      history.push("/shipping");
+    } else {
+      history.push("/login");
+    }
+    // props.history.push("/login?redirect=shipping");
   };
 
   return (
@@ -53,14 +59,12 @@ export default function CartScreen(props) {
             padding: "50px",
           }}
         >
-          <Typography variant="h6">
-            Tu carrito
-          </Typography>
+          <Typography variant='h6'>Tu carrito</Typography>
 
           <Divider />
           {cartItems.length === 0 ? (
             <Typography
-              variant="h5"
+              variant='h5'
               style={{
                 marginTop: "20px",
                 marginBottom: "20px",
@@ -68,7 +72,7 @@ export default function CartScreen(props) {
               }}
             >
               Carrito vacío.{" "}
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+              <Link to='/' style={{ color: "black", textDecoration: "none" }}>
                 Presiona aquí para seguir comprando
               </Link>
             </Typography>
@@ -81,8 +85,8 @@ export default function CartScreen(props) {
                       <img
                         src={item.image}
                         alt={item.name}
-                        width="150px"
-                        height="100px"
+                        width='150px'
+                        height='100px'
                       />
                     </Grid>
 
@@ -112,9 +116,9 @@ export default function CartScreen(props) {
                     </Grid>
                     <Grid xs={2} style={{ margin: "auto" }}>
                       <Button
-                        variant="contained"
-                        color="primary"
-                        type="button"
+                        variant='contained'
+                        color='primary'
+                        type='button'
                         onClick={() => removeFromCartHandler(item.product)}
                       >
                         Eliminar
@@ -144,12 +148,12 @@ export default function CartScreen(props) {
                   }}
                 >
                   <Button
-                    variant="contained"
-                    color="primary"
-                    type="button"
-                    href="/shipping"
+                    variant='contained'
+                    color='primary'
+                    type='button'
+                    //href="/shipping"
                     onClick={checkoutHandler}
-                    className="primary block"
+                    className='primary block'
                     disable={cartItems.length === 0}
                   >
                     Pasar al pago
@@ -170,14 +174,12 @@ export default function CartScreen(props) {
             padding: "40px",
           }}
         >
-          <Typography variant="h6">
-            Tu carrito
-          </Typography>
+          <Typography variant='h6'>Tu carrito</Typography>
 
           <Divider style={{ margin: "20px 0" }} />
           {cartItems.length === 0 ? (
             <Typography
-              variant="h5"
+              variant='h5'
               style={{
                 marginTop: "20px",
                 marginBottom: "20px",
@@ -185,7 +187,7 @@ export default function CartScreen(props) {
               }}
             >
               Carrito vacío.{" "}
-              <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+              <Link to='/' style={{ color: "black", textDecoration: "none" }}>
                 Presiona aquí para seguir comprando
               </Link>
             </Typography>
@@ -210,8 +212,8 @@ export default function CartScreen(props) {
                       <img
                         src={item.image}
                         alt={item.name}
-                        width="150px"
-                        height="90px"
+                        width='150px'
+                        height='90px'
                         style={{ margin: "auto" }}
                       />
                       <br />
@@ -242,10 +244,10 @@ export default function CartScreen(props) {
                       </select>
                       <br />
                       <Button
-                        variant="contained"
+                        variant='contained'
                         style={{ width: "220px" }}
-                        color="primary"
-                        type="button"
+                        color='primary'
+                        type='button'
                         onClick={() => removeFromCartHandler(item.product)}
                       >
                         Eliminar
@@ -261,7 +263,7 @@ export default function CartScreen(props) {
             <Grid item xs={12}>
               <List>
                 <List style={{ position: "relative", left: "10vw" }}>
-                  <Typography variant="p">
+                  <Typography variant='p'>
                     Total ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
                     {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                   </Typography>
@@ -275,12 +277,12 @@ export default function CartScreen(props) {
                   }}
                 >
                   <Button
-                    variant="contained"
-                    color="primary"
-                    type="button"
-                    href="/shipping"
+                    variant='contained'
+                    color='primary'
+                    type='button'
+                    //href="/shipping"
                     onClick={checkoutHandler}
-                    className="primary block"
+                    className='primary block'
                     disable={cartItems.length === 0}
                   >
                     Pasar al pago

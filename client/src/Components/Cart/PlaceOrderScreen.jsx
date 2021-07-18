@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 export default function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
+  console.log("esto es cart", cart);
   if (!cart.paymentMethod) {
     props.history.push("/payment");
   }
@@ -20,10 +21,10 @@ export default function PlaceOrderScreen(props) {
   cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
-
+  // const {} = cart
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice - cart.taxPrice;
 
   const placeOrderhandler = () => {
     //Todo
@@ -35,27 +36,27 @@ export default function PlaceOrderScreen(props) {
           style={{
             margin: "auto",
             width: "80vw",
-            marginTop: "10vh",
+            marginTop: "10vh", 
             padding: "50px",
           }}
         >
-          <Typography variant="h3">Shipping details</Typography>
+          <Typography variant='h3'>Detalles de Envío</Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Typography>
-            Name: <b> {cart.shippingAddress.fullName}</b>
+            Nombre: <b> {cart.shippingAddress.fullName}</b>
           </Typography>
           <Typography>
-            Adress:{" "}
+            Dirección:{" "}
             <b>
               {cart.shippingAddress.address},{cart.shippingAddress.city},
               {cart.shippingAddress.postalCode}
             </b>
           </Typography>
           <Typography>
-            Payment method: <b>{cart.paymentMethod}</b>
+            Método de pago: <b>{cart.paymentMethod}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography variant="h4">Selected Items</Typography>
+          <Typography variant='h4'>Tus Productos</Typography>
           <List>
             {cart.cartItems.map((item) => (
               <List item key={item.product}>
@@ -72,9 +73,9 @@ export default function PlaceOrderScreen(props) {
                       justifyContent: "center",
                     }}
                   >
-                    <img src={item.image} alt={item.name} width="100px" />
+                    <img src={item.image} alt={item.name} width='100px' />
                   </Grid>
-                  <Divider orientation="vertical" flexItem />
+                  <Divider orientation='vertical' flexItem />
                   <Grid
                     item
                     xs={7}
@@ -84,10 +85,10 @@ export default function PlaceOrderScreen(props) {
                       to={`/product/${item.product}`}
                       style={{ color: "inherit", textDecoration: "none" }}
                     >
-                      <Typography variant="p">{item.name}</Typography>
+                      <Typography variant='p'>{item.name}</Typography>
                     </Link>
                   </Grid>
-                  <Divider orientation="vertical" flexItem />
+                  <Divider orientation='vertical' flexItem />
                   <Grid
                     item
                     xs={2}
@@ -100,41 +101,41 @@ export default function PlaceOrderScreen(props) {
             ))}
           </List>
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography variant="h5" style={{ marginBottom: "20px" }}>
+          <Typography variant='h5' style={{ marginBottom: "20px" }}>
             Detalle de orden
           </Typography>
 
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <Typography>
-              Shipping <b>$ {cart.shippingPrice.toFixed(2)}</b>
+              Envío <b>$ {cart.shippingPrice.toFixed(2)}</b>
             </Typography>
 
             <Typography>
-              Items <b>$ {cart.itemsPrice.toFixed(2)}</b>
+              Productos <b>$ {cart.itemsPrice.toFixed(2)}</b>
             </Typography>
 
             <Typography>
-              Impuestos <b>$ {cart.taxPrice.toFixed(2)}</b>
+              Descuentos <b>$ {cart.taxPrice.toFixed(2)}</b>
             </Typography>
           </div>
 
           <Divider style={{ margin: "20px 0 " }} />
           <Typography style={{ position: "relative", left: "70vw" }}>
-            Total orden
+            Precio Final
           </Typography>
           <Typography style={{ position: "relative", left: "70vw" }}>
             <b>$ {cart.totalPrice.toFixed(2)}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Button
-            variant="contained"
+            variant='contained'
             onClick={placeOrderhandler}
-            className="primary block"
+            className='primary block'
             disabled={cart.cartItems.length === 0}
             style={{ position: "relative", left: "70vw" }}
-            color="secondary"
+            color='secondary'
           >
-            Place Order
+            Confirmar Orden
           </Button>
         </Paper>
       </Hidden>
@@ -149,7 +150,7 @@ export default function PlaceOrderScreen(props) {
             padding: "50px",
           }}
         >
-          <Typography variant="h4">Detalles de envío</Typography>
+          <Typography variant='h4'>Detalles de envío</Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Typography>
             Nombre: <b> {cart.shippingAddress.fullName}</b>
@@ -165,7 +166,7 @@ export default function PlaceOrderScreen(props) {
             Método de pago: <b>{cart.paymentMethod}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography variant="h4">Productos seleccionados</Typography>
+          <Typography variant='h4'>Tus Productos</Typography>
           <List>
             {cart.cartItems.map((item) => (
               <List item key={item.product}>
@@ -187,7 +188,7 @@ export default function PlaceOrderScreen(props) {
                     <img
                       src={item.image}
                       alt={item.name}
-                      width="100px"
+                      width='100px'
                       style={{ margin: "auto" }}
                     />
                     <br />
@@ -199,10 +200,10 @@ export default function PlaceOrderScreen(props) {
                         textAlign: "center",
                       }}
                     >
-                      <Typography variant="p">{item.name}</Typography>
+                      <Typography variant='p'>{item.name}</Typography>
                     </Link>
                     <br />
-                    <Typography variant="p" style={{ textAlign: "center" }}>
+                    <Typography variant='p' style={{ textAlign: "center" }}>
                       {item.qty}x $ {item.price}
                     </Typography>
                   </Grid>
@@ -211,7 +212,7 @@ export default function PlaceOrderScreen(props) {
             ))}
           </List>
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography variant="h5" style={{ marginBottom: "20px" }}>
+          <Typography variant='h5' style={{ marginBottom: "20px" }}>
             Detalle de orden
           </Typography>
 
@@ -220,30 +221,30 @@ export default function PlaceOrderScreen(props) {
           </Typography>
           <br />
           <Typography>
-            Items: <b> ${cart.itemsPrice.toFixed(2)}</b>
+            Productos: <b> ${cart.itemsPrice.toFixed(2)}</b>
           </Typography>
           <br />
           <Typography>
-            Impuestos: <b> ${cart.taxPrice.toFixed(2)}</b>
+            Descuento: <b> ${cart.taxPrice.toFixed(2)}</b>
           </Typography>
 
           <Divider style={{ margin: "20px 0 " }} />
           <Typography style={{ position: "relative", left: "40vw" }}>
-            Total orden
+            Precio final
           </Typography>
           <Typography style={{ position: "relative", left: "40vw" }}>
             <b>$ {cart.totalPrice.toFixed(2)}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Button
-            variant="contained"
+            variant='contained'
             onClick={placeOrderhandler}
-            className="primary block"
+            className='primary block'
             disabled={cart.cartItems.length === 0}
             style={{ position: "relative", left: "30vw" }}
-            color="secondary"
+            color='secondary'
           >
-            Place Order
+            Confirmar Orden
           </Button>
         </Paper>
       </Hidden>

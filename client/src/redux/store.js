@@ -12,7 +12,7 @@ const initialState = {
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress"))
       : {},
-    paymentMethod: "Paypal",
+    paymentMethod: "Mercado Pago",
   },
   wishList:{
     wishListItems:localStorage.getItem("wishListItems")
