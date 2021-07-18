@@ -17,7 +17,7 @@ export const CART_EMPTY='CART_EMPTY'
 
 
 export const addToCart=(id,qty)=>async(dispatch, getState)=>{
-    const {data}=await axios.get("http://localhost:3001/products/" + id)
+    const {data}=await axios.get("/products/" + id)
        dispatch({
         type:'CART_ADD_ITEM',
         payload:{
