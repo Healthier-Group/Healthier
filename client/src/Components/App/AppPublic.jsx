@@ -14,9 +14,10 @@ import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
 import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
 import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 import OrderScreen from '../Cart/OrderScreen';
+import ResetPassword from '../Users/UserResetPassword/ResetPassword'
 
 function AppPublic() {
-
+// eslint-disable-next-line
 	const [currentUser, setCurrentUser] = React.useState(JSON.parse(localStorage.getItem('profile')));
 
 	return (
@@ -55,6 +56,10 @@ function AppPublic() {
 							( <Redirect to={`/`} /> )
 						) 
 					)}
+				/>
+				<Route 
+						path="/verify" 
+						component = {ResetPassword}
 				/>
 
 				{/* ============ LandingPage ==================== */}

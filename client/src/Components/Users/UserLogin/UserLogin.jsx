@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import GoogleButton from "react-google-button";
 import {Grid, Button, TextField} from '@material-ui/core'
 import { Email, VpnKey } from '@material-ui/icons';
-import {loginUser,logOutUser,fetchAuthUser} from '../../../redux/users/userActions'
+import {loginUser, fetchAuthUser} from '../../../redux/users/userActions'
 import useFormStyles from '../../../utils/FormStyles'
 import {API_URL} from '../../../utils/Constants'
 import swal from 'sweetalert'
@@ -23,7 +23,9 @@ export default function UserLogin() {
 
     useEffect(() => {
         if(currentUser) {currentUser?.isAdmin ? history.push('/private/panel') : history.push('/')}
-    },[currentUser])
+    },
+    // eslint-disable-next-line
+    [currentUser])
 
     const handleInputChange = async (e) => {
 		await setInput({
