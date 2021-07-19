@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API_URL, CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, LOGOUT} from '../../utils/Constants';
+import {API_URL, CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
 import swal from 'sweetalert'
 
 export function getAllUsers() {
@@ -48,8 +48,8 @@ export function fetchAuthUser () {
 			const user = await axios.get(`${API_URL}auth/user`, 
 			{withCredentials: true})
 			if (user){
-				localStorage.setItem('profile', JSON.stringify(user));
-				dispatch({type: LOGIN, payload:user})
+				localStorage.setItem('profile', JSON.stringify(user.data));
+				dispatch({type: LOGIN, payload:user.data})
 			} else {
 				throw new Error('Error fetching user')
 			}
@@ -79,6 +79,7 @@ export function logOutUser() {
 	return async function (dispatch) {
 		try{
 			await localStorage.removeItem('profile')
+			await localStorage.removeItem('adminAllowed')
 			await axios.get(`${API_URL}auth/logout`, 
 			{withCredentials: true})
 			dispatch({type: LOGOUT})
@@ -108,4 +109,15 @@ export function	resetPass(token,newPassword){
 	}
 }
 
+export function allowAdmin(token) {
+	return async function (dispatch) {
+		try {
+			const {data} = await axios.post(`${API_URL}auth/admin`,{token})
+			localStorage.setItem('adminAllowed',JSON.stringify(data))
+			dispatch({type: ADMIN_ALLOWED, payload: data})
+		} catch(e) {
+			console.log(e.message)
+		}
+	}
+}
 

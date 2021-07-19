@@ -15,6 +15,7 @@ import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
 import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 import OrderScreen from '../Cart/OrderScreen';
 import ResetPassword from '../Users/UserResetPassword/ResetPassword'
+import Admin2FA from '../Users/Admin2FA/Admin2FA'
 
 function AppPublic() {
 // eslint-disable-next-line
@@ -57,10 +58,9 @@ function AppPublic() {
 						) 
 					)}
 				/>
-				<Route 
-						path="/verify" 
-						component = {ResetPassword}
-				/>
+
+				<Route path="/verify/password" component = {ResetPassword}/>
+				<Route path="/verify/admin" component = {Admin2FA}/>
 
 				{/* ============ LandingPage ==================== */}
 				<Route path="/" component={NavBar} />

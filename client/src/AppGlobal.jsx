@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import AppPrivate from './Components/App/AppPrivate';
@@ -6,8 +5,8 @@ import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-// eslint-disable-next-line
-	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
+	const currentUser = (JSON.parse(localStorage.getItem('profile')));
+	const adminAllowed = (JSON.parse(localStorage.getItem('adminAllowed')))
 	
 	return (
 		<ThemeProvider theme={theme}>
@@ -16,7 +15,7 @@ const AppGlobal = () => {
 					<Route 
 						path="/private"
 						component={ () => (
-							( (currentUser && currentUser.isAdmin) )
+							( (currentUser && adminAllowed) )
 							? ( <AppPrivate /> )
 							: ( <Redirect to="/login" /> )
 						)}

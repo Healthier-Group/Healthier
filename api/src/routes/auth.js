@@ -15,14 +15,24 @@ router.post('/email', async (req,res,next) => {
     email = email.toLowerCase()
     let user = User.findOne({where: { email }})
     if(!user) return res.json({error: 'Usuario inexistente'})
+    let token = await jwt.sign({email},SECRET_KEY,{expiresIn:'1hr'})
     if(type === 'passwordreset'){
-        let token = await jwt.sign({email},SECRET_KEY,{expiresIn:'1hr'})
         transporter.sendMail({
             from: `"Healthier" <${GMAIL_APP_EMAIL}>`, // sender address
             to: email, // list of receivers
             subject: "Recuperar Contraseña", // Subject line
             text: "Haga click en el link para restablecer su contraseña: ", // plain text body
-            html: `<b>Haga click en el link para restablecer su contraseña: <a href="${FRONT}/verify/?token=${token}"> AQUÍ </a> </b>`, // html body
+            html: `<b>Haga click en el link para restablecer su contraseña: <a href="${FRONT}/verify/password?token=${token}"> AQUÍ </a> </b>`, // html body
+        });
+        res.json({success: 'Correo enviado'})
+    }
+    if(type === 'verifyadmin'){
+        transporter.sendMail({
+            from: `"Healthier" <${GMAIL_APP_EMAIL}>`, // sender address
+            to: email, // list of receivers
+            subject: "Verificacion en dos pasos", // Subject line
+            text: "Haga click en el link para verificar su identidad: ", // plain text body
+            html: `<b>Haga click en el link para verificar su identidad: <a href="${FRONT}/verify/admin?token=${token}"> AQUÍ </a> </b>`, // html body
         });
         res.json({success: 'Correo enviado'})
     }
@@ -44,6 +54,17 @@ router.post('/passwordreset', async (req,res,next) => {
             return res.json({error: 'Usuario inexistente'})
         }
     }catch(e) {
+        return res.json({error: e.message})
+    }
+})
+
+router.post('/admin', async (req,res,next) => {
+    let {token} = req.body;
+    try {
+        let email = jwt.verify(token,SECRET_KEY).email.toLowerCase()
+        let isAdmin = await User.findOne({where: {email: email, isAdmin: true}})
+        isAdmin ? res.json(true) : res.json(false)
+    } catch(e) {
         return res.json({error: e.message})
     }
 })
