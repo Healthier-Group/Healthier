@@ -12,7 +12,7 @@ dotenv.config();
 axios.defaults.baseURL = process.env.REACT_APP_API || "/";
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}> 
+    <Provider store={store}>
       <AppGlobal/>
     </Provider> 
   </React.StrictMode>,
