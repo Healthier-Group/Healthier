@@ -81,6 +81,8 @@ export default function ProductCard() {
    []);
 
   const product = useSelector((state) => state.productReducer.foundProducts);
+  
+  
   return (
     <div className={classes.view}>
       <Grid container spacing={1}>
@@ -129,6 +131,7 @@ export default function ProductCard() {
                           className={classes.btn}
                           size="small"
                           color="primary"
+                          // onClick={addToWishListHandler}
                         >
                           Favoritos <FavoriteBorderIcon />
                         </Button>

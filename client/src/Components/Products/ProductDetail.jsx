@@ -90,7 +90,7 @@ const ProductDetail = (props) => {
   const classes = useStyles();
   const id = props.match.params.id;
   const dispatch = useDispatch();
-   let qty=1
+  let qty=1
   const addToCartHandler = () => {
     props.history.push(`/cart/${id}?qty=${qty}`);
   };
@@ -100,7 +100,9 @@ const ProductDetail = (props) => {
   }, [dispatch,id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
-
+  const addToWishListHandler = () => {
+    props.history.push(`/wishlist/${id}`);
+  };
   return (
     <div className={classes.bg}>
       {product?.map((p) => {
@@ -148,7 +150,7 @@ const ProductDetail = (props) => {
                         </CardActions>
 
                         <div className={classes.fav}>
-                          <i class="far fa-heart"></i>
+                          <i class="far fa-heart" onClick={addToWishListHandler}>Añadir a favoritos</i>
                         </div>
                       </Card>
                     </Paper>
@@ -204,12 +206,13 @@ const ProductDetail = (props) => {
                         className={classes.btnMobile}
                         variant="contained"
                         color="primary"
+                        onClick={addToCartHandler}
                       >
                         Comprar
                       </Button>
                       <div className={classes.favMobile}>
                         <p className={classes.p}>
-                          <i class="far fa-heart"> Agregar a favoritos</i>
+                          <i class="far fa-heart" onClick={addToWishListHandler} > Agregar a favoritos</i>
                         </p>
                       </div>
                     </Paper>

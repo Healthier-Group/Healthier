@@ -14,7 +14,11 @@ import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
 import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
 import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
 import OrderScreen from '../Cart/OrderScreen';
+
+import WishListScreen from '../WishList/WishListScreen';
+
 import ResetPassword from '../Users/UserResetPassword/ResetPassword'
+
 
 function AppPublic() {
 // eslint-disable-next-line
@@ -77,6 +81,7 @@ function AppPublic() {
 				<Route exact path="/payment" component={PaymentMethodScreen} />
 				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
 				<Route path='/order/:id' component={OrderScreen} exact></Route>
+				<Route path='/wishlist/:id?' component={WishListScreen} exact></Route>
             </BrowserRouter>
 	);
 }
