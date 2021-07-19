@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import GoogleButton from "react-google-button";
 import {Grid, Button, TextField} from '@material-ui/core'
 import { Email, VpnKey } from '@material-ui/icons';
-import {loginUser, fetchAuthUser} from '../../../redux/users/userActions'
+import {loginUser, fetchAuthUser, sendEmail} from '../../../redux/users/userActions'
 import useFormStyles from '../../../utils/FormStyles'
 import {API_URL} from '../../../utils/Constants'
 import swal from 'sweetalert'
@@ -22,7 +22,13 @@ export default function UserLogin() {
     })
 
     useEffect(() => {
-        if(currentUser) {currentUser?.isAdmin ? history.push('/private/panel') : history.push('/')}
+        if(currentUser) {
+            if(currentUser.isAdmin){
+                dispatch(sendEmail(currentUser.email,"verifyadmin"))
+                swal("Hemos enviado un link a tu correo para que verifiques tu identidad", "Disculpa las molestias", "success")
+            }
+            history.push('/')
+        }
     },
     // eslint-disable-next-line
     [currentUser])
@@ -48,7 +54,6 @@ export default function UserLogin() {
         if (newWindow) {
             timer = setInterval(() => {
                 if (newWindow.closed) {
-                    swal("");
                     dispatch(fetchAuthUser());
                     if (timer) clearInterval(timer);
                 }
@@ -87,20 +92,21 @@ export default function UserLogin() {
                                 id="password" 
                                 label="Contraseña" 
                                 name='password'
+                                type="password"
                                 value={input.password}
                                 onChange={handleInputChange}
                             />
                         </Grid>
                     </Grid>
-                    <Grid container direction="row" justifyContent="center" alignItems="center">
-                        <Grid item>
-                            <Button style={{fontWeight: 1000, marginTop: 50}} color="secondary" onClick={handleLogIn} variant="contained">Entrar</Button>
+                    <Grid container direction="column" justifyContent="center" alignItems="center">
+                            <Button style={{fontWeight: 1000, marginTop: 30}} color="secondary" onClick={handleLogIn} variant="contained">Entrar</Button>
+                            <Button style={{fontWeight: 1000, marginTop: 20}} color="secondary" href="/verify/password" variant="contained">Recuperar Contraseña</Button>
                             <GoogleButton
+                                style={{fontWeight: 1000, marginTop: 20}}
                                 type="light"
                                 label="Autorizar con Google"
                                 onClick={GoogleSSOHandler}
                             />
-                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

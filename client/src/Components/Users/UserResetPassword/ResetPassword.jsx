@@ -92,6 +92,7 @@ export const ResetPassword = ({location}) => {
                            id="password" 
                            label="Contraseña" 
                            name='password'
+                           type="password"
                            value={input.password || ''}
                            onChange={handleInputChange}
                         />

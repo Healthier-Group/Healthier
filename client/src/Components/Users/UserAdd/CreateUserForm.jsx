@@ -123,6 +123,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
 								id="password" 
 								label="Contraseña" 
 								name='password'
+								type="password"
 								value={input.password}
 								onChange={handleInputChange}
 							/>

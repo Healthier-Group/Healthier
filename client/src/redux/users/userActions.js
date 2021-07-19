@@ -1,14 +1,6 @@
-import axios from "axios";
-import {
-  CREATE_USER,
-  GET_ALL_USERS,
-  READ_USER,
-  UPDATE_USER,
-  DELETE_USER,
-  LOGIN,
-  LOGOUT,
-} from "../../utils/Constants";
-import swal from "sweetalert";
+import axios from 'axios';
+import { CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
+import swal from 'sweetalert'
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -45,21 +37,22 @@ export function deleteUser(id) {
   };
 }
 
-export function fetchAuthUser() {
-  return async (dispatch) => {
-    try {
-      const user = await axios.get(`/auth/user`, { withCredentials: true });
-      if (user) {
-        localStorage.setItem("profile", JSON.stringify(user));
-        dispatch({ type: LOGIN, payload: user });
-      } else {
-        throw new Error("Error fetching user");
-      }
-    } catch (e) {
-      swal(e.message, "ha sucedido un error", "error");
-    }
-  };
-}
+export function fetchAuthUser () {
+	return async (dispatch) => {
+		try {
+			const user = await axios.get(`auth/user`, 
+			{withCredentials: true})
+			if (user){
+				localStorage.setItem('profile', JSON.stringify(user.data));
+				dispatch({type: LOGIN, payload:user.data})
+			} else {
+				throw new Error('Error fetching user')
+			}
+		}catch (e){
+			swal(e.message,'ha sucedido un error','error');
+		}
+	}
+};
 
 export function loginUser(login) {
   return async function (dispatch) {
@@ -79,18 +72,20 @@ export function loginUser(login) {
 }
 
 export function logOutUser() {
-  return async function (dispatch) {
-    try {
-      await localStorage.removeItem("profile");
-	  await localStorage.removeItem("cartItems");
+	return async function (dispatch) {
+		try{
+			await localStorage.removeItem('profile')
+			await localStorage.removeItem('adminAllowed')
+      await localStorage.removeItem("cartItems");
       await localStorage.removeItem("shippingAddress");
       await localStorage.removeItem("wishListItems");
-      await axios.get(`/auth/logout`, { withCredentials: true });
-      dispatch({ type: LOGOUT });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+			await axios.get(`auth/logout`, 
+			{withCredentials: true})
+			dispatch({type: LOGOUT})
+		}catch (e){
+			console.log(e.message)
+		}
+	}
 }
 
 export function sendEmail(email, type) {
@@ -112,3 +107,16 @@ export function resetPass(token, newPassword) {
     }
   };
 }
+
+export function allowAdmin(token) {
+	return async function (dispatch) {
+		try {
+			const {data} = await axios.post(`auth/admin`,{token})
+			localStorage.setItem('adminAllowed',JSON.stringify(data))
+			dispatch({type: ADMIN_ALLOWED, payload: data})
+		} catch(e) {
+			console.log(e.message)
+		}
+	}
+}
+
