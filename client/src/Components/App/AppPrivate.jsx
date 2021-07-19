@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux'
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import LandingPage from '../LandingPage/LandingPage'

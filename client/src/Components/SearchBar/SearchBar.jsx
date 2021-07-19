@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProductByName } from "../../redux/products/productActions";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from 'axios'
-import { useSelector } from "react-redux";
-import { Box, Button, Divider, TextField } from "@material-ui/core";
-import {Autocomplete} from '@material-ui/lab';
+
+
+import { Button, Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -15,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     backgroundColor: "#f1f1f1",
     padding: "0px 0",
-    margin: "0 20px",
+    marginRight: " 20px",
+    marginLeft: " 20px",
     minWidth: "40vw",
     borderRadius: "5px",
     margin: "auto",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = () => {
   const classes = useStyles();
   const [input, setInput] = useState("");
-  
+
   const handleChange = (q) => {
     setInput(q);
   };
@@ -42,23 +42,25 @@ const SearchBar = () => {
     dispatch(getProductByName(input));
   }
 
-  const options = useSelector(state => state.foundProducts)
-  
+ 
+
   return (
     <form className={classes.search} onSubmit={handleSubmit}>
-    <InputBase
-      placeholder="Busca tu producto"
-      className={classes.input}
-      onChange={(e) => handleChange(e.target.value)}
-    />
-    <Divider orientation="vertical" flexItem/>
-    <Button type="submit" onSubmit={handleSubmit} style={{minWidth:"6vw", justifyContent:"center", display:"flex"}}>
-      <SearchIcon  />
-    </Button>
-  </form>
+      <InputBase
+        placeholder="Busca tu producto"
+        className={classes.input}
+        onChange={(e) => handleChange(e.target.value)}
+      />
+      <Divider orientation="vertical" flexItem />
+      <Button
+        type="submit"
+        onSubmit={handleSubmit}
+        style={{ minWidth: "6vw", justifyContent: "center", display: "flex" }}
+      >
+        <SearchIcon />
+      </Button>
+    </form>
   );
 };
-
-
 
 export default SearchBar;

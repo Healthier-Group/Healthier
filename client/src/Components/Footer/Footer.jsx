@@ -1,8 +1,5 @@
-import { Container, Grid, Box, Link, makeStyles } from "@material-ui/core";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import FacebookIcon from "@material-ui/icons/Facebook";
-import TwitterIcon from "@material-ui/icons/Twitter";
+import { Grid, Box, Link, makeStyles } from "@material-ui/core";
+import {Facebook, Twitter, Instagram} from "@material-ui/icons"
 
 const useStyles = makeStyles((theme) => ({
   position: {
@@ -25,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer() {
   const classes = useStyles();
   return (
-    <BottomNavigation className={classes.position}>
+    <Grid className={classes.position}>
       <Grid container style={{margin:"auto"}}>
         <Grid item xs={4} className={classes.box}>
           <Box>
@@ -42,17 +39,17 @@ export default function Footer() {
         <Grid item xs={4} className={classes.box}>
           <Box className={classes.icons}>
             <Link href="/" color="secondary">
-              <InstagramIcon />
+              <Instagram />
             </Link>
             <Link href="/" color="secondary">
-              <FacebookIcon />
+              <Facebook />
             </Link>
             <Link href="/" color="secondary">
-              <TwitterIcon />
+              <Twitter />
             </Link>
           </Box>
         </Grid>
       </Grid>
-    </BottomNavigation>
+    </Grid>
   );
 }

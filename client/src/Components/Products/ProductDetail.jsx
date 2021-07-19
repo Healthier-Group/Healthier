@@ -11,7 +11,7 @@ import { makeStyles,
          CardActions, 
          Hidden} from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
-import NavBar from "../NavBar/NavBar";
+
 
 const useStyles = makeStyles({
   root:{

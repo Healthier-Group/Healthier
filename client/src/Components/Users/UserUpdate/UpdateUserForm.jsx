@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themeStyle';
 import Validate from '../../../utils/Validate'
 
-import swal from "sweetalert";
+
 
 const useStyles = makeStyles((theme)=>({
     root: {
@@ -50,14 +50,20 @@ export function UserUpdate({ input, setInput, handleSubmit }) {
         }else{
             dispatch(readUser(id))
 		}	
-    },[dispatch, id, userDetail])
+    },
+    // eslint-disable-next-line
+    [dispatch, id, userDetail])
 
 	useEffect(() => {
 		dispatch(readUser(id))
-	},[])
+	},
+    // eslint-disable-next-line
+    [])
     useEffect(() => {
 
-    },[input,setInput])
+    },
+    // eslint-disable-next-line
+    [input,setInput])
 
     const [error, setError] = useState({//Control the error red border of the inputs
 		username: false,

@@ -13,7 +13,9 @@ const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;
-      console.log("item en reducer", item);
+
+     
+
       //chequeo si el producto ya existe en el carrito
       const existItem = state.cartItems.find((x) => x.product === item.product);
       if (existItem) {

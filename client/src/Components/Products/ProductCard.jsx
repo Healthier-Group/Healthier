@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 import OrderFilter from "./OrderFilter";
-import Footer from "../Footer/Footer";
+
 
 const useStyles = makeStyles({
   root: {
@@ -76,7 +76,9 @@ export default function ProductCard() {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  },
+  // eslint-disable-next-line
+   []);
 
   const product = useSelector((state) => state.productReducer.foundProducts);
   
@@ -96,6 +98,7 @@ export default function ProductCard() {
               {product?.map((p) => {
                 return (
                   <Link
+                    key={p.sku}
                     to={`/products/${p.id}`}
                     style={{ color: "black", textDecoration: "none" }}
                   >
@@ -140,12 +143,14 @@ export default function ProductCard() {
             </div>
           </Grid>
         </Hidden>
+        {/* mobile screen */}
         <Hidden only={["md", "lg", "xl"]}>
           <Grid item xs={12}>
             <div className={classes.wrapped}>
               {product?.map((p) => {
                 return (
                   <Link
+                  key={p.sku}
                     to={`/products/${p.id}`}
                     style={{ color: "black", textDecoration: "none" }}
                   >

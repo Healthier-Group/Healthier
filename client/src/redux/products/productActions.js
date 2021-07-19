@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PRODUCTS_URL } from "../../utils/Constants";
+// import { PRODUCTS_URL } from "../../utils/Constants";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
@@ -11,7 +11,11 @@ export const ORDER_EXPENSIVE = "ORDER_EXPENSIVE";
 export function getProducts() {
   return async function (dispatch) {
     return await axios
+
       .get("http://localhost:3001/products") //some link from backend, check
+
+      .get(`/products`) //some link from backend, check
+
       .then((products) => {
         dispatch({
           type: "GET_PRODUCTS",

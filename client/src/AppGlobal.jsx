@@ -6,19 +6,13 @@ import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-
+// eslint-disable-next-line
 	const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('profile')));
 	
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<Switch> 
-				{/* <Route 
-					path="/passwordreset" 
-					component = {ResetPassword}
-				/> */}
-				
-				
+				<Switch> 			
 					<Route 
 						path="/private"
 						component={ () => (

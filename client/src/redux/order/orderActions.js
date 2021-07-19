@@ -11,7 +11,6 @@ export const ORDER_DETAILS_FAIL = "ORDER_DETAILS_FAIL";
 
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: "ORDER_CREATE_REQUEST", payload: order });
-  console.log("I´m here");
   try {
     const {
       userSignin: { userInfo },
@@ -21,7 +20,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     });
-    console.log("I´m here 2", data);
     dispatch({ type: "ORDER_CREATE_SUCCESS", payload: data.order });
     dispatch({ type: CART_EMPTY });
     localStorage.removeItem("cartItems");
