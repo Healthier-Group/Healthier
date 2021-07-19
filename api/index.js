@@ -27,6 +27,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a1",
         size: "400 g",
         brand:"San Carlos de Asis",
+        stock: 1,
         image:"https://i.postimg.cc/RhpJVMrM/andrey-metelev-Q4-STMNFlo-I-unsplash.jpg"
       }
     })
@@ -39,6 +40,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"CHU",
         sku:"a2",
         price:449,
+        stock: 11,
         image:"https://i.postimg.cc/vHjxJHLh/chu-gummies-QTl-Ij7-Xt-U4-unsplash.jpg"
       }
     })
@@ -51,6 +53,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Maní King",
         sku:"a3",
         price:250,
+        stock: 12,
         image:"https://i.postimg.cc/VvfXkGdF/corleto-peanut-butter-u256-Gz-Fi7-Gw-unsplash.jpg"
       }
     })
@@ -63,6 +66,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Producteca de Edgar",
         sku:"a4",
         price:199,
+        stock: 15,
         image:"https://i.postimg.cc/nrgNJDLp/fallon-michael-d1-K4-Gfap-Ek-unsplash.jpg"
       }
     })
@@ -75,6 +79,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Core & Rind",
         sku:"a5",
         price:499,
+        stock: 19,
         image:"https://i.postimg.cc/Tw9WFVC5/hearted-co-2ld7b23-VTDw-unsplash.jpg"
       }
     })
@@ -87,6 +92,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Not a Burger",
         sku:"a6",
         price:699,
+        stock: 19,
         image:"https://i.postimg.cc/Wb4MRyRN/lefteris-kallergis-TLKIVSW6-Do-unsplash.jpg"
       }
     })
@@ -99,6 +105,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"El molino de Santiago",
         sku:"a7",
         price:200,
+        stock: 21,
         image:"https://i.postimg.cc/4dZ9WLbT/olga-kudriavtseva-xw8ptt-N8-MBg-unsplash.jpg"
       }
     })
@@ -111,6 +118,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"El horno de Sergio",
         sku:"a8",
         price:450,
+        stock: 12,
         image:"https://i.postimg.cc/wxwmkk1S/likemeat-Cb-NAux-SZTFo-unsplash.jpg"
       }
     })
@@ -123,6 +131,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Pulsítos",
         sku:"a9",
         price:75,
+        stock: 19,
         image:"https://i.postimg.cc/RZ6KhnV2/pulsitos-com-z-0peds-Rxps-unsplash.jpg"
       }
     })
@@ -135,6 +144,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Manicería Altas Cumbres",
         sku:"a10",
         price:49,
+        stock: 17,
         image:"https://i.postimg.cc/zfThSZhj/sketch-8-Lbcv-CZnmyw-unsplash.jpg"
       }
     })
@@ -147,6 +157,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a11",
         size: "48 g",
         brand:"Crowie",
+        stock: 14,
         image:"https://i.postimg.cc/TwRB0bYw/choco-negro1-d60b8debcc5af1302615510487738179-640-01-0944a331959ac7d19415813782701700-1024-1024.jpg"
     }
     })
@@ -159,6 +170,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a12",
         size: "50 g",
         brand:"Nativo",
+        stock: 16,
         image:"https://i.postimg.cc/G2qV5pHj/alfajor-nativos-dulce-de-leche11-d66b41928c3da5d7c315778961998660-1024-102411-fdce70190b5622c2981581.jpg"
         }
     })
@@ -171,6 +183,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a13",
         size: "1 l",
         brand:"Vivet",
+        stock: 13,
         image:"https://i.postimg.cc/x88hDSmV/SsOyoqe.png"
     }
     })
@@ -183,6 +196,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a14",
         size: "450 g",
         brand:"Beepure",
+        stock: 12,
         image:"https://i.postimg.cc/Y0PVtyNG/beepure-ddl-sinazucar1-a2a204a4a0259c462d15496338282047-640-01-963915891db8bf612b15819780969854-1024.png"
     }
     })
@@ -195,6 +209,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a15",
         size: "50 g",
         brand:"Cereal Sol",
+        stock: 12,
         image:"https://i.postimg.cc/QxHGvcgK/snacks-arroz-queso-cereal-sol1-a07f579b8841f2460815517316211479-640-01-944396f554288fe36415819763277.jpg"
       }
     })
@@ -207,6 +222,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a16",
         size: "80 g",
         brand:"Nuestros Sabores",
+        stock: 19,
         image:"https://i.postimg.cc/sx2djht8/diseno-sin-titulo1-655b00677c8fd6be7c15683189603526-640-01-03575fd6585b110ddf15814607856981-1024-102.png"
       }
     })
@@ -219,6 +235,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a17",
         size: "1 kg",
         brand:"Terra Sana",
+        stock: 176,
         image:"https://i.postimg.cc/4NqkGnwL/harina-integral-organica-fina-terra-sana-6-kg-d-nq-np-817432-mla32171074477-092019-f1-2898269610c99f.jpg"
       }
     })
@@ -231,6 +248,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a18",
         size: "560 g",
         brand:"Wakas",
+        stock: 14,
         image:"https://i.postimg.cc/zDdYdxh1/fideos-multicereal-con-kale-sin-tacc-imagen11-6f2e12c55fbac55e4b15810810116019-1024-1024.jpg"
       }
     })
@@ -243,6 +261,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a19",
         size: "180 g",
         brand:"Chiagraal",
+        stock: 160,
         image:"https://i.postimg.cc/02L33F2h/958d91-e2a72f0429a246ad886600d85f0074e6-mv2-d-1459-2180-s-21-7d4b166ec18b8e083f15815108841277-1024-1.png"
       }
     })
@@ -255,6 +274,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a20",
         size: "180 g",
         brand:"Dell Isola",
+        stock: 17,
         image:"https://i.postimg.cc/tJm0Ygbg/pasta-tomate-seco-dellisola-fitmarket1-0737e196d33c58228515665648589820-480-01-afd076e0bf0c9eec51158.jpg"
       }
     })
@@ -267,6 +287,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a21",
         size: "50 g",
         brand:"Organikal Superalimentos",
+        stock: 21,
         image:"https://i.postimg.cc/q7c92wrS/te-matcha-en-polvo-imagen11-c7f32a27027b58887715816250023206-1024-1024.jpg"
       }
     })
@@ -279,6 +300,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a22",
         size: "150 g",
         brand:"Life",
+        stock: 21,
         image:"https://i.postimg.cc/L8Pd8RbH/sal-11-99cf06b6ddd6078d3d15820621132955-1024-1024.jpg"
       }
     })
@@ -291,6 +313,7 @@ conn.sync({ force: true }).then(async() => {
         sku:"a23",
         size: "250 ml",
         brand:"Chiagraal",
+        stock: 81,
         image:"https://i.postimg.cc/yYJtLsBF/958d91-7a492d203f49470fa7b1f81cbfa7162d-mv2-d-1459-2763-s-21-1377f4e81d14406e0215814611431018-1024-1.png"
       }
     })
@@ -303,6 +326,7 @@ conn.sync({ force: true }).then(async() => {
         brand:"Terra Sana",
         sku:"a24",
         price:810,
+        stock: 81,
         image:"https://i.postimg.cc/MGJCc4C1/aceite-de-oliva-extra-virgen-organica-500-ml-terrasana1-f2ba91b07dfaa3919315827203220038-1024-1024.jpg"
       }
     })

@@ -83,7 +83,7 @@ const CategoryList = () => {
         return (
           <ThemeProvider theme={theme}>
             <Link
-              to={`/private/updatecategory/${params.id}`}
+              to={`/private/deletecategory/${params.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button

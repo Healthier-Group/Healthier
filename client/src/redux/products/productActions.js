@@ -10,6 +10,7 @@ export const ORDER_CHEAP = "ORDER_CHEAP";
 export const ORDER_EXPENSIVE = "ORDER_EXPENSIVE";
 export const GET_CATEGORIES = "GET_CATEGORIES";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_CATEGORY_BY_ID = "GET_CATEGORY_BY_ID";
 export const GET_CATEGORY_BY_NAME = "GET_CATEGORY_BY_NAME";
 
@@ -165,11 +166,24 @@ export function getCategoryByName(q) {
 export function updateCategory(category) {
   return async function (dispatch) {
     const { data } = await axios.put(
-      `${API_URL}categories/${category.id}`,
+      `${API_URL}category/${category.id}`,
       category
     );
     dispatch({
       type: UPDATE_CATEGORY,
+      payload: data,
+    });
+  };
+}
+
+export function deleteCategory(category) {
+  return async function (dispatch) {
+    const { data } = await axios.delete(
+      `${API_URL}category/${category.id}`,
+      category
+    );
+    dispatch({
+      type: DELETE_CATEGORY,
       payload: data,
     });
   };

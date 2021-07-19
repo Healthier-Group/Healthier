@@ -7,7 +7,7 @@ export default function ValidateCategory(
   ) {
     switch (field.name) {
       case "name":
-        if (!/^[A-Za-z .'-]{3,255}$/.test(field.value)) {
+        if (!/^[A-Za-z .'-\W]{3,255}$/.test(field.value)) {
           setError({ ...error, name: true });
           if (field.value.length < 3) {
             setHelperText({ ...helperText, name: "Es muy corto" });

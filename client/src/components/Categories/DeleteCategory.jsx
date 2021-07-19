@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  makeStyles,
+  Grid,
+  Textfield,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../themeStyle";
-import ValidateCategory from "../../utils/ValidateCategory";
 
 import swal from "sweetalert";
 import {
   getCategoryById,
-  updateCategory,
+  deleteCategory,
 } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function UpdateCategory() {
+export function DeleteCategory() {
   const { id } = useParams();
   //console.log("Aca hay ID", id);
   const categoryDetail = useSelector(
@@ -40,23 +47,23 @@ export function UpdateCategory() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const [input, setInput] = useState({
+  const [data, setData] = useState({
     name: "",
     description: "",
   });
 
   const handleSubmit = (e) => {
-    dispatch(updateCategory(input)); // const id = this.props.match.params.id;
+    dispatch(deleteCategory(data)); // const id = this.props.match.params.id;
   };
 
   useEffect(() => {
     if (categoryDetail !== undefined) {
-      setInput({
+      setData({
         id: id,
         name: categoryDetail[0]?.name,
         description: categoryDetail[0]?.description,
       });
-      console.log("a ver el input", input);
+      console.log("a ver la data", data);
     } else {
       dispatch(getCategoryById(id));
     }
@@ -66,26 +73,7 @@ export function UpdateCategory() {
   useEffect(() => {
     dispatch(getCategoryById(id));
   }, []);
-  useEffect(() => {}, [input, setInput]);
-
-  const [error, setError] = useState({
-    //Control the error red border of the inputs
-    name: false,
-    description: false,
-  });
-  const [helperText, setHelperText] = useState({
-    //Control the warning message
-    name: "Ingrese un nombre de categoría",
-    description: "Ingrese una descripción",
-  });
-
-  const handleInputChange = function (e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    ValidateCategory(e.target, error, setError, helperText, setHelperText);
-  };
+  useEffect(() => {}, [data, setData]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -106,18 +94,7 @@ export function UpdateCategory() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item xs={8}>
-                  <TextField
-                    error={error["name"]}
-                    helperText={[helperText["name"]]}
-                    id="name"
-                    label="Nombre"
-                    name="name"
-                    value={input?.name ? input.name : ""}
-                    onChange={handleInputChange}
-                    fullWidth={true}
-                  />
-                </Grid>
+                <Grid item xs={8}></Grid>
               </Grid>
               <Grid
                 container
@@ -126,16 +103,7 @@ export function UpdateCategory() {
                 justifyContent="center"
               >
                 <Grid item xs={8}>
-                  <TextField
-                    error={error["description"]}
-                    helperText={[helperText["description"]]}
-                    id="description"
-                    label="Descripción"
-                    name="description"
-                    value={input?.description || ""}
-                    onChange={handleInputChange}
-                    fullWidth={true}
-                  />
+                  <h2> ¿Desea borrar la categoría {`"${data.name}"`} ?</h2>
                 </Grid>
               </Grid>
             </Grid>
@@ -146,14 +114,16 @@ export function UpdateCategory() {
               alignItems="center"
             >
               <Grid item>
-                <Button
-                  style={{ fontWeight: 1000, marginTop: 50 }}
-                  color="secondary"
-                  onClick={handleSubmit}
-                  variant="contained"
-                >
-                  Guardar Cambios
-                </Button>
+                <Link to={"/private/categorylist"}>
+                  <Button
+                    style={{ fontWeight: 1000, marginTop: 50 }}
+                    color="secondary"
+                    onClick={handleSubmit}
+                    variant="contained"
+                  >
+                    Sí, borrar
+                  </Button>
+                </Link>
               </Grid>
             </Grid>
           </Grid>
@@ -162,4 +132,4 @@ export function UpdateCategory() {
     </ThemeProvider>
   );
 }
-export default UpdateCategory;
+export default DeleteCategory;

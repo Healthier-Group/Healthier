@@ -8,8 +8,6 @@ module.exports = async (req, res) => {
   .execute()
   const publicIds = resources.map(file => file.public_id)
   res.send(publicIds)
-  
-  
     try {
       const fileStr = req.body.data
       const uploadedResponse = await cloudinary.uploader.

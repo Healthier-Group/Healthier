@@ -1,5 +1,7 @@
 import axios from "axios"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector} from 'react-redux'
+import { getCategories } from '../../redux/products/productActions'
 import { PRODUCTSPOST_URL } from "../../utils/Constants"
 import {
   makeStyles,
@@ -7,6 +9,7 @@ import {
   Button,
   TextField,
   Typography,
+  Select,
 } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
@@ -55,11 +58,19 @@ export const CreateProductForm = () => {
     sku: "",
     description: "",
     ingredients: "",
-    inventory: 0,
+    stock: 0,
     price: 0,
     image: "",
+    category: []
   });
     
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+  dispatch(getCategories())
+  },[])
+
+  const category = useSelector(state => state.productReducer.foundCategories)
 
   function handleInputChange(e) {
     setInput({
@@ -79,14 +90,55 @@ export const CreateProductForm = () => {
           sku: "",
           description: "",
           ingredients: "",
-          inventory: 0,
+          stock: 0,
           price: 0,
           image: "",
+          category: []
         });        
         alert("Product created successfully");
       })
       .catch((error) => alert("Some error ocurred, please try again"));
   }
+
+  
+
+
+  //manejo del select
+
+  function handleSelect(e) {
+    if (input.category.includes(parseInt(e.target.value))) {
+        alert('You already selected this temperament. Try again.')
+    } else if (input.category.length >= 5) {
+        alert('You can select up to 3 temperaments.')
+    } else {
+        setInput((prev) => ({ ...prev, category: [...prev.category, parseInt(e.target.value)] }))
+    }
+}
+
+//obtener los nombres y mostrarlos 
+
+function getNames(arr) {
+  let names = [];
+  category?.forEach((t) => {
+      arr.forEach((id) => {
+          if (parseInt(id) === t.id) {
+              names.push(t.name)
+          }
+      })
+
+  })
+  return names;
+}
+
+
+//eliminar las categorias seleccionadas 
+function deleteTemp(e, c) {
+  setInput((prev) => ({ ...prev, category: prev.category.filter(cat => cat !== parseInt(c)) }))
+}
+
+
+
+
 
   const classes = useStyles();
   return (
@@ -140,7 +192,7 @@ export const CreateProductForm = () => {
           <div className={classes.input1}>
             <TextField
               id="standard-basic"
-              name="inventory"
+              name="stock"
               onChange={handleInputChange}
               label="Inventario"
               type="number"
@@ -155,6 +207,7 @@ export const CreateProductForm = () => {
               className={classes.inputs}
               required={true}
             />
+            
             <TextField
               id="standard-multiline-flexible"
               name="image"
@@ -165,6 +218,35 @@ export const CreateProductForm = () => {
               className={classes.inputs}
             />
           </div>
+
+
+          <select
+              name="category"
+              onChange={(e) => handleSelect(e)}
+              value={input.category}
+              className={classes.inputs}
+              required
+            >
+
+              <option> select</option>
+              {category?.map(c => {
+                return (
+                <option value={c.id} key={c.id}>{c.name}</option>
+              )})
+              }
+            </select>
+            <div>
+               {
+              input.category.map(c => (
+                 <p id={c} >
+                    {getNames([c])}
+                <button onClick={(e) => deleteTemp(e, c)}>x</button>
+                </p>
+               ))
+            }
+            </div>
+
+
           <Button
             variant="contained"
             color="primary"
@@ -237,7 +319,7 @@ export const CreateProductForm = () => {
             className={classes.inputs}
           />
 
-          <Button variant="contained" color="primary" className={classes.btn}>
+          <Button onClick={handleSubmit} variant="contained" color="primary" className={classes.btn}>
             Crear
           </Button>
         </form>

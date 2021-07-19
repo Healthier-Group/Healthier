@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     image: {
       type: DataTypes.TEXT,
       defaultValue:

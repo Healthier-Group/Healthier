@@ -11,7 +11,8 @@ import ProductUpdate from '../Products/UpdateProductsForm';
 import ProductList from '../Products/ProductList'
 import CreateCategoryForm from '../Categories/CreateCategoryForm';
 import CategoryList from '../Categories/CategoryList';
-import CategoryUpdate from '../Categories/UpdateCategoryForm';
+import UpdateCategory from '../Categories/UpdateCategoryForm';
+import DeleteCategory from '../Categories/DeleteCategory'
 
 function AppPrivate() {
 	return (
@@ -34,7 +35,8 @@ function AppPrivate() {
 
 				{/* ============ Categories =================== */}
 				<Route exact path="/private/catform" component={CreateCategoryForm} />
-				<Route exact path="/private/updateCategory/:id" component={CategoryUpdate} />
+				<Route exact path="/private/updateCategory/:id" component={UpdateCategory} />
+				<Route exact path="/private/deletecategory/:id" component={DeleteCategory} />
 				<Route exact path="/private/categorylist" component={CategoryList} /> 
 
             </BrowserRouter>

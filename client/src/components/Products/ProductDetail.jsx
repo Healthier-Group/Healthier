@@ -134,6 +134,11 @@ const ProductDetail = ({match, history}) => {
                             <Typography>
                               Antes ${Math.ceil(p.price * 1.15)}
                             </Typography>
+                            {p.categories.map(c => {
+                              return (
+                              <p>{c.name}</p>
+                            )})
+                            }
                           </CardContent>
                         </CardActionArea>
                         <CardActions>
