@@ -11,8 +11,7 @@ export const ORDER_EXPENSIVE = "ORDER_EXPENSIVE";
 export function getProducts() {
   return async function (dispatch) {
     return await axios
-      .get(`/products`) //some link from backend, check
-
+      .get(`/products/`) //some link from backend, check
       .then((products) => {
         dispatch({
           type: "GET_PRODUCTS",
@@ -35,12 +34,14 @@ export function getProductById(id) {
 
 export function getProductByName(q) {
   return function (dispatch) {
-    return axios.get("/products/?q=" + q).then((product) => {
-      dispatch({
-        type: "GET_PRODUCT_BY_NAME",
-        payload: product.data,
+    return axios
+      .get("/products/?q=" + q)
+      .then((product) => {
+        dispatch({
+          type: "GET_PRODUCT_BY_NAME",
+          payload: product.data,
+        });
       });
-    });
   };
 }
 export function orderAZ() {

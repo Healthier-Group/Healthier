@@ -79,7 +79,7 @@ export function logOutUser() {
       await localStorage.removeItem("cartItems");
       await localStorage.removeItem("shippingAddress");
       await localStorage.removeItem("wishListItems");
-			await axios.get(`auth/logout`, 
+			await axios.get(`/auth/logout`, 
 			{withCredentials: true})
 			dispatch({type: LOGOUT})
 		}catch (e){
@@ -111,7 +111,7 @@ export function resetPass(token, newPassword) {
 export function allowAdmin(token) {
 	return async function (dispatch) {
 		try {
-			const {data} = await axios.post(`auth/admin`,{token})
+			const {data} = await axios.post(`/auth/admin`,{token})
 			localStorage.setItem('adminAllowed',JSON.stringify(data))
 			dispatch({type: ADMIN_ALLOWED, payload: data})
 		} catch(e) {

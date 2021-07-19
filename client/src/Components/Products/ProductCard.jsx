@@ -73,16 +73,14 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const {foundProducts} = useSelector((state) => state.productReducer);
+  
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts())
   },
   // eslint-disable-next-line
-   []);
+  [])
 
-  const product = useSelector((state) => state.productReducer.foundProducts);
-  
-  
   return (
     <div className={classes.view}>
       <Grid container spacing={1}>
@@ -95,7 +93,7 @@ export default function ProductCard() {
         <Hidden only={["xs", "sm"]}>
           <Grid item xs={10}>
             <div className={classes.wrapped}>
-              {product?.map((p) => {
+              {foundProducts?.map((p) => {
                 return (
                   <Link
                     key={p.sku}
@@ -147,7 +145,7 @@ export default function ProductCard() {
         <Hidden only={["md", "lg", "xl"]}>
           <Grid item xs={12}>
             <div className={classes.wrapped}>
-              {product?.map((p) => {
+              {foundProducts?.map((p) => {
                 return (
                   <Link
                   key={p.sku}
