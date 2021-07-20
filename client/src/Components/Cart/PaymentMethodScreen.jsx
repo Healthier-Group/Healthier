@@ -9,7 +9,7 @@ export default function PaymentMethodScreen(props) {
     // if(!shippingAddress.adress){
     //     props.history.push('/shipping')
     // }
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("Mercado Pago");
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -30,26 +30,26 @@ export default function PaymentMethodScreen(props) {
             <input
               type='radio'
               id='paypal'
-              value='PayPal'
+              value='mercado pago'
               name='paymentMethod'
               required
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-            <label htmlFor='paypal'>PayPal</label>
+            <label htmlFor='mercado pago'>Mercado Pago</label>
           </div>
           <div>
             <div>
               <input
                 type='radio'
-                id='stripe'
-                value='Stripe'
+                id='paypal'
+                value='paypal'
                 name='paymentMethod'
                 required
                
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
-              <label htmlFor='stripe'>Mercado</label>
+              <label htmlFor='paypal'>PayPal</label>
             </div>
             <div>
               <button className='primary' type='submit'>

@@ -42,7 +42,7 @@ const SearchBar = () => {
     dispatch(getProductByName(input));
   }
 
-  const options = useSelector(state => state.foundProducts)
+  // const options = useSelector(state => state.foundProducts)
   
   return (
     <form className={classes.search} onSubmit={handleSubmit}>

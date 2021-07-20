@@ -145,7 +145,7 @@ const ProductDetail = (props) => {
                             color="primary"
                             onClick={addToCartHandler}
                           >
-                            Comprar
+                            Enviar a tu carrito
                           </Button>
                         </CardActions>
 
@@ -208,7 +208,7 @@ const ProductDetail = (props) => {
                         color="primary"
                         onClick={addToCartHandler}
                       >
-                        Comprar
+                        Enviar a tu carrito
                       </Button>
                       <div className={classes.favMobile}>
                         <p className={classes.p}>

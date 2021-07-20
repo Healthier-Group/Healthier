@@ -17,7 +17,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 import OrderFilter from "./OrderFilter";
-import Footer from "../Footer/Footer";
+//import Footer from "../Footer/Footer";
+import { addToWishList } from "../../redux/wishlist/actionsWishList";
+import { addToCart } from "../../redux/cart/cartActions";
 
 const useStyles = makeStyles({
   root: {
@@ -41,8 +43,8 @@ const useStyles = makeStyles({
   name: {
     position: "relative",
     textAlign: "center",
-    fontSize:"18px",
-    fontWeight:"bold",
+    fontSize: "18px",
+    fontWeight: "bold",
     width: 218,
     height: 50,
     marginBottom: "25px",
@@ -78,9 +80,19 @@ export default function ProductCard() {
     dispatch(getProducts());
   }, []);
 
+  const addToWishListHandler = (id) => {
+    console.log("item_id: " + id);
+    dispatch(addToWishList(id));
+    dispatch(getProducts());
+  };
+  const addToCartHandler = (id) => {
+    console.log("item_id: " + id);
+    dispatch(addToCart(id));
+    dispatch(getProducts());
+  };
   const product = useSelector((state) => state.productReducer.foundProducts);
-  
-  
+  //const product = useSelector((state) => state.productReducer.products);
+
   return (
     <div className={classes.view}>
       <Grid container spacing={1}>
@@ -94,47 +106,53 @@ export default function ProductCard() {
           <Grid item xs={10}>
             <div className={classes.wrapped}>
               {product?.map((p) => {
+                const productId = p.id;
+
                 return (
-                  <Link
-                    to={`/products/${p.id}`}
-                    style={{ color: "black", textDecoration: "none" }}
-                  >
-                    <Card className={classes.root}>
-                      <CardActionArea>
+                  <Card className={classes.root}>
+                    <CardActionArea>
+                      <Link
+                        to={`/products/${p.id}`}
+                        style={{ color: "black", textDecoration: "none" }}
+                      >
                         <CardMedia
                           className={classes.media}
                           image={p.image}
                           title={p.name}
+                          id={p.id}
                         />
                         <CardContent>
                           <div>
                             <p className={classes.name}>{p.name}</p>
                           </div>
 
-                          <Typography component="h3" className={classes.price}>
+                          <Typography component='h3' className={classes.price}>
                             $ {p.price}
                           </Typography>
                         </CardContent>
-                      </CardActionArea>
-                      <CardActions className={classes.space}>
-                        <Button
-                          className={classes.btn}
-                          size="small"
-                          color="primary"
-                        >
-                          <AddShoppingCartIcon /> Lo quiero
-                        </Button>
-                        <Button
-                          className={classes.btn}
-                          size="small"
-                          color="primary"
-                          // onClick={addToWishListHandler}
-                        >
-                          Favoritos <FavoriteBorderIcon />
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Link>
+                      </Link>
+                    </CardActionArea>
+                    <CardActions className={classes.space}>
+                      <Button
+                        className={classes.btn}
+                        size='small'
+                        color='primary'
+                        onClick={() => addToCartHandler(productId)}
+                      >
+                        <AddShoppingCartIcon /> Lo quiero
+                      </Button>
+                      <Button
+                        className={classes.btn}
+                        size='small'
+                        color='primary'
+                        //tenemos que mandarlo a la WL
+                        id={p.id}
+                        onClick={() => addToWishListHandler(productId)}
+                      >
+                        Favoritos <FavoriteBorderIcon />
+                      </Button>
+                    </CardActions>
+                  </Card>
                 );
               })}
             </div>
@@ -144,12 +162,13 @@ export default function ProductCard() {
           <Grid item xs={12}>
             <div className={classes.wrapped}>
               {product?.map((p) => {
+                const productId = p.id;
                 return (
-                  <Link
-                    to={`/products/${p.id}`}
-                    style={{ color: "black", textDecoration: "none" }}
-                  >
-                    <Card className={classes.root}>
+                  <Card className={classes.root}>
+                    <Link
+                      to={`/products/${p.id}`}
+                      style={{ color: "black", textDecoration: "none" }}
+                    >
                       <CardActionArea>
                         <CardMedia
                           className={classes.media}
@@ -161,29 +180,31 @@ export default function ProductCard() {
                             <p className={classes.name}>{p.name}</p>
                           </div>
 
-                          <Typography component="h3" className={classes.price}>
+                          <Typography component='h3' className={classes.price}>
                             $ {p.price}
                           </Typography>
                         </CardContent>
                       </CardActionArea>
-                      <CardActions className={classes.space}>
-                        <Button
-                          className={classes.btn}
-                          size="small"
-                          color="primary"
-                        >
-                          <AddShoppingCartIcon /> Lo quiero
-                        </Button>
-                        <Button
-                          className={classes.btn}
-                          size="small"
-                          color="primary"
-                        >
-                          Favoritos <FavoriteBorderIcon />
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Link>
+                    </Link>
+                    <CardActions className={classes.space}>
+                      <Button
+                        className={classes.btn}
+                        size='small'
+                        color='primary'
+                        onClick={() => addToCartHandler(productId)}
+                      >
+                        <AddShoppingCartIcon /> Lo quiero
+                      </Button>
+                      <Button
+                        className={classes.btn}
+                        size='small'
+                        color='primary'
+                        onClick={() => addToWishListHandler(productId)}
+                      >
+                        Favoritos <FavoriteBorderIcon />
+                      </Button>
+                    </CardActions>
+                  </Card>
                 );
               })}
             </div>

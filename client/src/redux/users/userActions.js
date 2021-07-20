@@ -10,6 +10,7 @@ import {
   LOGOUT,
 } from "../../utils/Constants";
 import swal from "sweetalert";
+import { CART_EMPTY } from "../cart/cartActions";
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -88,13 +89,15 @@ export function loginUser(login) {
 
 export function logOutUser() {
   return async function (dispatch) {
+    console.log("me fui logOutUser:92")
     try {
-      await localStorage.removeItem("profile");
-      await localStorage.removeItem("cartItems");
-      await localStorage.removeItem("shippingAddress");
-      await localStorage.removeItem("wishListItems");
+       localStorage.removeItem("profile");
+       localStorage.removeItem("cartItems");
+       localStorage.removeItem("shippingAddress");
+      localStorage.removeItem("wishListItems"); 
       await axios.get(`${API_URL}auth/logout`, { withCredentials: true });
       dispatch({ type: LOGOUT });
+      dispatch({ type: CART_EMPTY });
     } catch (e) {
       console.log(e.message);
     }
