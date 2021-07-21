@@ -7,12 +7,12 @@ const path = require("path");
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
-        database: process.env.DB_NAME,
+        database: "d6mh08vkosvb3d",
         dialect: "postgres",
         host: "ec2-52-45-183-77.compute-1.amazonaws.com",
         port: 5432,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
+        username: "vtdrcqwyxzgxns",
+        password: "7a20fe46ec897816a20247fbaedc9d47d2445b007d56c8286124e41df7aae799",
         pool: {
           max: 3,
           min: 1,
