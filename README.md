@@ -1,11 +1,10 @@
 Acá vá una descripción del alcance y detalles del proyecto
 
 Integrantes:
-Nicolas Sanchez
 Santiago Cañas
-Nacho
+Juan Ignacio Vergara
 Juan Martin
 Sacha Cuña
-Ramiro
+Ramiro Barra Soto
 Edgar Montenegro
 Sergio Sotelo
