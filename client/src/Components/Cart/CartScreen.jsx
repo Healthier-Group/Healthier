@@ -12,6 +12,7 @@ import {
   Button,
   Hidden,
 } from "@material-ui/core";
+import Footer from "../Footer/Footer";
 
 export default function CartScreen(props) {
 
@@ -54,8 +55,9 @@ export default function CartScreen(props) {
   };
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div>
       <Hidden only={["xs", "sm"]}>
+      <div style={{minHeight:"100vh", margin:"auto"}}>
         <Paper
           elevation={3}
           style={{
@@ -169,8 +171,10 @@ export default function CartScreen(props) {
             </Grid>
           </Grid>
         </Paper>
+        </div>
       </Hidden>
       <Hidden only={["md", "lg", "xl"]}>
+        <div style={{minHeight:"100vh", margin:"auto"}}>
         <Paper
           elevation={3}
           style={{
@@ -298,7 +302,9 @@ export default function CartScreen(props) {
             </Grid>
           </Grid>
         </Paper>
+        </div>
       </Hidden>
+      <Footer/>
     </div>
   );
 }

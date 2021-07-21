@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
-import MercadoPago from "../MercadoPago/MercadoPago";
+import Footer from "../Footer/Footer";
 
 const style = makeStyles((theme) => ({
   root: {
@@ -18,6 +18,8 @@ const style = makeStyles((theme) => ({
   },
   center: {
     textAlign: "center",
+    backgroundColor:"red",
+    height:"300px"
   },
 }));
 
@@ -26,12 +28,9 @@ export default function Container() {
 
   return (
     <div className={classes.root}>
-        <div className={classes.toolbar}/>
-        <div className={classes.content}>
-        <div className={classes.center}>Acá iría un carrusel!</div>
-      </div>
-        <MercadoPago />
-        <ProductCard />
+      <div className={classes.center}>Acá iría un carrusel!</div>
+      <ProductCard />
+      <Footer/>
     </div>
   );
 }

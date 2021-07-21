@@ -1,63 +1,62 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { makeStyles, 
-         Grid, 
-         Paper, 
-         Card, 
-         Typography, 
-         CardContent, 
-         CardActionArea, 
-         Button, 
-         CardActions, 
-         Hidden} from "@material-ui/core";
+import {
+  makeStyles,
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Hidden,
+ 
+} from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
-
+import Footer from "../Footer/Footer";
 
 const useStyles = makeStyles({
-  root:{
+  root: {
     margin: "auto",
-    marginBottom: "20px",
-    marginTop: "70px",
+    // marginBottom: "20px",
+    // marginTop: "70px",
     justifyContent: "center",
   },
-  card:{
+  card: {
     width: "300px",
     height: "400px",
   },
-  cont1:{
+  cont1: {
     display: "flex",
-    marginTop:'100px',
+    marginTop: "100px",
     minWidth: "60vw",
     justifyContent: "space-between",
     margin: 20,
   },
-  fav:{
+  fav: {
     textAlign: "center",
     marginTop: "25px",
     marginBottom: "25px",
   },
-  btn:{
+  btn: {
     width: "280px",
     margin: "auto",
   },
-  btnMobile:{
+  btnMobile: {
     width: "80vw",
     display: "flex",
     margin: "auto",
   },
-  name:{
+  name: {
     fontSize: "25px",
     fontFamily: "Roboto",
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: "20px",
   },
-  price:{
+  price: {
     fontSize: "25px",
     fontWeight: "bold",
     marginBottom: "30px",
   },
-  p:{
+  p: {
     fontSize: "20px",
     fontFamily: "Roboto",
     backgroundColor: "lightblue",
@@ -65,39 +64,40 @@ const useStyles = makeStyles({
     margin: "auto",
     padding: "10px",
   },
-  favMobile:{
+  favMobile: {
     marginTop: "25px",
   },
-  cont1Mobile:{
+  cont1Mobile: {
     height: "fit-content",
-    padding: 10,
+    padding: "20px 10px",
+    margin: "30px 0",
   },
-  root1:{
+  root1: {
     margin: "auto",
     marginTop: 20,
     marginBottom: 10,
     justifyContent: "center",
   },
-  bg:{
+  bg: {
     backgroundColor: "#f1f1f1",
   },
-  description:{
+  description: {
     padding: 20,
   },
-})
+});
 
 const ProductDetail = (props) => {
   const classes = useStyles();
   const id = props.match.params.id;
   const dispatch = useDispatch();
-  let qty=1
+  let qty = 1;
   const addToCartHandler = () => {
     props.history.push(`/cart/${id}?qty=${qty}`);
   };
 
   useEffect(() => {
     dispatch(getProductById(id));
-  }, [dispatch,id]);
+  }, [dispatch, id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
   const addToWishListHandler = () => {
@@ -107,69 +107,102 @@ const ProductDetail = (props) => {
     <div className={classes.bg}>
       {product?.map((p) => {
         return (
-          <div className = {classes.bg}>
-          
+          <div
+            key={p.id}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              margin: "auto",
+              minHeight: "100vh",
+            }}
+          >
             <Hidden only={["sm", "xs"]}>
-              <Grid container spacing={1} className={classes.root}>
-                <Grid container className={classes.root}>
-                  <Grid item>
-                    <Paper className={classes.cont1}>
-                      <img
-                        src={p.image}
-                        alt="Not Found"
-                        style={{ display: "flex", margin: "auto" }}
-                        width="400px"
-                        height="400px"
-                      />
-                      <Card className={classes.card}>
-                        <CardActionArea>
-                          <CardContent>
-                            <Typography className={classes.name}>
-                              {p.name}
-                            </Typography>
-                            <Typography>{p.brand}</Typography>
-                            <Typography>{p.size}</Typography>
+              <Paper
+                elevation={3}
+                style={{
+                  margin: "auto",
 
-                            <Typography className={classes.price}>
-                              ${p.price}
-                            </Typography>
-                            <Typography>
-                              Antes ${Math.ceil(p.price * 1.15)}
-                            </Typography>
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                          <Button
-                            className={classes.btn}
-                            variant="contained"
-                            color="primary"
-                            onClick={addToCartHandler}
-                          >
-                            Comprar
-                          </Button>
-                        </CardActions>
+                  width: "80vw",
+                  padding: "50px 20px",
+                }}
+              >
+                <div
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <img
+                    src={p.image}
+                    alt="Not found"
+                    width="400px"
+                    height="400px"
+                    style={{ margin: "auto", borderRadius: "50%" }}
+                  />
+                  <Paper
+                    elevation={3}
+                    style={{
+                      margin: "auto",
+                      height: "fit-content",
+                      padding: "30px",
+                      width: "30vw",
+                    }}
+                  >
+                    <Typography variant="h4">{p.name}</Typography>
+                    <br />
+                    <Typography>{p.brand}</Typography>
+                    <br />
+                    <Typography variant="h5">
+                      <b>$ {p.price}</b>
+                    </Typography>
+                    <br />
+                    <br />
 
-                        <div className={classes.fav}>
-                          <i class="far fa-heart" onClick={addToWishListHandler}>Añadir a favoritos</i>
-                        </div>
-                      </Card>
-                    </Paper>
-                  </Grid>
-                </Grid>
-                <Grid item xs={6}>
-                  <Paper className={classes.description}>
-                    <label>
-                      <b>Descripción:</b>
-                    </label>
-
-                    <Typography>{p.description}</Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addToCartHandler}
+                      style={{
+                        width: "25vw",
+                        display: "flex",
+                        margin: "auto",
+                        color: "black",
+                        backgroundColor: "#41D26C",
+                      }}
+                    >
+                      Comprar
+                    </Button>
+                    <br />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={addToWishListHandler}
+                      style={{
+                        width: "25vw",
+                        display: "flex",
+                        margin: "auto",
+                        color: "black",
+                        backgroundColor: "#CE2323",
+                      }}
+                    >
+                      Favoritos
+                    </Button>
                   </Paper>
-                </Grid>
-              </Grid>
+                </div>
+                <Paper
+                  elevation={3}
+                  style={{
+                    margin: "20px auto",
+                    width: "60vw",
+                    padding: "20px",
+                  }}
+                >
+                  <Typography>
+                    <b>Descripción.</b>
+                  </Typography>
+                  <Typography>{p.description}</Typography>
+                </Paper>
+              </Paper>
             </Hidden>
 
             <Hidden only={["md", "lg", "xl"]}>
-              
               <Grid container className={classes.root}>
                 <Grid container className={classes.root1}>
                   <Grid item xs={11}>
@@ -192,14 +225,9 @@ const ProductDetail = (props) => {
                           height="300px"
                         />
                       </Hidden>
-                      <Typography>{p.marca}</Typography>
-                      <Typography>{p.peso}</Typography>
-
+                      <Typography>{p.brand}</Typography>
                       <Typography className={classes.price}>
                         ${p.price}
-                      </Typography>
-                      <Typography>
-                        Antes ${Math.ceil(p.price * 1.15)}
                       </Typography>
 
                       <Button
@@ -210,11 +238,14 @@ const ProductDetail = (props) => {
                       >
                         Comprar
                       </Button>
-                      <div className={classes.favMobile}>
-                        <p className={classes.p}>
-                          <i class="far fa-heart" onClick={addToWishListHandler} > Agregar a favoritos</i>
-                        </p>
-                      </div>
+                      <br />
+                      <Button
+                        className={classes.btnMobile}
+                        variant="contained"
+                        onClick={addToWishListHandler}
+                      >
+                        Favoritos
+                      </Button>
                     </Paper>
                   </Grid>
                 </Grid>
@@ -233,6 +264,8 @@ const ProductDetail = (props) => {
           </div>
         );
       })}
+
+      <Footer />
     </div>
   );
 };

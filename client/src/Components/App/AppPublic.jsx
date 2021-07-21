@@ -1,89 +1,82 @@
-import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import {Route, Redirect} from 'react-router';
-import LandingPage from '../LandingPage/LandingPage'
-import NavBar from '../NavBar/NavBar'
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Route, Redirect } from "react-router";
+import LandingPage from "../LandingPage/LandingPage";
+import NavBar from "../NavBar/NavBar";
 import ProductCard from "../Products/ProductCard";
 import ProductDetail from "../Products/ProductDetail";
 import Recipes from "../Recipes/Recipes";
 import CartScreen from "../Cart/CartScreen";
-import CreateUser from '../Users/UserAdd/CreateUser';
+import CreateUser from "../Users/UserAdd/CreateUser";
 import UserLogin from "../Users/UserLogin/UserLogin";
-import Footer from '../Footer/Footer'
-import ShippingAddressScreen from '../Cart/ShippingAddressScreen';
-import PaymentMethodScreen from '../Cart/PaymentMethodScreen';
-import PlaceOrderScreen from '../Cart/PlaceOrderScreen';
-import OrderScreen from '../Cart/OrderScreen';
+import ShippingAddressScreen from "../Cart/ShippingAddressScreen";
+import PaymentMethodScreen from "../Cart/PaymentMethodScreen";
+import PlaceOrderScreen from "../Cart/PlaceOrderScreen";
+import OrderScreen from "../Cart/OrderScreen";
 
-import WishListScreen from '../WishList/WishListScreen';
+import WishListScreen from "../WishList/WishListScreen";
 
-import ResetPassword from '../Users/UserResetPassword/ResetPassword'
-import Admin2FA from '../Users/Admin2FA/Admin2FA'
-
+import ResetPassword from "../Users/UserResetPassword/ResetPassword";
+import Admin2FA from "../Users/Admin2FA/Admin2FA";
 
 function AppPublic() {
-// eslint-disable-next-line
-	const [currentUser, setCurrentUser] = React.useState(JSON.parse(localStorage.getItem('profile')));
+  // eslint-disable-next-line
+  const [currentUser, setCurrentUser] = React.useState(
+    JSON.parse(localStorage.getItem("profile"))
+  );
 
-	return (
-			<BrowserRouter>
+  return (
+    <BrowserRouter>
+      {/* ============== User =====================*/}
+      <Route
+        exact
+        path="/register"
+        component={() =>
+          !currentUser ? (
+            <CreateUser />
+          ) : currentUser.isAdmin ? (
+            <Redirect to="/private/panel" />
+          ) : (
+            <Redirect to={`/`} />
+          )
+        }
+      />
 
-				{/* ============== User =====================*/}
-				<Route 
-					exact path="/register"
-					component={ () => (
-						( !currentUser )
-						? 
-						( <CreateUser /> )
-						:
-						(
-							currentUser.isAdmin
-							?
-							( <Redirect to="/private/panel" /> )
-							:
-							( <Redirect to={`/`} /> )
-						) 
-					)}
-				/>
+      <Route
+        exact
+        path="/login"
+        component={() =>
+          !currentUser ? (
+            <UserLogin />
+          ) : currentUser.isAdmin ? (
+            <Redirect to="/private/panel" />
+          ) : (
+            <Redirect to={`/`} />
+          )
+        }
+      />
 
-				<Route 
-					exact path="/login"
-					component={ () => (
-						( !currentUser )
-						? 
-						( <UserLogin /> )
-						:
-						(
-							currentUser.isAdmin
-							?
-							( <Redirect to="/private/panel" /> )
-							:
-							( <Redirect to={`/`} /> )
-						) 
-					)}
-				/>
+      <Route path="/verify/password" component={ResetPassword} />
+      <Route path="/verify/admin" component={Admin2FA} />
 
-				<Route path="/verify/password" component = {ResetPassword}/>
-				<Route path="/verify/admin" component = {Admin2FA}/>
+      {/* ============ LandingPage ==================== */}
+      <Route path="/" component={NavBar} />
+      <Route exact path="/" component={LandingPage} />
 
-				{/* ============ LandingPage ==================== */}
-				<Route path="/" component={NavBar} />
-				<Route exact path="/" component={LandingPage} />
-				<Route path="/" component={Footer} />
-				{/* ============ Productos ==================== */}
-				<Route path="/recipes" exact component={Recipes} />
-				<Route exact path="/products/:id" component={ProductDetail} />
-				<Route  exact path="/products" component={ProductCard} />
+      {/* ============ Productos ==================== */}
+      <Route path="/recipes" exact component={Recipes} />
+      <Route exact path="/products/:id" component={ProductDetail} />
+      <Route exact path="/products" component={ProductCard} />
 
-				{/* ============ Cart ==================== */}
-				<Route exact path='/cart/:id?' component={CartScreen}></Route>
-				<Route exact path="/shipping" component={ShippingAddressScreen} />
-				<Route exact path="/payment" component={PaymentMethodScreen} />
-				<Route exact path='/placeorder' component={PlaceOrderScreen} ></Route>
-				<Route path='/order/:id' component={OrderScreen} exact></Route>
-				<Route path='/wishlist/:id?' component={WishListScreen} exact></Route>
-            </BrowserRouter>
-	);
+      {/* ============ Cart ==================== */}
+      <Route exact path="/cart/:id?" component={CartScreen}></Route>
+      <Route exact path="/shipping" component={ShippingAddressScreen} />
+      <Route exact path="/payment" component={PaymentMethodScreen} />
+      <Route exact path="/placeorder" component={PlaceOrderScreen}></Route>
+      <Route path="/order/:id" component={OrderScreen} exact></Route>
+      <Route path="/wishlist/:id?" component={WishListScreen} exact></Route>
+    </BrowserRouter>
+  );
 }
 
 export default AppPublic;

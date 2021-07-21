@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import {
-  Container,
   AppBar,
   Toolbar,
   Typography,
@@ -11,7 +10,6 @@ import {
   Hidden,
   Drawer,
   Divider,
-
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -19,7 +17,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../Images/h.png";
 import List from "../List/List";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import {logOutUser} from '../../redux/users/userActions'
+import { logOutUser } from "../../redux/users/userActions";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -38,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   buttons: {
     textDecoration: "none",
-    marginRight: "2%",
+    color: "white",
   },
   drawer: {
     width: 240,
@@ -65,16 +63,16 @@ export default function NavBar() {
   }
 
   const handleLogOut = () => {
-    dispatch(logOutUser())
-  }
+    dispatch(logOutUser());
+  };
 
   return (
     <div>
       <Hidden only={["xs", "sm"]}>
-        <AppBar position="fixed">
+        <AppBar position="static">
           <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-              <img src={Logo} alt="Not found"className={classes.image} />
+              <img src={Logo} alt="Not found" className={classes.image} />
 
               <Link
                 to="/"
@@ -84,51 +82,63 @@ export default function NavBar() {
                   margin: "auto",
                 }}
               >
-                <Hidden>
-                  <Typography variant="h6" className={classes.title}>
-                    Healthier Club
-                  </Typography>
-                </Hidden>
+                <Typography variant="h6" className={classes.title}>
+                  Healthier Club
+                </Typography>
               </Link>
             </div>
 
-            <Toolbar>
+            <Toolbar style={{ margin: "auto" }}>
               <SearchBar />
             </Toolbar>
-
-            <Toolbar>
-              <Hidden>
-                <Link to="/products" className={classes.buttons}>
-                  <Button color="secondary">Productos</Button>
-                </Link>
-                <Link to="/recipes" className={classes.buttons}>
-                  <Button color="secondary">Recetas</Button>
-                </Link>
-              </Hidden>
-              <Link
-                to="/cart"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <AddShoppingCartIcon />
-              </Link>
-              <Container>
-                {
-                  !   JSON.parse(localStorage.getItem('profile'))
-                  ? (<Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <Link to="/register"><Button color="secondary">Register</Button></Link>
-                      <Link to="/login"><Button color="secondary">Login</Button></Link>
-                    </Toolbar>)
-                  : (<Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
-                      <Link to="/"><Button onClick={handleLogOut} color="secondary">Log Out</Button></Link>
-                    </Toolbar>)
-                }
-              </Container>
-            </Toolbar>
-
-            
-
           </Toolbar>
+          <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Toolbar>
+              <Link to="/products" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }} color="secondary">
+                  Productos
+                </span>
+              </Link>
+              <Link to="/recipes" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }} color="secondary">
+                  Recetas
+                </span>
+              </Link>
+              <Link to="/wishlist" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }} color="secondary">
+                  Wishlist
+                </span>
+              </Link>
 
+              <Link to="/cart" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }}>
+                  <AddShoppingCartIcon />
+                </span>
+              </Link>
+            </Toolbar>
+            {!JSON.parse(localStorage.getItem("profile")) ? (
+              <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Link to="/register" className={classes.buttons}>
+                  <span style={{ margin: "0 10px" }} color="secondary">
+                    Register
+                  </span>
+                </Link>
+                <Link to="/login" className={classes.buttons}>
+                  <span style={{ margin: "0 10px" }} color="secondary">
+                    Login
+                  </span>
+                </Link>
+              </Toolbar>
+            ) : (
+              <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Link to="/" className={classes.buttons}>
+                  <span onClick={handleLogOut} color="secondary">
+                    Log Out
+                  </span>
+                </Link>
+              </Toolbar>
+            )}
+          </Toolbar>
         </AppBar>
       </Hidden>
 
