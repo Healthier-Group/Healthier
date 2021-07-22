@@ -4,35 +4,13 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-let sequelize =
-  process.env.NODE_ENV === "production"
-    ? new Sequelize({
-        database: DB_NAME,
-        dialect: "postgres",
-        host: DB_HOST,
-        port: 5432,
-        username: DB_USER,
-        password: DB_PASSWORD,
-        pool: {
-          max: 3,
-          min: 1,
-          idle: 10000,
-        },
-        dialectOptions: {
-          ssl: {
-            require: true,
-            // Ref.: https://github.com/brianc/node-postgres/issues/2009
-            rejectUnauthorized: false,
-          },
-          keepAlive: true,
-        },
-        ssl: true,
-      })
-    : new Sequelize(
-        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-        { logging: false, native: false }
-      );
-
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+  {
+    logging: false,
+    native: false,
+  }
+);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -62,19 +40,20 @@ const { User, Product, Review, Category, Inventory, Orderproduct, Order, OrderMp
 //Review.hasOne(Product, {through: 'ProductReview'})
 Product.belongsToMany(Category, { through: "products_category" });
 Category.belongsToMany(Product, { through: "products_category" });
+
 Inventory.hasMany(Product);
 Product.belongsTo(Inventory);
+
 Product.hasMany(Review);
 Review.belongsTo(Product);
 OrderMp.belongsTo(User)
-
 
 //modelo de relacion usuarios a ordenes de compra
 User.hasMany(Order);
 Order.belongsTo(User);
 //modelo de relacion de ordenes de productos con productos
-Orderproduct.hasOne(Product);
-Product.belongsTo(Orderproduct);
+Orderproduct.hasOne(Product, { through: "aa"} );
+Product.belongsToMany(Orderproduct, { through: "aa"} );
 //modelo de relacion ordenes de compra con ordenes de producto
 Order.hasMany(Orderproduct);
 Orderproduct.belongsTo(Order);

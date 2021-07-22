@@ -34,6 +34,7 @@ export default function UserLogin() {
 
     const handleLogIn = (e) => {
 		dispatch(loginUser(input))
+        
 	};
 
     const GoogleSSOHandler = async () => {
@@ -46,7 +47,7 @@ export default function UserLogin() {
         if (newWindow) {
             timer = setInterval(() => {
                 if (newWindow.closed) {
-                    swal("");
+                    swal("Inicio de sesión exitoso");
                     dispatch(fetchAuthUser());
                     if (timer) clearInterval(timer);
                 }

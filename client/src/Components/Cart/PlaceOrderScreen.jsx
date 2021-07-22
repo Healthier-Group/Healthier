@@ -7,13 +7,13 @@ import {
   Button,
   Hidden,
 } from "@material-ui/core";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { getOrders } from '../../redux/order/orderActions'
 
 export default function PlaceOrderScreen(props) {
   const cart = useSelector((state) => state.cart);
-  console.log("esto es cart", cart);
   if (!cart.paymentMethod) {
     props.history.push("/payment");
   }
@@ -25,7 +25,13 @@ export default function PlaceOrderScreen(props) {
   cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice - cart.taxPrice;
-
+  
+  const {orders} = useSelector( state => state.orderReducer);
+  const dispatch = useDispatch();
+  useEffect( () => {
+    dispatch(getOrders())
+  }, [])
+  console.log("orders: ", orders);
   const placeOrderhandler = () => {
     //Todo
   };

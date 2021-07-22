@@ -63,7 +63,7 @@ export function fetchAuthUser() {
         throw new Error("Error fetching user");
       }
     } catch (e) {
-      swal(e.message, "ha sucedido un error", "error");
+      swal(e.message, "Ha ocurrido un error", "error");
     }
   };
 }
@@ -81,8 +81,25 @@ export function loginUser(login) {
       });
       localStorage.setItem("profile", JSON.stringify(user.data));
       dispatch({ type: LOGIN, payload: user.data });
+      //Create Cart 
+
+      // var orders = await axios.get(`${API_URL}order/getOrders`);
+      // var currentUser = await axios.get(`${API_URL}users/getUser/${orders.data[1].userId}`)
+      // var userOrder = orders.data.find(e => e.userID === user.data.id)
+      // console.log("login", login)
+      // console.log("órdenes", orders.data)
+      // console.log("usuario", user.data)
+      // console.log("orden de usuario", userOrder)
+      // console.log("usuario actual", currentUser)
+
+
+
+
+
+
+     // dispatch({type:CARRITO_OK, payload: create})
     } catch (e) {
-      swal(e.message, "ha sucedido un error", "error");
+      swal(e.message, "Ha ocurrido un error", "error");
     }
   };
 }

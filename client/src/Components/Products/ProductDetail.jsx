@@ -100,6 +100,7 @@ const ProductDetail = (props) => {
   }, [dispatch,id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
+  
   const addToWishListHandler = () => {
     props.history.push(`/wishlist/${id}`);
   };

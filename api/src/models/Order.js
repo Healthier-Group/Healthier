@@ -33,8 +33,8 @@ module.exports = sequelize => {
             allowNull: false
         },
         isPaid: { 
-            type: DataTypes.BOOLEAN,
-            allowNull: false
+            type: DataTypes.BOOLEAN,  
+            allowNull: false 
         }
 	})
 }

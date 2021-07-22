@@ -2,7 +2,7 @@ const {server} = require('./src/app.js');
 const {conn, Product} = require('./src/db.js');
 const {userMockUp, adminMockUp} = require('./src/utils/mockUps/users')
 
-conn.sync({ force: true }).then(async() => {
+conn.sync({ force: false }).then(async() => {
     await server.listen(3001, async() => {
     console.log('Healthier API is now listening at port 3001');
 

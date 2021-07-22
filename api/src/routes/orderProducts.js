@@ -1,16 +1,18 @@
 const router = require("express").Router();
 const express = require("express");
 
-const addOrderProducts = require ("../controllers/orderProducts/addOrderProducts");
-const getOrderProducts = require ("../controllers/orderProducts/getOrderProducts");
-const putOrderProducts = require ("../controllers/orderProducts/putOrderProducts");
-const deleteOrderProducts = require ("../controllers/orderProducts/deleteOrderProducts");
+const addOrderProduct = require ("../controllers/orderProducts/addOrderProductsController");
+const getOrderProductsById = require ("../controllers/orderProducts/getOrderProductByIdController");
+const getOrderProducts = require ("../controllers/orderProducts/getOrderProductsController");
+const putOrderProduct = require ("../controllers/orderProducts/putOrderProductsController");
+const deleteOrderProduct = require ("../controllers/orderProducts/deleteOrderProductsController");
 
 router.use(express.json())
 
-router.post("/", addOrderProducts);
-router.get("/", getOrderProducts);
-router.put("/:id", putOrderProducts);
-router.delete("/:id", deleteOrderProducts);
+router.post("/addOrderProduct", addOrderProduct);
+router.get("/getOrderProduct/:id", getOrderProductsById);
+router.get("/getOrderProducts", getOrderProducts);
+router.put("/updateOrderProduct/:id", putOrderProduct);
+router.delete("/deleteOrderProduct/:id", deleteOrderProduct);
 
 module.exports = router;

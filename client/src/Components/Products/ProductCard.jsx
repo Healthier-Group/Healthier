@@ -20,6 +20,7 @@ import OrderFilter from "./OrderFilter";
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
+import swal from 'sweetalert'
 
 const useStyles = makeStyles({
   root: {
@@ -80,15 +81,28 @@ export default function ProductCard() {
     dispatch(getProducts());
   }, []);
 
-  const addToWishListHandler = (id) => {
+  const addToWishListHandler = async (id) => {
     console.log("item_id: " + id);
-    dispatch(addToWishList(id));
-    dispatch(getProducts());
+    await dispatch(addToWishList(id));
+   
+    swal({
+      title: "Lista de deseos",
+      text: "Tu producto fue añadido",
+      icon: "success",
+      button: "Volver",
+    });
+    await dispatch(getProducts());
   };
-  const addToCartHandler = (id) => {
+  const addToCartHandler = async (id) => {
     console.log("item_id: " + id);
-    dispatch(addToCart(id));
-    dispatch(getProducts());
+    await dispatch(addToCart(id));
+    swal({
+      title: "Carrito de compras",
+      text: "Tu producto fue añadido",
+      icon: "success",
+      button: "Volver",
+    });
+    await dispatch(getProducts());
   };
   const product = useSelector((state) => state.productReducer.foundProducts);
   //const product = useSelector((state) => state.productReducer.products);
