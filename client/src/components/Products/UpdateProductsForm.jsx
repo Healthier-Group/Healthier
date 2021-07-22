@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React , { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,9 +13,13 @@ import {
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../themeStyle";
 import ValidateProduct from "../../utils/ValidateProduct";
+import { getCategories } from '../../redux/products/productActions'
 
 import swal from "sweetalert";
-import { getProductById, updateProduct } from "../../redux/products/productActions";
+import {
+  getProductById,
+  updateProduct,
+} from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,14 +41,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function ProductUpdate() {
-
-
-
   const { id } = useParams();
-  console.log('Aca hay ID', id)
+  
+  useEffect(()=>{
+    dispatch(getCategories())
+    },[])
+  const category = useSelector((state) => state.productReducer.foundCategories);
   const productDetail = useSelector(
     (state) => state.productReducer.productDetail
   );
+  console.log(category)
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -75,6 +81,7 @@ export function ProductUpdate() {
         price: productDetail[0]?.price,
         image: productDetail[0]?.image,
         sku: productDetail[0]?.sku,
+        category: productDetail[0]?.category,
       });
     } else {
       dispatch(getProductById(id));
@@ -116,6 +123,45 @@ export function ProductUpdate() {
     });
     ValidateProduct(e.target, error, setError, helperText, setHelperText);
   };
+
+  //manejo del select
+
+  function handleSelect(e) {
+    if (input.category?.includes(parseInt(e.target.value))) {
+      alert("Ya se eligió esta categoría. Seleccione otras.");
+    } else if (input.category?.length >= 5) {
+      alert("Se pueden elegir hasta 3 categorías.");
+    } else {
+      setInput((prev) => (
+        { ...prev, category: [...prev.category, parseInt(e.target.value)]}))
+    }
+  }
+
+  //obtener los nombres y mostrarlos
+
+  function getNames(arr) {
+    let names = [];
+    category?.forEach((t) => {
+      arr.forEach((id) => {
+        if (parseInt(id) === t.id) {
+          names.push(t.name);
+        }
+      });
+    });
+    return names;
+  }
+
+  //eliminar las categorias seleccionadas
+  function deleteTemp(e, c) {
+    setInput((prev) => ({
+      ...prev,
+      category: prev.category.filter((cat) => cat !== parseInt(c)),
+    }));
+  }
+
+
+//        productDetail[0].categories.length? { map {productDetail[0].categories} con los P } : {<p>Este producto no tiene categorías seleccionadas aún</p>}
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -279,6 +325,31 @@ export function ProductUpdate() {
                       onChange={handleInputChange}
                       fullWidth={true}
                     />
+
+                    <select
+                      name="category"
+                      onChange={(e) => handleSelect(e)}
+                      value={input.category}
+                      className={classes.inputs}
+                      required
+                    >
+                      <option> select</option>
+                      {category?.map((c) => {
+                        return (
+                          <option value={c.id} key={c.id}>
+                            {c.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <div>
+                      {input.category?.map((c) => (
+                        <p id={c}>
+                          {getNames([c])}
+                          <button onClick={(e) => deleteTemp(e, c)}>x</button>
+                        </p>
+                      ))}
+                    </div>
                   </Grid>
                 </Grid>
               </Grid>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import AppPrivate from './Components/App/AppPrivate';
-import AppPublic from './Components/App/AppPublic';
+import AppPrivate from './components/App/AppPrivate';
+import AppPublic from './components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {

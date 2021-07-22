@@ -8,6 +8,7 @@ import ProductCard from "../Products/ProductCard";
 import ProductDetail from "../Products/ProductDetail";
 import Recipes from "../Recipes/Recipes";
 import CartScreen from "../Cart/CartScreen";
+import Carousel from '../Carousel/Carousel'
 
 function AppPublic() {
 	return (
@@ -15,6 +16,7 @@ function AppPublic() {
 
 				{/* ============ LandingPage ==================== */}
 				<Route path="/" component={NavBar} />
+				<Route exact path="/" component={Carousel} />
 				<Route exact path="/" component={LandingPage} />
 
 				{/* ============ User ==================== */}

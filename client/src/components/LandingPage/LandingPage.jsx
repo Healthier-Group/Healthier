@@ -25,9 +25,9 @@ export default function Container() {
 
   return (
     <div className={classes.root}>
-        <div className={classes.toolbar}/>
+        {/* <div className={classes.toolbar}/> */}
         <div className={classes.content}>
-        <div className={classes.center}>Acá iría un carrusel!</div>
+       {/*  <div className={classes.center}>Acá iría un carrusel!</div> */}
         <ProductCard />
       </div>
       <Footer />

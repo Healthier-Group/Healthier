@@ -33,8 +33,8 @@ const useStyles = makeStyles({
     display:'flex',
     flexWrap: 'wrap',
     backgroundColor:'#f1f1f1',
-    margin: 50,
-    marginTop: '10%'
+    margin: 0,
+    marginTop: '0%'
   },
   name:{
     position:'relative',

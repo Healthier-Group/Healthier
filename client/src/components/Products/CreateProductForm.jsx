@@ -107,9 +107,9 @@ export const CreateProductForm = () => {
 
   function handleSelect(e) {
     if (input.category.includes(parseInt(e.target.value))) {
-        alert('You already selected this temperament. Try again.')
+        alert('You already selected this Category. Try again.')
     } else if (input.category.length >= 5) {
-        alert('You can select up to 3 temperaments.')
+        alert('You can select up to 3 cats.')
     } else {
         setInput((prev) => ({ ...prev, category: [...prev.category, parseInt(e.target.value)] }))
     }
@@ -124,8 +124,7 @@ function getNames(arr) {
           if (parseInt(id) === t.id) {
               names.push(t.name)
           }
-      })
-
+      });
   })
   return names;
 }
@@ -237,7 +236,7 @@ function deleteTemp(e, c) {
             </select>
             <div>
                {
-              input.category.map(c => (
+              input.category?.map((c) => (
                  <p id={c} >
                     {getNames([c])}
                 <button onClick={(e) => deleteTemp(e, c)}>x</button>

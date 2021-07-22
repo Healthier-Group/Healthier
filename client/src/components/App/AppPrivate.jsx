@@ -13,6 +13,7 @@ import CreateCategoryForm from '../Categories/CreateCategoryForm';
 import CategoryList from '../Categories/CategoryList';
 import UpdateCategory from '../Categories/UpdateCategoryForm';
 import DeleteCategory from '../Categories/DeleteCategory'
+import Carousel from '../Carousel/Carousel';
 
 function AppPrivate() {
 	return (
@@ -38,6 +39,8 @@ function AppPrivate() {
 				<Route exact path="/private/updateCategory/:id" component={UpdateCategory} />
 				<Route exact path="/private/deletecategory/:id" component={DeleteCategory} />
 				<Route exact path="/private/categorylist" component={CategoryList} /> 
+				{/* ============ Carousel =================== */}
+                <Route exact path="/private/test" component={Carousel} />
 
             </BrowserRouter>
 
