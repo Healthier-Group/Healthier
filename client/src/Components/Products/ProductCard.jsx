@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 import OrderFilter from "./OrderFilter";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 
 const useStyles = makeStyles({
@@ -83,6 +85,7 @@ export default function ProductCard() {
 
   return (
     <div className={classes.view}>
+      <NavBar/>
       <Grid container spacing={1}>
         <Hidden only={["xs", "sm"]}>
           <Grid item xs={2} className={classes.viewItem}>
@@ -193,6 +196,7 @@ export default function ProductCard() {
           </Grid>
         </Hidden>
       </Grid>
+    <Footer/>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import {
   removeFromWishList,
 } from "../../redux/wishlist/actionsWishList";
 import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 export default function WishListScreen(props) {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ export default function WishListScreen(props) {
 
   return (
     <div>
+      <NavBar/>
       <Hidden only={["xs", "sm"]}>
         <div style={{ minHeight: "100vh", margin: "auto" }}>
           <Paper
@@ -254,7 +256,7 @@ export default function WishListScreen(props) {
                   <List
                     style={{
                       display: "flex",
-                      justifyContent: "space-between",
+                      justifyContent: "space-evenly",
                       marginTop: "20px",
                     }}
                   >
@@ -267,7 +269,7 @@ export default function WishListScreen(props) {
                     </Button>
                   </List>
                 </Hidden>
-                <Hidden>
+                <Hidden only={"sm"}>
                   <List
                     style={{
                       margin:"auto",
@@ -279,7 +281,7 @@ export default function WishListScreen(props) {
                       variant="contained"
                       color="primary"
                       href="/"
-                      style={{ width: "220px", display:"flex", margin: "auto" }}
+                      style={{ minWidth: "190px", display:"flex", margin: "auto" }}
                     >
                       Ver más productos
                     </Button>
@@ -288,7 +290,7 @@ export default function WishListScreen(props) {
                       variant="contained"
                       color="primary"
                       href="/cart"
-                      style={{ width: "220px", display:"flex", margin: "auto" }}
+                      style={{ minWidth: "190px", display:"flex", margin: "auto" }}
                     >
                       Ir al carrito
                     </Button>

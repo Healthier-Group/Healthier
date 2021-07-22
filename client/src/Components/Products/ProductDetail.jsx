@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
 import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 const useStyles = makeStyles({
   root: {
@@ -105,6 +106,7 @@ const ProductDetail = (props) => {
   };
   return (
     <div className={classes.bg}>
+      <NavBar/>
       {product?.map((p) => {
         return (
           <div

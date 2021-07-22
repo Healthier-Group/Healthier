@@ -60,8 +60,9 @@ function AppPublic() {
       <Route path="/verify/admin" component={Admin2FA} />
 
       {/* ============ LandingPage ==================== */}
-      <Route path="/" component={NavBar} />
+      <Route exact path="/" component={NavBar} />
       <Route exact path="/" component={LandingPage} />
+      
 
       {/* ============ Productos ==================== */}
       <Route path="/recipes" exact component={Recipes} />

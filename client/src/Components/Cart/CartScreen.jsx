@@ -13,6 +13,7 @@ import {
   Hidden,
 } from "@material-ui/core";
 import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 export default function CartScreen(props) {
 
@@ -56,6 +57,7 @@ export default function CartScreen(props) {
 
   return (
     <div>
+      <NavBar/>
       <Hidden only={["xs", "sm"]}>
       <div style={{minHeight:"100vh", margin:"auto"}}>
         <Paper
