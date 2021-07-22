@@ -14,7 +14,7 @@ const { server } = require("./src/app.js");
 const { conn, Product, Category } = require("./src/db.js");
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(async () => {
+conn.sync({ force: false }).then(async () => {
   await server.listen(3001, () => {
     console.log("Healthier API is now listening at port 3001");
 
@@ -62,6 +62,7 @@ conn.sync({ force: true }).then(async () => {
         stock: 12,
         image:
           "https://i.postimg.cc/VvfXkGdF/corleto-peanut-butter-u256-Gz-Fi7-Gw-unsplash.jpg",
+       
       },
     });
     let p4 = Product.findOrCreate({
@@ -89,7 +90,7 @@ conn.sync({ force: true }).then(async () => {
           "Castañas de cajú, jugo de limón, levadura de cerveza, sal, leche vegetal, agua.",
         size: "200g",
         brand: "Core & Rind",
-        sku: "a5",
+        sku: "a5", 
         price: 499,
         stock: 19,
         image:
