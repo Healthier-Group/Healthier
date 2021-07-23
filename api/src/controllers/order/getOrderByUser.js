@@ -3,9 +3,9 @@ const {Order, Orderproduct} = require("../../db")
 module.exports = async(req, res, next) => {
   let {id} = req.params
   try{
-    const orderId = await Order.findOne({
+    const orderId = await Order.findAll({
       where: {
-        userId: id
+          userId: id
       },
       include: Orderproduct
     });

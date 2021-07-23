@@ -16,6 +16,8 @@ export default function UserLogin() {
 
     const {currentUser} = useSelector(state => state.userReducer);
 
+
+
     const [input,setInput] = useState({
         email: '',
         password: ''
@@ -33,8 +35,7 @@ export default function UserLogin() {
 	};
 
     const handleLogIn = (e) => {
-		dispatch(loginUser(input))
-        
+		dispatch(loginUser(input));
 	};
 
     const GoogleSSOHandler = async () => {

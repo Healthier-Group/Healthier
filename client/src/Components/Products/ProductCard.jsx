@@ -20,7 +20,8 @@ import OrderFilter from "./OrderFilter";
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
-import swal from 'sweetalert'
+import swal from "sweetalert";
+import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
 
 const useStyles = makeStyles({
   root: {
@@ -76,15 +77,20 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  // const day = new Date()
+  const {currentUser} = useSelector(state => state.userReducer);
+  const orderId = currentUser?.order?.id;
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+    // if (day.getDay()===4){
+    //   console.log("hoy es jueves")
+    //   console.log("la hora es", day.getHours(),"hs" , day.getMinutes(), "min");
+    // }
+  }, [dispatch]);
 
   const addToWishListHandler = async (id) => {
-    console.log("item_id: " + id);
     await dispatch(addToWishList(id));
-   
     swal({
       title: "Lista de deseos",
       text: "Tu producto fue añadido",
@@ -94,15 +100,33 @@ export default function ProductCard() {
     await dispatch(getProducts());
   };
   const addToCartHandler = async (id) => {
-    console.log("item_id: " + id);
-    await dispatch(addToCart(id));
-    swal({
-      title: "Carrito de compras",
-      text: "Tu producto fue añadido",
-      icon: "success",
-      button: "Volver",
-    });
-    await dispatch(getProducts());
+    if (!currentUser) {
+      //si el usuario no esta login
+      await dispatch(addToCart(id));
+      swal({
+        title: "Carrito de compras",
+        text: "Tu producto fue añadido a tu localStorage",
+        icon: "success",
+        button: "Volver",
+      });
+      await dispatch(getProducts());
+    } else {
+      //si el usuario si está login debo pasarle esta info quantity, productId, orderId
+      
+      console.log("Estoy login pasando productos al carrito", "id producto",id,"id order",orderId );
+      const orderProduct={
+        productId:id,
+        orderId: orderId
+      }
+      await dispatch(addOrderProduct(orderProduct));
+      swal({
+        title: "Carrito de compras",
+        text: "Tu producto fue añadido al back",
+        icon: "success",
+        button: "Volver",
+      });
+      await dispatch(getProducts());
+    }
   };
   const product = useSelector((state) => state.productReducer.foundProducts);
   //const product = useSelector((state) => state.productReducer.products);

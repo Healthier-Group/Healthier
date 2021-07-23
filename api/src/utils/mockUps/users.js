@@ -8,10 +8,10 @@ const userMockUp = async () => {
 
     try {
         var userN = await User.create({
-            name: 'Nicolas Sanchez',
-            username: 'Drivello',
-            email: 'Nico@gmail.com',
-            password: hashedPasswordA,
+            name: 'Nachito Sanchez',
+            username: 'nachito',
+            email: 'Nacho@gmail.com',
+            password: 'Holahola123',
             contact: '1127257701',
             isDeleted: false,
         });

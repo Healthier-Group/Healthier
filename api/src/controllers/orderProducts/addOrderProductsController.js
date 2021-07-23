@@ -2,17 +2,16 @@ const {Orderproduct, Product} = require('../../db')
 
 
 module.exports = async(req, res, next) => {
-	let { quantity, productId, orderId } = req.body
+	let { productId, orderId} = req.body
+	let quantity = 1
 	try{
-		const newOrder = await Orderproduct.create({
+		const newOrderProduct = await Orderproduct.create({
 			quantity,
 			orderId
 		});
 		const producto = await Product.findByPk(productId);
-		await console.log('hola soy producto: ', producto);
-		await newOrder.setProduct(producto);
-		await console.log("llegué");
-		return res.json(newOrder).status(201) // (201) Created
+		await newOrderProduct.setProduct(producto);
+		return res.json(newOrderProduct).status(201) // (201) Created
 	}
 	catch(err){
 		console.log("ERROR ----", err);

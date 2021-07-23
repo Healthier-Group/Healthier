@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
-
+import { deleteOrderProduct, getOrderProductsByOrder } from '../../redux/orderProducts/orderProductActions'
 import {
   Paper,
   Typography,
@@ -22,19 +22,32 @@ export default function CartScreen(props) {
     ? Number(props.location.search.split("=")[1])
     : 1;
   const cart = useSelector((state) => state.cart);
-
-  const { cartItems } = cart;
-  const { currentUser } = useSelector((state) => state.userReducer);
-  console.log("estoy en carrito", currentUser);
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
-    }
-    //despacho a cartAction
-  }, [dispatch, productId, qty]);
+  const {currentUser} = useSelector(state => state.userReducer);
+  const orderId = currentUser?.order?.id;
+  const { orderProducts } = useSelector(state => state.orderProductReducer);
+  const productos = [];
+  orderProducts?.forEach( OP => {
+    productos.push({
+      id: OP.id,
+      name: OP.product.name,
+      image: OP.product.image,
+      price: OP.product.price,
+      product: OP.product.id,
+      countInStock: 10,
+      qty: OP.quantity
+    })
+  })
+  const  cartItems  = currentUser ? productos : cart.cartItems;
+  // const { cartItems } = cart;
 
   const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+    if (!currentUser){
+      dispatch(removeFromCart(id));
+    }else{
+            dispatch(deleteOrderProduct(id));
+      console.log("Estamos borrando sin loop");
+    }
+    
   };
 
   const checkoutHandler = () => {
@@ -46,6 +59,15 @@ export default function CartScreen(props) {
     }
     // props.history.push("/login?redirect=shipping");
   };
+
+  useEffect(() => {
+    dispatch(getOrderProductsByOrder(orderId))
+    if (productId) {
+      dispatch(addToCart(productId, qty))
+    }
+    //despacho a cartAction
+  }, [getOrderProductsByOrder]);
+
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -62,7 +84,7 @@ export default function CartScreen(props) {
           <Typography variant='h6'>Tu carrito</Typography>
 
           <Divider />
-          {cartItems.length === 0 ? (
+          {cartItems?.length === 0 ? (
             <Typography
               variant='h5'
               style={{
@@ -119,7 +141,7 @@ export default function CartScreen(props) {
                         variant='contained'
                         color='primary'
                         type='button'
-                        onClick={() => removeFromCartHandler(item.product)}
+                        onClick={() => removeFromCartHandler(currentUser ? item.id : item.product)}
                       >
                         Eliminar
                       </Button>
@@ -135,7 +157,7 @@ export default function CartScreen(props) {
               <List>
                 <List style={{ position: "relative", left: "50vw" }}>
                   <h2>
-                    Total ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
+                    Total ({cartItems.reduce((a, c) => a + c.qty, 0)} items): $
                     {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                   </h2>
                 </List>
@@ -248,7 +270,7 @@ export default function CartScreen(props) {
                         style={{ width: "220px" }}
                         color='primary'
                         type='button'
-                        onClick={() => removeFromCartHandler(item.product)}
+                        onClick={() => removeFromCartHandler( currentUser ? item.id : item.product)}
                       >
                         Eliminar
                       </Button>

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const express = require("express");
 const passport = require("passport");
-const {User} = require("../db")
+const {User, Order, Orderproduct} = require("../db")
 const {isLogedIn, isLogedAsAdmin} = require("../middlewares")
 
 router.use(express.json());
@@ -38,11 +38,15 @@ router.get('/logout', (req, res, next) => {
 
 router.get("/user", isLogedIn, async(req, res) => {
     try {
+        const idUser = req.user.id
 		const user = await User.findOne({
-		where: {id:req.user.id}
+            where: {id: idUser},
+            include: [{
+                    model: Order,
+                    include: [Orderproduct]
+            }]
 		});
-        const {name, username, email, isAdmin, isReseller, isDeleted } = user;
-		res.json({name, username, email, isAdmin, isReseller, isDeleted });
+		res.json(user);
 	} catch (err) {
 		res.json(err.message);
 		return console.log(err);

@@ -12,6 +12,7 @@ import { makeStyles,
          Hidden} from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
 import NavBar from "../NavBar/NavBar";
+import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
 
 const useStyles = makeStyles({
   root:{
@@ -90,9 +91,24 @@ const ProductDetail = (props) => {
   const classes = useStyles();
   const id = props.match.params.id;
   const dispatch = useDispatch();
+  const {currentUser} = useSelector(state => state.userReducer);
+  const orderId = currentUser?.order?.id;
   let qty=1
-  const addToCartHandler = () => {
-    props.history.push(`/cart/${id}?qty=${qty}`);
+  const addToCartHandler = async () => {
+    
+    if(!currentUser){
+      props.history.push(`/cart/${id}?qty=${qty}`);
+    } else {
+      //si el usuario si está login debo pasarle esta info quantity, productId, orderId
+      
+      console.log("Estoy login pasando productos al carrito", "id producto",id,"id order",orderId );
+      const orderProduct={
+        productId:id,
+        orderId: orderId
+      }
+      await dispatch(addOrderProduct(orderProduct));
+      props.history.push(`/cart`);
+    }
   };
 
   useEffect(() => {
@@ -101,8 +117,13 @@ const ProductDetail = (props) => {
 
   const product = useSelector((state) => state.productReducer.productDetail);
   
+    
+  
+
   const addToWishListHandler = () => {
+
     props.history.push(`/wishlist/${id}`);
+        
   };
   return (
     <div className={classes.bg}>

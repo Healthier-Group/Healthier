@@ -4,11 +4,12 @@ import {
   CREATE_ORDER,
   UPDATE_ORDER,
   DELETE_ORDER,
+  GET_ORDER_BY_USER
 } from "./orderActions";
 
 const initialState = {
   orders: [],
-  currentOrder: {}
+  currentUserOrder: {}
 }
 
 const orderReducer = (state = initialState, action) => {
@@ -21,8 +22,13 @@ const orderReducer = (state = initialState, action) => {
     case GET_ORDER_BY_ID:
       return { 
         ...state,
-        currentOrder: action.payload
+        currentUserOrder: action.payload
       };
+    case GET_ORDER_BY_USER:
+      return {
+        ...state,
+        currentUserOrder: action.payload
+      }
     case CREATE_ORDER:
       return {
         ...state,

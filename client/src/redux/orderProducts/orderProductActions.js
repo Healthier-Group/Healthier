@@ -5,6 +5,7 @@ export const GET_ORDER_PRODUCT_BY_ID = "GET_ORDER_PRODUCT_BY_ID";
 export const CREATE_ORDER_PRODUCT = "CREATE_ORDER_PRODUCT";
 export const UPDATE_ORDER_PRODUCT = "UPDATE_ORDER_PRODUCT"
 export const DELETE_ORDER_PRODUCT = "DELETE_ORDER_PRODUCT";
+export const GET_ORDER_PRODUCTS_BY_ORDER = "GET_ORDER_PRODUCTS_BY_ORDER";
 
 export function getOrderProducts() {
   return async function (dispatch) {
@@ -15,6 +16,18 @@ export function getOrderProducts() {
           payload: orderProduct.data,
         });
       });
+  };
+}
+
+export function getOrderProductsByOrder(id) {
+  return function (dispatch) {
+    return axios.get(`http://localhost:3001/orderProduct/getOPbyOrder/${id}`)
+    .then((orderProduct) => {
+      dispatch({
+        type: GET_ORDER_PRODUCTS_BY_ORDER,
+        payload: orderProduct.data,
+      });
+    });
   };
 }
 
@@ -33,7 +46,8 @@ export function getOrderProductById(id) {
 
 
 
-export function postOrderProduct(orderProduct){
+export function addOrderProduct(orderProduct){
+  console.log("orderproduct from actions: ", orderProduct);
   return async function(dispatch){
     const {data} = await axios.post('http://localhost:3001/orderProduct/addOrderProduct', orderProduct);
     dispatch({ 

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
 import Footer from "../Footer/Footer";
 import MercadoPago from "../MercadoPago/MercadoPago";
+import { useSelector } from 'react-redux';
 
 const style = makeStyles((theme) => ({
   root: {
@@ -24,15 +25,25 @@ const style = makeStyles((theme) => ({
 
 export default function Container() {
   const classes = style();
-
   return (
     <div className={classes.root}>
         <div className={classes.toolbar}/>
         <div className={classes.content}>
-        <div className={classes.center}>Acá iría un carrusel!</div>
+        <div className={classes.center}>
+          Aca iría el carrusel 
+        </div>
       </div>
         <MercadoPago />
         <ProductCard />
     </div>
   );
 }
+/**************** 
+server.get('/', (req, res, next) => {
+  Product.findAll({ include: { all: true, nested: true } })
+      .then((products) => {
+          res.json(products);
+      })
+      .catch(next);
+});
+*/

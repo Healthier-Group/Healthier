@@ -1,29 +1,38 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../redux/cart/cartActions";
+import { updateOrder } from "../../redux/order/orderActions";
 
 
 export default function ShippingAddressScreen(props) {
  
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-
-  // const [fullName, setFullName] = useState('');
-  // const [address, setAddress] = useState('');
-  // const [city, setCity] = useState('');
-  // const [postalCode, setPostalCode] = useState('');
-  const [fullName, setFullName] = useState(shippingAddress.fullName);
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  
+  // const cart = useSelector((state) => state.cart);
+  // const { shippingAddress } = cart;
+  const {currentUser} = useSelector(state => state.userReducer);
+  const orderId = currentUser?.order?.id;
+  const [fullName, setFullName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  // const [fullName, setFullName] = useState(shippingAddress.fullName);
+  // const [address, setAddress] = useState(shippingAddress.address);
+  // const [city, setCity] = useState(shippingAddress.city);
+  // const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const order={
+    fullName:fullName,
+    address:address,
+    city:city,
+    postalCode:postalCode,    
+  }
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      saveShippingAddress({ fullName, address, city, postalCode })
-    );
+    // dispatch(
+    //   saveShippingAddress({ fullName, address, city, postalCode })
+    // );
+    dispatch(updateOrder(order, orderId))
+    
     props.history.push("/payment");
     
   };
