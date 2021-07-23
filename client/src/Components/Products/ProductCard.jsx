@@ -17,9 +17,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 import OrderFilter from "./OrderFilter";
-import NavBar from "../NavBar/NavBar";
-import Footer from "../Footer/Footer";
-
 
 const useStyles = makeStyles({
   root: {
@@ -43,8 +40,8 @@ const useStyles = makeStyles({
   name: {
     position: "relative",
     textAlign: "center",
-    fontSize:"18px",
-    fontWeight:"bold",
+    fontSize: "18px",
+    fontWeight: "bold",
     width: 218,
     height: 50,
     marginBottom: "25px",
@@ -75,17 +72,18 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {foundProducts} = useSelector((state) => state.productReducer);
-  
-  useEffect(() => {
-    dispatch(getProducts())
-  },
-  // eslint-disable-next-line
-  [])
+  const { foundProducts } = useSelector((state) => state.productReducer);
+
+  useEffect(
+    () => {
+      dispatch(getProducts());
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div className={classes.view}>
-      <NavBar/>
       <Grid container spacing={1}>
         <Hidden only={["xs", "sm"]}>
           <Grid item xs={2} className={classes.viewItem}>
@@ -151,7 +149,7 @@ export default function ProductCard() {
               {foundProducts?.map((p) => {
                 return (
                   <Link
-                  key={p.sku}
+                    key={p.sku}
                     to={`/products/${p.id}`}
                     style={{ color: "black", textDecoration: "none" }}
                   >
@@ -196,7 +194,6 @@ export default function ProductCard() {
           </Grid>
         </Hidden>
       </Grid>
-    <Footer/>
     </div>
   );
 }

@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import GoogleButton from "react-google-button";
-import { Grid, Button, TextField, Paper } from "@material-ui/core";
+import { Button, TextField, Paper } from "@material-ui/core";
 import { Email, VpnKey } from "@material-ui/icons";
 import {
   loginUser,
   fetchAuthUser,
   sendEmail,
 } from "../../../redux/users/userActions";
-import useFormStyles from "../../../utils/FormStyles";
+
 import { API_URL } from "../../../utils/Constants";
 import swal from "sweetalert";
 import Footer from "../../Footer/Footer";
@@ -17,7 +17,6 @@ import NavBar from "../../NavBar/NavBar";
 import { Link } from "react-router-dom";
 
 export default function UserLogin() {
-  const classes = useFormStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -94,10 +93,23 @@ export default function UserLogin() {
             margin: "50px auto",
           }}
         >
-            <div style={{display:"flex", margin:"20px auto", justifyContent:"center"}}>
-
-          <h1 style={{display:"flex",minWidth:"240px", justifyContent:"center"}}>Inicia sesión</h1>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              margin: "20px auto",
+              justifyContent: "center",
+            }}
+          >
+            <h1
+              style={{
+                display: "flex",
+                minWidth: "240px",
+                justifyContent: "center",
+              }}
+            >
+              Inicia sesión
+            </h1>
+          </div>
           <form noValidate autoComplete="off">
             <TextField
               style={{ display: "flex", margin: "auto" }}
@@ -144,9 +156,19 @@ export default function UserLogin() {
             </Link>
 
             <br />
-            <div style={{display:"flex", margin:"20px auto", justifyContent:"center"}}>
+            <div
+              style={{
+                display: "flex",
+                margin: "20px auto",
+                justifyContent: "center",
+              }}
+            >
               <GoogleButton
-              style={{display:"flex",minWidth:"240px", justifyContent:"center"}}
+                style={{
+                  display: "flex",
+                  minWidth: "240px",
+                  justifyContent: "center",
+                }}
                 type="light"
                 label="Ingresar con Google"
                 onClick={GoogleSSOHandler}

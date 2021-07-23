@@ -1,36 +1,14 @@
 import { useState } from "react";
-import { makeStyles, Grid, Button, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { Fingerprint, Person, Email, VpnKey, Phone } from "@material-ui/icons";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../../themeStyle";
 import Validate from "../../../utils/Validate";
 import { Paper } from "@material-ui/core";
 import NavBar from "../../NavBar/NavBar";
 import Footer from "../../Footer/Footer";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: 50,
-    marginBottom: 30,
-    border: 5,
-    display: "flex",
-  },
-  title: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    width: 500,
-  },
-  last: {
-    padding: 8,
-  },
-}));
 
 const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
-  const classes = useStyles();
+  
 
   const [error, setError] = useState({
     //Control the error red border of the inputs
@@ -73,7 +51,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
         <Paper
           elevation={3}
           style={{
-            width: "fit-content",
+            width: "60vw",
             height: "fit-content",
             padding: "50px",
 			margin:"50px auto"
@@ -148,7 +126,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
               onClick={handleSubmit}
               variant="contained"
             >
-              Agregar Usuario
+              Crear cuenta
             </Button>
           </form>
         </Paper>

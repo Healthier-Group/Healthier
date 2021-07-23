@@ -94,11 +94,6 @@ export default function NavBar() {
           </Toolbar>
           <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
             <Toolbar>
-              <Link to="/products" className={classes.buttons}>
-                <span style={{ margin: "0 10px" }} color="secondary">
-                  Productos
-                </span>
-              </Link>
               <Link to="/recipes" className={classes.buttons}>
                 <span style={{ margin: "0 10px" }} color="secondary">
                   Recetas
