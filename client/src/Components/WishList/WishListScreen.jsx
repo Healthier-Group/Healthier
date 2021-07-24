@@ -165,6 +165,7 @@ export default function WishListScreen(props) {
               margin: "auto",
               width: "60vw",
               marginTop: "10vh",
+              marginBottom: "10vh",
               padding: "40px",
             }}
           >

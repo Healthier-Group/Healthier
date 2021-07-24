@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductByName } from "../../redux/products/productActions";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
+import { Hidden, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-
-import { Button, Divider } from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
-  search: {
-    display: "flex",
-    justifyContent: "space-between",
+  margin: {
+    marginTop: "20px",
     backgroundColor: "#f1f1f1",
-    padding: "0px 0",
-    marginRight: " 20px",
-    marginLeft: " 20px",
-    minWidth: "40vw",
-    borderRadius: "5px",
-    margin: "auto",
-    minHeight: "36px",
+    borderRadius: 4,
   },
-  input: {
-    minWidth: "34vw",
-    padding: "0 10px",
+  marginMobile: {
+    backgroundColor: "#f1f1f1",
+    borderRadius: 4,
   },
 }));
 
@@ -42,24 +32,64 @@ const SearchBar = () => {
     dispatch(getProductByName(input));
   }
 
- 
+  useEffect(
+    () => {
+      dispatch(getProductByName(input));
+    },
+    //eslint-disable-next-line
+    [input]
+  );
+
+  const product = useSelector((state) => state.productReducer.foundProducts);
 
   return (
-    <form className={classes.search} onSubmit={handleSubmit}>
-      <InputBase
-        placeholder="Busca tu producto"
-        className={classes.input}
-        onChange={(e) => handleChange(e.target.value)}
-      />
-      <Divider orientation="vertical" flexItem />
-      <Button
-        type="submit"
-        onSubmit={handleSubmit}
-        style={{ minWidth: "6vw", justifyContent: "center", display: "flex" }}
-      >
-        <SearchIcon />
-      </Button>
-    </form>
+    <div>
+      <Hidden only={["xs", "sm"]}>
+        <form onSubmit={handleSubmit}>
+          <Autocomplete
+            freeSolo
+            id="free-solo-2-demo"
+            options={product}
+            getOptionLabel={(option) => option.name}
+            style={{ minWidth: "42vw" }}
+            renderInput={(params) => (
+              <TextField
+                className={classes.margin}
+                {...params}
+                placeholder="Busca tu producto"
+                variant="outlined"
+                onChange={(e) => handleChange(e.target.value)}
+              />
+            )}
+          />
+        </form>
+      </Hidden>
+      <Hidden only={["md", "lg", "xl"]}>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: "flex",
+          }}
+        >
+          <Autocomplete
+            freeSolo
+            id="free-solo-2-demo"
+            options={product}
+            getOptionLabel={(option) => option.name}
+            style={{ minWidth: "52vw", alignItems:"center" }}
+            renderInput={(params) => (
+              <TextField
+                className={classes.marginMobile}
+                {...params}
+                placeholder="Busca tu producto"
+                variant="standard"
+                onChange={(e) => handleChange(e.target.value)}
+              />
+            )}
+          />
+        </form>
+      </Hidden>
+    </div>
   );
 };
 

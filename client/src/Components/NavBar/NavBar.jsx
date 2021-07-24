@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     // margin: "auto",
     justifyContent: "space-between",
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar:theme.mixins.toolbar
 }));
 
 export default function NavBar() {
