@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
 import Footer from "../Footer/Footer";
 
-import { useSelector } from 'react-redux';
 
 const style = makeStyles((theme) => ({
   root: {
@@ -20,6 +19,8 @@ const style = makeStyles((theme) => ({
   },
   center: {
     textAlign: "center",
+    backgroundColor:"red",
+    height:"300px"
   },
 }));
 
@@ -27,14 +28,12 @@ export default function Container() {
   const classes = style();
   return (
     <div className={classes.root}>
-        <div className={classes.toolbar}/>
+        {/* <div className={classes.toolbar}/> */}
         <div className={classes.content}>
-        <div className={classes.center}>
-          Aca iría el carrusel 
-        </div>
-      </div>
-        
+
         <ProductCard />
+      </div>
+      <Footer />
     </div>
   );
 }

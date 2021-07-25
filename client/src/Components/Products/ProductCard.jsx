@@ -17,11 +17,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 import OrderFilter from "./OrderFilter";
+
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
 import swal from "sweetalert";
 import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
+
 
 const useStyles = makeStyles({
   root: {
@@ -77,6 +79,7 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   // const day = new Date()
   const {currentUser} = useSelector(state => state.userReducer);
   const orderId = currentUser?.order?.id;
@@ -131,6 +134,7 @@ export default function ProductCard() {
   const product = useSelector((state) => state.productReducer.foundProducts);
   //const product = useSelector((state) => state.productReducer.products);
 
+
   return (
     <div className={classes.view}>
       <Grid container spacing={1}>
@@ -143,6 +147,7 @@ export default function ProductCard() {
         <Hidden only={["xs", "sm"]}>
           <Grid item xs={10}>
             <div className={classes.wrapped}>
+
               {product?.map((p) => {
                 const productId = p.id;
 
@@ -153,6 +158,7 @@ export default function ProductCard() {
                         to={`/products/${p.id}`}
                         style={{ color: "black", textDecoration: "none" }}
                       >
+
                         <CardMedia
                           className={classes.media}
                           image={p.image}
@@ -196,9 +202,11 @@ export default function ProductCard() {
             </div>
           </Grid>
         </Hidden>
+        {/* mobile screen */}
         <Hidden only={["md", "lg", "xl"]}>
           <Grid item xs={12}>
             <div className={classes.wrapped}>
+
               {product?.map((p) => {
                 const productId = p.id;
                 return (
@@ -207,6 +215,7 @@ export default function ProductCard() {
                       to={`/products/${p.id}`}
                       style={{ color: "black", textDecoration: "none" }}
                     >
+
                       <CardActionArea>
                         <CardMedia
                           className={classes.media}

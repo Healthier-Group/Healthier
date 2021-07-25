@@ -4,13 +4,38 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-  {
-    logging: false,
-    native: false,
-  }
-);
+
+let sequelize =
+  process.env.NODE_ENV === "production"
+    ? new Sequelize({
+        database: "d6mh08vkosvb3d",
+        dialect: "postgres",
+        host: "ec2-52-45-183-77.compute-1.amazonaws.com",
+        port: 5432,
+        username: "vtdrcqwyxzgxns",
+        password: "7a20fe46ec897816a20247fbaedc9d47d2445b007d56c8286124e41df7aae799",
+        pool: {
+          max: 3,
+          min: 1,
+          idle: 10000,
+        },
+        dialectOptions: {
+          ssl: {
+            require: true,
+            // Ref.: https://github.com/brianc/node-postgres/issues/2009
+            rejectUnauthorized: false,
+          },
+          keepAlive: true,
+        },
+        ssl: true,
+      })
+    :
+ new Sequelize(
+        `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+        { logging: false, native: false }
+      );
+
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];

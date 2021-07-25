@@ -11,9 +11,11 @@ export const reducers = combineReducers({
 	userReducer: userReducer,
 	productReducer: productReducer,
 	cart: cartReducer,
+
 	wishList:wishListReducer,
+
 	orderReducer: orderReducer,
-	orderProductReducer: orderProductReducer
+
 });
 
 export default reducers;

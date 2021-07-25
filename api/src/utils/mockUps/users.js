@@ -7,6 +7,7 @@ const userMockUp = async () => {
     const hashedPasswordA = await bcrypt.hash('123', 12);
 
     try {
+
         var userN = await User.create({
             name: 'Nachito Sanchez',
             username: 'nachito',
@@ -16,19 +17,19 @@ const userMockUp = async () => {
             isDeleted: false,
         });
     
-        var userS = await User.create({
+        await User.create({
             name: 'Santiago',
             username: 'CazOfficial',
-            email: 'Santi@gmail.com',
+            email: 'santi@gmail.com',
             password: hashedPasswordA,
             contact: '8869038',
             isDeleted: false,
         });
     
-        var userJ = await User.create({
+        await User.create({
             name: 'Marcelo',
             username: 'AgachateyConocelo',
-            email: 'Marce@hotmail.com',
+            email: 'marce@hotmail.com',
             password: hashedPasswordA,
             contact: '696969',
             isDeleted: false,
@@ -44,11 +45,19 @@ const adminMockUp = async() => {
     const hashedPasswordB = await bcrypt.hash('321', 12);
 
     try{
-        var system = await User.create({
+        await User.create({
             name: 'System',
             username: 'Administrador',
             isAdmin: true,
             email: 'admin@admin.com',
+            password: hashedPasswordB,
+            contact: '1127257701',
+        });
+        await User.create({
+            name: 'System Drivello',
+            username: 'AdminDrivello',
+            isAdmin: true,
+            email: 'nico_dd@outlook.com.ar',
             password: hashedPasswordB,
             contact: '1127257701',
         });

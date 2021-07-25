@@ -10,6 +10,7 @@ passport.use(
       passwordField: 'password'
     },
     async (email, password, done) => {
+      email = email.toLowerCase()
       user = await User.findOne({where:{ email: email }})
       if (!user) return done(null, false);
       bcrypt.compare(password, user.password, (err, result) => {

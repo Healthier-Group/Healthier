@@ -12,9 +12,14 @@ import {
   Button,
   Hidden,
 } from "@material-ui/core";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 export default function CartScreen(props) {
+
   const history = useHistory();
+
+
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -22,6 +27,7 @@ export default function CartScreen(props) {
     ? Number(props.location.search.split("=")[1])
     : 1;
   const cart = useSelector((state) => state.cart);
+
   const {currentUser} = useSelector(state => state.userReducer);
   const orderId = currentUser?.order?.id;
   const { orderProducts } = useSelector(state => state.orderProductReducer);
@@ -39,6 +45,7 @@ export default function CartScreen(props) {
   })
   const  cartItems  = currentUser ? productos : cart.cartItems;
   // const { cartItems } = cart;
+
 
   const removeFromCartHandler = (id) => {
     if (!currentUser){
@@ -70,8 +77,10 @@ export default function CartScreen(props) {
 
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div>
+      <NavBar/>
       <Hidden only={["xs", "sm"]}>
+      <div style={{minHeight:"100vh", margin:"auto"}}>
         <Paper
           elevation={3}
           style={{
@@ -185,8 +194,10 @@ export default function CartScreen(props) {
             </Grid>
           </Grid>
         </Paper>
+        </div>
       </Hidden>
       <Hidden only={["md", "lg", "xl"]}>
+        <div style={{minHeight:"100vh", margin:"auto"}}>
         <Paper
           elevation={3}
           style={{
@@ -314,7 +325,9 @@ export default function CartScreen(props) {
             </Grid>
           </Grid>
         </Paper>
+        </div>
       </Hidden>
+      <Footer/>
     </div>
   );
 }

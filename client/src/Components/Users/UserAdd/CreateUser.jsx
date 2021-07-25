@@ -41,7 +41,9 @@ const CreateUser = (props) => {
 			setInput(wipedInput)
 			if(Boolean(next)) { console.log('redirigir') }
 		}
-	},[userDetail])
+	},
+	// eslint-disable-next-line
+	[userDetail])
 
 	return (
 		<>

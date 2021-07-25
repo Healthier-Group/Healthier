@@ -7,6 +7,7 @@ export const UPDATE_ORDER = "UPDATE_ORDER";
 export const DELETE_ORDER = "DELETE_ORDER";
 export const GET_ORDER_BY_USER = "GET_ORDER_BY_USER";
 
+
 export function getOrders() {
   return async function (dispatch) {
     return await axios
@@ -64,6 +65,7 @@ export function deleteOrder(id) {
     const { data } = await axios.delete(
       "http://localhost:3001/order/deleteOrder"
     );
+
     dispatch({
       type: DELETE_ORDER,
       payload: data,

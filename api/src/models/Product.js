@@ -18,10 +18,10 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
     },
     size: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
     },
-    brand:{
-      type:DataTypes.STRING,
+    brand: {
+      type: DataTypes.STRING,
     },
     sku: {
       type: DataTypes.STRING(60),
@@ -40,9 +40,14 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    stock: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     image: {
       type: DataTypes.TEXT,
-      defaultValue: "https://i.pinimg.com/originals/24/58/5f/24585fc9b7433a224a6ff5506e346969.png",
+      defaultValue:
+        "https://i.pinimg.com/originals/24/58/5f/24585fc9b7433a224a6ff5506e346969.png",
     },
   });
 };

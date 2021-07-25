@@ -3,12 +3,14 @@ import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getOrderById } from "../../redux/order/orderActions";
+
+import { getOrderById} from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
 
 
 //import { createOrder } from "../../redux/order/orderActions";
  //import LoadingBox from "../Components/LoadingBox";
+
 
 
 export default function OrderScreen(props) {
@@ -59,7 +61,9 @@ export default function OrderScreen(props) {
       dispatch(mercadoPagoHandler(products));
       //pay();
     }
+
   }, []);
+
 
   function mercadoPagoHandler(products) {
     console.log("esto es desde el front", products);

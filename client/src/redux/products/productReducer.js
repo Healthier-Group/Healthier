@@ -5,13 +5,21 @@ import {
   ORDER_AZ,
   ORDER_ZA,
   ORDER_CHEAP,
-  ORDER_EXPENSIVE
+  ORDER_EXPENSIVE,
+  UPDATE_PRODUCT,
+  GET_CATEGORIES,
+  GET_CATEGORY_BY_NAME,
+  GET_CATEGORY_BY_ID,
+  UPDATE_CATEGORY,
+  DELETE_CATEGORY
 } from "./productActions";
 
 const initialState = {
   foundProducts: [],
   //products:[],
   productDetail: {},
+  foundCategories: [],
+  categoryDetail: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,7 +60,36 @@ const reducer = (state = initialState, action) => {
         ...state,
         foundProducts: action.payload,
       };
-
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        productDetail: action.payload,
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        foundCategories: action.payload,
+      };
+    case GET_CATEGORY_BY_ID:
+      return {
+        ...state,
+        categoryDetail: action.payload,
+      };
+    case GET_CATEGORY_BY_NAME:
+      return {
+        ...state,
+        foundCategories: action.payload,
+      };
+    case UPDATE_CATEGORY:
+      return {
+        ...state,
+        categoryDetail: action.payload,
+      };
+    case DELETE_CATEGORY:
+      return {
+        ...state,
+        categoryDetail: action.payload,
+      };
     default:
       return {
         state,
