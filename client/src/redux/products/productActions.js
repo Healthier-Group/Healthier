@@ -1,12 +1,22 @@
 import axios from "axios";
+<<<<<<< HEAD
+import { PRODUCTS_URL, API_URL, CATEGORY_URL } from "../../utils/Constants";
+=======
 // import { PRODUCTS_URL } from "../../utils/Constants";
+>>>>>>> main-test
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const ORDER_AZ = "ORDER_AZ";
 export const ORDER_ZA = "ORDER_ZA";
 export const ORDER_CHEAP = "ORDER_CHEAP";
 export const ORDER_EXPENSIVE = "ORDER_EXPENSIVE";
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const GET_CATEGORY_BY_ID = "GET_CATEGORY_BY_ID";
+export const GET_CATEGORY_BY_NAME = "GET_CATEGORY_BY_NAME";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -44,6 +54,20 @@ export function getProductByName(q) {
       });
   };
 }
+
+export function updateProduct(product) {
+  return async function (dispatch) {
+    const { data } = await axios.put(
+      `${API_URL}products/${product.id}`,
+      product
+    );
+    dispatch({
+      type: UPDATE_PRODUCT,
+      payload: data,
+    });
+  };
+}
+
 export function orderAZ() {
   return function (dispatch) {
     return axios.get("/products").then((product) => {
@@ -101,6 +125,70 @@ export function priceHigh() {
         type: "ORDER_EXPENSIVE",
         payload: orderHigh,
       });
+    });
+  };
+}
+export function getCategories() {
+  return async function (dispatch) {
+    return await axios
+      .get(CATEGORY_URL) //some link from backend, check
+      .then((categories) => {
+        dispatch({
+          type: "GET_CATEGORIES",
+          payload: categories.data,
+        });
+      });
+  };
+}
+
+export function getCategoryById(id) {
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/category/" + id)
+      .then((category) => {
+        dispatch({
+          type: "GET_CATEGORY_BY_ID",
+          payload: category.data,
+        });
+      });
+  };
+}
+
+export function getCategoryByName(q) {
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/category/?q=" + q)
+      .then((category) => {
+        dispatch({
+          type: "GET_CATEGORY_BY_NAME",
+          payload: category.data,
+        });
+      });
+  };
+}
+
+export function updateCategory(category) {
+  return async function (dispatch) {
+    const { data } = await axios.put(
+      `${API_URL}category/${category.id}`,
+      category
+    );
+    dispatch({
+      type: UPDATE_CATEGORY,
+      payload: data,
+    });
+  };
+}
+
+export function deleteCategory(category) {
+  return async function (dispatch) {
+    const { data } = await axios.delete(
+      `${API_URL}category/${category.id}`,
+      category
+    );
+    dispatch({
+      type: DELETE_CATEGORY,
+      payload: data,
     });
   };
 }

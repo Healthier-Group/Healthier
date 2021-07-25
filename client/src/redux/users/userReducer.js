@@ -15,7 +15,7 @@ const userReducer = (state = initialState, action) => {
 				users: action.payload,
 			};
 		case CREATE_USER:
-			return {
+			return { 
 				...state,
 				userDetail: action.payload,
 			};

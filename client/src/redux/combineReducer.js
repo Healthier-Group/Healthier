@@ -9,7 +9,11 @@ export const reducers = combineReducers({
 	userReducer: userReducer,
 	productReducer: productReducer,
 	cart: cartReducer,
+<<<<<<< HEAD
+	
+=======
 	wishList:wishListReducer,
+>>>>>>> main-test
 });
 
 export default reducers;
