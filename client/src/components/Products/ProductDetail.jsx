@@ -12,6 +12,7 @@ import {
 import { getProductById } from "../../redux/products/productActions";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
 
 const useStyles = makeStyles({
   root: {
@@ -91,9 +92,27 @@ const ProductDetail = (props) => {
   const classes = useStyles();
   const id = props.match.params.id;
   const dispatch = useDispatch();
-  let qty = 1;
-  const addToCartHandler = () => {
-    props.history.push(`/cart/${id}?qty=${qty}`);
+
+  const {currentUser} = useSelector(state => state.userReducer);
+  const orderId = currentUser?.order?.id;
+  let qty=1
+  const addToCartHandler = async () => {
+    
+    if(!currentUser){
+      props.history.push(`/cart/${id}?qty=${qty}`);
+    } else {
+      //si el usuario si está login debo pasarle esta info quantity, productId, orderId
+      
+      console.log("Estoy login pasando productos al carrito", "id producto",id,"id order",orderId );
+      const orderProduct={
+        productId:id,
+        orderId: orderId
+      }
+      await dispatch(addOrderProduct(orderProduct));
+      props.history.push(`/cart`);
+    }
+
+ 
   };
 
   useEffect(() => {
@@ -101,8 +120,14 @@ const ProductDetail = (props) => {
   }, [dispatch, id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
+  
+    
+  
+
   const addToWishListHandler = () => {
+
     props.history.push(`/wishlist/${id}`);
+        
   };
   return (
     <div className={classes.bg}>
@@ -119,10 +144,51 @@ const ProductDetail = (props) => {
             }}
           >
             <Hidden only={["sm", "xs"]}>
+
+              <Grid container spacing={1} className={classes.root}>
+                <Grid container className={classes.root}>
+                  <Grid item>
+                    <Paper className={classes.cont1}>
+                      <img
+                        src={p.image}
+                        alt="Not Found"
+                        style={{ display: "flex", margin: "auto" }}
+                        width="400px"
+                        height="400px"
+                      />
+                      <Card className={classes.card}>
+                        <CardActionArea>
+                          <CardContent>
+                            <Typography className={classes.name}>
+                              {p.name}
+                            </Typography>
+                            <Typography>{p.brand}</Typography>
+                            <Typography>{p.size}</Typography>
+
+                            <Typography className={classes.price}>
+                              ${p.price}
+                            </Typography>
+                            <Typography>
+                              Antes ${Math.ceil(p.price * 1.15)}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                          <Button
+                            className={classes.btn}
+                            variant="contained"
+                            color="primary"
+                            onClick={addToCartHandler}
+                          >
+                            Enviar a tu carrito
+                          </Button>
+                        </CardActions>
+
               <Paper
                 elevation={3}
                 style={{
                   margin: "auto",
+
 
                   width: "80vw",
                   padding: "50px 20px",
@@ -238,7 +304,7 @@ const ProductDetail = (props) => {
                         color="primary"
                         onClick={addToCartHandler}
                       >
-                        Comprar
+                        Enviar a tu carrito
                       </Button>
                       <br />
                       <Button
