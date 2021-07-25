@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
 import Footer from "../Footer/Footer";
+
 
 const style = makeStyles((theme) => ({
   root: {
@@ -25,15 +26,23 @@ const style = makeStyles((theme) => ({
 
 export default function Container() {
   const classes = style();
-
   return (
     <div className={classes.root}>
         {/* <div className={classes.toolbar}/> */}
         <div className={classes.content}>
-       {/*  <div className={classes.center}>Acá iría un carrusel!</div> */}
+
         <ProductCard />
       </div>
       <Footer />
     </div>
   );
 }
+/**************** 
+server.get('/', (req, res, next) => {
+  Product.findAll({ include: { all: true, nested: true } })
+      .then((products) => {
+          res.json(products);
+      })
+      .catch(next);
+});
+*/

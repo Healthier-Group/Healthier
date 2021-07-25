@@ -1,35 +1,52 @@
 import {
-  ORDER_CREATE_FAIL,
-  ORDER_CREATE_REQUEST,
-  ORDER_CREATE_RESET,
-  ORDER_CREATE_SUCCESS,
+  GET_ORDERS,
+  GET_ORDER_BY_ID,
+  CREATE_ORDER,
+  UPDATE_ORDER,
+  DELETE_ORDER,
+  GET_ORDER_BY_USER
 } from "./orderActions";
 
-export const orderCreateReducer = (state = {}, action) => {
-  switch (action.type) {
-    case ORDER_CREATE_REQUEST:
-      return { loading: true };
-    case ORDER_CREATE_SUCCESS:
-      return { loading: false, success: true, order: action.payload };
-    case ORDER_CREATE_FAIL:
-      return { loading: false, error: action.payload };
-    case ORDER_CREATE_RESET:
-      return {};
+const initialState = {
+  orders: [],
+  currentUserOrder: {}
+}
 
-    default:
-      return state;
-  }
-};
-export const orderDetailsReducer = (state = {loading:true}, action) => {
+const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ORDER_CREATE_REQUEST:
-      return { loading: true };
-    case ORDER_CREATE_SUCCESS:
-      return { loading: false, order: action.payload };
-    case ORDER_CREATE_FAIL:
-      return { loading: false, error: action.payload };
-    
+    case GET_ORDERS:
+      return { 
+        ...state,
+        orders: action.payload
+      };
+    case GET_ORDER_BY_ID:
+      return { 
+        ...state,
+        currentUserOrder: action.payload
+      };
+    case GET_ORDER_BY_USER:
+      return {
+        ...state,
+        currentUserOrder: action.payload
+      }
+    case CREATE_ORDER:
+      return {
+        ...state,
+        orders: [...state.orders, action.payload]
+      }
+    case UPDATE_ORDER:
+      return {
+        ...state,
+        currentOrder: action.payload
+      };
+    case DELETE_ORDER:
+      return {
+        ...state,
+        orders: state.orders.filter( order => order.id !== action.payload)
+      }
     default:
       return state;
   }
 };
+
+export default orderReducer;

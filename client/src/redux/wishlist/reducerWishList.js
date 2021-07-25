@@ -4,8 +4,7 @@ const wishListReducer = (state = { wishListItems: [] }, action) => {
   switch (action.type) {
     case WISH_LIST_ADD_ITEM:
       const item = action.payload;
-      console.log("WLitems en reducer", item)
-      //chequeo si el producto ya existe en el carrito
+            //chequeo si el producto ya existe en el carrito
       const existItem = state.wishListItems.find((x) => x.product === item.product);
       if (existItem) {
         //si existe lo reemplazo 

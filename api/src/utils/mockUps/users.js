@@ -7,11 +7,12 @@ const userMockUp = async () => {
     const hashedPasswordA = await bcrypt.hash('123', 12);
 
     try {
-        await User.create({
-            name: 'Nicolas Sanchez',
-            username: 'Drivello',
-            email: 'nico@gmail.com',
-            password: hashedPasswordA,
+
+        var userN = await User.create({
+            name: 'Nachito Sanchez',
+            username: 'nachito',
+            email: 'Nacho@gmail.com',
+            password: 'Holahola123',
             contact: '1127257701',
             isDeleted: false,
         });

@@ -32,12 +32,16 @@ const SearchBar = () => {
     dispatch(getProductByName(input));
   }
 
+
+  
+
   useEffect(
     () => {
       dispatch(getProductByName(input));
     },
     //eslint-disable-next-line
     [input]
+
   );
 
   const product = useSelector((state) => state.productReducer.foundProducts);

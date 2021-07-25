@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize')
 
 module.exports = sequelize => {
 
-	sequelize.define('order', {
+	sequelize.define('historyorder', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -10,33 +10,28 @@ module.exports = sequelize => {
         },
         total: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: false
         },
         paymentMethod: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         fullName: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         city: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         postalCode: {
             type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        isPaid: { 
-            type: DataTypes.BOOLEAN,  
-            allowNull: true 
+            allowNull: false
         }
 	})
 }
-
 

@@ -1,6 +1,18 @@
-import axios from 'axios';
-import { CREATE_USER, GET_ALL_USERS, READ_USER, UPDATE_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
-import swal from 'sweetalert'
+
+import axios from "axios";
+import {
+  API_URL,
+  CREATE_USER,
+  GET_ALL_USERS,
+  READ_USER,
+  UPDATE_USER,
+  DELETE_USER,
+  LOGIN,
+  LOGOUT,
+} from "../../utils/Constants";
+import swal from "sweetalert";
+import { CART_EMPTY } from "../cart/cartActions";
+
 
 export function getAllUsers() {
   return async function (dispatch) {
@@ -37,10 +49,11 @@ export function deleteUser(id) {
   };
 }
 
+
 export function fetchAuthUser () {
 	return async (dispatch) => {
 		try {
-			const user = await axios.get(`auth/user`, 
+			const user = await axios.get(`/auth/user`, 
 			{withCredentials: true})
 			if (user){
 				localStorage.setItem('profile', JSON.stringify(user.data));
@@ -54,6 +67,7 @@ export function fetchAuthUser () {
 	}
 };
 
+
 export function loginUser(login) {
   return async function (dispatch) {
     try {
@@ -65,13 +79,31 @@ export function loginUser(login) {
       const user = await axios.get(`/auth/user`, { withCredentials: true });
       localStorage.setItem("profile", JSON.stringify(user.data));
       dispatch({ type: LOGIN, payload: user.data });
+      //Create Cart 
+
+      // var orders = await axios.get(`${API_URL}order/getOrders`);
+      // var currentUser = await axios.get(`${API_URL}users/getUser/${orders.data[1].userId}`)
+      // var userOrder = orders.data.find(e => e.userID === user.data.id)
+      // console.log("login", login)
+      // console.log("órdenes", orders.data)
+      // console.log("usuario", user.data)
+      // console.log("orden de usuario", userOrder)
+      // console.log("usuario actual", currentUser)
+
+
+
+
+
+
+     // dispatch({type:CARRITO_OK, payload: create})
     } catch (e) {
-      swal(e.message, "ha sucedido un error", "error");
+      swal(e.message, "Ha ocurrido un error", "error");
     }
   };
 }
 
 export function logOutUser() {
+
 	return async function (dispatch) {
 		try{
 			await localStorage.removeItem('profile')
@@ -92,6 +124,7 @@ export function sendEmail(email, type) {
   return async function (dispatch) {
     try {
       await axios.post(`/auth/email`, { email, type });
+
     } catch (e) {
       console.log(e.message);
     }

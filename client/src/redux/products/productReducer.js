@@ -16,6 +16,7 @@ import {
 
 const initialState = {
   foundProducts: [],
+  //products:[],
   productDetail: {},
   foundCategories: [],
   categoryDetail: {},
@@ -27,6 +28,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         foundProducts: action.payload,
+        //products:action.payload,
       };
     case GET_PRODUCT_BY_ID:
       return {

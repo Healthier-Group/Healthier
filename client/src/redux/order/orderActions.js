@@ -1,53 +1,87 @@
 import axios from "axios";
-import { CART_EMPTY } from "../cart/cartActions";
-export const ORDER_CREATE_REQUEST = "ORDER_CREATE_REQUEST";
-export const ORDER_CREATE_SUCCESS = "ORDER_CREATE_SUCCESS";
-export const ORDER_CREATE_FAIL = "ORDER_CREATE_FAIL";
-export const ORDER_CREATE_RESET = "ORDER_CREATE_RESET";
 
-export const ORDER_DETAILS_REQUEST = "ORDER_DETAILS_REQUEST";
-export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS";
-export const ORDER_DETAILS_FAIL = "ORDER_DETAILS_FAIL";
+export const GET_ORDERS = "GET_ORDERS";
+export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
+export const CREATE_ORDER = "CREATE_ORDER";
+export const UPDATE_ORDER = "UPDATE_ORDER";
+export const DELETE_ORDER = "DELETE_ORDER";
+export const GET_ORDER_BY_USER = "GET_ORDER_BY_USER";
 
-export const createOrder = (order) => async (dispatch, getState) => {
-  dispatch({ type: "ORDER_CREATE_REQUEST", payload: order });
-  try {
-    const {
-      userSignin: { userInfo },
-    } = getState();
-    const { data } = await axios.post("/api/orders", order, {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
-    dispatch({ type: "ORDER_CREATE_SUCCESS", payload: data.order });
-    dispatch({ type: CART_EMPTY });
-    localStorage.removeItem("cartItems");
-  } catch (error) {
+
+export function getOrders() {
+  return async function (dispatch) {
+    return await axios
+      .get("http://localhost:3001/order/getOrders")
+      .then((order) => {
+        dispatch({
+          type: GET_ORDERS,
+          payload: order.data,
+        });
+      });
+  };
+}
+
+export function getOrderById(id) {
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/order/getOrder/" + id)
+      .then((order) => {
+        dispatch({
+          type: GET_ORDER_BY_ID,
+          payload: order.data,
+        });
+      });
+  };
+}
+
+export function getOrderByUser(id) {
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/order/getOrderByUser/" + id)
+      .then((order) => {
+        dispatch({
+          type: GET_ORDER_BY_USER,
+          payload: order.data,
+        });
+      });
+  };
+}
+
+export function createOrder(order) {
+  return async function (dispatch) {
+    const { data } = await axios.post(
+      "http://localhost:3001/order/addOrder",
+      order
+    );
     dispatch({
-      type: "ORDER_CREATE_FAIL",
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      type: CREATE_ORDER,
+      payload: data,
     });
-  }
-};
-export const detailsOrder = (orderId) => async (dispatch, getState) => {
-  dispatch({ type: "ORDER_DETAILS_REQUEST", payload: orderId });
-  const {
-    userSignin: { userInfo },
-  } = getState();
-  try {
-    const { data } = await axios.get(`/api/orders/${orderId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+  };
+}
+
+export function deleteOrder(id) {
+  return async function (dispatch) {
+    const { data } = await axios.delete(
+      "http://localhost:3001/order/deleteOrder"
+    );
+
+    dispatch({
+      type: DELETE_ORDER,
+      payload: data,
     });
-    dispatch({ type: "ORDER_DETAILS_SUCCESS", payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({ type: "ORDER_DETAILS_FAIL", payload: message });
-  }
-};
+  };
+}
+
+export function updateOrder(order, orderId) {
+  return async function (dispatch) {
+    const { data } = await axios.put(
+      `http://localhost:3001/order/updateOrder/${orderId}`,
+      order
+    );
+    dispatch({
+      type: UPDATE_ORDER,
+      payload: data,
+    });
+  };
+}

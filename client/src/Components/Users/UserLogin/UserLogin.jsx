@@ -22,10 +22,12 @@ export default function UserLogin() {
 
   const { currentUser } = useSelector((state) => state.userReducer);
 
+
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
+
 
   useEffect(
     () => {
@@ -52,6 +54,7 @@ export default function UserLogin() {
     });
   };
 
+
   const handleLogIn = (e) => {
     dispatch(loginUser(input));
   };
@@ -68,6 +71,7 @@ export default function UserLogin() {
         if (newWindow.closed) {
           dispatch(fetchAuthUser());
           if (timer) clearInterval(timer);
+
         }
       }, 500);
     }
