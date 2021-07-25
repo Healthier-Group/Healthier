@@ -1,9 +1,5 @@
 import axios from "axios";
-<<<<<<< HEAD
 import { PRODUCTS_URL, API_URL, CATEGORY_URL } from "../../utils/Constants";
-=======
-// import { PRODUCTS_URL } from "../../utils/Constants";
->>>>>>> main-test
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";

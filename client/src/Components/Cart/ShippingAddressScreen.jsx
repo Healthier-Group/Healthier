@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../redux/cart/cartActions";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";

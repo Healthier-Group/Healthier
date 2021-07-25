@@ -8,6 +8,7 @@ import {
   UPDATE_USER,
   DELETE_USER,
   LOGIN,
+  ADMIN_ALLOWED,
   LOGOUT,
 } from "../../utils/Constants";
 import swal from "sweetalert";
