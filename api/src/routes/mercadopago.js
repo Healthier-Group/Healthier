@@ -14,7 +14,7 @@ server.post('/', (req, res, next) => {
     //     {title: "Producto 3", quantity: 6, price: 200}
     //   ]
 
-      const items_ml = carrito.map(i => ({
+      const items_ml = carrito?.map(i => ({
         title: i.name,
         unit_price: i.price,
         quantity: i.qty,
@@ -39,6 +39,7 @@ mercadopago.preferences.create(preference)
     global.id = response.body.init_point
     console.log(response.body)
     res.json({ link: global.id });
+    
     })
     .catch(function(error){
     console.log(error);

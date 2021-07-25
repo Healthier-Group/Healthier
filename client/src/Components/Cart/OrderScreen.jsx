@@ -6,20 +6,20 @@ import { Link } from "react-router-dom";
 import { getOrderById } from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
 
+
 //import { createOrder } from "../../redux/order/orderActions";
-// // import LoadingBox from "../Components/LoadingBox";
-//import MessageBox from "../Cart/MessageBox";
+ //import LoadingBox from "../Components/LoadingBox";
+
 
 export default function OrderScreen(props) {
   const orderId = props.match.params.id;
 
   const [sdkReady, setSdkReady] = useState(false);
-
+  const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
   console.log("que trae acá", currentUserOrder);
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -32,7 +32,7 @@ export default function OrderScreen(props) {
       qty: OP.quantity,
     });
   });
-
+  console.log("que hay en products", products);
   useEffect(() => {
     dispatch(getOrderById(orderId));
     if (currentUserOrder.paymentMethod === "paypal") {
@@ -53,14 +53,11 @@ export default function OrderScreen(props) {
         } else {
           setSdkReady(true);
         }
-
+      }
     } else {
       //nos metemos a mercado pago
       dispatch(mercadoPagoHandler(products));
-
-      }
-
-     
+      //pay();
     }
   }, []);
 
@@ -70,25 +67,25 @@ export default function OrderScreen(props) {
       const mercadoPago = await axios
         .post(`http://localhost:3001/mercadopago`, products)
         .then((respuesta) => {
+          setLink(respuesta.data.link);
           console.log("Rta", respuesta);
         });
 
       return mercadoPago;
     };
   }
+  // function pay() {
+  //   return axios.get("http://localhost:3001/mercadopago").then((r) => {
+  //     setLink(r.data.link);
+  //     console.log(r.data.link);
+  //   });
+  // }
 
   const successPaymentHandler = (paymentResult) => {
     //dispatch(payOrder(order, paymentResult));
   };
 
   return (
-    // <div>
-    //   <h1>Order</h1>
-    //   <button >
-    //     <a >Mercado pago</a>
-    //   </button>
-    // </div>
-
     <div>
       <h1>Order </h1>
 
@@ -104,7 +101,7 @@ export default function OrderScreen(props) {
                   <strong>Address:</strong> {currentUserOrder.address},
                   {currentUserOrder.city},{currentUserOrder.postalCode},
                 </p>
-                  {/* {currentOrder.isDelivered ? ( 
+                {/* {currentOrder.isDelivered ? ( 
                    <MessageBox variant='success'>
                     Delivered at {currentOrder.deliveredAt}
                   </MessageBox>
@@ -119,7 +116,7 @@ export default function OrderScreen(props) {
                 <p>
                   <strong>Method:</strong> {currentUserOrder.paymentMethod}
                 </p>
-                            {currentUserOrder.isPaid ? (
+                {currentUserOrder.isPaid ? (
                   <MessageBox variant='success'>
                     Paid at {currentUserOrder.paidAt}
                   </MessageBox>
@@ -197,6 +194,11 @@ export default function OrderScreen(props) {
                   )}
                 </li>
               )}
+              <li>
+                <button>
+                  <a href={link}>Pagar con MercadoPago</a>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
