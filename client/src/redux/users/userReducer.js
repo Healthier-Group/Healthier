@@ -1,8 +1,10 @@
-import { GET_ALL_USERS, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER} from '../../utils/Constants';
+import { GET_ALL_USERS, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
 
 const initialState = {
 	users: [],
-	userDetail: undefined
+	userDetail: undefined,
+	currentUser: undefined,
+	adminAllowed: undefined,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -32,6 +34,23 @@ const userReducer = (state = initialState, action) => {
 				...state,
 				userDetail: action.payload,
 			};
+		case LOGIN:
+			return {
+				...state,
+				currentUser: action.payload,
+			}
+		case LOGOUT:
+			return {
+				...state,
+				currentUser: undefined,
+				adminAllowed: undefined,
+
+			}
+		case ADMIN_ALLOWED:
+			return {
+				...state,
+				adminAllowed : action.payload
+			}
 		default:
 			return state;
 	}

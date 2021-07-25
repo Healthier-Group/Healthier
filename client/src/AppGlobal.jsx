@@ -1,25 +1,23 @@
-import { useState } from 'react';
 import { ThemeProvider } from '@material-ui/core'
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import AppPrivate from './components/App/AppPrivate';
-import AppPublic from './components/App/AppPublic';
+import AppPrivate from './Components/App/AppPrivate';
+import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-
-	const [currentUser, setCurrentUser] = useState({isAdmin: true});
-
+	const currentUser = (JSON.parse(localStorage.getItem('profile')));
+	const adminAllowed = (JSON.parse(localStorage.getItem('adminAllowed')))
 	
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<Switch> 
+				<Switch> 			
 					<Route 
 						path="/private"
 						component={ () => (
-							( (currentUser && currentUser?.isAdmin) )
+							( (currentUser && adminAllowed) )
 							? ( <AppPrivate /> )
-							: ( <Redirect to="/logging" /> )
+							: ( <Redirect to="/login" /> )
 						)}
 					/>
 					

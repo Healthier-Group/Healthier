@@ -1,5 +1,9 @@
 import axios from "axios";
+<<<<<<< HEAD
 import { PRODUCTS_URL, API_URL, CATEGORY_URL } from "../../utils/Constants";
+=======
+// import { PRODUCTS_URL } from "../../utils/Constants";
+>>>>>>> main-test
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
@@ -17,7 +21,7 @@ export const GET_CATEGORY_BY_NAME = "GET_CATEGORY_BY_NAME";
 export function getProducts() {
   return async function (dispatch) {
     return await axios
-      .get(PRODUCTS_URL) //some link from backend, check
+      .get(`/products/`) //some link from backend, check
       .then((products) => {
         dispatch({
           type: "GET_PRODUCTS",
@@ -29,7 +33,7 @@ export function getProducts() {
 
 export function getProductById(id) {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/products/" + id).then((product) => {
+    return axios.get("/products/" + id).then((product) => {
       dispatch({
         type: "GET_PRODUCT_BY_ID",
         payload: product.data,
@@ -41,7 +45,7 @@ export function getProductById(id) {
 export function getProductByName(q) {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/products/?q=" + q)
+      .get("/products/?q=" + q)
       .then((product) => {
         dispatch({
           type: "GET_PRODUCT_BY_NAME",
@@ -66,7 +70,7 @@ export function updateProduct(product) {
 
 export function orderAZ() {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/products").then((product) => {
+    return axios.get("/products").then((product) => {
       const orderAZ = product.data.sort((a, b) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
@@ -81,7 +85,7 @@ export function orderAZ() {
 }
 export function orderZA() {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/products").then((product) => {
+    return axios.get("/products").then((product) => {
       const orderZA = product.data.sort((b, a) => {
         if (a.name > b.name) return 1;
         if (a.name < b.name) return -1;
@@ -96,7 +100,7 @@ export function orderZA() {
 }
 export function priceLower() {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/products").then((product) => {
+    return axios.get("/products").then((product) => {
       const orderLow = product.data.sort((a, b) => {
         if (a.price > b.price) return 1;
         if (a.price < b.price) return -1;
@@ -111,7 +115,7 @@ export function priceLower() {
 }
 export function priceHigh() {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/products").then((product) => {
+    return axios.get("/products").then((product) => {
       const orderHigh = product.data.sort((b, a) => {
         if (a.price > b.price) return 1;
         if (a.price < b.price) return -1;
