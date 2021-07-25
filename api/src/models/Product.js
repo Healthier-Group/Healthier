@@ -42,6 +42,7 @@ module.exports = (sequelize) => {
     },
     stock: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
       allowNull: false,
     },
     image: {

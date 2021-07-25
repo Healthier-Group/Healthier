@@ -13,6 +13,7 @@ import ShippingAddressScreen from "../Cart/ShippingAddressScreen";
 import PaymentMethodScreen from "../Cart/PaymentMethodScreen";
 import PlaceOrderScreen from "../Cart/PlaceOrderScreen";
 import OrderScreen from "../Cart/OrderScreen";
+import Carousel from "../Carousel/Carousel";
 
 import WishListScreen from "../WishList/WishListScreen";
 
@@ -61,6 +62,7 @@ function AppPublic() {
 
       {/* ============ LandingPage ==================== */}
       <Route exact path="/" component={NavBar} />
+      <Route exact path="/" component={Carousel} />
       <Route exact path="/" component={LandingPage} />
       
 

@@ -14,7 +14,7 @@ server.post('/', (req, res, next) => {
     //     {title: "Producto 3", quantity: 6, price: 200}
     //   ]
 
-      const items_ml = carrito?.map(i => ({
+      const items_ml = carrito.map(i => ({
         title: i.name,
         unit_price: i.price,
         quantity: i.qty,
