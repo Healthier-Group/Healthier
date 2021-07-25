@@ -10,7 +10,7 @@ export default function PaymentMethodScreen(props) {
   // if(!shippingAddress.adress){
   //     props.history.push('/shipping')
   // }
-  const [payment, setPayment] = useState("");
+  const [payment, setPayment] = useState("Mercado Pago");
   const {currentUser} = useSelector(state => state.userReducer);
   const orderId = currentUser?.order?.id;
   const dispatch = useDispatch();

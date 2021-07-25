@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
 import Footer from "../Footer/Footer";
-import MercadoPago from "../MercadoPago/MercadoPago";
+
 import { useSelector } from 'react-redux';
 
 const style = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ export default function Container() {
           Aca iría el carrusel 
         </div>
       </div>
-        <MercadoPago />
+        
         <ProductCard />
     </div>
   );

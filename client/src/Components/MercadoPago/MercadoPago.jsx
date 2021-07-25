@@ -4,7 +4,7 @@ import axios from "axios"
 export default function MercadoPago(){
     const[link, setLink] = useState('')
     function pay(){
-       return  axios.get('http://localhost:3001/mercadopago')
+       return  axios.post('http://localhost:3001/mercadopago')
                     .then(r => {
                         setLink(r.data.link)
                     })

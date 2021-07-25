@@ -9,32 +9,45 @@ import {
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { getOrderByUser, getOrderById } from '../../redux/order/orderActions'
-import { updateOrderProduct } from "../../redux/orderProducts/orderProductActions";
+import { Link, useHistory } from "react-router-dom";
+import { getOrderById, updateOrder } from "../../redux/order/orderActions";
 
 export default function PlaceOrderScreen(props) {
-  
-  const {currentUser} = useSelector(state => state.userReducer);
-  const userId = currentUser?.id;
+  const dispatch = useDispatch();
+  const history= useHistory()
+  const { currentUser } = useSelector((state) => state.userReducer);
+  //const userId = currentUser?.id;
   const orderId = currentUser?.order.id;
-  // const {currentUserOrder} = useSelector(state => state.userReducer);
-  const {currentUserOrder} = useSelector(state => state.orderReducer);
+  const { currentUserOrder } = useSelector((state) => state.orderReducer);
+  const { orderProducts } = useSelector((state) => state.orderProductReducer);
+
+  const products = [];
+  orderProducts?.forEach((OP) => {
+    products.push({
+      id: OP.id,
+      name: OP.product.name,
+      image: OP.product.image,
+      price: OP.product.price,
+      product: OP.product.id,
+      countInStock: 10,
+      qty: OP.quantity,
+    });
+  });
 
   //const toPrice = (num) => Number(num.toFixed(2));
-  
-  const totalPrice = currentUserOrder?.orderProducts?.reduce((a, c) => a + c.qty * c.price, 0);
+
+  const totalPrice = products.reduce((a, c) => a + c.qty * c.price,0);
   // const {} = cart
   // cart.shippingPrice = cart.itemsPrice > 100 ? toPrice(0) : toPrice(10);
   // cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
   // cart.totalPrice = cart.itemsPrice + cart.taxPrice + cart.shippingPrice;
-  
-  const dispatch = useDispatch();
-  useEffect( () => {
-    dispatch(getOrderById(orderId))
-    console.log("currentUserOrder: ", currentUserOrder)
+
+  useEffect(() => {
+    dispatch(getOrderById(orderId));
+
+    //console.log("currentUserOrder: ", currentUserOrder)
     //dispatch(getOrders())
-  }, [])
+  }, []);
 
   const order = {
     // fullName: currentUserOrder?.order?.name,
@@ -42,11 +55,12 @@ export default function PlaceOrderScreen(props) {
     // adress: currentUserOrder?.order?.adress,
     // city: currentUserOrder?.order?.city,
     // postalCode: currentUserOrder?.order?.postalCode,
-    total: totalPrice
-  }
+    total: totalPrice,
+  };
 
   const placeOrderhandler = () => {
-    dispatch(updateOrderProduct(order, orderId));
+    dispatch(updateOrder(order, orderId));
+    history.push(`/order/${orderId}`)
   };
 
   return (
@@ -56,20 +70,20 @@ export default function PlaceOrderScreen(props) {
           style={{
             margin: "auto",
             width: "80vw",
-            marginTop: "10vh", 
+            marginTop: "10vh",
             padding: "50px",
           }}
         >
           <Typography variant='h3'>Detalles de Envío</Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Typography>
-            Nombre: <b> {currentUserOrder?.name}</b>
+            Nombre: <b> {currentUserOrder?.fullName}</b>
           </Typography>
           <Typography>
             Dirección:{" "}
             <b>
-              {currentUserOrder?.adress},{currentUserOrder?.city},
-              {currentUserOrder?.postalCode}   
+              {currentUserOrder?.address},{currentUserOrder?.city},
+              {currentUserOrder?.postalCode}
             </b>
           </Typography>
           <Typography>
@@ -78,8 +92,8 @@ export default function PlaceOrderScreen(props) {
           <Divider style={{ margin: "20px 0 " }} />
           <Typography variant='h4'>Tus Productos</Typography>
           <List>
-            {currentUserOrder?.orderProducts?.map((item) => (
-              <List item key={item.product}>
+            {products?.map((item) => (
+              <List item key={item.id}>
                 <Grid
                   container
                   style={{ borderTop: "1px solid lightgrey", padding: "10px" }}
@@ -173,12 +187,12 @@ export default function PlaceOrderScreen(props) {
           <Typography variant='h4'>Detalles de envío</Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Typography>
-            Nombre: <b> {currentUserOrder?.name}</b>
+            Nombre: <b> {currentUserOrder?.fullName}</b>
           </Typography>
           <Typography>
             Dirección:{" "}
             <b>
-              {currentUserOrder?.adress},{currentUserOrder?.city},
+              {currentUserOrder?.address},{currentUserOrder?.city},
               {currentUserOrder?.postalCode}
             </b>
           </Typography>
@@ -188,7 +202,7 @@ export default function PlaceOrderScreen(props) {
           <Divider style={{ margin: "20px 0 " }} />
           <Typography variant='h4'>Tus Productos</Typography>
           <List>
-            {currentUserOrder?.orderProducts?.map((item) => (
+            {products?.map((item) => (
               <List item key={item.product}>
                 <Grid
                   container
@@ -235,7 +249,7 @@ export default function PlaceOrderScreen(props) {
           <Typography variant='h5' style={{ marginBottom: "20px" }}>
             Detalle de orden
           </Typography>
-{/* 
+          {/* 
           <Typography>
             Envío: <b> ${cart.shippingPrice.toFixed(2)}</b>
           </Typography> */}

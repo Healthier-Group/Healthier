@@ -14,3 +14,11 @@ module.exports = async(req, res, next) => {
     next(res.status(404).json({message: 'Order Product Not Found!'})) // (404) Not Found
   }
 }
+
+// server.get('/', (req, res, next) => {
+//   Product.findAll({ include: { all: true, nested: true } })
+//       .then((products) => {
+//           res.json(products);
+//       })
+//       .catch(next);
+// });

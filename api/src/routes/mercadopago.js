@@ -4,19 +4,21 @@ const mercadopago = require('mercadopago')
 
 mercadopago.configure({access_token: 'TEST-4177121794319246-071405-45ab153c0cd3fd9ca748978856960753-372500284'})
 
-server.get('/', (req, res, next) => {
+server.post('/', (req, res, next) => {
     const id_orden= 'Orden de compra'
-
-    const carrito = [
-        {title: "Producto 1", quantity: 5, price: 10.52},
-        {title: "Producto 2", quantity: 15, price: 100.52},
-        {title: "Producto 3", quantity: 6, price: 200}
-      ]
+    let carrito = req.body
+    console.log("esto es back carrito", carrito)
+    // const carrito = [
+    //     {title: "Producto 1", quantity: 5, price: 10.52},
+    //     {title: "Producto 2", quantity: 15, price: 100.52},
+    //     {title: "Producto 3", quantity: 6, price: 200}
+    //   ]
 
       const items_ml = carrito.map(i => ({
-        title: i.title,
+        title: i.name,
         unit_price: i.price,
-        quantity: i.quantity,
+        quantity: i.qty,
+        picture_url:i.image
       }))
 
         let preference = {

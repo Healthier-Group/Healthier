@@ -6,6 +6,7 @@ export const CREATE_ORDER = "CREATE_ORDER";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 export const DELETE_ORDER = "DELETE_ORDER";
 export const GET_ORDER_BY_USER = "GET_ORDER_BY_USER";
+
 export function getOrders() {
   return async function (dispatch) {
     return await axios
@@ -24,7 +25,6 @@ export function getOrderById(id) {
     return axios
       .get("http://localhost:3001/order/getOrder/" + id)
       .then((order) => {
-        console.log("aca esta order actions",order.data)
         dispatch({
           type: GET_ORDER_BY_ID,
           payload: order.data,
