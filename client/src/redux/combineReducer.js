@@ -13,7 +13,7 @@ export const reducers = combineReducers({
 	cart: cartReducer,
 
 	wishList:wishListReducer,
-
+	orderProductReducer: orderProductReducer,
 	orderReducer: orderReducer,
 
 });
