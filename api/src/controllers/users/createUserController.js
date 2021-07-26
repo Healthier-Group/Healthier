@@ -1,4 +1,5 @@
-const {User} = require('../../db');
+const {User,Order} = require('../../db');
+
 const bcrypt = require('bcryptjs');
 
 module.exports = async (req, res, next) => {
@@ -7,6 +8,7 @@ module.exports = async (req, res, next) => {
 		if(typeof(user.password) === 'undefined' || user.password.length < 3) { throw new Error('Error de Validacion: contraseña invalida')}
 		const hashedPassword = await bcrypt.hash(user.password, 12);
 		const createdUser = await User.create({...user, password: hashedPassword, email: user.email.toLowerCase()});
+		await Order.create({userId:createdUser.id})
 		return res.json(createdUser);
 	} catch (err) {
 		return res.send(err.message).status(409);
