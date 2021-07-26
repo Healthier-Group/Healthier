@@ -10,6 +10,5 @@ export const DELETE_USER='DELETE_USER';
 export const LOGIN= 'LOGIN';
 export const LOGOUT= 'LOGOUT';
 export const ADMIN_ALLOWED= 'ADMIN_ALLOWED';
-
-
+export const GET_CURRENT_USER= 'GET_CURRENT_USER';
 

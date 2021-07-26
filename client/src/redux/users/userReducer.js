@@ -1,4 +1,4 @@
-import { GET_ALL_USERS, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
+import { GET_ALL_USERS, GET_CURRENT_USER, CREATE_USER, UPDATE_USER, READ_USER, DELETE_USER, LOGIN, LOGOUT, ADMIN_ALLOWED} from '../../utils/Constants';
 
 const initialState = {
 	users: [],
@@ -50,6 +50,11 @@ const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				adminAllowed : action.payload
+			}
+		case GET_CURRENT_USER:
+			return {
+				...state,
+				currentUser: action.payload
 			}
 		default:
 			return state;

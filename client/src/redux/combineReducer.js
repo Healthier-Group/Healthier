@@ -11,7 +11,6 @@ export const reducers = combineReducers({
 	userReducer: userReducer,
 	productReducer: productReducer,
 	cart: cartReducer,
-
 	wishList:wishListReducer,
 	orderProductReducer: orderProductReducer,
 	orderReducer: orderReducer,
