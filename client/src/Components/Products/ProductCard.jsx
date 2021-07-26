@@ -82,7 +82,9 @@ export default function ProductCard() {
 
   // const day = new Date()
   const {currentUser} = useSelector(state => state.userReducer);
+  console.log("cual es el currentUser?", currentUser);
   const orderId = currentUser?.order?.id;
+  console.log("cual es el orderId?", orderId);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -90,6 +92,7 @@ export default function ProductCard() {
     //   console.log("hoy es jueves")
     //   console.log("la hora es", day.getHours(),"hs" , day.getMinutes(), "min");
     // }
+    
   }, [dispatch]);
 
   const addToWishListHandler = async (id) => {

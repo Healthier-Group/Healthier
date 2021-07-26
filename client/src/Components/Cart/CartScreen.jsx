@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { getCurrentUser } from '../../redux/users/userActions';
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
 import { deleteOrderProduct, getOrderProductsByOrder } from '../../redux/orderProducts/orderProductActions'
 import {
@@ -68,12 +69,14 @@ export default function CartScreen(props) {
   };
 
   useEffect(() => {
-    dispatch(getOrderProductsByOrder(orderId))
+    dispatch(getOrderProductsByOrder(orderId));
+    dispatch(getCurrentUser());
+    console.log(currentUser);
     if (productId) {
       dispatch(addToCart(productId, qty))
     }
     //despacho a cartAction
-  }, [getOrderProductsByOrder]);
+  }, [getOrderProductsByOrder, getCurrentUser]);
 
 
   return (

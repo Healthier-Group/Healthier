@@ -3,8 +3,8 @@ Acá vá una descripción del alcance y detalles del proyecto
 Integrantes:
 Santiago Cañas
 Juan Ignacio Vergara
-Juan Martin
+Juan Martin Noriega 
 Sacha Cuña
-Ramiro Barra Soto
+Ramiro Barra
 Edgar Montenegro
 Sergio Sotelo

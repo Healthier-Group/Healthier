@@ -10,6 +10,7 @@ import {
   LOGIN,
   ADMIN_ALLOWED,
   LOGOUT,
+  GET_CURRENT_USER
 } from "../../utils/Constants";
 import swal from "sweetalert";
 import { CART_EMPTY } from "../cart/cartActions";
@@ -67,6 +68,20 @@ export function fetchAuthUser () {
 		}
 	}
 };
+
+
+
+export function getCurrentUser(){
+  return async function current(dispatch){
+    try{
+      const user = await axios.get(`/auth/user`, { withCredentials: true });
+      dispatch({ type: GET_CURRENT_USER, payload: user.data });
+    }
+    catch(error){
+      swal(error.message, "Ha ocurrido un error", "error");
+    }
+  }
+}
 
 
 export function loginUser(login) {

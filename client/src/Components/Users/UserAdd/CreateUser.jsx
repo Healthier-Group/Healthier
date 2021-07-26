@@ -26,6 +26,7 @@ const CreateUser = (props) => {
 
 	const handleSubmit = e => {
 		dispatch(createUser(input))
+		
 	};
 
 	useEffect(() => {
