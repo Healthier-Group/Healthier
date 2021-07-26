@@ -6,14 +6,11 @@ import {
   Button,
   makeStyles,
   Grid,
-  Textfield,
-  Typography,
-  TextField,
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from '../../utils/Theme';
 
-import swal from "sweetalert";
+
 import {
   getCategoryById,
   deleteCategory,

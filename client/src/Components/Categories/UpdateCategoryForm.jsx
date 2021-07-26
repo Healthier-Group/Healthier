@@ -6,7 +6,6 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from '../../utils/Theme';
 import ValidateCategory from "../../utils/ValidateCategory";
 
-import swal from "sweetalert";
 import {
   getCategoryById,
   updateCategory,

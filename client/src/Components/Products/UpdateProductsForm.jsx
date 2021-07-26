@@ -6,16 +6,12 @@ import {
   TextField,
   makeStyles,
   Grid,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from '../../utils/Theme';
 import ValidateProduct from "../../utils/ValidateProduct";
 import { getCategories } from '../../redux/products/productActions'
 
-import swal from "sweetalert";
 import {
   getProductById,
   updateProduct,
@@ -85,7 +81,7 @@ export function ProductUpdate() {
         image: productDetail[0]?.image,
         sku: productDetail[0]?.sku,
         stock: productDetail[0]?.stock,
-        categories: [].concat(productDetail[0].categories.map(e => e.id))
+        categories: [].concat(productDetail[0]?.categories.map(e => e.id))
       });
     } else {
       dispatch(getProductById(id));
