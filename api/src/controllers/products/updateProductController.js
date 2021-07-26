@@ -10,8 +10,8 @@ module.exports = async (req, res, next) => {
     if (Array.isArray(categories)){
     await updatedProduct.setCategories(categories)
     } else {
-      const catArray = [].concat(categories)
-      await updatedProduct.setCategory(catArray)
+      // const catArray = [].concat(categories)
+      await updatedProduct.setCategories(categories)
     }
     return res.json(updatedProduct).status(200);
   } catch (err) {
