@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../themeStyle";
+import theme from '../../utils/Theme';
 import ValidateCategory from "../../utils/ValidateCategory";
 
 import swal from "sweetalert";

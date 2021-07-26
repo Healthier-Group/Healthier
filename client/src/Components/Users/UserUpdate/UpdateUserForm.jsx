@@ -5,7 +5,7 @@ import { Button, TextField, makeStyles,Grid, Radio, RadioGroup, FormControlLabel
 import { Person, Email, VpnKey, Phone } from '@material-ui/icons';
 import { readUser } from '../../../redux/users/userActions';
 import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../themeStyle';
+import theme from '../../../utils/Theme';
 import Validate from '../../../utils/Validate'
 
 

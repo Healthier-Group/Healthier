@@ -51,12 +51,9 @@ export function getProductByName(q) {
   };
 }
 
-export function updateProduct(product) {
+export function updateProduct(productId, product) {
   return async function (dispatch) {
-    const { data } = await axios.put(
-      `${API_URL}products/${product.id}`,
-      product
-    );
+    const { data } = await axios.put(`/products/${productId}`, product);
     dispatch({
       type: UPDATE_PRODUCT,
       payload: data,

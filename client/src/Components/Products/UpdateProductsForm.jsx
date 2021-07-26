@@ -11,7 +11,7 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../themeStyle";
+import theme from '../../utils/Theme';
 import ValidateProduct from "../../utils/ValidateProduct";
 import { getCategories } from '../../redux/products/productActions'
 
@@ -44,13 +44,14 @@ export function ProductUpdate() {
   const { id } = useParams();
   
   useEffect(()=>{
+    console.log("mi id:", id)
     dispatch(getCategories())
     },[])
   const category = useSelector((state) => state.productReducer.foundCategories);
   const productDetail = useSelector(
     (state) => state.productReducer.productDetail
   );
-  console.log(category)
+  console.log(productDetail)
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -63,16 +64,18 @@ export function ProductUpdate() {
     price: 0,
     image: "",
     sku: "",
+    stock: 0,
+    categories: [],
   });
 
   const handleSubmit = (e) => {
-    dispatch(updateProduct(input)); // const id = this.props.match.params.id;
+    e.preventDefault();
+    dispatch(updateProduct(id, input)); // const id = this.props.match.params.id;
   };
 
   useEffect(() => {
     if (productDetail !== undefined) {
       setInput({
-        id: id,
         name: productDetail[0]?.name,
         description: productDetail[0]?.description,
         ingredients: productDetail[0]?.ingredients,
@@ -81,7 +84,8 @@ export function ProductUpdate() {
         price: productDetail[0]?.price,
         image: productDetail[0]?.image,
         sku: productDetail[0]?.sku,
-        category: productDetail[0]?.category,
+        stock: productDetail[0]?.stock,
+        categories: [].concat(productDetail[0].categories.map(e => e.id))
       });
     } else {
       dispatch(getProductById(id));
@@ -90,6 +94,7 @@ export function ProductUpdate() {
 
   useEffect(() => {
     dispatch(getProductById(id));
+    console.log(input.categories)
   }, []);
   useEffect(() => {}, [input, setInput]);
 
@@ -103,6 +108,8 @@ export function ProductUpdate() {
     price: false,
     image: false,
     sku: false,
+    stock: false,
+    categories: false
   });
   const [helperText, setHelperText] = useState({
     //Control the warning message
@@ -114,6 +121,8 @@ export function ProductUpdate() {
     price: "Ingrese un precio",
     image: "Ingrese una imagen",
     sku: "Ingrese un SKU alfanumerico",
+    stock: "Ingrese un número igual o mayor a cero",
+    categories: "Ingrese una categoría"
   });
 
   const handleInputChange = function (e) {
@@ -127,13 +136,16 @@ export function ProductUpdate() {
   //manejo del select
 
   function handleSelect(e) {
-    if (input.category?.includes(parseInt(e.target.value))) {
+
+    if (input.categories?.includes(parseInt(e.target.value))) {
       alert("Ya se eligió esta categoría. Seleccione otras.");
-    } else if (input.category?.length >= 5) {
+    } else if (input.categories?.length >= 5) {
       alert("Se pueden elegir hasta 3 categorías.");
     } else {
-      setInput((prev) => (
-        { ...prev, category: [...prev.category, parseInt(e.target.value)]}))
+      setInput({
+        ...input, 
+        categories: [...input.categories, parseInt(e.target.value)]
+      })
     }
   }
 
@@ -141,8 +153,8 @@ export function ProductUpdate() {
 
   function getNames(arr) {
     let names = [];
-    category?.forEach((t) => {
-      arr.forEach((id) => {
+    category?.forEach( t => {
+      arr.forEach( id => {
         if (parseInt(id) === t.id) {
           names.push(t.name);
         }
@@ -153,10 +165,12 @@ export function ProductUpdate() {
 
   //eliminar las categorias seleccionadas
   function deleteTemp(e, c) {
-    setInput((prev) => ({
-      ...prev,
-      category: prev.category.filter((cat) => cat !== parseInt(c)),
-    }));
+    setInput({
+      ...input,
+      categories: input.categories.filter(
+        (cat) => cat !== parseInt(c)
+      )
+    });
   }
 
 
@@ -251,6 +265,18 @@ export function ProductUpdate() {
                     fullWidth={true}
                   />
                 </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    error={error["stock"]}
+                    helperText={[helperText["stock"]]}
+                    id="stock"
+                    name="stock"
+                    label="Stock"
+                    value={input?.stock || 0}
+                    onChange={handleInputChange}
+                    fullWidth={true}
+                  />
+                </Grid>
               </Grid>
               <Grid
                 container
@@ -325,30 +351,34 @@ export function ProductUpdate() {
                       onChange={handleInputChange}
                       fullWidth={true}
                     />
-
+                     <p>Categoría</p>
                     <select
                       name="category"
-                      onChange={(e) => handleSelect(e)}
-                      value={input.category}
+                      onChange={e => handleSelect(e)}
+                      value={input.categories}
                       className={classes.inputs}
                       required
                     >
                       <option> select</option>
-                      {category?.map((c) => {
-                        return (
-                          <option value={c.id} key={c.id}>
-                            {c.name}
-                          </option>
-                        );
-                      })}
+                        {
+                          category?.map( c => {
+                            return (
+                              <option value={c.id} key={c.id}>
+                                {c.name}
+                              </option>
+                            );
+                          })
+                        }
                     </select>
                     <div>
-                      {input.category?.map((c) => (
-                        <p id={c}>
-                          {getNames([c])}
-                          <button onClick={(e) => deleteTemp(e, c)}>x</button>
-                        </p>
-                      ))}
+                      {
+                        input.categories?.map( c => (
+                          <p id={c}>
+                            {getNames([c])}
+                            <button onClick={(e) => deleteTemp(e, c)}>x</button>
+                          </p>
+                        ))
+                      }
                     </div>
                   </Grid>
                 </Grid>

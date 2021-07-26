@@ -12,7 +12,7 @@ const AppGlobal = () => {
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Switch> 			
-					<Route 
+					{/* <Route 
 						path="/private"
 						component={ () => (
 							( (currentUser && adminAllowed) )
@@ -20,7 +20,8 @@ const AppGlobal = () => {
 							: ( <Redirect to="/login" /> )
 						)}
 					/>
-					
+					 */}
+					 <Route path="/private" component={ () => <AppPrivate />}/>
 					<Route path="/" component={ () => <AppPublic />}/>
 				</Switch>
 			</BrowserRouter>
