@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "../themeStyle";
+import theme from '../../utils/Theme';
 
 import swal from "sweetalert";
 import {

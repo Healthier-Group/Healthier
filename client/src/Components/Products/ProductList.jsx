@@ -2,17 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   makeStyles,
-  Grid,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Container,
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
-import theme from "../themeStyle";
+import theme from '../../utils/Theme';
 import { Link } from "react-router-dom";
 import { getProducts } from "../../redux/products/productActions";
 

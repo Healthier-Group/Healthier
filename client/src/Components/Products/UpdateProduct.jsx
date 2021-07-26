@@ -18,6 +18,7 @@ const UpdateProduct = () => {
     price: 0, 
     image: "",
     sku: "",
+    stock: 0,
   });
 
 

@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
-import theme from "../themeStyle";
+import theme from '../../utils/Theme';
 import { Link } from "react-router-dom";
 import { getCategories } from "../../redux/products/productActions";
 
