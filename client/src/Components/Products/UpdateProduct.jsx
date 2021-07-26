@@ -7,7 +7,9 @@ import swal from "sweetalert";
 
 const UpdateProduct = () => {
   const dispatch = useDispatch();
-  const { productDetail } = useSelector((state) => state.productReducer);
+  const { productDetail } = useSelector(
+    (state) => state.productReducer.productDetail
+  );
 
   const [input, setInput] = useState({
     name: "",
@@ -44,7 +46,7 @@ const UpdateProduct = () => {
         productDetail.success &&
         swal("Producto actualizado exitosamente", "Bienvenido!", "success");
     }
-  }, [userDetail]);
+  }, [productDetail]);
 
   return (
     <>

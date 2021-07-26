@@ -11,7 +11,8 @@ import {
   GET_CATEGORY_BY_NAME,
   GET_CATEGORY_BY_ID,
   UPDATE_CATEGORY,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  GET_FILTER_CATEGORY
 } from "./productActions";
 
 const initialState = {
@@ -90,6 +91,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         categoryDetail: action.payload,
       };
+      case GET_FILTER_CATEGORY:
+        return {
+            ...state,
+            filtered: action.payload 
+        }
     default:
       return {
         state,

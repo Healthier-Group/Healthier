@@ -13,6 +13,7 @@ export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_CATEGORY_BY_ID = "GET_CATEGORY_BY_ID";
 export const GET_CATEGORY_BY_NAME = "GET_CATEGORY_BY_NAME";
+export const GET_FILTER_CATEGORY = 'GET_FILTER_CATEGORY';
 
 export function getProducts() {
   return async function (dispatch) {
@@ -185,3 +186,11 @@ export function deleteCategory(category) {
     });
   };
 }
+
+export function getFilterCategory(selectedCategory){
+  return{
+    type: 'GET_FILTER_CATEGORY',
+    payload: selectedCategory
+  }
+  }
+

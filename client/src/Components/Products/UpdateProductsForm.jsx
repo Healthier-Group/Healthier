@@ -40,7 +40,6 @@ export function ProductUpdate() {
   const { id } = useParams();
   
   useEffect(()=>{
-    console.log("mi id:", id)
     dispatch(getCategories())
     },[])
   const category = useSelector((state) => state.productReducer.foundCategories);
@@ -65,7 +64,7 @@ export function ProductUpdate() {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(updateProduct(id, input)); // const id = this.props.match.params.id;
   };
 
