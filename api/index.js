@@ -7,7 +7,7 @@ const {productsMockUp} = require('./src/utils/mockUps/products');
 const { categoryMockUp } = require("./src/utils/mockUps/categories.js");
 
 
-conn.sync({ force: true })
+conn.sync({ force: false })
 .then(async() => {
     await server.listen(PORT, async() => {
     console.log(`Healthier API is now listening at port ${PORT}`);

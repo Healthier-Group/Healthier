@@ -69,3 +69,4 @@ const sendMailOrderSent = async (usuario) => {
 
 
 exports.sendMailRegister = (usuario) => sendMailRegister(usuario)
+exports.sendMailOrder = (usuario) => sendMailOrder(usuario)

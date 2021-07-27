@@ -8,7 +8,8 @@ import {
   } from "./orderProductActions";
   
   const initialState = {
-    orderProducts: []
+    orderProducts: [],
+    currentOP:{}
   }
   
   const orderProductReducer = (state = initialState, action) => {
@@ -35,7 +36,7 @@ import {
       case UPDATE_ORDER_PRODUCT:
         return {
           ...state,
-          currentOrder: action.payload
+          currentOP: action.payload
         };
       case DELETE_ORDER_PRODUCT:
         return {

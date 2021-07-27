@@ -20,8 +20,10 @@ export default function OrderScreen(props) {
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
-  console.log("que trae acá", currentUserOrder);
+ 
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
+  const {user} = useSelector(state => state.userReducer)
+  console.log("usuario", user);
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -34,7 +36,11 @@ export default function OrderScreen(props) {
       qty: OP.quantity,
     });
   });
-  console.log("que hay en products", products);
+  const infoMP= {
+    products,
+    currentUserOrder
+  }
+  console.log("que hay en infoMP", infoMP);
   useEffect(() => {
     dispatch(getOrderById(orderId));
     if (currentUserOrder.paymentMethod === "paypal") {

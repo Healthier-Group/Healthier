@@ -82,9 +82,9 @@ export default function ProductCard() {
 
   // const day = new Date()
   const {currentUser} = useSelector(state => state.userReducer);
-  console.log("cual es el currentUser?", currentUser);
+  
   const orderId = currentUser?.order?.id;
-  console.log("cual es el orderId?", orderId);
+  
 
   useEffect(() => {
     dispatch(getProducts());
@@ -119,7 +119,7 @@ export default function ProductCard() {
     } else {
       //si el usuario si está login debo pasarle esta info quantity, productId, orderId
       
-      console.log("Estoy login pasando productos al carrito", "id producto",id,"id order",orderId );
+      
       const orderProduct={
         productId:id,
         orderId: orderId
