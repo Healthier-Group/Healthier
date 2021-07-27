@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  makeStyles,
-  Button,
-  Container,
-} from "@material-ui/core";
+import { makeStyles, Button, Container } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
-import theme from '../../utils/Theme';
+import theme from "../../utils/Theme";
 import { Link } from "react-router-dom";
-import { getCategories } from "../../redux/products/productActions";
+import { getReviews } from "../../redux/products/productActions";
 
-const CategoryList = () => {
+const ReviewList = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: 100,
@@ -28,18 +24,18 @@ const CategoryList = () => {
     },
   }));
 
-  const category = useSelector((state) => state.productReducer.foundCategories);
-  console.log(category);
+  const review = useSelector((state) => state.productReducer.foundReviews);
+  console.log("Here's the review", review);
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getReviews());
   }, []);
 
   const columns = [
     { field: "id", headerName: "#", width: 90 },
-    { field: "name", headerName: "Nombre", width: 250 },
+    { field: "title", headerName: "Título", width: 250 },
     { field: "description", headerName: "Descripción", width: 550 },
     {
       field: "Edit", // CAMBIAR LINK AL PUT FORM DE CATEGORY
@@ -52,7 +48,7 @@ const CategoryList = () => {
         return (
           <ThemeProvider theme={theme}>
             <Link
-              to={`/private/updatecategory/${params.id}`}
+              to={`/private/updatereview/${params.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -78,7 +74,7 @@ const CategoryList = () => {
         return (
           <ThemeProvider theme={theme}>
             <Link
-              to={`/private/deletecategory/${params.id}`}
+              to={`/private/deletereview/${params.id}`}
               style={{ textDecoration: "none" }}
             >
               <Button
@@ -97,7 +93,7 @@ const CategoryList = () => {
 
   return (
     <div>
-      {category ? (
+      {review ? (
         <div>
           <ThemeProvider theme={theme}>
             <Container
@@ -108,7 +104,7 @@ const CategoryList = () => {
               }}
             >
               <h1>Categorías</h1>
-              <Link to="/private/catform" style={{ textDecoration: "none" }}>
+              <Link to="/private/reviewform" style={{ textDecoration: "none" }}>
                 <Button variant="contained" color="secondary">
                   Agregar Nueva
                 </Button>
@@ -117,7 +113,7 @@ const CategoryList = () => {
 
             <Container style={{ height: 400, width: "90%" }}>
               <Container style={{ display: "flex", height: "100%" }}>
-                <DataGrid rows={category} columns={columns} />
+                <DataGrid rows={review} columns={columns} />
               </Container>
             </Container>
           </ThemeProvider>
@@ -128,4 +124,4 @@ const CategoryList = () => {
     </div>
   );
 };
-export default CategoryList;
+export default ReviewList;

@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from '../../utils/Theme';
-import ValidateCategory from "../../utils/ValidateCategory";
+// import ValidateCategory from "../../utils/ValidateCategory";
 
 import {
-  getCategoryById,
-  updateCategory,
+  getReviewById,
+  updateReview,
 } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,51 +30,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function UpdateCategory() {
+export function UpdateReview(handleSubmit) {
   const { id } = useParams();
   //console.log("Aca hay ID", id);
-  const categoryDetail = useSelector(
-    (state) => state.productReducer.categoryDetail
+  const reviewDetail = useSelector(
+    (state) => state.productReducer.reviewDetail
   );
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const [input, setInput] = useState({
-    name: "",
+    title: "",
     description: "",
+    calification: 0,
   });
 
-  const handleSubmit = (e) => {
-    dispatch(updateCategory(input)); // const id = this.props.match.params.id;
-  };
+//   const handleSubmit = (e) => {
+//     dispatch(updateReview(input)); // const id = this.props.match.params.id;
+//   };
 
   useEffect(() => {
-    if (categoryDetail !== undefined) {
+    if (reviewDetail !== undefined) {
       setInput({
         id: id,
-        name: categoryDetail[0]?.name,
-        description: categoryDetail[0]?.description,
+        title: reviewDetail[0]?.title,
+        description: reviewDetail[0]?.description,
+        calification: reviewDetail[0]?.calification
       });
       console.log("a ver el input", input);
     } else {
-      dispatch(getCategoryById(id));
+      dispatch(getReviewById(id));
     }
-  }, [dispatch, id, categoryDetail]);
+  }, [dispatch, id, reviewDetail]);
   //console.log('a ver el id aca', id)
 
   useEffect(() => {
-    dispatch(getCategoryById(id));
+    dispatch(getReviewById(id));
   }, []);
   useEffect(() => {}, [input, setInput]);
 
   const [error, setError] = useState({
     //Control the error red border of the inputs
-    name: false,
+    title: false,
     description: false,
+    calification: false,
   });
   const [helperText, setHelperText] = useState({
     //Control the warning message
-    name: "Ingrese un nombre de categoría",
+    title: "Ingrese un título",
     description: "Ingrese una descripción",
   });
 
@@ -83,7 +86,7 @@ export function UpdateCategory() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    ValidateCategory(e.target, error, setError, helperText, setHelperText);
+    // ValidateCategory(e.target, error, setError, helperText, setHelperText);
   };
 
   return (
@@ -107,12 +110,12 @@ export function UpdateCategory() {
               >
                 <Grid item xs={8}>
                   <TextField
-                    error={error["name"]}
-                    helperText={[helperText["name"]]}
-                    id="name"
-                    label="Nombre"
-                    name="name"
-                    value={input?.name ? input.name : ""}
+                    error={error["title"]}
+                    helperText={[helperText["title"]]}
+                    id="title"
+                    label="Título"
+                    name="title"
+                    value={input?.title ? input.title : ""}
                     onChange={handleInputChange}
                     fullWidth={true}
                   />
@@ -161,4 +164,4 @@ export function UpdateCategory() {
     </ThemeProvider>
   );
 }
-export default UpdateCategory;
+export default UpdateReview;

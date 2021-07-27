@@ -3,14 +3,9 @@ import Carousel from "react-material-ui-carousel";
 import { Paper, Button } from "@material-ui/core";
 import {Link} from 'react-router-dom'
 
-import Image from "../../Images/hierbas.jpg";
-
 const styles = {
   paperContainer: {
-    // backgroundImage: `url(${Image})`,
-    background: "rgb(119,175,140)",
-    background:
-      "radial-gradient(circle, rgba(119,175,140,1) 0%, rgba(61,178,106,1) 61%)",
+    background: "rgb(119,175,140) radial-gradient(circle, rgba(119,175,140,1) 0%, rgba(61,178,106,1) 61%)",
     minHeight: 150,
     textAlign: "center",
     padding: 40,

@@ -1,7 +1,6 @@
 
 import axios from "axios";
 import {
-  API_URL,
   CREATE_USER,
   GET_ALL_USERS,
   READ_USER,
@@ -13,7 +12,7 @@ import {
   GET_CURRENT_USER
 } from "../../utils/Constants";
 import swal from "sweetalert";
-import { CART_EMPTY } from "../cart/cartActions";
+// import { CART_EMPTY } from "../cart/cartActions";
 
 
 export function getAllUsers() {

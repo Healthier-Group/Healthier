@@ -12,8 +12,8 @@ import theme from '../../utils/Theme';
 
 
 import {
-  getCategoryById,
-  deleteCategory,
+  getReviewById,
+  deleteReview,
 } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,40 +35,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function DeleteCategory() {
+export function DeleteReview() {
   const { id } = useParams();
   //console.log("Aca hay ID", id);
-  const categoryDetail = useSelector(
-    (state) => state.productReducer.categoryDetail
+  const reviewDetail = useSelector(
+    (state) => state.productReducer.reviewDetail //cambiar a review post hacer redux
   );
   const dispatch = useDispatch();
   const classes = useStyles();
 
   const [data, setData] = useState({
-    name: "",
+    title: "",
     description: "",
+    calification: "",
   });
 
   const handleSubmit = (e) => {
-    dispatch(deleteCategory(data)); // const id = this.props.match.params.id;
+    dispatch(deleteReview(data)); // const id = this.props.match.params.id;
   };
 
   useEffect(() => {
-    if (categoryDetail !== undefined) {
+    if (reviewDetail !== undefined) {
       setData({
         id: id,
-        name: categoryDetail[0]?.name,
-        description: categoryDetail[0]?.description,
+        title: reviewDetail[0]?.title,
+        description: reviewDetail[0]?.description,
+        calification: reviewDetail[0]?.calification
       });
       console.log("a ver la data", data);
     } else {
-      dispatch(getCategoryById(id));
+      dispatch(getReviewById(id));
     }
-  }, [dispatch, id, categoryDetail]);
+  }, [dispatch, id, reviewDetail]);
   //console.log('a ver el id aca', id)
 
   useEffect(() => {
-    dispatch(getCategoryById(id));
+    dispatch(getReviewById(id));
   }, []);
   useEffect(() => {}, [data, setData]);
 
@@ -100,7 +102,7 @@ export function DeleteCategory() {
                 justifyContent="center"
               >
                 <Grid item xs={8}>
-                  <h2> ¿Desea borrar la categoría {`"${data.name}"`} ?</h2>
+                  <h2> ¿Desea borrar la review {`"${data.title}"`} ?</h2>
                 </Grid>
               </Grid>
             </Grid>
@@ -111,7 +113,7 @@ export function DeleteCategory() {
               alignItems="center"
             >
               <Grid item>
-                <Link to={"/private/categorylist"}>
+                <Link to={"/private/reviewlist"}>
                   <Button
                     style={{ fontWeight: 1000, marginTop: 50 }}
                     color="secondary"
@@ -129,4 +131,4 @@ export function DeleteCategory() {
     </ThemeProvider>
   );
 }
-export default DeleteCategory;
+export default DeleteReview;

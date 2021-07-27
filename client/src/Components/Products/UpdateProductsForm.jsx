@@ -1,21 +1,12 @@
-import React , { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Button,
-  TextField,
-  makeStyles,
-  Grid,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-} from "@material-ui/core";
+import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from '../../utils/Theme';
+import theme from "../../utils/Theme";
 import ValidateProduct from "../../utils/ValidateProduct";
-import { getCategories } from '../../redux/products/productActions'
+import { getCategories } from "../../redux/products/productActions";
 
-import swal from "sweetalert";
 import {
   getProductById,
   updateProduct,
@@ -42,16 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProductUpdate() {
   const { id } = useParams();
-  
-  useEffect(()=>{
-    console.log("mi id:", id)
-    dispatch(getCategories())
-    },[])
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
   const category = useSelector((state) => state.productReducer.foundCategories);
   const productDetail = useSelector(
     (state) => state.productReducer.productDetail
   );
-  console.log(productDetail)
+  console.log(productDetail);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -69,7 +59,7 @@ export function ProductUpdate() {
   });
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(updateProduct(id, input)); // const id = this.props.match.params.id;
   };
 
@@ -85,7 +75,7 @@ export function ProductUpdate() {
         image: productDetail[0]?.image,
         sku: productDetail[0]?.sku,
         stock: productDetail[0]?.stock,
-        categories: [].concat(productDetail[0].categories.map(e => e.id))
+        categories: [].concat(productDetail[0]?.categories.map((e) => e.id)),
       });
     } else {
       dispatch(getProductById(id));
@@ -94,7 +84,7 @@ export function ProductUpdate() {
 
   useEffect(() => {
     dispatch(getProductById(id));
-    console.log(input.categories)
+    console.log(input.categories);
   }, []);
   useEffect(() => {}, [input, setInput]);
 
@@ -109,7 +99,7 @@ export function ProductUpdate() {
     image: false,
     sku: false,
     stock: false,
-    categories: false
+    categories: false,
   });
   const [helperText, setHelperText] = useState({
     //Control the warning message
@@ -122,7 +112,7 @@ export function ProductUpdate() {
     image: "Ingrese una imagen",
     sku: "Ingrese un SKU alfanumerico",
     stock: "Ingrese un número igual o mayor a cero",
-    categories: "Ingrese una categoría"
+    categories: "Ingrese una categoría",
   });
 
   const handleInputChange = function (e) {
@@ -136,16 +126,15 @@ export function ProductUpdate() {
   //manejo del select
 
   function handleSelect(e) {
-
     if (input.categories?.includes(parseInt(e.target.value))) {
       alert("Ya se eligió esta categoría. Seleccione otras.");
     } else if (input.categories?.length >= 5) {
       alert("Se pueden elegir hasta 3 categorías.");
     } else {
       setInput({
-        ...input, 
-        categories: [...input.categories, parseInt(e.target.value)]
-      })
+        ...input,
+        categories: [...input.categories, parseInt(e.target.value)],
+      });
     }
   }
 
@@ -153,8 +142,8 @@ export function ProductUpdate() {
 
   function getNames(arr) {
     let names = [];
-    category?.forEach( t => {
-      arr.forEach( id => {
+    category?.forEach((t) => {
+      arr.forEach((id) => {
         if (parseInt(id) === t.id) {
           names.push(t.name);
         }
@@ -167,15 +156,11 @@ export function ProductUpdate() {
   function deleteTemp(e, c) {
     setInput({
       ...input,
-      categories: input.categories.filter(
-        (cat) => cat !== parseInt(c)
-      )
+      categories: input.categories.filter((cat) => cat !== parseInt(c)),
     });
   }
 
-
-//        productDetail[0].categories.length? { map {productDetail[0].categories} con los P } : {<p>Este producto no tiene categorías seleccionadas aún</p>}
-
+  //        productDetail[0].categories.length? { map {productDetail[0].categories} con los P } : {<p>Este producto no tiene categorías seleccionadas aún</p>}
 
   return (
     <ThemeProvider theme={theme}>
@@ -351,34 +336,30 @@ export function ProductUpdate() {
                       onChange={handleInputChange}
                       fullWidth={true}
                     />
-                     <p>Categoría</p>
+                    <p>Categoría</p>
                     <select
                       name="category"
-                      onChange={e => handleSelect(e)}
+                      onChange={(e) => handleSelect(e)}
                       value={input.categories}
                       className={classes.inputs}
                       required
                     >
                       <option> select</option>
-                        {
-                          category?.map( c => {
-                            return (
-                              <option value={c.id} key={c.id}>
-                                {c.name}
-                              </option>
-                            );
-                          })
-                        }
+                      {category?.map((c) => {
+                        return (
+                          <option value={c.id} key={c.id}>
+                            {c.name}
+                          </option>
+                        );
+                      })}
                     </select>
                     <div>
-                      {
-                        input.categories?.map( c => (
-                          <p id={c}>
-                            {getNames([c])}
-                            <button onClick={(e) => deleteTemp(e, c)}>x</button>
-                          </p>
-                        ))
-                      }
+                      {input.categories?.map((c) => (
+                        <p id={c}>
+                          {getNames([c])}
+                          <button onClick={(e) => deleteTemp(e, c)}>x</button>
+                        </p>
+                      ))}
                     </div>
                   </Grid>
                 </Grid>
