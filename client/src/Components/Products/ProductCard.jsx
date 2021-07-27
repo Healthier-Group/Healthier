@@ -118,8 +118,6 @@ export default function ProductCard() {
       await dispatch(getProducts());
     } else {
       //si el usuario si está login debo pasarle esta info quantity, productId, orderId
-      
-      
       const orderProduct={
         productId:id,
         orderId: orderId
@@ -132,7 +130,8 @@ export default function ProductCard() {
         button: "Volver",
       });
       await dispatch(getProducts());
-    }
+   
+  }
   };
   const product = useSelector((state) => state.productReducer.foundProducts);
   //const product = useSelector((state) => state.productReducer.products);

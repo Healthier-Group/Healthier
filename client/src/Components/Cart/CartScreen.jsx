@@ -36,7 +36,7 @@ export default function CartScreen(props) {
   const { currentUser } = useSelector((state) => state.userReducer);
   const orderId = currentUser?.order?.id;
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const { quantity } = orderProducts;
+  
 
   const productos = [];
   const updateProducts = () => {
@@ -85,7 +85,6 @@ export default function CartScreen(props) {
     } else {
       updateProducts();
       dispatch(getOrderProductsByOrder(orderId));
-
       dispatch(getCurrentUser());
     }
 

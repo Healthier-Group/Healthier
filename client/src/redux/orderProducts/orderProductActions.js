@@ -47,6 +47,7 @@ export function getOrderProductById(id) {
 }
 
 export function addOrderProduct(orderProduct) {
+  console.log("que llego aca?", orderProduct)
   return async function (dispatch) {
     const { data } = await axios.post(
       "http://localhost:3001/orderProduct/addOrderProduct",

@@ -74,7 +74,7 @@ router.post('/admin', async (req,res,next) => {
     }
 })
 
-router.post("/login", (req, res, next) => {
+router.post("/login", async(req, res, next) => {
     passport.authenticate("local",{session:true}, (err, user, info) => {
         if (err) throw err;
         if (!user) res.send("No User Exists");
@@ -82,6 +82,7 @@ router.post("/login", (req, res, next) => {
             req.logIn(user, (err) => {
                 if (err) throw err;
                 res.send("Successfully Authenticated");
+                
             });
         }
     })(req, res, next);
