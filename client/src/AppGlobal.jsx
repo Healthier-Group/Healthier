@@ -1,12 +1,12 @@
 import { ThemeProvider } from '@material-ui/core'
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch,Redirect} from 'react-router-dom';
 import AppPrivate from './Components/App/AppPrivate';
 import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
-	// const currentUser = (JSON.parse(localStorage.getItem('profile')));
-	// const adminAllowed = (JSON.parse(localStorage.getItem('adminAllowed')))
+	 const currentUser = (JSON.parse(localStorage.getItem('profile')));
+	 const adminAllowed = (JSON.parse(localStorage.getItem('adminAllowed')))
 	
 	return (
 		<ThemeProvider theme={theme}>
