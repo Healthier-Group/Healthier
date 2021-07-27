@@ -59,7 +59,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { User, History, Historyorder, Product, Review, Category, Inventory, Orderproduct, Order, OrderMp } = sequelize.models;
+const { User, Historyorder, Product, Review, Category, Inventory, Orderproduct, Order, OrderMp } = sequelize.models;
 
 //Product.belongsToMany(Review, {through: 'ProductReview'})
 //Review.hasOne(Product, {through: 'ProductReview'})
@@ -83,11 +83,8 @@ Product.belongsToMany(Orderproduct, { through: "aa"} );
 Order.hasMany(Orderproduct);
 Orderproduct.belongsTo(Order);
 
-User.hasOne(History);
-History.belongsTo(User);
-
-History.hasMany(Historyorder);
-Historyorder.belongsTo(History);
+User.hasMany(Historyorder);
+Historyorder.belongsTo(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

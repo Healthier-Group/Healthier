@@ -84,12 +84,7 @@ export default function OrderScreen(props) {
       return mercadoPago;
     };
   }
-  // function pay() {
-  //   return axios.get("http://localhost:3001/mercadopago").then((r) => {
-  //     setLink(r.data.link);
-  //     console.log(r.data.link);
-  //   });
-  // }
+  
 
   const successPaymentHandler = (paymentResult) => {
     //dispatch(payOrder(order, paymentResult));
@@ -194,7 +189,7 @@ export default function OrderScreen(props) {
               {!currentUserOrder.isPaid && (
                 <li>
                   {!sdkReady ? (
-                    <h4>todo mal</h4>
+                    <h4>ok</h4>
                   ) : (
                     // <LoadingBox></LoadingBox>
                     <PayPalButton
