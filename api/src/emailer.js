@@ -7,7 +7,7 @@ const nodemailer = require ("nodemailer");
 //     auth: {
 //       user: "0c995643b419c7",
 //       pass: "8a6f0b2700de12"
-//     }
+//     }    
 //   });
 
 const createTransporter = () => {
@@ -37,20 +37,19 @@ const sendMailRegister = async (usuario) => {
     return
 }
 //confirmacion de compra -- debería ejecutarse cuando se va a mercadopago
-const sendMailOrder = async (usuario) => {
+const sendMailOrder = async () => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
         from: '"Healthier Group" <sergionicolassud@gmail.com>',
         // to: `${usuario.email}`,
-        to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
+        to:"",
         subject: 'Tu compra fue aprobada',
-        html: "<p>Bienvenido a Healthier group</p>"
+        html: "<p>El correo funciona</p>"
     })
     console.log("Message sent:", info.messageId);
 
     return
 }
-
 
 //compra despachada -- debería ejecutarse cuando la orden pasa a history
 const sendMailOrderSent = async (usuario) => {
@@ -69,3 +68,6 @@ const sendMailOrderSent = async (usuario) => {
 
 
 exports.sendMailRegister = (usuario) => sendMailRegister(usuario)
+exports.sendMailOrder = () => sendMailOrder()
+exports.sendMailOrderSent = (usuario) => sendMailOrder(usuario)
+

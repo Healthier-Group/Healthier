@@ -8,7 +8,8 @@ import {
   } from "./orderProductActions";
   
   const initialState = {
-    orderProducts: []
+    orderProducts: [],
+    currentOP:{}
   }
   
   const orderProductReducer = (state = initialState, action) => {
@@ -33,10 +34,28 @@ import {
           ...state
         }
       case UPDATE_ORDER_PRODUCT:
+          /* let arr = orderProducts.map (e => {
+            if (e.id === action.payload.id) {
+              e = action.payload
+            }
+            return {
+          ...state,
+          orderProducts = arr
+          };
+          })*/
+        // OPnumber = indexOf(orderProducts.filter( e => e.id === action.payload.id));
+        // return {
+        //   ...state,
+        //   orderProducts: [
+        //     ...state.orderProducts, 
+        //     state.orderProducts[OPnumber]: action.payload.data
+        //   ]
+        // console.log(action.payload)
+        // console.log(OPnumber)
         return {
           ...state,
-          currentOrder: action.payload
-        };
+          currentOP: action.payload
+        }
       case DELETE_ORDER_PRODUCT:
         return {
           ...state,

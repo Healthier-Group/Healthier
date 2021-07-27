@@ -20,8 +20,10 @@ export default function OrderScreen(props) {
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
-  console.log("que trae acá", currentUserOrder);
+ 
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
+  const {user} = useSelector(state => state.userReducer)
+  console.log("usuario", user);
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -34,7 +36,11 @@ export default function OrderScreen(props) {
       qty: OP.quantity,
     });
   });
-  console.log("que hay en products", products);
+  const infoMP= {
+    products,
+    currentUserOrder
+  }
+  console.log("que hay en infoMP", infoMP);
   useEffect(() => {
     dispatch(getOrderById(orderId));
     if (currentUserOrder.paymentMethod === "paypal") {
@@ -78,12 +84,7 @@ export default function OrderScreen(props) {
       return mercadoPago;
     };
   }
-  // function pay() {
-  //   return axios.get("http://localhost:3001/mercadopago").then((r) => {
-  //     setLink(r.data.link);
-  //     console.log(r.data.link);
-  //   });
-  // }
+  
 
   const successPaymentHandler = (paymentResult) => {
     //dispatch(payOrder(order, paymentResult));
@@ -188,7 +189,7 @@ export default function OrderScreen(props) {
               {!currentUserOrder.isPaid && (
                 <li>
                   {!sdkReady ? (
-                    <h4>todo mal</h4>
+                    <h4>ok</h4>
                   ) : (
                     // <LoadingBox></LoadingBox>
                     <PayPalButton

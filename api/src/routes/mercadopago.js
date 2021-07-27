@@ -1,6 +1,7 @@
 const {OrderMp} = require('../db.js');
 const server = require('express').Router()
 const mercadopago = require('mercadopago')
+const emailer = require("../../src/emailer")
 
 mercadopago.configure({access_token: 'TEST-4177121794319246-071405-45ab153c0cd3fd9ca748978856960753-372500284'})
 
@@ -51,7 +52,8 @@ server.get("/pagos", (req, res)=>{
     const payment_status= req.query.status
     const external_reference = req.query.external_reference
     const merchant_order_id= req.query.merchant_order_id
-
+ //Correo
+    emailer.sendMailOrder()
   //Aquí edito el status de mi orden
   OrderMp.findByPk(external_reference)
   .then((order) => {

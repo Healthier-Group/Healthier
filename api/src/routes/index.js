@@ -9,6 +9,7 @@ const inventory = require("./productInventory");
 const category = require("./category");
 const auth = require("./auth");
 const mercadopago = require('./mercadopago');
+const historyOrder = require('./historyOrder');
 
 const router = Router();
 
@@ -16,8 +17,9 @@ router.get("/unauthorized", (req, res) => {
   res.json("No authorization");
 });
 
-router.use('/orderProduct', orderProduct)
-router.use('/order', order)
+router.use('/history', historyOrder);
+router.use('/orderProduct', orderProduct);
+router.use('/order', order);
 router.use("/users", users);
 router.use("/products", products);
 router.use("/review", review);

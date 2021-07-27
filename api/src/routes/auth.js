@@ -46,6 +46,7 @@ router.post('/passwordreset', async (req,res,next) => {
     let {token, newPassword} = req.body;
     try {
         let email = jwt.verify(token,SECRET_KEY).email.toLowerCase()
+        console.log("este es email del back:", email)
         let isRegistered = await User.findOne({where: {email: email}})
         if (isRegistered) {
             const hashedPassword = await bcrypt.hash(newPassword, 12)
@@ -73,7 +74,7 @@ router.post('/admin', async (req,res,next) => {
     }
 })
 
-router.post("/login", (req, res, next) => {
+router.post("/login", async(req, res, next) => {
     passport.authenticate("local",{session:true}, (err, user, info) => {
         if (err) throw err;
         if (!user) res.send("No User Exists");
@@ -81,6 +82,7 @@ router.post("/login", (req, res, next) => {
             req.logIn(user, (err) => {
                 if (err) throw err;
                 res.send("Successfully Authenticated");
+                
             });
         }
     })(req, res, next);

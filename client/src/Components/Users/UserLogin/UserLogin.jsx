@@ -15,13 +15,15 @@ import swal from "sweetalert";
 import Footer from "../../Footer/Footer";
 import NavBar from "../../NavBar/NavBar";
 import { Link } from "react-router-dom";
+import { addOrderProduct } from "../../../redux/orderProducts/orderProductActions";
 
 export default function UserLogin() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { currentUser } = useSelector((state) => state.userReducer);
-
+   
+  const orderId = currentUser?.order?.id;
 
   const [input, setInput] = useState({
     email: "",
@@ -39,8 +41,11 @@ export default function UserLogin() {
             "Disculpa las molestias",
             "success"
           );
+        }else{
+           addCartToLS()
         }
         history.push("/");
+        
       }
     },
     // eslint-disable-next-line
@@ -55,9 +60,37 @@ export default function UserLogin() {
   };
 
 
-  const handleLogIn = (e) => {
-    dispatch(loginUser(input));
+  const handleLogIn = async (e) => {
+    
+    await dispatch(loginUser(input));
+    
+      //console.log("existis?", currentUser)
+      
   };
+
+  const addCartToLS = async ()=>{
+ 
+    let carritoLS = await JSON.parse(localStorage.getItem("cartItems"))
+    console.log("carrito del LS", carritoLS)
+    if (currentUser) {
+      console.log("hay CU", currentUser);
+      if (carritoLS.length) {
+        console.log("hay carrito?", carritoLS);
+        await carritoLS.map((e) => {
+         return dispatch(addOrderProduct({
+          productId: e.product,
+          orderId: orderId
+        })
+        )
+      })
+      }else{
+        console.log("aca no llego nada");
+      }
+      
+      await localStorage.removeItem("cartItems");
+    }
+  }
+
 
   const GoogleSSOHandler = async () => {
     let timer = null;
