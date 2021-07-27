@@ -50,7 +50,7 @@ const adminMockUp = async() => {
             username: 'Administrador',
             isAdmin: true,
             email: 'admin@admin.com',
-            password: hashedPasswordB,
+            password: 'Administrador1',
             contact: '1127257701',
         }});
         await User.findOrCreate({where:{

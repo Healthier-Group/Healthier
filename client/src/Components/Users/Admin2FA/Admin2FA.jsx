@@ -13,7 +13,7 @@ export const Admin2FA = () => {
    useEffect(() => {
       if(typeof(adminAllowed) !== 'undefined') {
          if(adminAllowed){
-            history.push('/private/panel')
+            history.push('/private/userlist')
             swal('Autenticación exitosa', 'Bienvenido', 'success')
          }else{
             history.push('/')

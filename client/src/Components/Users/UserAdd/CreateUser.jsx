@@ -37,10 +37,11 @@ const CreateUser = (props) => {
 			}else{
 				swal(aux, 'Vuelva a intentarlo', 'error')
 			}
-		} else {
-			typeof(userDetail) !== 'undefined' && swal('Usuario creado exitosamente', '¡Bienvenido!', 'success')
+		} else if(typeof(userDetail !== "undefined")){
+			// typeof(userDetail) !== 'undefined' && swal('Usuario creado exitosamente', '¡Bienvenido!', 'success')
 			setInput(wipedInput)
 			if(Boolean(next)) { console.log('redirigir') }
+			
 		}
 	},
 	// eslint-disable-next-line

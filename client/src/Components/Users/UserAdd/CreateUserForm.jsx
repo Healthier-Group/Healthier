@@ -39,7 +39,7 @@ const CreateUserForm = ({ input, setInput, handleSubmit, match }) => {
 
   return (
     <div className="extContCAF">
-		<NavBar/>
+		
       <div
         style={{
           minHeight: "100vh",

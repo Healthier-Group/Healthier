@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import LandingPage from '../LandingPage/LandingPage'
-import NavBar from '../NavBar/NavBar'
+import NavbarAdmin from '../NavBar/NavbarAdmin'
 import CreateUser from '../Users/UserAdd/CreateUser';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
 import UserList from '../Users/UserList/UserList';
@@ -22,7 +22,7 @@ function AppPrivate() {
 			<BrowserRouter>
 				
 				{/* ============ LandingPage =================== */}
-				<Route path="/" component={NavBar} />
+				<Route path="/" component={NavbarAdmin} />
 				<Route exact path="/" component={LandingPage} />
 
 				{/* ============ User ==================== */}
