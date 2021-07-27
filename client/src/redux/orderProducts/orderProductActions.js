@@ -78,7 +78,8 @@ export function updateOrderProduct(id,orderProduct) {
     await console.log("estamos despues de put:", data)
     dispatch({
       type: UPDATE_ORDER_PRODUCT,
-      payload: data,
+      payload: {data, id}
     });
   };
 }
+

@@ -8,6 +8,7 @@ import {
   deleteOrderProduct,
   getOrderProductsByOrder,
   updateOrderProduct,
+  updateQty,
 } from "../../redux/orderProducts/orderProductActions";
 import {
   Paper,
@@ -35,21 +36,27 @@ export default function CartScreen(props) {
   const { currentUser } = useSelector((state) => state.userReducer);
   const orderId = currentUser?.order?.id;
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
+  const { quantity } = orderProducts;
 
   const productos = [];
-  orderProducts?.forEach((OP) => {
-    productos.push({
-      id: OP.id,
-      name: OP.product.name,
-      image: OP.product.image,
-      price: OP.product.price,
-      product: OP.product.id,
-      countInStock: OP.product.stock,
-      qty: OP.quantity,
+  const updateProducts = () => {
+    orderProducts?.forEach((OP) => {
+      productos.push({
+        id: OP.id,
+        name: OP.product.name,
+        image: OP.product.image,
+        price: OP.product.price,
+        product: OP.product.id,
+        countInStock: OP.product.stock,
+        qty: OP.quantity,
+      });
     });
-  });
+  };
+
+  updateProducts();
 
   const cartItems = currentUser ? productos : cart.cartItems;
+
   // const { cartItems } = cart;
 
   const removeFromCartHandler = (id) => {
@@ -71,16 +78,37 @@ export default function CartScreen(props) {
   };
 
   useEffect(() => {
-    dispatch(getOrderProductsByOrder(orderId));
-    dispatch(getCurrentUser());
     if (!currentUser) {
       if (productId) {
         dispatch(addToCart(productId, qty));
       }
+    } else {
+      updateProducts();
+      dispatch(getOrderProductsByOrder(orderId));
+
+      dispatch(getCurrentUser());
     }
-    
+
     //despacho a cartAction
-  }, [getOrderProductsByOrder, getCurrentUser, updateOrderProduct]);
+  }, [
+    getOrderProductsByOrder,
+    getCurrentUser,
+    updateOrderProduct,
+    dispatch,
+    orderId,
+    productId,
+    qty,
+  ]);
+
+  const handlerFunction = async (item, e) => {
+    if (currentUser) {
+      await dispatch(updateOrderProduct(item.id, { quantity: e }));
+      await dispatch(getOrderProductsByOrder(orderId));
+      
+    } else {
+      dispatch(addToCart(item.product, e));
+    }
+  };
 
   return (
     <div>
@@ -139,16 +167,7 @@ export default function CartScreen(props) {
                         <select
                           value={item.qty}
                           onChange={(e) => {
-                            dispatch(
-                              currentUser
-                                ? updateOrderProduct(item.id, {
-                                    quantity: Number(e.target.value),
-                                  })
-                                : addToCart(
-                                    item.product,
-                                    Number(e.target.value)
-                                  )
-                            )
+                            handlerFunction(item, Number(e.target.value));
                           }}
                         >
                           {[...Array(item.countInStock).keys()].map((x) => (
