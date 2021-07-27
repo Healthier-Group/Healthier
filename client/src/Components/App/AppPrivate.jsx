@@ -14,6 +14,11 @@ import CategoryList from '../Categories/CategoryList';
 import UpdateCategory from '../Categories/UpdateCategoryForm';
 import DeleteCategory from '../Categories/DeleteCategory'
 import Carousel from '../Carousel/Carousel';
+import CreateReview from '../Reviews/CreateReview'
+import DeleteReview from '../Reviews/DeleteReview'
+import ReviewList from '../Reviews/ReviewList'
+import UpdateReview from '../Reviews/UpdateReview'
+
 
 function AppPrivate() {
 
@@ -40,6 +45,11 @@ function AppPrivate() {
 				<Route exact path="/private/updateCategory/:id" component={UpdateCategory} />
 				<Route exact path="/private/deletecategory/:id" component={DeleteCategory} />
 				<Route exact path="/private/categorylist" component={CategoryList} /> 
+				{/* ============ Reviews =================== */}
+				<Route exact path="/private/reviewform" component={CreateReview} />
+				<Route exact path="/private/updatereview/:id" component={UpdateReview} />
+				<Route exact path="/private/deletereview/:id" component={DeleteReview} />
+				<Route exact path="/private/reviewlist" component={ReviewList} /> 
 				{/* ============ Carousel =================== */}
                 <Route exact path="/private/test" component={Carousel} />
 

@@ -13,7 +13,11 @@ export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 export const GET_CATEGORY_BY_ID = "GET_CATEGORY_BY_ID";
 export const GET_CATEGORY_BY_NAME = "GET_CATEGORY_BY_NAME";
-export const GET_FILTER_CATEGORY = 'GET_FILTER_CATEGORY';
+export const GET_FILTER_CATEGORY = "GET_FILTER_CATEGORY";
+export const GET_REVIEWS = "GET_REVIEWS";
+export const UPDATE_REVIEW = "UPDATE_REVIEW";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_REVIEW_BY_ID = "GET_REVIEW_BY_ID";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -41,14 +45,12 @@ export function getProductById(id) {
 
 export function getProductByName(q) {
   return function (dispatch) {
-    return axios
-      .get("/products/?q=" + q)
-      .then((product) => {
-        dispatch({
-          type: "GET_PRODUCT_BY_NAME",
-          payload: product.data,
-        });
+    return axios.get("/products/?q=" + q).then((product) => {
+      dispatch({
+        type: "GET_PRODUCT_BY_NAME",
+        payload: product.data,
       });
+    });
   };
 }
 
@@ -187,10 +189,58 @@ export function deleteCategory(category) {
   };
 }
 
-export function getFilterCategory(selectedCategory){
-  return{
-    type: 'GET_FILTER_CATEGORY',
-    payload: selectedCategory
-  }
-  }
+export function getFilterCategory(selectedCategory) {
+  return {
+    type: "GET_FILTER_CATEGORY",
+    payload: selectedCategory,
+  };
+}
 
+export function getReviews() {
+  return async function (dispatch) {
+    return await axios
+      .get(`/review/`) //some link from backend, check
+      .then((review) => {
+        dispatch({
+          type: "GET_REVIEWS",
+          payload: review.data,
+        });
+      });
+  };
+}
+
+export function updateReview(review) {
+  return async function (dispatch) {
+    const { data } = await axios.put(`${API_URL}review/${review.id}`, review);
+    dispatch({
+      type: "UPDATE_REVIEW",
+      payload: data,
+    });
+  };
+}
+
+export function deleteReview(review) {
+  return async function (dispatch) {
+    const { data } = await axios.delete(
+      `${API_URL}review/${review.id}`,
+      review
+    );
+    dispatch({
+      type: "DELETE_REVIEW",
+      payload: data,
+    });
+  };
+}
+
+export function getReviewById(id) {
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/review/" + id)
+      .then((review) => {
+        dispatch({
+          type: "GET_REVIEW_BY_ID",
+          payload: review.data,
+        });
+      });
+  };
+}

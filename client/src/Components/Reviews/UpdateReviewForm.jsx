@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  Button,
-  makeStyles,
-  Grid,
-} from "@material-ui/core";
+import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from '../../utils/Theme';
-
+// import ValidateCategory from "../../utils/ValidateCategory";
 
 import {
   getReviewById,
-  deleteReview,
+  updateReview,
 } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,34 +30,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function DeleteReview() {
+export function UpdateReview(handleSubmit) {
   const { id } = useParams();
   //console.log("Aca hay ID", id);
   const reviewDetail = useSelector(
-    (state) => state.productReducer.reviewDetail //cambiar a review post hacer redux
+    (state) => state.productReducer.reviewDetail
   );
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const [data, setData] = useState({
+  const [input, setInput] = useState({
     title: "",
     description: "",
-    calification: "",
+    calification: 0,
   });
 
-  const handleSubmit = (e) => {
-    dispatch(deleteReview(data)); // const id = this.props.match.params.id;
-  };
+//   const handleSubmit = (e) => {
+//     dispatch(updateReview(input)); // const id = this.props.match.params.id;
+//   };
 
   useEffect(() => {
     if (reviewDetail !== undefined) {
-      setData({
+      setInput({
         id: id,
         title: reviewDetail[0]?.title,
         description: reviewDetail[0]?.description,
         calification: reviewDetail[0]?.calification
       });
-      console.log("a ver la data", data);
+      console.log("a ver el input", input);
     } else {
       dispatch(getReviewById(id));
     }
@@ -72,7 +67,27 @@ export function DeleteReview() {
   useEffect(() => {
     dispatch(getReviewById(id));
   }, []);
-  useEffect(() => {}, [data, setData]);
+  useEffect(() => {}, [input, setInput]);
+
+  const [error, setError] = useState({
+    //Control the error red border of the inputs
+    title: false,
+    description: false,
+    calification: false,
+  });
+  const [helperText, setHelperText] = useState({
+    //Control the warning message
+    title: "Ingrese un título",
+    description: "Ingrese una descripción",
+  });
+
+  const handleInputChange = function (e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    // ValidateCategory(e.target, error, setError, helperText, setHelperText);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -93,7 +108,18 @@ export function DeleteReview() {
                 alignItems="center"
                 justifyContent="center"
               >
-                <Grid item xs={8}></Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    error={error["title"]}
+                    helperText={[helperText["title"]]}
+                    id="title"
+                    label="Título"
+                    name="title"
+                    value={input?.title ? input.title : ""}
+                    onChange={handleInputChange}
+                    fullWidth={true}
+                  />
+                </Grid>
               </Grid>
               <Grid
                 container
@@ -102,7 +128,16 @@ export function DeleteReview() {
                 justifyContent="center"
               >
                 <Grid item xs={8}>
-                  <h2> ¿Desea borrar la review {`"${data.title}"`} ?</h2>
+                  <TextField
+                    error={error["description"]}
+                    helperText={[helperText["description"]]}
+                    id="description"
+                    label="Descripción"
+                    name="description"
+                    value={input?.description || ""}
+                    onChange={handleInputChange}
+                    fullWidth={true}
+                  />
                 </Grid>
               </Grid>
             </Grid>
@@ -113,16 +148,14 @@ export function DeleteReview() {
               alignItems="center"
             >
               <Grid item>
-                <Link to={"/private/reviewlist"}>
-                  <Button
-                    style={{ fontWeight: 1000, marginTop: 50 }}
-                    color="secondary"
-                    onClick={handleSubmit}
-                    variant="contained"
-                  >
-                    Sí, borrar
-                  </Button>
-                </Link>
+                <Button
+                  style={{ fontWeight: 1000, marginTop: 50 }}
+                  color="secondary"
+                  onClick={handleSubmit}
+                  variant="contained"
+                >
+                  Guardar Cambios
+                </Button>
               </Grid>
             </Grid>
           </Grid>
@@ -131,4 +164,4 @@ export function DeleteReview() {
     </ThemeProvider>
   );
 }
-export default DeleteReview;
+export default UpdateReview;

@@ -12,7 +12,11 @@ import {
   GET_CATEGORY_BY_ID,
   UPDATE_CATEGORY,
   DELETE_CATEGORY,
-  GET_FILTER_CATEGORY
+  GET_FILTER_CATEGORY,
+  GET_REVIEWS,
+  UPDATE_REVIEW,
+  DELETE_REVIEW,
+  GET_REVIEW_BY_ID,
 } from "./productActions";
 
 const initialState = {
@@ -21,6 +25,8 @@ const initialState = {
   productDetail: {},
   foundCategories: [],
   categoryDetail: {},
+  foundReviews: [],
+  reviewDetail: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -91,11 +97,31 @@ const reducer = (state = initialState, action) => {
         ...state,
         categoryDetail: action.payload,
       };
-      case GET_FILTER_CATEGORY:
-        return {
-            ...state,
-            filtered: action.payload 
-        }
+    case GET_FILTER_CATEGORY:
+      return {
+        ...state,
+        filtered: action.payload,
+      };
+    case GET_REVIEWS:
+      return {
+        ...state,
+        foundReviews: action.payload,
+      };
+    case UPDATE_REVIEW:
+      return {
+        ...state,
+        reviewDetail: action.payload,
+      };
+    case DELETE_REVIEW:
+      return {
+        ...state,
+        reviewDetail: action.payload,
+      };
+    case GET_REVIEW_BY_ID:
+      return {
+        ...state,
+        reviewDetail: action.payload,
+      };
     default:
       return {
         state,

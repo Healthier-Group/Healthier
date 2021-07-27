@@ -11,4 +11,5 @@ export const LOGIN= 'LOGIN';
 export const LOGOUT= 'LOGOUT';
 export const ADMIN_ALLOWED= 'ADMIN_ALLOWED';
 export const GET_CURRENT_USER= 'GET_CURRENT_USER';
+export const REVIEW_URL = "http://localhost:3001/review"
 
