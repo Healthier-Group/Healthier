@@ -37,12 +37,12 @@ const sendMailRegister = async (usuario) => {
     return
 }
 //confirmacion de compra -- debería ejecutarse cuando se va a mercadopago
-const sendMailOrder = async () => {
+const sendMailOrder = async (str) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
         from: '"Healthier Group" <sergionicolassud@gmail.com>',
-        // to: `${usuario.email}`,
-        to:"",
+        to: `${str}`,
+        // to:"sotelosergion@gmail.com",
         subject: 'Tu compra fue aprobada',
         html: "<p>El correo funciona</p>"
     })
@@ -68,6 +68,6 @@ const sendMailOrderSent = async (usuario) => {
 
 
 exports.sendMailRegister = (usuario) => sendMailRegister(usuario)
-exports.sendMailOrder = () => sendMailOrder()
+exports.sendMailOrder = (str) => sendMailOrder(str)
 exports.sendMailOrderSent = (usuario) => sendMailOrder(usuario)
 
