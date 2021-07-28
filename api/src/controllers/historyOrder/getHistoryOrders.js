@@ -7,6 +7,6 @@ module.exports = async(req, res, next) => {
     return res.status(200).json(historyOrder) // (200) OK
   }
   catch(error){
-    next(res.status(404).json({message: 'History Order Not Found!'})) // (404) Not Found
+    next(res.status(404).send(error)) // (404) Not Found
   }
 }

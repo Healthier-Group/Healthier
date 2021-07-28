@@ -31,12 +31,12 @@ const OrderFilter = () => {
   const categories = useSelector(
     (state) => state.productReducer.foundCategories
   );
-  console.log("Acá estan las categories", categories);
+  
   useEffect(() => {
     dispatch(getProducts());
   }, []);
   const products = useSelector((state) => state.productReducer.foundProducts);
-  console.log("Acá están los productos", products);
+  
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredCategory, setFilteredCategory] = useState([]);
 
@@ -100,7 +100,7 @@ const OrderFilter = () => {
           value={selectedCategory}
         >
           <option value="all">Todas</option>
-          {console.log(categories)}
+          
           {categories?.map((cat) => (
             <option value={cat.name} key={cat.id}>
               {cat.name}
