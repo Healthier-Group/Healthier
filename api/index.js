@@ -18,5 +18,5 @@ conn.sync({ force: true })
     await productsMockUp();
     await categoryMockUp();
   });
-})
+}) 
 
