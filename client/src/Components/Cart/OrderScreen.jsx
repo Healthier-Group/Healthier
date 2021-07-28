@@ -21,8 +21,8 @@ export default function OrderScreen(props) {
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
  
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const {user} = useSelector(state => state.userReducer)
-  console.log("usuario", user);
+  const {currentUser} = useSelector(state => state.userReducer)
+  console.log("usuario", currentUser);
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -37,14 +37,15 @@ export default function OrderScreen(props) {
   });
   const infoMP= {
     products,
-    currentUserOrder
+    currentUserOrder,
+    currentUser
   }
   console.log("que hay en infoMP", infoMP);
 
 
-  const postHistory = async (id, order) => {
+  const postHistory = async (id, order, currentUser) => {
     await dispatch(getOrderById(id));
-    await dispatch(mercadoPagoHandler(order));
+    await dispatch(mercadoPagoHandler(order, currentUser));
   }
 
 
