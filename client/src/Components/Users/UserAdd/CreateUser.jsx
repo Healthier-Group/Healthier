@@ -13,6 +13,7 @@ const CreateUser = (props) => {
 
 	const dispatch = useDispatch();
 	const {userDetail} = useSelector(state => state.userReducer);
+	console.log("que llega aca?user paso 1:", userDetail);
 
 	var wipedInput = {
 		name: '',
@@ -32,6 +33,7 @@ const CreateUser = (props) => {
 	useEffect(() => {
 		if(typeof(userDetail) === "string"){
 			let aux = userDetail.replace('Validation error', 'Error de validación').split(',')[0]
+			console.log("esto es aux swal paso 2:", aux);
 			if(aux.includes('llave duplicada')){
 				aux.includes('email') ? swal('El email ya esta en uso', 'Intente con otra dirección de email', 'error') : swal('El usuario ya esta en uso', 'Intente con otro nombre de usuario', 'error')
 			}else{

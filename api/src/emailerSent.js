@@ -23,33 +23,19 @@ const createTransporter = () => {
     return transport; 
 }
 //Registro exitoso
-const sendMailRegister = async (usuario) => {
-    const transporter = createTransporter();
-    const info = await transporter.sendMail({
-        from: '"Healthier Group" <sergionicolassud@gmail.com>',
-        to: `${usuario.email}`,
-        // to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
-        subject: 'Bienvenido a Healthier Group',
-        html: "<p>Bienvenido a Healthier group</p>"
-    })
-    console.log("Message sent:", info.messageId);
+// const sendMailRegister = async (usuario) => {
+//     const transporter = createTransporter();
+//     const info = await transporter.sendMail({
+//         from: '"Healthier Group" <sergionicolassud@gmail.com>',
+//         to: `${usuario.email}`,
+//         // to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
+//         subject: 'Bienvenido a Healthier Group',
+//         html: "<p>Bienvenido a Healthier group</p>"
+//     })
+//     console.log("Message sent:", info.messageId);
 
-    return
-}
-//confirmacion de compra -- debería ejecutarse cuando se va a mercadopago
-const sendMailOrder = async () => {
-    const transporter = createTransporter();
-    const info = await transporter.sendMail({
-        from: '"Healthier Group" <sergionicolassud@gmail.com>',
-        // to: `${usuario.email}`,
-        to:"",
-        subject: 'Tu compra fue aprobada',
-        html: "<p>El correo funciona</p>"
-    })
-    console.log("Message sent:", info.messageId);
-
-    return
-}
+//     return
+// }
 
 //compra despachada -- debería ejecutarse cuando la orden pasa a history
 const sendMailOrderSent = async (usuario) => {
@@ -67,7 +53,5 @@ const sendMailOrderSent = async (usuario) => {
 }
 
 
-exports.sendMailRegister = (usuario) => sendMailRegister(usuario)
-exports.sendMailOrder = () => sendMailOrder()
 exports.sendMailOrderSent = (usuario) => sendMailOrder(usuario)
 
