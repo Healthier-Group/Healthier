@@ -64,7 +64,6 @@ function AppPublic() {
       <Route exact path="/" component={NavBar} />
       <Route exact path="/" component={Carousel} />
       <Route exact path="/" component={LandingPage} />
-      
 
       {/* ============ Productos ==================== */}
       <Route path="/recipes" exact component={Recipes} />

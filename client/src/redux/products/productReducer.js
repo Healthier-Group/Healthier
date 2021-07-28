@@ -17,16 +17,19 @@ import {
   UPDATE_REVIEW,
   DELETE_REVIEW,
   GET_REVIEW_BY_ID,
+  FILTER,
+  Vegano,
+  Celíaco,
 } from "./productActions";
 
 const initialState = {
   foundProducts: [],
-  //products:[],
   productDetail: {},
   foundCategories: [],
   categoryDetail: {},
   foundReviews: [],
   reviewDetail: {},
+  filter: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,6 +124,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         reviewDetail: action.payload,
+      };
+    case FILTER:
+      return {
+        ...state,
+        filter: action.payload,
       };
     default:
       return {

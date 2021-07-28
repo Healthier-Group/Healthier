@@ -74,7 +74,7 @@ export default function UserLogin() {
     console.log("carrito del LS", carritoLS)
     if (currentUser) {
       console.log("hay CU", currentUser);
-      if (carritoLS.length) {
+      if (carritoLS?.length) {
         console.log("hay carrito?", carritoLS);
         await carritoLS.map((e) => {
          return dispatch(addOrderProduct({

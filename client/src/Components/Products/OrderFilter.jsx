@@ -8,6 +8,7 @@ import {
   getCategories,
   getProducts,
   getFilterCategory,
+  filter,
 } from "../../redux/products/productActions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -25,20 +26,15 @@ const style = makeStyles((theme) => ({
 const OrderFilter = () => {
   const dispatch = useDispatch();
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [filteredCategory, setFilteredCategory] = useState([]);
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-  const categories = useSelector(
-    (state) => state.productReducer.foundCategories
-  );
-  console.log("Acá estan las categories", categories);
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-  const products = useSelector((state) => state.productReducer.foundProducts);
-  console.log("Acá están los productos", products);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredCategory, setFilteredCategory] = useState([]);
+
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, []);
 
   function orderAsc(e) {
     e.preventDefault();
@@ -56,7 +52,7 @@ const OrderFilter = () => {
     e.preventDefault();
     dispatch(priceHigh());
   }
-  function handleChangeCat(e) {
+  function handleChange(e) {
     setSelectedCategory(e.target.value);
   }
   function handleSubmit(e) {
@@ -66,18 +62,19 @@ const OrderFilter = () => {
   }
   function handleClick() {
     let data = [];
-    products?.forEach((p) => {
-      if (p.categories?.includes(selectedCategory)) {
-        data.push(p);
-      } else {
-        return null;
-      }
+    products?.map((p) => {
+      p.categories.map((c) => {
+        return c.name === selectedCategory ? data.push(p) : null;
+      });
     });
-    dispatch(getFilterCategory(data));
-    console.log(data);
+    dispatch(filter(data));
   }
 
   const classes = style();
+  const categories = useSelector(
+    (state) => state.productReducer.foundCategories
+  );
+  const products = useSelector((state) => state.productReducer.foundProducts);
   return (
     <div className={classes.view}>
       <span onClick={(e) => orderAsc(e)} className={classes.spans}>
@@ -95,15 +92,14 @@ const OrderFilter = () => {
       <form onSubmit={handleSubmit}>
         <h4>Elegí una categoría</h4>
         <select
-          onChange={handleChangeCat}
+          onChange={handleChange}
           name="categories"
           value={selectedCategory}
         >
           <option value="all">Todas</option>
-          {console.log(categories)}
-          {categories?.map((cat) => (
-            <option value={cat.name} key={cat.id}>
-              {cat.name}
+          {categories?.map((c) => (
+            <option value={c.name} key={c.id}>
+              {c.name}
             </option>
           ))}
         </select>

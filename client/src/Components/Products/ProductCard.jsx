@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -23,7 +23,6 @@ import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
 import swal from "sweetalert";
 import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
-
 
 const useStyles = makeStyles({
   root: {
@@ -79,21 +78,16 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  // const day = new Date()
-  const {currentUser} = useSelector(state => state.userReducer);
-  
-  const orderId = currentUser?.order?.id;
-  
-
   useEffect(() => {
     dispatch(getProducts());
-    // if (day.getDay()===4){
-    //   console.log("hoy es jueves")
-    //   console.log("la hora es", day.getHours(),"hs" , day.getMinutes(), "min");
-    // }
-    
-  }, [dispatch]);
+  }, []);
+
+  const product = useSelector((state) => state.productReducer.foundProducts);
+  const filteredProducts = useSelector((state) => state.productReducer?.filter);
+  //const array = product ? product : filteredProducts;
+  // const day = new Date()
+  const { currentUser } = useSelector((state) => state.userReducer);
+  const orderId = currentUser?.order?.id;
 
   const addToWishListHandler = async (id) => {
     await dispatch(addToWishList(id));
@@ -118,10 +112,10 @@ export default function ProductCard() {
       await dispatch(getProducts());
     } else {
       //si el usuario si está login debo pasarle esta info quantity, productId, orderId
-      const orderProduct={
-        productId:id,
-        orderId: orderId
-      }
+      const orderProduct = {
+        productId: id,
+        orderId: orderId,
+      };
       await dispatch(addOrderProduct(orderProduct));
       swal({
         title: "Carrito de compras",
@@ -130,136 +124,101 @@ export default function ProductCard() {
         button: "Volver",
       });
       await dispatch(getProducts());
-   
-  }
+    }
   };
-  const product = useSelector((state) => state.productReducer.foundProducts);
+
   //const product = useSelector((state) => state.productReducer.products);
 
+  function displayProducts(array) {
+    return array?.map((p) => {
+      const productId = p.id;
+      console.log(p);
+      return (
+        <div>
+          <Card className={classes.root}>
+            <CardActionArea>
+              <Link
+                to={`/products/${p.id}`}
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                <CardMedia
+                  className={classes.media}
+                  image={p.image}
+                  title={p.name}
+                  id={p.id}
+                />
+                <CardContent>
+                  <div>
+                    <p className={classes.name}>{p.name}</p>
+                  </div>
+                  <Typography component="h3" className={classes.price}>
+                    $ {p.price}
+                  </Typography>
+                </CardContent>
+              </Link>
+            </CardActionArea>
+            <CardActions className={classes.space}>
+              <Button
+                className={classes.btn}
+                size="small"
+                color="primary"
+                onClick={() => addToCartHandler(productId)}
+              >
+                <AddShoppingCartIcon /> Lo quiero
+              </Button>
+              <Button
+                className={classes.btn}
+                size="small"
+                color="primary"
+                //tenemos que mandarlo a la WL
+                id={p.id}
+                onClick={() => addToWishListHandler(productId)}
+              >
+                Favoritos <FavoriteBorderIcon />
+              </Button>
+            </CardActions>
+          </Card>
+        </div>
+      );
+    });
+  }
 
   return (
-    <div className={classes.view}>
-      <Grid container spacing={1}>
-        <Hidden only={["xs", "sm"]}>
-          <Grid item xs={2} className={classes.viewItem}>
-            <OrderFilter />
+
+    <div>
+      <OrderFilter />
+      <div>
+        <div className={classes.view}>
+          <Grid container spacing={1}>
+            <Hidden only={["xs", "sm"]}>
+              <Grid item xs={2} className={classes.viewItem}></Grid>
+            </Hidden>
+            <Hidden only={["xs", "sm"]}>
+              <Grid item xs={10}>
+                <div className={classes.wrapped}>
+                  {filteredProducts?.length > 0
+                    ? displayProducts(filteredProducts)
+                    : displayProducts(product)}
+                </div>
+              </Grid>
+            </Hidden>
           </Grid>
-        </Hidden>
-        {/* desktop only */}
-        <Hidden only={["xs", "sm"]}>
-          <Grid item xs={10}>
-            <div className={classes.wrapped}>
-
-              {product?.map((p) => {
-                const productId = p.id;
-
-                return (
-                  <Card className={classes.root}>
-                    <CardActionArea>
-                      <Link
-                        to={`/products/${p.id}`}
-                        style={{ color: "black", textDecoration: "none" }}
-                      >
-
-                        <CardMedia
-                          className={classes.media}
-                          image={p.image}
-                          title={p.name}
-                          id={p.id}
-                        />
-                        <CardContent>
-                          <div>
-                            <p className={classes.name}>{p.name}</p>
-                          </div>
-
-                          <Typography component='h3' className={classes.price}>
-                            $ {p.price}
-                          </Typography>
-                        </CardContent>
-                      </Link>
-                    </CardActionArea>
-                    <CardActions className={classes.space}>
-                      <Button
-                        className={classes.btn}
-                        size='small'
-                        color='primary'
-                        onClick={() => addToCartHandler(productId)}
-                      >
-                        <AddShoppingCartIcon /> Lo quiero
-                      </Button>
-                      <Button
-                        className={classes.btn}
-                        size='small'
-                        color='primary'
-                        //tenemos que mandarlo a la WL
-                        id={p.id}
-                        onClick={() => addToWishListHandler(productId)}
-                      >
-                        Favoritos <FavoriteBorderIcon />
-                      </Button>
-                    </CardActions>
-                  </Card>
-                );
-              })}
-            </div>
-          </Grid>
-        </Hidden>
-        {/* mobile screen */}
+        </div>
+      </div>
+      <div>
         <Hidden only={["md", "lg", "xl"]}>
           <Grid item xs={12}>
             <div className={classes.wrapped}>
-
-              {product?.map((p) => {
-                const productId = p.id;
-                return (
-                  <Card className={classes.root}>
-                    <Link
-                      to={`/products/${p.id}`}
-                      style={{ color: "black", textDecoration: "none" }}
-                    >
-
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={p.image}
-                          title={p.name}
-                        />
-                        <CardContent>
-                          <div>
-                            <p className={classes.name}>{p.name}</p>
-                          </div>
-
-                          <Typography component='h3' className={classes.price}>
-                            $ {p.price}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                    </Link>
-                    <CardActions className={classes.space}>
-                      <Button
-                        className={classes.btn}
-                        size='small'
-                        color='primary'
-                        onClick={() => addToCartHandler(productId)}
-                      >
-                        <AddShoppingCartIcon /> Lo quiero
-                      </Button>
-                      <Button
-                        className={classes.btn}
-                        size='small'
-                        color='primary'
-                        onClick={() => addToWishListHandler(productId)}
-                      >
-                        Favoritos <FavoriteBorderIcon />
-                      </Button>
-                    </CardActions>
-                  </Card>
-                );
-              })}
+              {filteredProducts?.length > 0
+                ? displayProducts(filteredProducts)
+                : displayProducts(product)}
             </div>
           </Grid>
         </Hidden>
-      </Grid>
+      </div>
     </div>
   );
 }
