@@ -31,10 +31,17 @@ const OrderFilter = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, []);
+  const categories = useSelector(
+    (state) => state.productReducer.foundCategories
+  );
+  
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+  const products = useSelector((state) => state.productReducer.foundProducts);
+  
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [filteredCategory, setFilteredCategory] = useState([]);
 
   function orderAsc(e) {
     e.preventDefault();

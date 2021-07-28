@@ -2,13 +2,12 @@ const {Historyorder, User} = require('../../db')
 
 
 module.exports = async(req, res, next) => {
-	let history = req.body;
-	let user = req.params;
+	let history = req.body; 
+	let user = req.params.id;
 	try{
-		await console.log('entré')
 		const newHistoryOrder = await Historyorder.create(history);
 		const foundUser = await User.findByPk(user);
-		await foundUser.addHistory(newHistoryOrder);
+		await foundUser.addHistoryorder(newHistoryOrder);
 		return res.json(newHistoryOrder).status(201) // (201) Created
 	}
 	catch(err){
