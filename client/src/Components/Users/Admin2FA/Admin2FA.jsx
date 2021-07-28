@@ -15,6 +15,9 @@ export const Admin2FA = () => {
          if(adminAllowed){
             history.push('/private/userlist')
             swal('Autenticación exitosa', 'Bienvenido', 'success')
+            .then(()=> {
+               window.location.href="http://localhost:3000/private/userlist"
+            })
          }else{
             history.push('/')
             swal('Autenticación fallida', 'Lo sentimos', 'error')
