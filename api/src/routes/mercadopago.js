@@ -47,13 +47,15 @@ mercadopago.preferences.create(preference)
 })
 
 server.get("/pagos", (req, res)=>{
-    console.info("EN LA RUTA PAGOS ", req)
+    console.info("EN LA RUTA PAGOS ")
     const payment_id= req.query.payment_id
     const payment_status= req.query.status
     const external_reference = req.query.external_reference
     const merchant_order_id= req.query.merchant_order_id
  //Correo
-    emailer.sendMailOrder()
+
+  emailer.sendMailOrder("sotelosergion@gmail.com")
+ 
   //Aquí edito el status de mi orden
   OrderMp.findByPk(external_reference)
   .then((order) => {
@@ -65,7 +67,6 @@ server.get("/pagos", (req, res)=>{
     order.save()
     .then((_) => {
       console.info('redirect success')
-      
       return res.redirect("http://localhost:3000")
     })
     .catch((err) =>{
