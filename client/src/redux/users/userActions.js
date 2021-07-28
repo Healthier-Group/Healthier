@@ -23,8 +23,10 @@ export function getAllUsers() {
 }
 
 export function createUser(user) {
+  console.log("aca estamos en action paso 3=user", user)
   return async function (dispatch) {
     const { data } = await axios.post(`/users/addUser`, user);
+    console.log("aca estamos en action paso 4=data", data)
     dispatch({ type: CREATE_USER, payload: data });
   };
 }

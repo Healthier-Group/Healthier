@@ -3,7 +3,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getOrderById} from "../../redux/order/orderActions";
+import { getOrderById } from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
 
 
@@ -40,6 +40,14 @@ export default function OrderScreen(props) {
     currentUserOrder
   }
   console.log("que hay en infoMP", infoMP);
+
+
+  const postHistory = async (id, order) => {
+    await dispatch(getOrderById(id));
+    await dispatch(mercadoPagoHandler(order));
+  }
+
+
   useEffect(() => {
     dispatch(getOrderById(orderId));
     if (currentUserOrder.paymentMethod === "paypal") {
@@ -63,7 +71,7 @@ export default function OrderScreen(props) {
       }
     } else {
       //nos metemos a mercado pago
-      dispatch(mercadoPagoHandler(products));
+      postHistory(orderId, infoMP)
       //pay();
     }
 

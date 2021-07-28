@@ -5,8 +5,10 @@ import AppPublic from './Components/App/AppPublic';
 import theme from './utils/Theme';
 
 const AppGlobal = () => {
+
 	const currentUser = (JSON.parse(localStorage.getItem('profile')));
 	const adminAllowed = (JSON.parse(localStorage.getItem('adminAllowed')))
+
 	
 	return (
 		<ThemeProvider theme={theme}>

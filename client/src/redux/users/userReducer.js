@@ -2,7 +2,7 @@ import { GET_ALL_USERS, GET_CURRENT_USER, CREATE_USER, UPDATE_USER, READ_USER, D
 
 const initialState = {
 	users: [],
-	userDetail: undefined,
+	userDetail: {},
 	currentUser: undefined,
 	adminAllowed: undefined,
 };

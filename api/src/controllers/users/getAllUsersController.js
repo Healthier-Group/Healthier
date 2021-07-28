@@ -1,9 +1,9 @@
-const {User, History, Order} = require('../../db');
+const {User, Historyorder, Order} = require('../../db');
 
 module.exports = async (req, res, next) => {
     try {
 		const users = await User.findAll({
-			include: Order
+			include: [Order, Historyorder]
 		});
 		return res.json(users);
 	} catch (error) {

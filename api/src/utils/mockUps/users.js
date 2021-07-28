@@ -25,15 +25,7 @@ const userMockUp = async () => {
             contact: '8869038',
             isDeleted: false,
         }});
-    
-        await User.findOrCreate({where:{
-            name: 'Marcelo',
-            username: 'AgachateyConocelo',
-            email: 'marce@hotmail.com',
-            password: hashedPasswordA,
-            contact: '696969',
-            isDeleted: false,
-        }});
+
     }catch (e) {
         console.log(e.message);
     }
