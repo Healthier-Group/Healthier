@@ -1,7 +1,7 @@
 const {OrderMp, Historyorder} = require('../db.js');
 const server = require('express').Router()
 const mercadopago = require('mercadopago')
-const emailer = require("../../src/emailerOrder")
+const emailer = require("../../src/emailer")
 
 mercadopago.configure({access_token: 'TEST-4177121794319246-071405-45ab153c0cd3fd9ca748978856960753-372500284'})
 
