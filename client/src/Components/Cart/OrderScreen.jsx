@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PayPalButton } from "react-paypal-button-v2";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +15,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 
@@ -25,6 +25,7 @@ import Footer from "../Footer/Footer";
 export default function OrderScreen(props) {
   const orderId = props.match.params.id;
 
+  // eslint-disable-next-line
   const [sdkReady, setSdkReady] = useState(false);
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
@@ -108,9 +109,7 @@ export default function OrderScreen(props) {
 
  
 
-  const successPaymentHandler = (paymentResult) => {
-    // dispatch(payOrder(order, paymentResult));
-  };
+  
 
   return (
     <div>
@@ -198,12 +197,12 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link
-                  to={link}
+                <a
+                  href={link}
                   style={{ color: "black", textDecoration: "none" }}
                 >
                   Pagar
-                </Link>
+                </a>
               </Button>
             </List>
           </Paper>
@@ -310,12 +309,12 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link
-                  to={link}
+              <a
+                  href={link}
                   style={{ color: "black", textDecoration: "none" }}
                 >
                   Pagar
-                </Link>
+                </a>
               </Button>
             </List>
           </Paper>

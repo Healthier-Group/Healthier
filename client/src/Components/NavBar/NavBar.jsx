@@ -121,12 +121,12 @@ export default function NavBar() {
               <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Link to="/register" className={classes.buttons}>
                   <span style={{ margin: "0 10px" }} color="secondary">
-                    Register
+                    Registrarse
                   </span>
                 </Link>
                 <Link to="/login" className={classes.buttons}>
                   <span style={{ margin: "0 10px" }} color="secondary">
-                    Login
+                    Iniciar sesión
                   </span>
                 </Link>
               </Toolbar>
@@ -134,7 +134,7 @@ export default function NavBar() {
               <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Link to="/" className={classes.buttons}>
                   <span onClick={handleLogOut} color="secondary">
-                    Log Out
+                    Cerrar sesión
                   </span>
                 </Link>
               </Toolbar>
