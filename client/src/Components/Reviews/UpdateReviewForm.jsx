@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, makeStyles, Grid } from "@material-ui/core";
-import { ThemeProvider } from "@material-ui/core/styles";
-import theme from '../../utils/Theme';
-// import ValidateCategory from "../../utils/ValidateCategory";
-
 import {
-  getReviewById
-  
+  Button,
+  TextField,
+  makeStyles,
+  Grid,
+  Box,
+  Typography,
+} from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "../../utils/Theme";
+import {
+  getReviewById,
+  updateReview,
 } from "../../redux/products/productActions";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function UpdateReview(handleSubmit) {
+export function UpdateReview() {
   const { id } = useParams();
   //console.log("Aca hay ID", id);
   const reviewDetail = useSelector(
@@ -45,37 +52,39 @@ export function UpdateReview(handleSubmit) {
     calification: 0,
   });
 
-//   const handleSubmit = (e) => {
-//     dispatch(updateReview(input)); // const id = this.props.match.params.id;
-//   };
+  const handleSubmit = (e) => {
+    console.log(input);
+    dispatch(updateReview(input)); // const id = this.props.match.params.id;
+    swal("Actualizado", "Review actualizada con éxito", "");
+  };
 
+  useEffect(
+    () => {
+      if (reviewDetail !== undefined) {
+        setInput({
+          id: id,
+          title: reviewDetail[0]?.title,
+          description: reviewDetail[0]?.description,
+          calification: reviewDetail[0]?.calification,
+        });
+        console.log("a ver el input", input);
+      } else {
+        dispatch(getReviewById(id));
+      }
+    },
+    // eslint-disable-next-line
+    [dispatch, id, reviewDetail]
+  );
 
-  useEffect(() => {
-    if (reviewDetail !== undefined) {
-      setInput({
-        id: id,
-        title: reviewDetail[0]?.title,
-        description: reviewDetail[0]?.description,
-        calification: reviewDetail[0]?.calification
-      });
-      console.log("a ver el input", input);
-    } else {
-      dispatch(getReviewById(id));
-    }
-  },
+  // useEffect(() => {
+  //   dispatch(getReviewById(id));
+  // },
+  // // eslint-disable-next-line
+  // []);
+
+  // useEffect(() => {}, [input, setInput]);
+
   // eslint-disable-next-line
-  [dispatch, id, reviewDetail]);
-  
-
-  useEffect(() => {
-    dispatch(getReviewById(id));
-  }, 
-  // eslint-disable-next-line
-  []);
-  
-  useEffect(() => {}, [input, setInput]);
-
-// eslint-disable-next-line
   const [error, setError] = useState({
     //Control the error red border of the inputs
     title: false,
@@ -94,7 +103,6 @@ export function UpdateReview(handleSubmit) {
       ...input,
       [e.target.name]: e.target.value,
     });
-    // ValidateCategory(e.target, error, setError, helperText, setHelperText);
   };
 
   return (
@@ -116,6 +124,15 @@ export function UpdateReview(handleSubmit) {
                 alignItems="center"
                 justifyContent="center"
               >
+                <Box component="fieldset" mb={3} borderColor="transparent">
+                  <Typography component="legend">Calificación</Typography>
+                  <Rating
+                    id="simple-controlled"
+                    name="calification"
+                    value={input.calification}
+                    onChange={handleInputChange}
+                  />
+                </Box>
                 <Grid item xs={8}>
                   <TextField
                     error={error["title"]}

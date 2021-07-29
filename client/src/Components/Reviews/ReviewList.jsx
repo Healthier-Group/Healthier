@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, Button, Container } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
+import { DataGrid } from "@material-ui/data-grid";
 import theme from "../../utils/Theme";
 import { Link } from "react-router-dom";
 import { getReviews } from "../../redux/products/productActions";
@@ -25,7 +25,6 @@ const ReviewList = () => {
   }));
 
   const review = useSelector((state) => state.productReducer.foundReviews);
-  console.log("Here's the review", review);
   // eslint-disable-next-line
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -40,6 +39,7 @@ const ReviewList = () => {
     { field: "id", headerName: "#", width: 90 },
     { field: "title", headerName: "Título", width: 250 },
     { field: "description", headerName: "Descripción", width: 550 },
+    { field: "calification", headerName: "Calificación", width: 250 },
     {
       field: "Edit", // CAMBIAR LINK AL PUT FORM DE CATEGORY
       headerName: "Editar",
@@ -106,7 +106,7 @@ const ReviewList = () => {
                 alignItems: "center",
               }}
             >
-              <h1>Categorías</h1>
+              <h1>Reviews</h1>
               <Link to="/private/reviewform" style={{ textDecoration: "none" }}>
                 <Button variant="contained" color="secondary">
                   Agregar Nueva

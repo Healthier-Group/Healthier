@@ -223,8 +223,7 @@ export function updateReview(review) {
 export function deleteReview(review) {
   return async function (dispatch) {
     const { data } = await axios.delete(
-      `${API_URL}review/${review.id}`,
-      review
+      `${API_URL}review/${review.id}`
     );
     dispatch({
       type: "DELETE_REVIEW",

@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   try {
     await Review.destroy({
       where: 
-        { id: id }, // Check if curly brackets are necessary
+        { id: id },
     });
     return res.json({ success: "Review successfully deleted" }).status(200);
   } catch (err) {
