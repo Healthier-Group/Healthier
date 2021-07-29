@@ -11,6 +11,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getOrderById, updateOrder } from "../../redux/order/orderActions";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 export default function PlaceOrderScreen(props) {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ export default function PlaceOrderScreen(props) {
   //const userId = currentUser?.id;
   const orderId = currentUser?.order.id;
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
+  const metododepago =currentUserOrder?.paymentMethod
+  console.log(`metododepago`, metododepago)
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
 
   const products = [];
@@ -47,7 +51,9 @@ export default function PlaceOrderScreen(props) {
 
     //console.log("currentUserOrder: ", currentUserOrder)
     //dispatch(getOrders())
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
 
   const order = {
     // fullName: currentUserOrder?.order?.name,
@@ -65,12 +71,14 @@ export default function PlaceOrderScreen(props) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      <NavBar/>
       <Hidden only={["xs", "sm"]}>
         <Paper
           style={{
             margin: "auto",
             width: "80vw",
             marginTop: "10vh",
+            marginBottom: "10vh",
             padding: "50px",
           }}
         >
@@ -166,13 +174,14 @@ export default function PlaceOrderScreen(props) {
             onClick={placeOrderhandler}
             className='primary block'
             disabled={currentUserOrder?.orderProducts?.length === 0}
-            style={{ position: "relative", left: "70vw" }}
+            style={{ position: "relative", left: "60vw" }}
             color='secondary'
           >
             Confirmar Orden
           </Button>
         </Paper>
       </Hidden>
+      {/* Mobile screen */}
       <Hidden only={["md", "lg", "xl"]}>
         <Paper
           style={{
@@ -263,25 +272,26 @@ export default function PlaceOrderScreen(props) {
           </Typography> */}
 
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography style={{ position: "relative", left: "40vw" }}>
+          <Typography style={{ position: "relative", left: "30vw" }}>
             Precio final
           </Typography>
-          <Typography style={{ position: "relative", left: "40vw" }}>
+          <Typography style={{ position: "relative", left: "30vw" }}>
             <b>$ {totalPrice}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Button
             variant='contained'
             onClick={placeOrderhandler}
-            className='primary block'
+           
             disabled={currentUserOrder?.orderProducts?.length === 0}
-            style={{ position: "relative", left: "30vw" }}
+            style={{ position: "relative", left: "15vw" }}
             color='secondary'
           >
             Confirmar Orden
           </Button>
         </Paper>
       </Hidden>
+      <Footer/>
     </div>
   );
 }

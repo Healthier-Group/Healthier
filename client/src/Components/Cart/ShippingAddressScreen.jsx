@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../../redux/cart/cartActions";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Button, Paper, TextField } from "@material-ui/core";
@@ -58,6 +57,8 @@ export default function ShippingAddressScreen(props) {
         <Paper
           style={{
             width: "60vw",
+            marginBottom:"10vh",
+            marginTop:"10vh",
             height: "fit-content",
             padding: "30px",
           }}

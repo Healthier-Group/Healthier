@@ -30,12 +30,15 @@ const ProductList = () => {
 
   const product = useSelector((state) => state.productReducer.foundProducts);
   console.log(product);
+  // eslint-disable-next-line
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
 
   const columns = [
     { field: "id", headerName: "#", width: 90 },
@@ -128,7 +131,7 @@ const ProductList = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" />
+        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" alt="Not found"/>
       )}
     </div>
   );

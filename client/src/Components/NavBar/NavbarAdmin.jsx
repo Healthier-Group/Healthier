@@ -5,20 +5,14 @@ import {
   Toolbar,
   Typography,
   makeStyles,
-  Button,
-  IconButton,
   Hidden,
-  Drawer,
-  Divider,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchBar from "../SearchBar/SearchBar";
+
 import Logo from "../../Images/h.png";
-import List from "../List/List";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+
 import { logOutUser } from "../../redux/users/userActions";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -59,16 +53,16 @@ export default function NavBar() {
   const [openApp, setOpenApp] = useState(false);
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line
   function openAction() {
     setOpenApp(!openApp);
   }
 
   const handleLogOut = () => {
     dispatch(logOutUser());
-    swal("Cerró su sesión", "Vuelva pronto", "success")
-    .then(()=>{
-      window.location.href = "/"
-    })
+    swal("Cerró su sesión", "Vuelva pronto", "success").then(() => {
+      window.location.href = "/";
+    });
   };
 
   return (
@@ -126,7 +120,7 @@ export default function NavBar() {
                   <span style={{ margin: "0 10px" }} color="secondary">
                     Login
                   </span>
-                </Link> 
+                </Link>
               </Toolbar>
             ) : (
               <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>

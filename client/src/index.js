@@ -11,11 +11,10 @@ dotenv.config();
 
 axios.defaults.baseURL = "http://localhost:3001" || "/";
 ReactDOM.render(
-  <React.StrictMode>
+  
     <Provider store={store}>
       <AppGlobal/>
-    </Provider> 
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById("root")
 );
 

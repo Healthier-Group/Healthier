@@ -15,9 +15,10 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../Images/h.png";
-import List from "../List/List";
+import List from "../List/ListMenu";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { logOutUser } from "../../redux/users/userActions";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -64,6 +65,10 @@ export default function NavBar() {
 
   const handleLogOut = () => {
     dispatch(logOutUser());
+    swal("Cerró su sesión", "Vuelva pronto", "success")
+    .then(()=>{
+      window.location.href = "/"
+    })
   };
 
   return (

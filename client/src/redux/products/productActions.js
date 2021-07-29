@@ -18,6 +18,7 @@ export const GET_REVIEWS = "GET_REVIEWS";
 export const UPDATE_REVIEW = "UPDATE_REVIEW";
 export const DELETE_REVIEW = "DELETE_REVIEW";
 export const GET_REVIEW_BY_ID = "GET_REVIEW_BY_ID";
+export const FILTER = "FILTER";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -189,10 +190,10 @@ export function deleteCategory(category) {
   };
 }
 
-export function getFilterCategory(selectedCategory) {
+export function filter(array) {
   return {
-    type: "GET_FILTER_CATEGORY",
-    payload: selectedCategory,
+    type: "FILTER",
+    payload: array,
   };
 }
 
@@ -234,13 +235,11 @@ export function deleteReview(review) {
 
 export function getReviewById(id) {
   return function (dispatch) {
-    return axios
-      .get("http://localhost:3001/review/" + id)
-      .then((review) => {
-        dispatch({
-          type: "GET_REVIEW_BY_ID",
-          payload: review.data,
-        });
+    return axios.get("http://localhost:3001/review/" + id).then((review) => {
+      dispatch({
+        type: "GET_REVIEW_BY_ID",
+        payload: review.data,
       });
+    });
   };
 }

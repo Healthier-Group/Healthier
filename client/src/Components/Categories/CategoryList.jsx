@@ -30,12 +30,15 @@ const CategoryList = () => {
 
   const category = useSelector((state) => state.productReducer.foundCategories);
   console.log(category);
+  // eslint-disable-next-line
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
 
   const columns = [
     { field: "id", headerName: "#", width: 90 },
@@ -123,7 +126,7 @@ const CategoryList = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" />
+        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" alt="Not found"/>
       )}
     </div>
   );

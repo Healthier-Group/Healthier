@@ -4,6 +4,7 @@ import ProductCard from "../Products/ProductCard";
 import Footer from "../Footer/Footer";
 
 
+
 const style = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -30,6 +31,7 @@ export default function Container() {
     <div className={classes.root}>
         {/* <div className={classes.toolbar}/> */}
         <div className={classes.content}>
+        
         <ProductCard />
       </div>
       <Footer />

@@ -3,7 +3,7 @@ import { Button, TextField } from "@material-ui/core";
 import { Fingerprint, Person, Email, VpnKey, Phone } from "@material-ui/icons";
 import Validate from "../../../utils/Validate";
 import { Paper } from "@material-ui/core";
-import NavBar from "../../NavBar/NavBar";
+
 import Footer from "../../Footer/Footer";
 
 

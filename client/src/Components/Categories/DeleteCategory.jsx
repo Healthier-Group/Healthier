@@ -64,12 +64,16 @@ export function DeleteCategory() {
     } else {
       dispatch(getCategoryById(id));
     }
-  }, [dispatch, id, categoryDetail]);
+  },
+  // eslint-disable-next-line
+  [dispatch, id, categoryDetail]);
   //console.log('a ver el id aca', id)
 
   useEffect(() => {
     dispatch(getCategoryById(id));
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
   useEffect(() => {}, [data, setData]);
 
   return (

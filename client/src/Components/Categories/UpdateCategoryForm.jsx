@@ -59,12 +59,16 @@ export function UpdateCategory() {
     } else {
       dispatch(getCategoryById(id));
     }
-  }, [dispatch, id, categoryDetail]);
+  },
+  // eslint-disable-next-line
+  [dispatch, id, categoryDetail]);
   //console.log('a ver el id aca', id)
 
   useEffect(() => {
     dispatch(getCategoryById(id));
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
   useEffect(() => {}, [input, setInput]);
 
   const [error, setError] = useState({

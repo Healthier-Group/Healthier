@@ -14,8 +14,21 @@ import TurnedInNotIcon from "@material-ui/icons/TurnedInNot";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import PlaceIcon from "@material-ui/icons/Place";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
+import { Fingerprint, Person } from "@material-ui/icons";
+import { logOutUser } from "../../redux/users/userActions";
+import {useDispatch} from 'react-redux'
 
-export default function list() {
+export default function ListMenu() {
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logOutUser());
+    swal("Cerró su sesión", "Vuelva pronto", "success").then(() => {
+      window.location.href = "/";
+    });
+  };
+
   return (
     <>
       <List>
@@ -61,6 +74,39 @@ export default function list() {
             <ListItemText primary="Mis Recetas" />
           </ListItem>
         </Link>
+
+        {!JSON.parse(localStorage.getItem("profile")) ? (
+          <div>
+            <Link to="/register" style={{ textDecoration: "none", color: "black" }}>
+              <ListItem>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary="Register" />
+              </ListItem>
+            </Link>
+
+            <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+              <ListItem>
+                <ListItemIcon>
+                  <Fingerprint />
+                </ListItemIcon>
+                <ListItemText primary="Login" />
+              </ListItem>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <Link to="/" onClick={handleLogOut} style={{ textDecoration: "none", color: "black" }}>
+              <ListItem>
+                <ListItemIcon>
+                  <Fingerprint />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItem>
+            </Link>
+          </div>
+        )}
 
         <ListItem>
           <ListItemIcon>

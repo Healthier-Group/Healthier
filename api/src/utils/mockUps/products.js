@@ -1,8 +1,8 @@
-const {	Product } = require('../../db');
+const {	Product, Category } = require('../../db');
 
 const productsMockUp = async () => {
     try {
-        await  Product.findOrCreate({where:{
+        await Product.findOrCreate({where:{
             name: "Frutos secos deshidratados",
             description: "Frutos secos deshidratados y confitados. Precio por 250g.",
             ingredients: "Banana, manzana, naranja, durazno, agua, saborizantes y edulcorantes naturales.",
@@ -13,7 +13,7 @@ const productsMockUp = async () => {
             stock:10,
             image:"https://i.postimg.cc/RhpJVMrM/andrey-metelev-Q4-STMNFlo-I-unsplash.jpg"
        }})
-        await  Product.findOrCreate({where:{
+        await Product.findOrCreate({where:{
             name:"Gomitas CHU pre-workout",
             description:"Golosina masticable sabor a arándano.",
             ingredients:"Beta Alanine 2500mg, L-Citrulline 2000mg, Betaine Hydrochloride 500mg, L-Tyrosine 200mg, L- Taurine 200mg, Caffeine 200mg, Vitamin C 100mg (125% NRV), Zinc 10mg (100% NRV), Nicotinamide 16mg NE (100% NRV), Vitamin B6 2.8mg (200% NRV), Vitamin D3 5μg (200IU) (100% NRV), Vitamin B12 7.5μg (300% NRV).",
@@ -109,7 +109,7 @@ const productsMockUp = async () => {
             brand:"Manicería Altas Cumbres",
             sku:"a10",
             price:49,
-            stock:15,
+            stock:0,
             image:"https://i.postimg.cc/zfThSZhj/sketch-8-Lbcv-CZnmyw-unsplash.jpg"
        }})
         await  Product.findOrCreate({where:{

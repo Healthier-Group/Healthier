@@ -26,12 +26,15 @@ const ReviewList = () => {
 
   const review = useSelector((state) => state.productReducer.foundReviews);
   console.log("Here's the review", review);
+  // eslint-disable-next-line
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getReviews());
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
 
   const columns = [
     { field: "id", headerName: "#", width: 90 },
@@ -119,7 +122,7 @@ const ReviewList = () => {
           </ThemeProvider>
         </div>
       ) : (
-        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" />
+        <img src="https://thumbs.gfycat.com/CompleteZanyIlsamochadegu-small.gif" alt="Not found" />
       )}
     </div>
   );

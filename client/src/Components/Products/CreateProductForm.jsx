@@ -67,7 +67,9 @@ export const CreateProductForm = () => {
 
   useEffect(()=>{
   dispatch(getCategories())
-  },[])
+  },
+  // eslint-disable-next-line
+  [])
 
   const category = useSelector(state => state.productReducer.foundCategories)
 
