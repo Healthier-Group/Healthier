@@ -105,7 +105,7 @@ export default function ProductCard() {
       await dispatch(addToCart(id));
       swal({
         title: "Carrito de compras",
-        text: "Tu producto fue añadido a tu localStorage",
+        text: "Tu producto fue añadido",
         icon: "success",
         button: "Volver",
       });
@@ -119,7 +119,7 @@ export default function ProductCard() {
       await dispatch(addOrderProduct(orderProduct));
       swal({
         title: "Carrito de compras",
-        text: "Tu producto fue añadido al back",
+        text: "El producto fue añadido",
         icon: "success",
         button: "Volver",
       });

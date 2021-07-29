@@ -18,6 +18,7 @@ import Logo from "../../Images/h.png";
 import List from "../List/ListMenu";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { logOutUser } from "../../redux/users/userActions";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
