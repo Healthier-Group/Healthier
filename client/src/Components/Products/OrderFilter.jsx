@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, InputLabel, MenuItem, Paper, Select } from "@material-ui/core";
+import { Button, MenuItem, Paper, Select } from "@material-ui/core";
 import {
   orderAZ,
   orderZA,
@@ -7,7 +7,6 @@ import {
   priceLower,
   getCategories,
   getProducts,
-  getFilterCategory,
   filter,
 } from "../../redux/products/productActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +16,15 @@ const OrderFilter = () => {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  },
+  // eslint-disable-next-line
+   []);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredCategory, setFilteredCategory] = useState([]);
@@ -53,7 +56,7 @@ const OrderFilter = () => {
   function handleClick() {
     let data = [];
     products?.map((p) => {
-      p.categories.map((c) => {
+      return p.categories.map((c) => {
         return c.name === selectedCategory ? data.push(p) : null;
       });
     });
@@ -66,36 +69,7 @@ const OrderFilter = () => {
   const products = useSelector((state) => state.productReducer.foundProducts);
   return (
     <div>
-      {/* <span onClick={(e) => orderAsc(e)} className={classes.spans}>
-        Ordenar <span style={{ color: "#999" }}>(A - Z)</span>
-      </span>
-      <span onClick={(e) => orderDesc(e)} className={classes.spans}>
-        Ordenar <span style={{ color: "#999" }}>(Z - A)</span>
-      </span>
-      <span onClick={(e) => orderLow(e)} className={classes.spans}>
-        Precio Mínimo
-      </span>
-      <span onClick={(e) => orderHigh(e)} className={classes.spans}>
-        Precio Máximo
-      </span>
-      <form onSubmit={handleSubmit}>
-        <h4>Elegí una categoría</h4>
-        <select
-          onChange={handleChange}
-          name="categories"
-          value={selectedCategory}
-        >
-          <option value="all">Todas</option>
-          {categories?.map((c) => (
-            <option value={c.name} key={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-        <button type="submit">Filtrar</button>
-      </form> */}
-
-      <div>
+        <div>
         <Paper
           elevation={3}
           style={{

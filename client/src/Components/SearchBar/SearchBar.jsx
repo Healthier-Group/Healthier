@@ -53,8 +53,9 @@ const SearchBar = () => {
           <Autocomplete
             freeSolo
             id="free-solo-2-demo"
+          
             options={product}
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={option=> option.name}
             style={{ minWidth: "42vw" }}
             renderInput={(params) => (
               <TextField

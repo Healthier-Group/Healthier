@@ -81,7 +81,9 @@ export default function OrderScreen(props) {
       postHistory(orderId, infoMP);
       //pay();
     }
-  }, []);
+  }, 
+  // eslint-disable-next-line 
+  []);
 
   function mercadoPagoHandler(products) {
     console.log("esto es desde el front", products);
@@ -103,105 +105,6 @@ export default function OrderScreen(props) {
 
   return (
     <div>
-      {/* <h1>Order </h1>
-
-      <div className='row top'>
-        <div className='col-2'>
-          <ul>
-            <li>
-              <div className='card card-body'>
-                <h2>Datos de envío</h2>
-                <p>
-                  <strong>Nombre:</strong> {currentUserOrder.fullName}
-                  <br />
-                  <strong>Address:</strong> {currentUserOrder.address},
-                  {currentUserOrder.city},{currentUserOrder.postalCode},
-                </p>
-              </div>
-            </li>
-            <li>
-              <div className='card card-body'>
-                <h2>Método de Pago</h2>
-                <p>
-                  <strong>Method:</strong> {currentUserOrder.paymentMethod}
-                </p>
-                {currentUserOrder.isPaid ? (
-                  <MessageBox variant='success'>
-                    Paid at {currentUserOrder.paidAt}
-                  </MessageBox>
-                ) : (
-                  <MessageBox variant='danger'>Not Paid </MessageBox>
-                )}
-              </div>
-            </li>
-            <li>
-              <div className='card card-body'>
-                <h2>Articulos </h2>
-                <ul>
-                  {products.map((item) => (
-                    <li key={item.product}>
-                      <div className='row'>
-                        <div>
-                          <img src={item.image} alt={item.name} width='100px' />
-                        </div>
-                        <div className='min-30'>{item.name}</div>
-                        <div>
-                          {item.qty}x${item.price} = ${item.qty * item.price}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className='col-1'>
-          <div className='card card-body'>
-            <ul>
-              <li>
-                <h2>Resumen de la orden</h2>
-              </li>
-              <li>
-                <div className='row'>
-                  <div>Items</div>
-                  <div>${products.price}</div>
-                </div>
-              </li>
-              
-              <li>
-                <div className='row'>
-                  <div>
-                    <strong>Precio Total</strong>
-                  </div>
-                  <div>
-                    <strong>${currentUserOrder.total}</strong>
-                  </div>
-                </div>
-              </li>
-              {!currentUserOrder.isPaid && (
-                <li>
-                  {!sdkReady ? (
-                    <h4>ok</h4>
-                  ) : (
-                   
-                    <PayPalButton
-                      amount={currentUserOrder.total}
-                      onSuccess={successPaymentHandler}
-                    ></PayPalButton>
-                  )}
-                </li>
-              )}
-              <li>
-                <button>
-                  <a href={link}>Pagar con MercadoPago</a>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div> */}
-
       <div style={{ minHeight: "100vh", margin: "auto" }}>
         <NavBar/>
         <Hidden only={["xs", "sm"]}>

@@ -7,8 +7,8 @@ import theme from '../../utils/Theme';
 // import ValidateCategory from "../../utils/ValidateCategory";
 
 import {
-  getReviewById,
-  updateReview,
+  getReviewById
+  
 } from "../../redux/products/productActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +49,7 @@ export function UpdateReview(handleSubmit) {
 //     dispatch(updateReview(input)); // const id = this.props.match.params.id;
 //   };
 
+
   useEffect(() => {
     if (reviewDetail !== undefined) {
       setInput({
@@ -61,20 +62,27 @@ export function UpdateReview(handleSubmit) {
     } else {
       dispatch(getReviewById(id));
     }
-  }, [dispatch, id, reviewDetail]);
-  //console.log('a ver el id aca', id)
+  },
+  // eslint-disable-next-line
+  [dispatch, id, reviewDetail]);
+  
 
   useEffect(() => {
     dispatch(getReviewById(id));
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
+  
   useEffect(() => {}, [input, setInput]);
 
+// eslint-disable-next-line
   const [error, setError] = useState({
     //Control the error red border of the inputs
     title: false,
     description: false,
     calification: false,
   });
+  // eslint-disable-next-line
   const [helperText, setHelperText] = useState({
     //Control the warning message
     title: "Ingrese un título",

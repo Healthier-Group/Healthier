@@ -49,7 +49,9 @@ export default function PlaceOrderScreen(props) {
 
     //console.log("currentUserOrder: ", currentUserOrder)
     //dispatch(getOrders())
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
 
   const order = {
     // fullName: currentUserOrder?.order?.name,

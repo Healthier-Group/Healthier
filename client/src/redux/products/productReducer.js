@@ -18,8 +18,7 @@ import {
   DELETE_REVIEW,
   GET_REVIEW_BY_ID,
   FILTER,
-  Vegano,
-  Celíaco,
+  
 } from "./productActions";
 
 const initialState = {

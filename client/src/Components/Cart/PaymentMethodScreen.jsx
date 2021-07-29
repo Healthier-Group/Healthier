@@ -1,7 +1,6 @@
 import { Button, Divider, Grid, Hidden, Paper, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { savePaymentMethod } from "../../redux/cart/cartActions";
 import { updateOrder } from "../../redux/order/orderActions";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";

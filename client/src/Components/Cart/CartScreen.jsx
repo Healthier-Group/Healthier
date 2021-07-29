@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getCurrentUser } from "../../redux/users/userActions";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
 import {
-  addOrderProduct,
+ 
   deleteOrderProduct,
   getOrderProductsByOrder,
   updateOrderProduct,
-  updateQty,
+  
 } from "../../redux/orderProducts/orderProductActions";
 import {
   Paper,
@@ -89,7 +89,9 @@ export default function CartScreen(props) {
     }
 
     //despacho a cartAction
-  }, [
+  },
+  // eslint-disable-next-line 
+  [
     getOrderProductsByOrder,
     getCurrentUser,
     updateOrderProduct,

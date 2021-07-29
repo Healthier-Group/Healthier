@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -78,7 +78,9 @@ export default function ProductCard() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
 
   const product = useSelector((state) => state.productReducer.foundProducts);
   const filteredProducts = useSelector((state) => state.productReducer?.filter);
@@ -130,10 +132,10 @@ export default function ProductCard() {
   function displayProducts(array) {
     return array?.map((p) => {
       const productId = p.id;
-      console.log(p);
+      
       return (
-        <div>
-          <Card className={classes.root}>
+        <div key={p.id}>
+          <Card className={classes.root} >
             <CardActionArea>
               <Link
                 to={`/products/${p.id}`}

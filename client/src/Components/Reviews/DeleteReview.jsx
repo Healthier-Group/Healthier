@@ -66,12 +66,15 @@ export function DeleteReview() {
     } else {
       dispatch(getReviewById(id));
     }
-  }, [dispatch, id, reviewDetail]);
-  //console.log('a ver el id aca', id)
+  },
+  // eslint-disable-next-line
+  [dispatch, id, reviewDetail]);
 
   useEffect(() => {
     dispatch(getReviewById(id));
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
   useEffect(() => {}, [data, setData]);
 
   return (

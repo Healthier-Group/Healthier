@@ -36,7 +36,9 @@ export function ProductUpdate() {
 
   useEffect(() => {
     dispatch(getCategories());
-  }, []);
+  }, 
+  // eslint-disable-next-line
+  []);
   const category = useSelector((state) => state.productReducer.foundCategories);
   const productDetail = useSelector(
     (state) => state.productReducer.productDetail
@@ -85,7 +87,9 @@ export function ProductUpdate() {
   useEffect(() => {
     dispatch(getProductById(id));
     console.log(input.categories);
-  }, []);
+  },
+  // eslint-disable-next-line
+  []);
   useEffect(() => {}, [input, setInput]);
 
   const [error, setError] = useState({
