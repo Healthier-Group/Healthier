@@ -354,7 +354,7 @@ export default function CartScreen(props) {
                       type='button'
                       //href="/shipping"
                       onClick={checkoutHandler}
-                      className='primary block'
+                      
                       disable={cartItems.length === 0}
                     >
                       Pasar al pago

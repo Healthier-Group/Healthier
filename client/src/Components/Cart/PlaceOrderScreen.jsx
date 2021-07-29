@@ -166,7 +166,7 @@ export default function PlaceOrderScreen(props) {
             onClick={placeOrderhandler}
             className='primary block'
             disabled={currentUserOrder?.orderProducts?.length === 0}
-            style={{ position: "relative", left: "70vw" }}
+            style={{ position: "relative", left: "60vw" }}
             color='secondary'
           >
             Confirmar Orden
@@ -263,19 +263,19 @@ export default function PlaceOrderScreen(props) {
           </Typography> */}
 
           <Divider style={{ margin: "20px 0 " }} />
-          <Typography style={{ position: "relative", left: "40vw" }}>
+          <Typography style={{ position: "relative", left: "30vw" }}>
             Precio final
           </Typography>
-          <Typography style={{ position: "relative", left: "40vw" }}>
+          <Typography style={{ position: "relative", left: "30vw" }}>
             <b>$ {totalPrice}</b>
           </Typography>
           <Divider style={{ margin: "20px 0 " }} />
           <Button
             variant='contained'
             onClick={placeOrderhandler}
-            className='primary block'
+           
             disabled={currentUserOrder?.orderProducts?.length === 0}
-            style={{ position: "relative", left: "30vw" }}
+            style={{ position: "relative", left: "15vw" }}
             color='secondary'
           >
             Confirmar Orden

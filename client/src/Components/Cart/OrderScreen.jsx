@@ -5,12 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getOrderById } from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
-
+import {
+  Button,
+  Divider,
+  Grid,
+  Hidden,
+  List,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 //import { createOrder } from "../../redux/order/orderActions";
- //import LoadingBox from "../Components/LoadingBox";
-
-
+//import LoadingBox from "../Components/LoadingBox";
 
 export default function OrderScreen(props) {
   const orderId = props.match.params.id;
@@ -19,9 +26,9 @@ export default function OrderScreen(props) {
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
- 
+
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const {user} = useSelector(state => state.userReducer)
+  const { user } = useSelector((state) => state.userReducer);
   console.log("usuario", user);
   const products = [];
   orderProducts?.forEach((OP) => {
@@ -35,18 +42,16 @@ export default function OrderScreen(props) {
       qty: OP.quantity,
     });
   });
-  const infoMP= {
+  const infoMP = {
     products,
-    currentUserOrder
-  }
+    currentUserOrder,
+  };
   console.log("que hay en infoMP", infoMP);
-
 
   const postHistory = async (id, order) => {
     await dispatch(getOrderById(id));
     await dispatch(mercadoPagoHandler(order));
-  }
-
+  };
 
   useEffect(() => {
     dispatch(getOrderById(orderId));
@@ -71,12 +76,10 @@ export default function OrderScreen(props) {
       }
     } else {
       //nos metemos a mercado pago
-      postHistory(orderId, infoMP)
+      postHistory(orderId, infoMP);
       //pay();
     }
-
   }, []);
-
 
   function mercadoPagoHandler(products) {
     console.log("esto es desde el front", products);
@@ -91,7 +94,6 @@ export default function OrderScreen(props) {
       return mercadoPago;
     };
   }
-  
 
   const successPaymentHandler = (paymentResult) => {
     //dispatch(payOrder(order, paymentResult));
@@ -99,7 +101,7 @@ export default function OrderScreen(props) {
 
   return (
     <div>
-      <h1>Order </h1>
+      {/* <h1>Order </h1>
 
       <div className='row top'>
         <div className='col-2'>
@@ -113,13 +115,6 @@ export default function OrderScreen(props) {
                   <strong>Address:</strong> {currentUserOrder.address},
                   {currentUserOrder.city},{currentUserOrder.postalCode},
                 </p>
-                {/* {currentOrder.isDelivered ? ( 
-                   <MessageBox variant='success'>
-                    Delivered at {currentOrder.deliveredAt}
-                  </MessageBox>
-                ) : (
-                  <MessageBox variant='danger'>Not Delivered </MessageBox>
-                )} */}
               </div>
             </li>
             <li>
@@ -171,18 +166,7 @@ export default function OrderScreen(props) {
                   <div>${products.price}</div>
                 </div>
               </li>
-              {/* <li>
-                <div className='row'>
-                  <div>Shipping</div>
-                  <div>${currentUserOrder.shippingPrice.toFixed(2)}</div>
-                </div>
-              </li> */}
-              {/* <li>
-                <div className='row'>
-                  <div>tax</div>
-                  <div>${currentUserOrder.taxPrice.toFixed(2)}</div>
-                </div>
-              </li> */}
+              
               <li>
                 <div className='row'>
                   <div>
@@ -198,7 +182,7 @@ export default function OrderScreen(props) {
                   {!sdkReady ? (
                     <h4>ok</h4>
                   ) : (
-                    // <LoadingBox></LoadingBox>
+                   
                     <PayPalButton
                       amount={currentUserOrder.total}
                       onSuccess={successPaymentHandler}
@@ -214,6 +198,201 @@ export default function OrderScreen(props) {
             </ul>
           </div>
         </div>
+      </div> */}
+
+      <div style={{ minHeight: "100vh", margin: "auto" }}>
+        <Hidden only={["xs", "sm"]}>
+          <Paper
+            elevation={3}
+            style={{
+              margin: "auto",
+              width: "80vw",
+              marginTop: "10vh",
+              padding: "50px",
+            }}
+          >
+            <Typography variant="h3">Tu orden de compra</Typography>
+            <Divider />
+            <Typography>Datos de envío</Typography>
+            <Typography>
+              <b>Nombre:</b> {currentUserOrder.fullName}
+            </Typography>
+            <Typography>
+              <b>Dirección:</b> {currentUserOrder.address},
+              {currentUserOrder.city},{currentUserOrder.postalCode},
+            </Typography>
+            <Divider />
+            <Typography>Metodo de pago</Typography>
+            <Typography>
+              Procesador: {currentUserOrder.paymentMethod}
+            </Typography>
+            {currentUserOrder.isPaid ? (
+              <MessageBox variant="success">
+                Paid at {currentUserOrder.paidAt}
+              </MessageBox>
+            ) : (
+              <MessageBox variant="danger">Not Paid </MessageBox>
+            )}
+            <Divider />
+            <Typography>Articulos</Typography>
+            <List>
+              {products.map((item) => (
+                <List item key={item.product}>
+                  <Grid container>
+                    <Grid item xs={4} style={{ margin: "auto" }}>
+                      <img src={item.image} alt={item.name} width="100px" />
+                    </Grid>
+                    <Grid item xs={4} style={{ margin: "auto" }}>
+                      {item.name}
+                    </Grid>
+                    <Grid item xs={4} style={{ margin: "auto" }}>
+                      {item.qty}x${item.price} = ${item.qty * item.price}
+                    </Grid>
+                  </Grid>
+                </List>
+              ))}
+            </List>
+            <Divider />
+            <Typography>Resumen de su orden</Typography>
+            <Typography>Items</Typography>
+            <Typography>$ {products.price}</Typography>
+            <Divider />
+            <Typography>Precio Total</Typography>
+            <Typography>$ {currentUserOrder.total}</Typography>
+            <List>
+              {!currentUserOrder.isPaid && (
+                <List item>
+                  {!sdkReady ? (
+                    <h4>ok</h4>
+                  ) : (
+                    <PayPalButton
+                      amount={currentUserOrder.total}
+                      onSuccess={successPaymentHandler}
+                    ></PayPalButton>
+                  )}
+                </List>
+              )}
+            </List>
+            <Divider />
+            <List
+              style={{
+                position: "relative",
+                left: "70vw",
+                marginTop: "20px",
+              }}
+            >
+              <Button variant="contained" color="secondary">
+                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+              </Button>
+            </List>
+          </Paper>
+        </Hidden>
+        {/* Mobile screen */}
+        <Hidden only={["md", "lg", "xl"]}>
+          <Paper
+            elevation={3}
+            style={{
+              margin: "auto",
+              width: "60vw",
+              marginTop: "10vh",
+              padding: "50px",
+            }}
+          >
+            <Typography variant="h3">Tu orden de compra</Typography>
+            <Divider />
+            <Typography>Datos de envío</Typography>
+            <Typography>
+              <b>Nombre:</b> {currentUserOrder.fullName}
+            </Typography>
+            <Typography>
+              <b>Dirección:</b> {currentUserOrder.address},
+              {currentUserOrder.city},{currentUserOrder.postalCode},
+            </Typography>
+            <Divider />
+            <Typography>Metodo de pago</Typography>
+            <Typography>
+              Procesador: {currentUserOrder.paymentMethod}
+            </Typography>
+            {currentUserOrder.isPaid ? (
+              <MessageBox variant="success">
+                Paid at {currentUserOrder.paidAt}
+              </MessageBox>
+            ) : (
+              <MessageBox variant="danger">Not Paid </MessageBox>
+            )}
+            <Divider />
+            <Typography>Articulos</Typography>
+            <List>
+              {products.map((item) => (
+                <List item key={item.product}>
+                  <Grid
+                    container
+                    style={{
+                      padding: "10px",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Grid
+                      item
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        width="100px"
+                        style={{ margin: "auto" }}
+                      />
+                      <br />
+                      <Typography style={{ textAlign: "center" }}>
+                        {item.name}
+                      </Typography>
+                      <br />
+                      <Typography style={{ textAlign: "center" }}>
+                        {item.qty}x${item.price} = ${item.qty * item.price}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </List>
+              ))}
+            </List>
+            <Divider />
+            <Typography>Resumen de su orden</Typography>
+            <Typography>Items</Typography>
+            <Typography>$ {products.price}</Typography>
+            <Divider />
+            <Typography>Precio Total</Typography>
+            <Typography>$ {currentUserOrder.total}</Typography>
+            <List>
+              {!currentUserOrder.isPaid && (
+                <List item>
+                  {!sdkReady ? (
+                    <h4>ok</h4>
+                  ) : (
+                    <PayPalButton
+                      amount={currentUserOrder.total}
+                      onSuccess={successPaymentHandler}
+                    ></PayPalButton>
+                  )}
+                </List>
+              )}
+            </List>
+            <Divider />
+            <List
+              style={{
+                position: "relative",
+                left: "35vw",
+                marginTop: "20px",
+              }}
+            >
+              <Button variant="contained" color="secondary">
+                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+              </Button>
+            </List>
+          </Paper>
+        </Hidden>
       </div>
     </div>
   );
