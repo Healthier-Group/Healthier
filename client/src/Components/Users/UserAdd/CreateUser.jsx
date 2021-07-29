@@ -40,8 +40,11 @@ const CreateUser = (props) => {
 				swal(aux, 'Vuelva a intentarlo', 'error')
 			}
 		} else if(typeof(userDetail !== "undefined")){
-			// typeof(userDetail) !== 'undefined' && swal('Usuario creado exitosamente', '¡Bienvenido!', 'success')
+			
 			setInput(wipedInput)
+			swal('Usuario creado exitosamente', '¡Bienvenido!', 'success').then(()=>{
+				window.location.href="http://localhost:3000"
+			})
 			if(Boolean(next)) { console.log('redirigir') }
 			
 		}
