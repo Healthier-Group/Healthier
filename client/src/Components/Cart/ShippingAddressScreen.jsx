@@ -58,6 +58,8 @@ export default function ShippingAddressScreen(props) {
         <Paper
           style={{
             width: "60vw",
+            marginBottom:"10vh",
+            marginTop:"10vh",
             height: "fit-content",
             padding: "30px",
           }}

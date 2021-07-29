@@ -11,6 +11,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getOrderById, updateOrder } from "../../redux/order/orderActions";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 export default function PlaceOrderScreen(props) {
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ export default function PlaceOrderScreen(props) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
+      <NavBar/>
       <Hidden only={["xs", "sm"]}>
         <Paper
           style={{
@@ -282,6 +285,7 @@ export default function PlaceOrderScreen(props) {
           </Button>
         </Paper>
       </Hidden>
+      <Footer/>
     </div>
   );
 }

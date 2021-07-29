@@ -15,6 +15,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 //import { createOrder } from "../../redux/order/orderActions";
 //import LoadingBox from "../Components/LoadingBox";
@@ -201,6 +203,7 @@ export default function OrderScreen(props) {
       </div> */}
 
       <div style={{ minHeight: "100vh", margin: "auto" }}>
+        <NavBar/>
         <Hidden only={["xs", "sm"]}>
           <Paper
             elevation={3}
@@ -208,6 +211,7 @@ export default function OrderScreen(props) {
               margin: "auto",
               width: "80vw",
               marginTop: "10vh",
+              marginBottom: "10vh",
               padding: "50px",
             }}
           >
@@ -295,6 +299,7 @@ export default function OrderScreen(props) {
               margin: "auto",
               width: "60vw",
               marginTop: "10vh",
+              marginBottom: "10vh",
               padding: "50px",
             }}
           >
@@ -394,6 +399,7 @@ export default function OrderScreen(props) {
           </Paper>
         </Hidden>
       </div>
+      <Footer/>
     </div>
   );
 }
