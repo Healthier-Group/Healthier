@@ -26,19 +26,13 @@ const style = makeStyles((theme) => ({
 const OrderFilter = () => {
   const dispatch = useDispatch();
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredCategory, setFilteredCategory] = useState([]);
   useEffect(() => {
     dispatch(getCategories());
   }, []);
-  const categories = useSelector(
-    (state) => state.productReducer.foundCategories
-  );
   
   useEffect(() => {
     dispatch(getProducts());
   }, []);
-  const products = useSelector((state) => state.productReducer.foundProducts);
   
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filteredCategory, setFilteredCategory] = useState([]);
