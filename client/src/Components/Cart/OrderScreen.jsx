@@ -189,7 +189,7 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+                <a href={link} style={{color:"black", textDecoration: "none" }}>Pagar</a>
               </Button>
             </List>
           </Paper>
@@ -296,7 +296,7 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+                <a href={link} style={{color:"black", textDecoration: "none" }}>Pagar</a>
               </Button>
             </List>
           </Paper>

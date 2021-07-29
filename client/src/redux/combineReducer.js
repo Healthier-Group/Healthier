@@ -6,7 +6,7 @@ import cartReducer from './cart/cartReducer';
 import wishListReducer from './wishlist/reducerWishList';
 import orderReducer from './order/orderReducers'
 import orderProductReducer from './orderProducts/orderProductReducer';
-import historyReducer from './historyOrders/historyOrderReducer';
+import historyOrderReducer from './historyOrders/historyOrderReducer';
 
 export const reducers = combineReducers({
 	userReducer: userReducer,
@@ -15,7 +15,7 @@ export const reducers = combineReducers({
 	wishList: wishListReducer,
 	orderProductReducer: orderProductReducer,
 	orderReducer: orderReducer,
-	historyReducer: historyReducer
+	historyOrderReducer: historyOrderReducer
 });
 
 export default reducers;

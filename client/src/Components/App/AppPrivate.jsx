@@ -18,6 +18,7 @@ import CreateReview from '../Reviews/CreateReview'
 import DeleteReview from '../Reviews/DeleteReview'
 import ReviewList from '../Reviews/ReviewList'
 import UpdateReview from '../Reviews/UpdateReview'
+import AdminHistory from '../Histories/AdminHistory'
 
 
 function AppPrivate() {
@@ -52,6 +53,8 @@ function AppPrivate() {
 				<Route exact path="/private/reviewlist" component={ReviewList} /> 
 				{/* ============ Carousel =================== */}
                 <Route exact path="/private/test" component={Carousel} />
+				{/* ============ History =================== */}
+                <Route exact path="/private/historyList" component={AdminHistory} />
 
             </BrowserRouter>
 

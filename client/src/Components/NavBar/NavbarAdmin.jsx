@@ -108,6 +108,11 @@ export default function NavBar() {
                   Categorias
                 </span>
               </Link>
+              <Link to="/private/historyList" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }} color="secondary">
+                  Órdenes
+                </span>
+              </Link>
             </Toolbar>
             {!JSON.parse(localStorage.getItem("profile")) ? (
               <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
