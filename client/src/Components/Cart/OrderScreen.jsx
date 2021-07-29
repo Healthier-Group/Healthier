@@ -40,8 +40,7 @@ export default function OrderScreen(props) {
   const infoMP= {
     products,
     currentUserOrder,
-    currentUser,
-    currentUserOrder
+    currentUser
   }
   console.log("que hay en infoMP", infoMP);
   useEffect(() => {
@@ -94,7 +93,7 @@ export default function OrderScreen(props) {
   }
 
   const successPaymentHandler = (paymentResult) => {
-    //dispatch(payOrder(order, paymentResult));
+      // dispatch(payOrder(order, paymentResult));
   };
 
   return (

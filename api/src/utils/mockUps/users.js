@@ -46,10 +46,10 @@ const adminMockUp = async() => {
             contact: '1127257701',
         }});
         await User.findOrCreate({where:{
-            name: 'System Drivello',
-            username: 'AdminDrivello',
+            name: 'System Nacho',
+            username: 'AdminNachito',
             isAdmin: true,
-            email: 'nico_dd@outlook.com.ar',
+            email: 'vergarajuanignacio02@gmail.com',
             password: hashedPasswordB,
             contact: '1127257701',
         }});
