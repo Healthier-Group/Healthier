@@ -2,9 +2,11 @@ import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { getOrderById } from "../../redux/order/orderActions";
+import { getOrderById} from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
+import { addHistory } from "../../redux/historyOrder/historyOrderActions";
 
 
 //import { createOrder } from "../../redux/order/orderActions";
@@ -21,8 +23,8 @@ export default function OrderScreen(props) {
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
  
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const {currentUser} = useSelector(state => state.userReducer)
-  console.log("usuario", currentUser);
+  const {user} = useSelector(state => state.userReducer)
+  console.log("usuario", user);
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -37,18 +39,9 @@ export default function OrderScreen(props) {
   });
   const infoMP= {
     products,
-    currentUserOrder,
-    currentUser
+    currentUserOrder
   }
   console.log("que hay en infoMP", infoMP);
-
-
-  const postHistory = async (id, order, currentUser) => {
-    await dispatch(getOrderById(id));
-    await dispatch(mercadoPagoHandler(order, currentUser));
-  }
-
-
   useEffect(() => {
     dispatch(getOrderById(orderId));
     if (currentUserOrder.paymentMethod === "paypal") {
@@ -72,7 +65,7 @@ export default function OrderScreen(props) {
       }
     } else {
       //nos metemos a mercado pago
-      postHistory(orderId, infoMP)
+      dispatch(mercadoPagoHandler(products));
       //pay();
     }
 
@@ -91,6 +84,12 @@ export default function OrderScreen(props) {
 
       return mercadoPago;
     };
+  }
+  
+  const history = 
+
+  function submitHO() {
+    dispatch(addHistory(history))
   }
   
 
@@ -208,7 +207,7 @@ export default function OrderScreen(props) {
                 </li>
               )}
               <li>
-                <button>
+                <button onClick={submitHO()}>
                   <a href={link}>Pagar con MercadoPago</a>
                 </button>
               </li>
