@@ -23,8 +23,8 @@ export default function OrderScreen(props) {
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
  
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const {user} = useSelector(state => state.userReducer)
-  console.log("usuario", user);
+  const {currentUser} = useSelector(state => state.userReducer)
+  console.log("usuario", currentUser);
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -39,6 +39,8 @@ export default function OrderScreen(props) {
   });
   const infoMP= {
     products,
+    currentUserOrder,
+    currentUser,
     currentUserOrder
   }
   console.log("que hay en infoMP", infoMP);
@@ -65,7 +67,7 @@ export default function OrderScreen(props) {
       }
     } else {
       //nos metemos a mercado pago
-      dispatch(mercadoPagoHandler(products));
+      postHistory(orderId, infoMP)
       //pay();
     }
 
@@ -86,12 +88,10 @@ export default function OrderScreen(props) {
     };
   }
   
-  const history = 
-
-  function submitHO() {
-    dispatch(addHistory(history))
+  const postHistory = async (id, order, currentUser) => {
+    await dispatch(getOrderById(id));
+    await dispatch(mercadoPagoHandler(order, currentUser));
   }
-  
 
   const successPaymentHandler = (paymentResult) => {
     //dispatch(payOrder(order, paymentResult));
@@ -207,7 +207,7 @@ export default function OrderScreen(props) {
                 </li>
               )}
               <li>
-                <button onClick={submitHO()}>
+                <button>
                   <a href={link}>Pagar con MercadoPago</a>
                 </button>
               </li>
