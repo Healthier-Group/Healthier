@@ -42,9 +42,9 @@ const CreateUser = (props) => {
 		} else if(typeof(userDetail !== "undefined")){
 			
 			setInput(wipedInput)
-			swal('Usuario creado exitosamente', '¡Bienvenido!', 'success').then(()=>{
-				window.location.href="http://localhost:3000"
-			})
+			// swal('Usuario creado exitosamente', '¡Bienvenido!', 'success').then(()=>{
+			// 	window.location.href="http://localhost:3000"
+			// })
 			if(Boolean(next)) { console.log('redirigir') }
 			
 		}
