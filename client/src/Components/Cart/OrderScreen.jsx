@@ -2,9 +2,14 @@ import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { getOrderById } from "../../redux/order/orderActions";
+import { getOrderById} from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
+
+import { addHistory } from "../../redux/historyOrder/historyOrderActions";
+
+
 import {
   Button,
   Divider,
@@ -18,6 +23,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 
+
 //import { createOrder } from "../../redux/order/orderActions";
 //import LoadingBox from "../Components/LoadingBox";
 
@@ -30,8 +36,10 @@ export default function OrderScreen(props) {
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
 
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const { user } = useSelector((state) => state.userReducer);
-  console.log("usuario", user);
+
+  const {currentUser} = useSelector(state => state.userReducer)
+  
+
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -47,13 +55,19 @@ export default function OrderScreen(props) {
   const infoMP = {
     products,
     currentUserOrder,
-  };
+
+    currentUser
+  }
+
+
+  
   console.log("que hay en infoMP", infoMP);
 
   const postHistory = async (id, order) => {
     await dispatch(getOrderById(id));
     await dispatch(mercadoPagoHandler(order));
   };
+
 
   useEffect(() => {
     dispatch(getOrderById(orderId));
@@ -99,8 +113,15 @@ export default function OrderScreen(props) {
     };
   }
 
+  
+  const postHistory = async (id, order, currentUser) => {
+    await dispatch(getOrderById(id));
+    await dispatch(mercadoPagoHandler(order, currentUser));
+  }
+
+
   const successPaymentHandler = (paymentResult) => {
-    //dispatch(payOrder(order, paymentResult));
+      // dispatch(payOrder(order, paymentResult));
   };
 
   return (
