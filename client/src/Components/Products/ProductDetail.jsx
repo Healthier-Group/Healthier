@@ -7,7 +7,6 @@ import {
   Typography,
   Button,
   Hidden,
- 
 } from "@material-ui/core";
 import { getProductById } from "../../redux/products/productActions";
 import Footer from "../Footer/Footer";
@@ -93,26 +92,29 @@ const ProductDetail = (props) => {
   const id = props.match.params.id;
   const dispatch = useDispatch();
 
-  const {currentUser} = useSelector(state => state.userReducer);
+  const { currentUser } = useSelector((state) => state.userReducer);
   const orderId = currentUser?.order?.id;
-  let qty=1
+  let qty = 1;
   const addToCartHandler = async () => {
-    
-    if(!currentUser){
+    if (!currentUser) {
       props.history.push(`/cart/${id}?qty=${qty}`);
     } else {
       //si el usuario si está login debo pasarle esta info quantity, productId, orderId
-      
-      console.log("Estoy login pasando productos al carrito", "id producto",id,"id order",orderId );
-      const orderProduct={
-        productId:id,
-        orderId: orderId
-      }
+
+      console.log(
+        "Estoy login pasando productos al carrito",
+        "id producto",
+        id,
+        "id order",
+        orderId
+      );
+      const orderProduct = {
+        productId: id,
+        orderId: orderId,
+      };
       await dispatch(addOrderProduct(orderProduct));
       props.history.push(`/cart`);
     }
-
- 
   };
 
   useEffect(() => {
@@ -120,18 +122,13 @@ const ProductDetail = (props) => {
   }, [dispatch, id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
-  
-    
-  
 
   const addToWishListHandler = () => {
-
     props.history.push(`/wishlist/${id}`);
-        
   };
   return (
     <div className={classes.bg}>
-      <NavBar/>
+      <NavBar />
       {product?.map((p) => {
         return (
           <div
@@ -144,12 +141,10 @@ const ProductDetail = (props) => {
             }}
           >
             <Hidden only={["sm", "xs"]}>
-
               <Paper
                 elevation={3}
                 style={{
                   margin: "auto",
-
 
                   width: "80vw",
                   padding: "50px 20px",
@@ -183,36 +178,68 @@ const ProductDetail = (props) => {
                     </Typography>
                     <br />
                     <br />
-
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={addToCartHandler}
-                      style={{
-                        width: "25vw",
-                        display: "flex",
-                        margin: "auto",
-                        color: "black",
-                        backgroundColor: "#41D26C",
-                      }}
-                    >
-                      Comprar
-                    </Button>
+                    {p.stock > 0 ? (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={addToCartHandler}
+                        style={{
+                          width: "25vw",
+                          display: "flex",
+                          margin: "auto",
+                          color: "black",
+                          backgroundColor: "#41D26C",
+                        }}
+                      >
+                        Comprar
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        disabled
+                        style={{
+                          width: "25vw",
+                          display: "flex",
+                          margin: "auto",
+                          color: "black",
+                          backgroundColor: "#CE2323",
+                        }}
+                      >
+                        Sin stock
+                      </Button>
+                    )}
                     <br />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={addToWishListHandler}
-                      style={{
-                        width: "25vw",
-                        display: "flex",
-                        margin: "auto",
-                        color: "black",
-                        backgroundColor: "#CE2323",
-                      }}
-                    >
-                      Favoritos
-                    </Button>
+                    {p.stock > 0 ? (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={addToWishListHandler}
+                        style={{
+                          width: "25vw",
+                          display: "flex",
+                          margin: "auto",
+                          color: "black",
+                          backgroundColor: "#41D26C",
+                        }}
+                      >
+                        Favoritos
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                          width: "25vw",
+                          display: "flex",
+                          margin: "auto",
+                          color: "black",
+                          backgroundColor: "#41D26C",
+                        }}
+                      >
+                        Favoritos
+                      </Button>
+                    )}
                   </Paper>
                 </div>
                 <Paper

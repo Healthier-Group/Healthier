@@ -76,11 +76,13 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  },
-  // eslint-disable-next-line
-  []);
+  useEffect(
+    () => {
+      dispatch(getProducts());
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   const product = useSelector((state) => state.productReducer.foundProducts);
   const filteredProducts = useSelector((state) => state.productReducer?.filter);
@@ -132,10 +134,10 @@ export default function ProductCard() {
   function displayProducts(array) {
     return array?.map((p) => {
       const productId = p.id;
-      
+
       return (
         <div key={p.id}>
-          <Card className={classes.root} >
+          <Card className={classes.root}>
             <CardActionArea>
               <Link
                 to={`/products/${p.id}`}
@@ -161,24 +163,47 @@ export default function ProductCard() {
               </Link>
             </CardActionArea>
             <CardActions className={classes.space}>
-              <Button
-                className={classes.btn}
-                size="small"
-                color="primary"
-                onClick={() => addToCartHandler(productId)}
-              >
-                <AddShoppingCartIcon /> Lo quiero
-              </Button>
-              <Button
-                className={classes.btn}
-                size="small"
-                color="primary"
-                //tenemos que mandarlo a la WL
-                id={p.id}
-                onClick={() => addToWishListHandler(productId)}
-              >
-                Favoritos <FavoriteBorderIcon />
-              </Button>
+              {p.stock > 0 ? (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  onClick={() => addToCartHandler(productId)}
+                >
+                  <AddShoppingCartIcon /> Lo quiero
+                </Button>
+              ) : (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  disabled
+                >
+                  Sin stock
+                </Button>
+              )}
+              {p.stock > 0 ? (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  //tenemos que mandarlo a la WL
+                  id={p.id}
+                  onClick={() => addToWishListHandler(productId)}
+                >
+                  Favoritos <FavoriteBorderIcon />
+                </Button>
+              ) : (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  //tenemos que mandarlo a la WL
+                  id={p.id}
+                >
+                  Favoritos <FavoriteBorderIcon />
+                </Button>
+              )}
             </CardActions>
           </Card>
         </div>
@@ -193,7 +218,7 @@ export default function ProductCard() {
           <Grid container spacing={1}>
             <Hidden only={["xs", "sm"]}>
               <Grid item xs={2}>
-                <OrderFilter/>
+                <OrderFilter />
               </Grid>
               <Grid item xs={10}>
                 <div className={classes.wrapped}>
