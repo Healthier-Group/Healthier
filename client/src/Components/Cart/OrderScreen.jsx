@@ -2,13 +2,9 @@ import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
-import { getOrderById} from "../../redux/order/orderActions";
+import { getOrderById } from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
-
-import { addHistory } from "../../redux/historyOrder/historyOrderActions";
-
 
 import {
   Button,
@@ -23,7 +19,6 @@ import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 
-
 //import { createOrder } from "../../redux/order/orderActions";
 //import LoadingBox from "../Components/LoadingBox";
 
@@ -37,8 +32,7 @@ export default function OrderScreen(props) {
 
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
 
-  const {currentUser} = useSelector(state => state.userReducer)
-  
+  const { currentUser } = useSelector((state) => state.userReducer);
 
   const products = [];
   orderProducts?.forEach((OP) => {
@@ -56,11 +50,9 @@ export default function OrderScreen(props) {
     products,
     currentUserOrder,
 
-    currentUser
-  }
+    currentUser,
+  };
 
-
-  
   console.log("que hay en infoMP", infoMP);
 
   const postHistory = async (id, order) => {
@@ -68,36 +60,37 @@ export default function OrderScreen(props) {
     await dispatch(mercadoPagoHandler(order));
   };
 
-
-  useEffect(() => {
-    dispatch(getOrderById(orderId));
-    if (currentUserOrder.paymentMethod === "paypal") {
-      const addPayPalScript = async () => {
-        const { data } = await axios.get("/api/config/paypal");
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-        script.async = true;
-        script.onload = () => {
-          setSdkReady(true);
+  useEffect(
+    () => {
+      dispatch(getOrderById(orderId));
+      if (currentUserOrder.paymentMethod === "paypal") {
+        const addPayPalScript = async () => {
+          const { data } = await axios.get("/api/config/paypal");
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+          script.async = true;
+          script.onload = () => {
+            setSdkReady(true);
+          };
+          document.body.appendChild(script);
         };
-        document.body.appendChild(script);
-      };
-      if (!orderId.isPaid) {
-        if (!window.paypal) {
-          addPayPalScript();
-        } else {
-          setSdkReady(true);
+        if (!orderId.isPaid) {
+          if (!window.paypal) {
+            addPayPalScript();
+          } else {
+            setSdkReady(true);
+          }
         }
+      } else {
+        //nos metemos a mercado pago
+        postHistory(orderId, infoMP);
+        //pay();
       }
-    } else {
-      //nos metemos a mercado pago
-      postHistory(orderId, infoMP);
-      //pay();
-    }
-  }, 
-  // eslint-disable-next-line 
-  []);
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   function mercadoPagoHandler(products) {
     console.log("esto es desde el front", products);
@@ -113,21 +106,16 @@ export default function OrderScreen(props) {
     };
   }
 
-  
-  const postHistory = async (id, order, currentUser) => {
-    await dispatch(getOrderById(id));
-    await dispatch(mercadoPagoHandler(order, currentUser));
-  }
-
+ 
 
   const successPaymentHandler = (paymentResult) => {
-      // dispatch(payOrder(order, paymentResult));
+    // dispatch(payOrder(order, paymentResult));
   };
 
   return (
     <div>
       <div style={{ minHeight: "100vh", margin: "auto" }}>
-        <NavBar/>
+        <NavBar />
         <Hidden only={["xs", "sm"]}>
           <Paper
             elevation={3}
@@ -210,7 +198,12 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+                <Link
+                  to={link}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Pagar
+                </Link>
               </Button>
             </List>
           </Paper>
@@ -317,13 +310,18 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+                <Link
+                  to={link}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Pagar
+                </Link>
               </Button>
             </List>
           </Paper>
         </Hidden>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
