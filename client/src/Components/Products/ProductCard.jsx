@@ -16,13 +16,13 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
-import OrderFilter from "./OrderFilter";
 
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
 import swal from "sweetalert";
 import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
+import OrderFilter from "./OrderFilter";
 
 const useStyles = makeStyles({
   root: {
@@ -40,8 +40,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexWrap: "wrap",
     backgroundColor: "#f1f1f1",
-    margin: 50,
-    marginTop: "10%",
   },
   name: {
     position: "relative",
@@ -187,16 +185,14 @@ export default function ProductCard() {
   }
 
   return (
-
     <div>
-      <OrderFilter />
       <div>
         <div className={classes.view}>
           <Grid container spacing={1}>
             <Hidden only={["xs", "sm"]}>
-              <Grid item xs={2} className={classes.viewItem}></Grid>
-            </Hidden>
-            <Hidden only={["xs", "sm"]}>
+              <Grid item xs={2}>
+                <OrderFilter/>
+              </Grid>
               <Grid item xs={10}>
                 <div className={classes.wrapped}>
                   {filteredProducts?.length > 0

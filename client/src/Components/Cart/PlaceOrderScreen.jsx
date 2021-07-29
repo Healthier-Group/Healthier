@@ -74,6 +74,7 @@ export default function PlaceOrderScreen(props) {
             margin: "auto",
             width: "80vw",
             marginTop: "10vh",
+            marginBottom: "10vh",
             padding: "50px",
           }}
         >
@@ -176,6 +177,7 @@ export default function PlaceOrderScreen(props) {
           </Button>
         </Paper>
       </Hidden>
+      {/* Mobile screen */}
       <Hidden only={["md", "lg", "xl"]}>
         <Paper
           style={{
