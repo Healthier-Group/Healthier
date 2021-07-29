@@ -38,7 +38,7 @@ const UpdateReview = () => {
     } else {
       typeof reviewDetail !== "undefined" &&
         reviewDetail.success &&
-        swal("Review actualizada exitosamente", "Bienvenido!", "success");
+        swal("Actualizado", "Review actualizada exitosamente", "");
     }
   }, [reviewDetail]); // check this line
 

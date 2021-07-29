@@ -7,9 +7,10 @@ import {
   Button,
   TextField,
   Typography,
-  
+  Box,
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -57,7 +58,7 @@ export const CreateReview = () => {
   const [input, setInput] = useState({
     title: "",
     description: "",
-    calification: 1,
+    calification: 3,
   });
 
   function handleInputChange(e) {
@@ -77,9 +78,9 @@ export const CreateReview = () => {
           title: "",
           description: "",
         });
-        alert("Review created successfully");
+        swal("Creado", "Review creada con éxito", "success");
       })
-      .catch((error) => alert("Some error ocurred, please try again"));
+      .catch((error) => swal("Error", error, "error"));
   }
 
   const classes = useStyles();
@@ -91,21 +92,16 @@ export const CreateReview = () => {
             ¡Dejanos tu opinión!
           </Typography>
           <div className={classes.input1}>
-            {/* <InputLabel id="calification">Calificación</InputLabel>
-            <Select name="calification" labelId="calification" id="select" value={input.calification} onChange={handleInputChange}>
-              <MenuItem value="1">Poor</MenuItem>
-              <MenuItem value="2">Average</MenuItem>
-              <MenuItem value="3">Good</MenuItem>
-              <MenuItem value="4">Great</MenuItem>
-              <MenuItem value="5">Excellent</MenuItem>
-            </Select> */}
-            <Rating
-              name="calification"
-              value={input.calification}
-              onChange={(event, newValue) => {
-                setInput(newValue);
-              }}
-            />
+            <Box component="fieldset" mb={3} borderColor="transparent">
+              <Typography component="legend">Calificación</Typography>
+              <Rating
+                id="simple-controlled"
+                name="calification"
+                value={input.calification}
+                onChange={handleInputChange}
+              />
+            </Box>
+            <br />
             <TextField
               id="standard-basic"
               name="title"
@@ -114,6 +110,7 @@ export const CreateReview = () => {
               label="Titulo"
               className={classes.inputs}
               required={true}
+              width={3}
             />
           </div>
 

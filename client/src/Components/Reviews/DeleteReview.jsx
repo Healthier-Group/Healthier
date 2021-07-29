@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  Button,
-  makeStyles,
-  Grid,
-} from "@material-ui/core";
+import { Button, makeStyles, Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from '../../utils/Theme';
-
+import theme from "../../utils/Theme";
+import swal from "sweetalert";
 
 import {
   getReviewById,
@@ -50,32 +45,47 @@ export function DeleteReview() {
     calification: "",
   });
 
-  const handleSubmit = (e) => {
-    dispatch(deleteReview(data)); // const id = this.props.match.params.id;
-  };
-
-  useEffect(() => {
+  const handleSubmit = async (e) => {
+    await dispatch(deleteReview(data)); // const id = this.props.match.params.id;
     if (reviewDetail !== undefined) {
-      setData({
+      await setData({
         id: id,
         title: reviewDetail[0]?.title,
         description: reviewDetail[0]?.description,
-        calification: reviewDetail[0]?.calification
+        calification: reviewDetail[0]?.calification,
       });
-      console.log("a ver la data", data);
+      swal("Borrado", "Review borrada con éxito", "success").then(() => {
+        window.location.href = "http://localhost:3000/private/reviewlist";
+      });
     } else {
-      dispatch(getReviewById(id));
+      await dispatch(getReviewById(id));
     }
-  },
-  // eslint-disable-next-line
-  [dispatch, id, reviewDetail]);
+  };
 
-  useEffect(() => {
-    dispatch(getReviewById(id));
-  }, 
-  // eslint-disable-next-line
-  []);
-  useEffect(() => {}, [data, setData]);
+  useEffect(
+    () => {
+      if (reviewDetail !== undefined) {
+        setData({
+          id: id,
+          title: reviewDetail[0]?.title,
+          description: reviewDetail[0]?.description,
+          calification: reviewDetail[0]?.calification,
+        });
+        console.log("a ver la data", data);
+      } else {
+        dispatch(getReviewById(id));
+      }
+    },
+    // eslint-disable-next-line
+    [dispatch, id, reviewDetail]
+  );
+
+  // useEffect(() => {
+  //   dispatch(getReviewById(id));
+  // },
+  // // eslint-disable-next-line
+  // []);
+  // useEffect(() => {}, [data, setData]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -116,16 +126,14 @@ export function DeleteReview() {
               alignItems="center"
             >
               <Grid item>
-                <Link to={"/private/reviewlist"}>
-                  <Button
-                    style={{ fontWeight: 1000, marginTop: 50 }}
-                    color="secondary"
-                    onClick={handleSubmit}
-                    variant="contained"
-                  >
-                    Sí, borrar
-                  </Button>
-                </Link>
+                <Button
+                  style={{ fontWeight: 1000, marginTop: 50 }}
+                  color="secondary"
+                  onClick={handleSubmit}
+                  variant="contained"
+                >
+                  Sí, borrar
+                </Button>
               </Grid>
             </Grid>
           </Grid>

@@ -90,6 +90,8 @@ export default function ProductCard() {
   // const day = new Date()
   const { currentUser } = useSelector((state) => state.userReducer);
   const orderId = currentUser?.order?.id;
+  const {orderProducts}= useSelector((state)=>state.orderProductReducer)
+  console.log("orderproducts en productCard", orderProducts);
 
   const addToWishListHandler = async (id) => {
     await dispatch(addToWishList(id));

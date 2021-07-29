@@ -140,15 +140,15 @@ export default function OrderScreen(props) {
             <Divider />
             <Typography>Metodo de pago</Typography>
             <Typography>
-              Procesador: {currentUserOrder.paymentMethod}
+              Plataforma: {currentUserOrder.paymentMethod}
             </Typography>
-            {currentUserOrder.isPaid ? (
+            {/* {currentUserOrder.isPaid ? (
               <MessageBox variant="success">
                 Paid at {currentUserOrder.paidAt}
               </MessageBox>
             ) : (
               <MessageBox variant="danger">Not Paid </MessageBox>
-            )}
+            )} */}
             <Divider />
             <Typography>Articulos</Typography>
             <List>
@@ -170,12 +170,12 @@ export default function OrderScreen(props) {
             </List>
             <Divider />
             <Typography>Resumen de su orden</Typography>
-            <Typography>Items</Typography>
+            {/* <Typography>Items</Typography>
             <Typography>$ {products.price}</Typography>
-            <Divider />
+            <Divider /> */}
             <Typography>Precio Total</Typography>
             <Typography>$ {currentUserOrder.total}</Typography>
-            <List>
+            {/* <List>
               {!currentUserOrder.isPaid && (
                 <List item>
                   {!sdkReady ? (
@@ -188,7 +188,7 @@ export default function OrderScreen(props) {
                   )}
                 </List>
               )}
-            </List>
+            </List> */}
             <Divider />
             <List
               style={{
@@ -282,12 +282,12 @@ export default function OrderScreen(props) {
             </List>
             <Divider />
             <Typography>Resumen de su orden</Typography>
-            <Typography>Items</Typography>
+            {/* <Typography>Items</Typography>
             <Typography>$ {products.price}</Typography>
-            <Divider />
+            <Divider /> */}
             <Typography>Precio Total</Typography>
             <Typography>$ {currentUserOrder.total}</Typography>
-            <List>
+            {/* <List>
               {!currentUserOrder.isPaid && (
                 <List item>
                   {!sdkReady ? (
@@ -300,7 +300,7 @@ export default function OrderScreen(props) {
                   )}
                 </List>
               )}
-            </List>
+            </List> */}
             <Divider />
             <List
               style={{

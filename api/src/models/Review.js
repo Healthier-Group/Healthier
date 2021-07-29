@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     calification: {
-      type: DataTypes.FLOAT, //Check type (Float/Range or ENUM)
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     description: {

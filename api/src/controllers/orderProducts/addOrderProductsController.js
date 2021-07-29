@@ -5,7 +5,7 @@ module.exports = async(req, res, next) => {
 	let { productId, orderId} = req.body
 	let quantity = 1
 	try{
-		const newOrderProduct = await Orderproduct.create({
+		const newOrderProduct = await Orderproduct.findOrCreate({
 			quantity,
 			orderId
 		});

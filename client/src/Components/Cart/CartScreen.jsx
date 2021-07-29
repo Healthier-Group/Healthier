@@ -165,7 +165,9 @@ export default function CartScreen(props) {
                         </Link>
                       </Grid>
                       <Grid item xs={2} style={{ margin: "auto" }}>
-                        <select
+
+                          {
+                            currentUser? <select
                           value={item.qty}
                           onChange={(e) => {
                             handlerFunction(item, Number(e.target.value));
@@ -177,6 +179,12 @@ export default function CartScreen(props) {
                             </option>
                           ))}
                         </select>
+                        : null
+                          }
+
+                         
+
+                        
                       </Grid>
                       <Grid xs={2} style={{ margin: "auto" }}>
                         <Button
@@ -299,13 +307,12 @@ export default function CartScreen(props) {
                           {item.name}
                         </Link>
                         <br />
-                        <select
+                        {
+                            currentUser? <select
                           value={item.qty}
-                          onChange={(e) =>
-                            dispatch(
-                              addToCart(item.product, Number(e.target.value))
-                            )
-                          }
+                          onChange={(e) => {
+                            handlerFunction(item, Number(e.target.value));
+                          }}
                         >
                           {[...Array(item.countInStock).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
@@ -313,6 +320,8 @@ export default function CartScreen(props) {
                             </option>
                           ))}
                         </select>
+                        : null
+                          }
                         <br />
                         <Button
                           variant='contained'
