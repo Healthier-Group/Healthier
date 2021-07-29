@@ -233,12 +233,17 @@ export default function ProductCard() {
       </div>
       <div>
         <Hidden only={["md", "lg", "xl"]}>
-          <Grid item xs={12}>
-            <div className={classes.wrapped}>
-              {filteredProducts?.length > 0
-                ? displayProducts(filteredProducts)
-                : displayProducts(product)}
-            </div>
+          <Grid container spacing={1}>
+            <Grid item xs={2} style={{display:"flex",margin:"auto", justifyContent:"center"}}>
+              <OrderFilter />
+            </Grid>
+            <Grid item xs={12}>
+              <div className={classes.wrapped}>
+                {filteredProducts?.length > 0
+                  ? displayProducts(filteredProducts)
+                  : displayProducts(product)}
+              </div>
+            </Grid>
           </Grid>
         </Hidden>
       </div>

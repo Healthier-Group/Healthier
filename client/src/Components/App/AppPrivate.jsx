@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import LandingPage from '../LandingPage/LandingPage'
 import NavbarAdmin from '../NavBar/NavbarAdmin'
-import CreateUser from '../Users/UserAdd/CreateUser';
+import CreateUserAdmin from '../Users/UserAdd/CreateUserAdmin';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
 import UserList from '../Users/UserList/UserList';
 import CreateProductForm from "../Products/CreateProductForm";
@@ -31,7 +31,7 @@ function AppPrivate() {
 				<Route exact path="/" component={LandingPage} />
 
 				{/* ============ User ==================== */}
-				<Route exact path="/private/createuser" component={CreateUser} />
+				<Route exact path="/private/createuser" component={CreateUserAdmin} />
                 <Route exact path="/private/updateuser/:id" component={UpdateUser} />
 				<Route exact path="/private/userlist" component={UserList} />
 

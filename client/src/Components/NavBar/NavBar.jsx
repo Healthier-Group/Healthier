@@ -16,7 +16,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../Images/h.png";
 import List from "../List/ListMenu";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { logOutUser } from "../../redux/users/userActions";
 import swal from "sweetalert";
 
@@ -106,13 +107,13 @@ export default function NavBar() {
               </Link>
               <Link to="/wishlist" className={classes.buttons}>
                 <span style={{ margin: "0 10px" }} color="secondary">
-                  Wishlist
+                  <FavoriteIcon/>
                 </span>
               </Link>
 
               <Link to="/cart" className={classes.buttons}>
                 <span style={{ margin: "0 10px" }}>
-                  <AddShoppingCartIcon />
+                  <ShoppingCartIcon />
                 </span>
               </Link>
             </Toolbar>
@@ -189,7 +190,7 @@ export default function NavBar() {
                 to="/cart"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <AddShoppingCartIcon />
+                <ShoppingCartIcon />
               </Link>
             </Toolbar>
 

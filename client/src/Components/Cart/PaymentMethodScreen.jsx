@@ -87,8 +87,8 @@ export default function PaymentMethodScreen(props) {
                 <img
                   src="https://ucarecdn.com/c107e970-b230-402f-b015-301bdd06ef60/"
                   alt="Not found"
-                  width="200px"
-                  height="90px"
+                  width="150px"
+                  height="50px"
                   style={{ margin: "auto" }}
                 />
                 <br />
@@ -105,22 +105,26 @@ export default function PaymentMethodScreen(props) {
               </Grid>
               <Grid item style={{ display: "flex", flexDirection: "column" }}>
                 <img
-                  src="https://comunidadblogger.net/wp-content/uploads/2020/12/paypal.jpg"
+                  src="https://www.pngitem.com/pimgs/m/200-2005131_paypal-logo-png-grey-transparent-png.png"
                   alt="Not found"
                   width="150px"
-                  height="90px"
+                  height="50px"
                   style={{ margin: "auto" }}
                 />
                 <br />
+                <label style={{ margin: "auto" }}>Proximamente</label>
                 <input
                   type="radio"
                   id="paypal"
                   value="paypal"
                   name="paymentMethod"
                   required
+                  disabled={true}
                   onChange={(e) => setPayment(e.target.value)}
                   style={{ margin: "auto" }}
                 />
+                
+                
               </Grid>
             </Grid>
             <br />
@@ -158,8 +162,8 @@ export default function PaymentMethodScreen(props) {
                 <img
                   src="https://ucarecdn.com/c107e970-b230-402f-b015-301bdd06ef60/"
                   alt="Not found"
-                  width="200px"
-                  height="90px"
+                  width="150px"
+                  height="50px"
                   style={{ margin: "auto" }}
                 />
                 <br />
@@ -169,29 +173,36 @@ export default function PaymentMethodScreen(props) {
                   value="mercado pago"
                   name="paymentMethod"
                   required
+                  
                   checked
                   onChange={(e) => setPayment(e.target.value)}
                   style={{ margin: "auto" }}
                 />
               </Grid>
               <Grid item style={{ display: "flex", flexDirection: "column" }}>
+          
                 <img
                   src="https://comunidadblogger.net/wp-content/uploads/2020/12/paypal.jpg"
                   alt="Not found"
                   width="150px"
-                  height="90px"
+                 
+                  height="50px"
                   style={{ margin: "auto" }}
                 />
                 <br />
+                <label style={{ margin: "auto" }}>Proximamente</label>
                 <input
                   type="radio"
                   id="paypal"
                   value="paypal"
                   name="paymentMethod"
                   required
+                  disabled={true}
                   onChange={(e) => setPayment(e.target.value)}
                   style={{ margin: "auto" }}
+                  
                 />
+                
               </Grid>
             </Grid>
             <br />
