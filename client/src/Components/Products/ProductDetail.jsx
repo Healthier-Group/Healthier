@@ -123,8 +123,6 @@ const ProductDetail = (props) => {
   }, [dispatch, id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
-  console.log("USUARIO", currentUser);
-  console.log("PRODUCTO", product[0]);
 
 
   const addToWishListHandler = () => {
