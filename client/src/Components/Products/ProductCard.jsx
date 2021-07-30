@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 
+import { getOrderById } from "../../redux/order/orderActions";
+import { getOrderProductsByOrder } from "../../redux/orderProducts/orderProductActions";
+
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
@@ -76,23 +79,27 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(
-    () => {
-      dispatch(getProducts());
-    },
-    // eslint-disable-next-line
-    []
-  );
-
+ const currentOrder = useSelector((state)=>state.orderProductReducer)
   const product = useSelector((state) => state.productReducer.foundProducts);
   const filteredProducts = useSelector((state) => state.productReducer?.filter);
   //const array = product ? product : filteredProducts;
   // const day = new Date()
   const { currentUser } = useSelector((state) => state.userReducer);
-  const orderId = currentUser?.order?.id;
-  const {orderProducts}= useSelector((state)=>state.orderProductReducer)
-  console.log("orderproducts en productCard", orderProducts);
+  const { currentUserOrder } = useSelector((state) => state.orderReducer);
+  const { currentOP } = useSelector((state) => state.orderProductReducer);
+  
 
+  const orderId = currentUser?.order?.id;
+  const { orderProducts } = useSelector((state) => state.orderProductReducer);
+  
+  useEffect(
+    () => {
+      dispatch(getProducts());
+      dispatch(getOrderById(orderId));
+      dispatch(getOrderProductsByOrder(orderId));
+      console.log("-------------- CURRENT OP:", currentOP)
+    },[]
+  );
   const addToWishListHandler = async (id) => {
     await dispatch(addToWishList(id));
     swal({
@@ -120,13 +127,14 @@ export default function ProductCard() {
         productId: id,
         orderId: orderId,
       };
+
       await dispatch(addOrderProduct(orderProduct));
-      swal({
+      await swal({
         title: "Carrito de compras",
         text: "El producto fue añadido",
         icon: "success",
-        button: "Volver",
-      });
+        button: "Volver"
+      })
       await dispatch(getProducts());
     }
   };
@@ -236,7 +244,15 @@ export default function ProductCard() {
       <div>
         <Hidden only={["md", "lg", "xl"]}>
           <Grid container spacing={1}>
-            <Grid item xs={2} style={{display:"flex",margin:"auto", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={2}
+              style={{
+                display: "flex",
+                margin: "auto",
+                justifyContent: "center",
+              }}
+            >
               <OrderFilter />
             </Grid>
             <Grid item xs={12}>

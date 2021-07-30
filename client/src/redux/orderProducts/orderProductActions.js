@@ -25,6 +25,7 @@ export function getOrderProductsByOrder(id) {
     return axios
       .get(`http://localhost:3001/orderProduct/getOPbyOrder/${id}`)
       .then((orderProduct) => {
+        console.log("GET BACK", orderProduct.data)
         dispatch({
           type: GET_ORDER_PRODUCTS_BY_ORDER,
           payload: orderProduct.data,
@@ -47,7 +48,6 @@ export function getOrderProductById(id) {
 }
 
 export function addOrderProduct(orderProduct) {
-  console.log("que llego aca?", orderProduct)
   return async function (dispatch) {
     const { data } = await axios.post(
       "http://localhost:3001/orderProduct/addOrderProduct",

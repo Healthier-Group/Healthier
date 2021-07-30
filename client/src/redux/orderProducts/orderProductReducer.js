@@ -9,7 +9,7 @@ import {
   
   const initialState = {
     orderProducts: [],
-    currentOP:{}
+    currentOP: []
   }
   
   const orderProductReducer = (state = initialState, action) => {
@@ -27,7 +27,7 @@ import {
       case GET_ORDER_PRODUCTS_BY_ORDER:
           return {
             ...state,
-            orderProducts: action.payload  
+            currentOP: action.payload  
           }
       case CREATE_ORDER_PRODUCT:
         
