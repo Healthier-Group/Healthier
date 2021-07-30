@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router';
 import LandingPage from '../LandingPage/LandingPage'
 import NavbarAdmin from '../NavBar/NavbarAdmin'
-import CreateUser from '../Users/UserAdd/CreateUser';
+import CreateUserAdmin from '../Users/UserAdd/CreateUserAdmin';
 import UpdateUser from '../Users/UserUpdate/UpdateUser';
 import UserList from '../Users/UserList/UserList';
 import CreateProductForm from "../Products/CreateProductForm";
@@ -18,6 +18,7 @@ import CreateReview from '../Reviews/CreateReview'
 import DeleteReview from '../Reviews/DeleteReview'
 import ReviewList from '../Reviews/ReviewList'
 import UpdateReview from '../Reviews/UpdateReview'
+import AdminHistory from '../Histories/AdminHistory'
 
 
 function AppPrivate() {
@@ -31,7 +32,7 @@ function AppPrivate() {
 				<Route exact path="/" component={LandingPage} />
 
 				{/* ============ User ==================== */}
-				<Route exact path="/private/createuser" component={CreateUser} />
+				<Route exact path="/private/createuser" component={CreateUserAdmin} />
                 <Route exact path="/private/updateuser/:id" component={UpdateUser} />
 				<Route exact path="/private/userlist" component={UserList} />
 
@@ -52,6 +53,7 @@ function AppPrivate() {
 				<Route exact path="/private/reviewlist" component={ReviewList} /> 
 				{/* ============ Carousel =================== */}
                 <Route exact path="/private/test" component={Carousel} />
+                <Route exact path="/private/adminhistory" component={AdminHistory} />
 
             </BrowserRouter>
 

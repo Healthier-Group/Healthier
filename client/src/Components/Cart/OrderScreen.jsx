@@ -1,10 +1,11 @@
 import axios from "axios";
-import { PayPalButton } from "react-paypal-button-v2";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getOrderById } from "../../redux/order/orderActions";
 import MessageBox from "./MessageBox";
+
 import {
   Button,
   Divider,
@@ -14,7 +15,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 
@@ -24,14 +25,16 @@ import Footer from "../Footer/Footer";
 export default function OrderScreen(props) {
   const orderId = props.match.params.id;
 
+  // eslint-disable-next-line
   const [sdkReady, setSdkReady] = useState(false);
   const [link, setLink] = useState("");
   const dispatch = useDispatch();
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
 
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-  const { user } = useSelector((state) => state.userReducer);
-  console.log("usuario", user);
+
+  const { currentUser } = useSelector((state) => state.userReducer);
+
   const products = [];
   orderProducts?.forEach((OP) => {
     products.push({
@@ -47,7 +50,10 @@ export default function OrderScreen(props) {
   const infoMP = {
     products,
     currentUserOrder,
+
+    currentUser,
   };
+
   console.log("que hay en infoMP", infoMP);
 
   const postHistory = async (id, order) => {
@@ -55,35 +61,37 @@ export default function OrderScreen(props) {
     await dispatch(mercadoPagoHandler(order));
   };
 
-  useEffect(() => {
-    dispatch(getOrderById(orderId));
-    if (currentUserOrder.paymentMethod === "paypal") {
-      const addPayPalScript = async () => {
-        const { data } = await axios.get("/api/config/paypal");
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
-        script.async = true;
-        script.onload = () => {
-          setSdkReady(true);
+  useEffect(
+    () => {
+      dispatch(getOrderById(orderId));
+      if (currentUserOrder.paymentMethod === "paypal") {
+        const addPayPalScript = async () => {
+          const { data } = await axios.get("/api/config/paypal");
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+          script.async = true;
+          script.onload = () => {
+            setSdkReady(true);
+          };
+          document.body.appendChild(script);
         };
-        document.body.appendChild(script);
-      };
-      if (!orderId.isPaid) {
-        if (!window.paypal) {
-          addPayPalScript();
-        } else {
-          setSdkReady(true);
+        if (!orderId.isPaid) {
+          if (!window.paypal) {
+            addPayPalScript();
+          } else {
+            setSdkReady(true);
+          }
         }
+      } else {
+        //nos metemos a mercado pago
+        postHistory(orderId, infoMP);
+        //pay();
       }
-    } else {
-      //nos metemos a mercado pago
-      postHistory(orderId, infoMP);
-      //pay();
-    }
-  }, 
-  // eslint-disable-next-line 
-  []);
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   function mercadoPagoHandler(products) {
     console.log("esto es desde el front", products);
@@ -99,14 +107,14 @@ export default function OrderScreen(props) {
     };
   }
 
-  const successPaymentHandler = (paymentResult) => {
-    //dispatch(payOrder(order, paymentResult));
-  };
+ 
+
+  
 
   return (
     <div>
       <div style={{ minHeight: "100vh", margin: "auto" }}>
-        <NavBar/>
+        <NavBar />
         <Hidden only={["xs", "sm"]}>
           <Paper
             elevation={3}
@@ -131,15 +139,15 @@ export default function OrderScreen(props) {
             <Divider />
             <Typography>Metodo de pago</Typography>
             <Typography>
-              Procesador: {currentUserOrder.paymentMethod}
+              Plataforma: {currentUserOrder.paymentMethod}
             </Typography>
-            {currentUserOrder.isPaid ? (
+            {/* {currentUserOrder.isPaid ? (
               <MessageBox variant="success">
                 Paid at {currentUserOrder.paidAt}
               </MessageBox>
             ) : (
               <MessageBox variant="danger">Not Paid </MessageBox>
-            )}
+            )} */}
             <Divider />
             <Typography>Articulos</Typography>
             <List>
@@ -161,12 +169,12 @@ export default function OrderScreen(props) {
             </List>
             <Divider />
             <Typography>Resumen de su orden</Typography>
-            <Typography>Items</Typography>
+            {/* <Typography>Items</Typography>
             <Typography>$ {products.price}</Typography>
-            <Divider />
+            <Divider /> */}
             <Typography>Precio Total</Typography>
             <Typography>$ {currentUserOrder.total}</Typography>
-            <List>
+            {/* <List>
               {!currentUserOrder.isPaid && (
                 <List item>
                   {!sdkReady ? (
@@ -179,7 +187,7 @@ export default function OrderScreen(props) {
                   )}
                 </List>
               )}
-            </List>
+            </List> */}
             <Divider />
             <List
               style={{
@@ -189,7 +197,12 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+                <a
+                  href={link}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Pagar
+                </a>
               </Button>
             </List>
           </Paper>
@@ -268,12 +281,12 @@ export default function OrderScreen(props) {
             </List>
             <Divider />
             <Typography>Resumen de su orden</Typography>
-            <Typography>Items</Typography>
+            {/* <Typography>Items</Typography>
             <Typography>$ {products.price}</Typography>
-            <Divider />
+            <Divider /> */}
             <Typography>Precio Total</Typography>
             <Typography>$ {currentUserOrder.total}</Typography>
-            <List>
+            {/* <List>
               {!currentUserOrder.isPaid && (
                 <List item>
                   {!sdkReady ? (
@@ -286,7 +299,7 @@ export default function OrderScreen(props) {
                   )}
                 </List>
               )}
-            </List>
+            </List> */}
             <Divider />
             <List
               style={{
@@ -296,13 +309,18 @@ export default function OrderScreen(props) {
               }}
             >
               <Button variant="contained" color="secondary">
-                <Link to={link} style={{color:"black", textDecoration: "none" }}>Pagar</Link>
+              <a
+                  href={link}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Pagar
+                </a>
               </Button>
             </List>
           </Paper>
         </Hidden>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

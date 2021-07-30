@@ -5,9 +5,7 @@ const {User} = require("../../db");
 
 const {GOOGLE_CLIENT_ID, GOOGLE_SECRET_KEY, GOOGLE_CALLBACK_URL} = process.env
 
-passport.use(
-  new GoogleStrategy(
-    {
+passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_SECRET_KEY,
       callbackURL: GOOGLE_CALLBACK_URL,

@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/products/productActions";
 
+import { getOrderById } from "../../redux/order/orderActions";
+import { getOrderProductsByOrder } from "../../redux/orderProducts/orderProductActions";
+
 //import Footer from "../Footer/Footer";
 import { addToWishList } from "../../redux/wishlist/actionsWishList";
 import { addToCart } from "../../redux/cart/cartActions";
@@ -76,19 +79,29 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  },
-  // eslint-disable-next-line
-  []);
-
+ 
   const product = useSelector((state) => state.productReducer.foundProducts);
   const filteredProducts = useSelector((state) => state.productReducer?.filter);
   //const array = product ? product : filteredProducts;
   // const day = new Date()
   const { currentUser } = useSelector((state) => state.userReducer);
-  const orderId = currentUser?.order?.id;
+  
+  const { currentOP } = useSelector((state) => state.orderProductReducer);
+  
 
+  const orderId = currentUser?.order?.id;
+  
+  
+  useEffect(
+    () => {
+      dispatch(getProducts());
+      dispatch(getOrderById(orderId));
+      dispatch(getOrderProductsByOrder(orderId));
+      console.log("-------------- CURRENT OP:", currentOP)
+    },
+    // eslint-disable-next-line
+    []
+  );
   const addToWishListHandler = async (id) => {
     await dispatch(addToWishList(id));
     swal({
@@ -105,7 +118,7 @@ export default function ProductCard() {
       await dispatch(addToCart(id));
       swal({
         title: "Carrito de compras",
-        text: "Tu producto fue añadido a tu localStorage",
+        text: "Tu producto fue añadido",
         icon: "success",
         button: "Volver",
       });
@@ -116,13 +129,14 @@ export default function ProductCard() {
         productId: id,
         orderId: orderId,
       };
+
       await dispatch(addOrderProduct(orderProduct));
-      swal({
+      await swal({
         title: "Carrito de compras",
-        text: "Tu producto fue añadido al back",
+        text: "El producto fue añadido",
         icon: "success",
-        button: "Volver",
-      });
+        button: "Volver"
+      })
       await dispatch(getProducts());
     }
   };
@@ -132,10 +146,10 @@ export default function ProductCard() {
   function displayProducts(array) {
     return array?.map((p) => {
       const productId = p.id;
-      
+
       return (
         <div key={p.id}>
-          <Card className={classes.root} >
+          <Card className={classes.root}>
             <CardActionArea>
               <Link
                 to={`/products/${p.id}`}
@@ -161,24 +175,35 @@ export default function ProductCard() {
               </Link>
             </CardActionArea>
             <CardActions className={classes.space}>
-              <Button
-                className={classes.btn}
-                size="small"
-                color="primary"
-                onClick={() => addToCartHandler(productId)}
-              >
-                <AddShoppingCartIcon /> Lo quiero
-              </Button>
-              <Button
-                className={classes.btn}
-                size="small"
-                color="primary"
-                //tenemos que mandarlo a la WL
-                id={p.id}
-                onClick={() => addToWishListHandler(productId)}
-              >
-                Favoritos <FavoriteBorderIcon />
-              </Button>
+              {p.stock > 0 ? (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  onClick={() => addToCartHandler(productId)}
+                >
+                  <AddShoppingCartIcon /> Lo quiero
+                </Button>
+              ) : (
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  disabled
+                >
+                  Sin stock
+                </Button>
+              )}              
+                <Button
+                  className={classes.btn}
+                  size="small"
+                  color="primary"
+                  //tenemos que mandarlo a la WL
+                  id={p.id}
+                  onClick={() => addToWishListHandler(productId)}
+                >
+                  Favoritos <FavoriteBorderIcon />
+                </Button>
             </CardActions>
           </Card>
         </div>
@@ -193,7 +218,7 @@ export default function ProductCard() {
           <Grid container spacing={1}>
             <Hidden only={["xs", "sm"]}>
               <Grid item xs={2}>
-                <OrderFilter/>
+                <OrderFilter />
               </Grid>
               <Grid item xs={10}>
                 <div className={classes.wrapped}>
@@ -208,12 +233,25 @@ export default function ProductCard() {
       </div>
       <div>
         <Hidden only={["md", "lg", "xl"]}>
-          <Grid item xs={12}>
-            <div className={classes.wrapped}>
-              {filteredProducts?.length > 0
-                ? displayProducts(filteredProducts)
-                : displayProducts(product)}
-            </div>
+          <Grid container spacing={1}>
+            <Grid
+              item
+              xs={2}
+              style={{
+                display: "flex",
+                margin: "auto",
+                justifyContent: "center",
+              }}
+            >
+              <OrderFilter />
+            </Grid>
+            <Grid item xs={12}>
+              <div className={classes.wrapped}>
+                {filteredProducts?.length > 0
+                  ? displayProducts(filteredProducts)
+                  : displayProducts(product)}
+              </div>
+            </Grid>
           </Grid>
         </Hidden>
       </div>

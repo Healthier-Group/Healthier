@@ -10,7 +10,7 @@ export const GET_ORDER_PRODUCTS_BY_ORDER = "GET_ORDER_PRODUCTS_BY_ORDER";
 export function getOrderProducts() {
   return async function (dispatch) {
     return await axios
-      .get("http://localhost:3001/orderProduct/getOrderProducts")
+      .get("/orderProduct/getOrderProducts")
       .then((orderProduct) => {
         dispatch({
           type: GET_ORDER_PRODUCTS,
@@ -23,8 +23,9 @@ export function getOrderProducts() {
 export function getOrderProductsByOrder(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/orderProduct/getOPbyOrder/${id}`)
+      .get(`/orderProduct/getOPbyOrder/${id}`)
       .then((orderProduct) => {
+        console.log("GET BACK", orderProduct.data)
         dispatch({
           type: GET_ORDER_PRODUCTS_BY_ORDER,
           payload: orderProduct.data,
@@ -36,7 +37,7 @@ export function getOrderProductsByOrder(id) {
 export function getOrderProductById(id) {
   return function (dispatch) {
     return axios
-      .get(`http://localhost:3001/orderProduct/getOrderProduct/${id}`)
+      .get(`/orderProduct/getOrderProduct/${id}`)
       .then((orderProduct) => {
         dispatch({
           type: GET_ORDER_PRODUCT_BY_ID,
@@ -47,10 +48,9 @@ export function getOrderProductById(id) {
 }
 
 export function addOrderProduct(orderProduct) {
-  console.log("que llego aca?", orderProduct)
   return async function (dispatch) {
     const { data } = await axios.post(
-      "http://localhost:3001/orderProduct/addOrderProduct",
+      "/orderProduct/addOrderProduct",
       orderProduct
     );
     dispatch({
@@ -63,7 +63,7 @@ export function addOrderProduct(orderProduct) {
 export function deleteOrderProduct(id) {
   return async function (dispatch) {
     const { data } = await axios.delete(
-      `http://localhost:3001/orderProduct/deleteOrderProduct/${id}`
+      `/orderProduct/deleteOrderProduct/${id}`
     );
     dispatch({
       type: DELETE_ORDER_PRODUCT,
@@ -75,7 +75,7 @@ export function deleteOrderProduct(id) {
 export function updateOrderProduct(id,orderProduct) {
   console.log("estamos en update id",id, orderProduct)
   return async function (dispatch) {
-    const { data } = await axios.put(`http://localhost:3001/orderProduct/updateOrderProduct/${id}`,orderProduct);
+    const { data } = await axios.put(`/orderProduct/updateOrderProduct/${id}`,orderProduct);
     await console.log("estamos despues de put:", data)
     dispatch({
       type: UPDATE_ORDER_PRODUCT,

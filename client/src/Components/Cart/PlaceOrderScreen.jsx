@@ -21,6 +21,8 @@ export default function PlaceOrderScreen(props) {
   //const userId = currentUser?.id;
   const orderId = currentUser?.order.id;
   const { currentUserOrder } = useSelector((state) => state.orderReducer);
+  const metododepago =currentUserOrder?.paymentMethod
+  console.log(`metododepago`, metododepago)
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
 
   const products = [];

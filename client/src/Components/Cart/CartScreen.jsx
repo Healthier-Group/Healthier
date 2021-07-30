@@ -4,11 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import { getCurrentUser } from "../../redux/users/userActions";
 import { addToCart, removeFromCart } from "../../redux/cart/cartActions";
 import {
- 
   deleteOrderProduct,
   getOrderProductsByOrder,
   updateOrderProduct,
-  
 } from "../../redux/orderProducts/orderProductActions";
 import {
   Paper,
@@ -26,6 +24,7 @@ export default function CartScreen(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const qty = props.location.search;
+  console.log('quantity: ', qty);
 
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -37,11 +36,26 @@ export default function CartScreen(props) {
   const orderId = currentUser?.order?.id;
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
   
-
   const productos = [];
   const updateProducts = () => {
     orderProducts?.forEach((OP) => {
-      productos.push({
+      return OP.product ? 
+       productos.push({
+        id: OP.id,
+        name: OP.product.name,
+        image: OP.product.image,
+        price: OP.product.price,
+        product: OP.product.id,
+        countInStock: OP.product.stock,
+        qty: OP.quantity,
+      }) : null
+    });
+    console.log(productos);
+  };
+  /* const productos = [];
+  const updateProducts = () => {
+    orderProducts?.forEach((OP) => {
+       productos.push({
         id: OP.id,
         name: OP.product.name,
         image: OP.product.image,
@@ -51,7 +65,8 @@ export default function CartScreen(props) {
         qty: OP.quantity,
       });
     });
-  };
+    console.log(productos);
+  }; */
 
   updateProducts();
 
@@ -59,11 +74,12 @@ export default function CartScreen(props) {
 
   // const { cartItems } = cart;
 
-  const removeFromCartHandler = (id) => {
+  const removeFromCartHandler = async (id) => {
     if (!currentUser) {
       dispatch(removeFromCart(id));
     } else {
-      dispatch(deleteOrderProduct(id));
+      await dispatch(deleteOrderProduct(id));
+      await dispatch(getOrderProductsByOrder(orderId));
     }
   };
 
@@ -77,35 +93,35 @@ export default function CartScreen(props) {
     // props.history.push("/login?redirect=shipping");
   };
 
-  useEffect(() => {
-    if (!currentUser) {
-      if (productId) {
-        dispatch(addToCart(productId, qty));
+  useEffect(
+    () => {
+      if (!currentUser) {
+        if (productId) {
+          dispatch(addToCart(productId, qty));
+        }
+      } else {
+        dispatch(getOrderProductsByOrder(orderId));
+        dispatch(getCurrentUser());
       }
-    } else {
       updateProducts();
-      dispatch(getOrderProductsByOrder(orderId));
-      dispatch(getCurrentUser());
-    }
-
-    //despacho a cartAction
-  },
-  // eslint-disable-next-line 
-  [
-    getOrderProductsByOrder,
-    getCurrentUser,
-    updateOrderProduct,
-    dispatch,
-    orderId,
-    productId,
-    qty,
-  ]);
+      //despacho a cartAction
+    },
+    // eslint-disable-next-line
+    [
+      getOrderProductsByOrder,
+      getCurrentUser,
+      updateOrderProduct,
+      dispatch,
+      orderId,
+      productId,
+      qty,
+    ]
+  );
 
   const handlerFunction = async (item, e) => {
     if (currentUser) {
       await dispatch(updateOrderProduct(item.id, { quantity: e }));
       await dispatch(getOrderProductsByOrder(orderId));
-      
     } else {
       dispatch(addToCart(item.product, e));
     }
@@ -125,12 +141,12 @@ export default function CartScreen(props) {
               padding: "50px",
             }}
           >
-            <Typography variant='h6'>Tu carrito</Typography>
+            <Typography variant="h6">Tu carrito</Typography>
 
             <Divider />
             {cartItems?.length === 0 ? (
               <Typography
-                variant='h5'
+                variant="h5"
                 style={{
                   marginTop: "20px",
                   marginBottom: "20px",
@@ -138,7 +154,7 @@ export default function CartScreen(props) {
                 }}
               >
                 Carrito vacío.{" "}
-                <Link to='/' style={{ color: "black", textDecoration: "none" }}>
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
                   Presiona aquí para seguir comprando
                 </Link>
               </Typography>
@@ -151,8 +167,8 @@ export default function CartScreen(props) {
                         <img
                           src={item.image}
                           alt={item.name}
-                          width='150px'
-                          height='100px'
+                          width="150px"
+                          height="100px"
                         />
                       </Grid>
 
@@ -165,24 +181,26 @@ export default function CartScreen(props) {
                         </Link>
                       </Grid>
                       <Grid item xs={2} style={{ margin: "auto" }}>
-                        <select
-                          value={item.qty}
-                          onChange={(e) => {
-                            handlerFunction(item, Number(e.target.value));
-                          }}
-                        >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
+                        {currentUser ? (
+                          <select
+                            value={item.qty}
+                            onChange={(e) => {
+                              handlerFunction(item, Number(e.target.value));
+                            }}
+                          >
+                            {[...Array(item.countInStock).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </select>
+                        ) : null}
                       </Grid>
                       <Grid xs={2} style={{ margin: "auto" }}>
                         <Button
-                          variant='contained'
-                          color='primary'
-                          type='button'
+                          variant="contained"
+                          color="primary"
+                          type="button"
                           onClick={() =>
                             removeFromCartHandler(
                               currentUser ? item.id : item.product
@@ -216,12 +234,12 @@ export default function CartScreen(props) {
                     }}
                   >
                     <Button
-                      variant='contained'
-                      color='primary'
-                      type='button'
+                      variant="contained"
+                      color="primary"
+                      type="button"
                       //href="/shipping"
                       onClick={checkoutHandler}
-                      className='primary block'
+                      className="primary block"
                       disable={cartItems.length === 0}
                     >
                       Pasar al pago
@@ -245,12 +263,12 @@ export default function CartScreen(props) {
               padding: "40px",
             }}
           >
-            <Typography variant='h6'>Tu carrito</Typography>
+            <Typography variant="h6">Tu carrito</Typography>
 
             <Divider style={{ margin: "20px 0" }} />
             {cartItems.length === 0 ? (
               <Typography
-                variant='h5'
+                variant="h5"
                 style={{
                   marginTop: "20px",
                   marginBottom: "20px",
@@ -258,7 +276,7 @@ export default function CartScreen(props) {
                 }}
               >
                 Carrito vacío.{" "}
-                <Link to='/' style={{ color: "black", textDecoration: "none" }}>
+                <Link to="/" style={{ color: "black", textDecoration: "none" }}>
                   Presiona aquí para seguir comprando
                 </Link>
               </Typography>
@@ -283,8 +301,8 @@ export default function CartScreen(props) {
                         <img
                           src={item.image}
                           alt={item.name}
-                          width='150px'
-                          height='90px'
+                          width="150px"
+                          height="90px"
                           style={{ margin: "auto" }}
                         />
                         <br />
@@ -299,26 +317,26 @@ export default function CartScreen(props) {
                           {item.name}
                         </Link>
                         <br />
-                        <select
-                          value={item.qty}
-                          onChange={(e) =>
-                            dispatch(
-                              addToCart(item.product, Number(e.target.value))
-                            )
-                          }
-                        >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
+                        {currentUser ? (
+                          <select
+                            value={item.qty}
+                            onChange={(e) => {
+                              handlerFunction(item, Number(e.target.value));
+                            }}
+                          >
+                            {[...Array(item.countInStock).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </select>
+                        ) : null}
                         <br />
                         <Button
-                          variant='contained'
+                          variant="contained"
                           style={{ width: "220px" }}
-                          color='primary'
-                          type='button'
+                          color="primary"
+                          type="button"
                           onClick={() =>
                             removeFromCartHandler(
                               currentUser ? item.id : item.product
@@ -338,7 +356,7 @@ export default function CartScreen(props) {
               <Grid item xs={12}>
                 <List>
                   <List style={{ position: "relative", left: "10vw" }}>
-                    <Typography variant='p'>
+                    <Typography variant="p">
                       Total ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :
                       ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                     </Typography>
@@ -352,12 +370,11 @@ export default function CartScreen(props) {
                     }}
                   >
                     <Button
-                      variant='contained'
-                      color='primary'
-                      type='button'
+                      variant="contained"
+                      color="primary"
+                      type="button"
                       //href="/shipping"
                       onClick={checkoutHandler}
-                      
                       disable={cartItems.length === 0}
                     >
                       Pasar al pago

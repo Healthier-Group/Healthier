@@ -141,7 +141,7 @@ export function getCategories() {
 export function getCategoryById(id) {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/category/" + id)
+      .get("/category/" + id)
       .then((category) => {
         dispatch({
           type: "GET_CATEGORY_BY_ID",
@@ -154,7 +154,7 @@ export function getCategoryById(id) {
 export function getCategoryByName(q) {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/category/?q=" + q)
+      .get("/category/?q=" + q)
       .then((category) => {
         dispatch({
           type: "GET_CATEGORY_BY_NAME",
@@ -223,8 +223,7 @@ export function updateReview(review) {
 export function deleteReview(review) {
   return async function (dispatch) {
     const { data } = await axios.delete(
-      `${API_URL}review/${review.id}`,
-      review
+      `${API_URL}review/${review.id}`
     );
     dispatch({
       type: "DELETE_REVIEW",
@@ -235,7 +234,7 @@ export function deleteReview(review) {
 
 export function getReviewById(id) {
   return function (dispatch) {
-    return axios.get("http://localhost:3001/review/" + id).then((review) => {
+    return axios.get("/review/" + id).then((review) => {
       dispatch({
         type: "GET_REVIEW_BY_ID",
         payload: review.data,

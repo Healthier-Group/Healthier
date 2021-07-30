@@ -117,7 +117,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_REVIEW:
       return {
         ...state,
-        reviewDetail: action.payload,
+        reviewDetail: state.reviewDetail.filter(r => r.id !== action.payload.id)
       };
     case GET_REVIEW_BY_ID:
       return {

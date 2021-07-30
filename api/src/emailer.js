@@ -16,7 +16,7 @@ const createTransporter = () => {
         port: 465,
         auth: {
           user: "apikey",
-          pass: "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"
+          pass: "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"
         }
       });
 
@@ -26,9 +26,9 @@ const createTransporter = () => {
 const sendMailRegister = async (usuario) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
-        from: '"Healthier Group" <sergionicolassud@gmail.com>',
+        from: '"Healthier Group" <santiagozapata07@gmail.com>',
         to: `${usuario.email}`,
-        // to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
+      
         subject: 'Bienvenido a Healthier Group',
         html: "<p>Bienvenido a Healthier group</p>"
     })
@@ -40,11 +40,11 @@ const sendMailRegister = async (usuario) => {
 const sendMailOrder = async (str) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
-        from: '"Healthier Group" <sergionicolassud@gmail.com>',
+        from: '"Healthier Group" <santiagozapata07@gmail.com>',
         to: `${str}`,
-        // to:"sotelosergion@gmail.com",
+       
         subject: 'Tu compra fue aprobada',
-        html: "<p>El correo funciona</p>"
+        html: "<p>¡Gracias por tu compra!</p> <br /> <p>Pronto te llegará la información de seguimiento.</p>"
     })
     console.log("Message sent:", info.messageId);
 
@@ -55,7 +55,7 @@ const sendMailOrder = async (str) => {
 const sendMailOrderSent = async (usuario) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
-        from: '"Healthier Group" <sergionicolassud@gmail.com>',
+        from: '"Healthier Group" <santiagozapata07@gmail.com>',
         // to: `${usuario.email}`,
         to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
         subject: 'Tu orden está en camino',

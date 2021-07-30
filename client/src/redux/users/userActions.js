@@ -14,19 +14,16 @@ import {
 import swal from "sweetalert";
 // import { CART_EMPTY } from "../cart/cartActions";
 
-
 export function getAllUsers() {
-  return async function (dispatch) {
+  return async function (dispatch){
     const { data } = await axios.get(`/users/getAll`);
     dispatch({ type: GET_ALL_USERS, payload: data });
-  };
+  }
 }
 
 export function createUser(user) {
-  console.log("aca estamos en action paso 3=user", user)
-  return async function (dispatch) {
+  return async function (dispatch){
     const { data } = await axios.post(`/users/addUser`, user);
-    console.log("aca estamos en action paso 4=data", data)
     dispatch({ type: CREATE_USER, payload: data });
   };
 }
@@ -52,7 +49,6 @@ export function deleteUser(id) {
   };
 }
 
-
 export function fetchAuthUser () {
 	return async (dispatch) => {
 		try {
@@ -68,9 +64,7 @@ export function fetchAuthUser () {
 			swal(e.message,'ha sucedido un error','error');
 		}
 	}
-};
-
-
+}
 
 export function getCurrentUser(){
   return async function current(dispatch){
@@ -84,7 +78,6 @@ export function getCurrentUser(){
   }
 }
 
-
 export function loginUser(login) {
   return async function (dispatch) {
     try {
@@ -95,24 +88,7 @@ export function loginUser(login) {
       );
       const user = await axios.get(`/auth/user`, { withCredentials: true });
       localStorage.setItem("profile", JSON.stringify(user.data));
-      dispatch({ type: LOGIN, payload: user.data });
-      //Create Cart 
-
-      // var orders = await axios.get(`${API_URL}order/getOrders`);
-      // var currentUser = await axios.get(`${API_URL}users/getUser/${orders.data[1].userId}`)
-      // var userOrder = orders.data.find(e => e.userID === user.data.id)
-      // console.log("login", login)
-      // console.log("órdenes", orders.data)
-      // console.log("usuario", user.data)
-      // console.log("orden de usuario", userOrder)
-      // console.log("usuario actual", currentUser)
-
-
-
-
-
-
-     // dispatch({type:CARRITO_OK, payload: create})
+      dispatch({ type: LOGIN, payload: user.data });  
     } catch (e) {
       swal(e.message, "Ha ocurrido un error", "error");
     }
@@ -125,9 +101,9 @@ export function logOutUser() {
 		try{
 			await localStorage.removeItem('profile')
 			await localStorage.removeItem('adminAllowed')
-       localStorage.removeItem("cartItems");
-       localStorage.removeItem("shippingAddress");
-       localStorage.removeItem("wishListItems");
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("shippingAddress");
+            localStorage.removeItem("wishListItems");
 			await axios.get(`/auth/logout`, 
 			{withCredentials: true})
 			dispatch({type: LOGOUT})

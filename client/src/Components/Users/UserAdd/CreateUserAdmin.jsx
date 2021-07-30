@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import CreateUserForm from "./CreateUserForm";
 import { createUser } from "../../../redux/users/userActions";
-import NavBar from "../../NavBar/NavBar";
+
 import swal from "sweetalert";
 
 const CreateUser = (props) => {
@@ -12,6 +12,7 @@ const CreateUser = (props) => {
 
   const dispatch = useDispatch();
   const { userDetail } = useSelector((state) => state.userReducer);
+  console.log("que llega aca?user paso 1:", userDetail);
 
   var wipedInput = {
     name: "",
@@ -66,7 +67,7 @@ const CreateUser = (props) => {
 
   return (
     <div>
-   <NavBar/>
+      
       <div>
         <CreateUserForm
           input={input}

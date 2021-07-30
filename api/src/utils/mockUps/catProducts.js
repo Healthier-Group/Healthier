@@ -33,29 +33,29 @@ const catProducts = async () => {
         const jugoChiaNaranja = await Product.findByPk(23);
         const aceiteOliva = await Product.findByPk(24);
 
-        await frutosSecos.addCategories([1, 2, 3, 4]); 
+        await frutosSecos.addCategories([1, 2, 4]); 
         await gomitasChu.addCategories([3, 4]); 
         await cremaMani.addCategories([1, 2, 3]); 
         await granola.addCategories([1, 2, 3, 4]); 
         await salsaCaju.addCategories([1, 2]); 
-        await hamburguesaVegana.addCategories([1, 2, 3]); 
+        await hamburguesaVegana.addCategories([1, 2]); 
         await harinaPreMezcla.addCategories([1, 2, 3]); 
         await pizzaVegana.addCategories([1, 2]); 
-        await habasTostadas.addCategories([1, 2, 3, 4]); 
+        await habasTostadas.addCategories([1, 2]); 
         await maniTostado.addCategories([1, 2, 3]); 
         await barritaCrowie.addCategories([1, 2, 4]); 
         await alfajorAlmendra.addCategories([2, 4]); 
-        await lecheCastañas.addCategories([1, 2, 3]); 
-        await dulceDeLeche.addCategories([2, 3, 4]); 
+        await lecheCastañas.addCategories([1, 2]); 
+        await dulceDeLeche.addCategories([2, 3]); 
         await tostadaArroz.addCategories([1, 2]); 
-        await chipsZanahoria.addCategories([1, 2, 3, 4]); 
+        await chipsZanahoria.addCategories([1, 2, 4]); 
         await harinaIntegral.addCategories([1, 2, 4]);
-        await fusiliMulticereal.addCategories([1, 2, 4]); 
-        await aceiteCoco.addCategories([1, 2, 3]); 
-        await pastaTomateSeco.addCategories([1, 2, 3]); 
-        await teMatcha.addCategories([1, 2, 3, 4]); 
-        await salRosaHimalaya.addCategories([1, 2, 3, 4]);
-        await jugoChiaNaranja.addCategories([1, 2, 3, 4, 5]); 
+        await fusiliMulticereal.addCategories([1, 2]); 
+        await aceiteCoco.addCategories([1, 2]); 
+        await pastaTomateSeco.addCategories([1, 2]); 
+        await teMatcha.addCategories([1, 2, 4]); 
+        await salRosaHimalaya.addCategories([1, 2]);
+        await jugoChiaNaranja.addCategories([1, 2, 5]); 
         await aceiteOliva.addCategories([1, 2, 3]); 
     }
     catch (error){

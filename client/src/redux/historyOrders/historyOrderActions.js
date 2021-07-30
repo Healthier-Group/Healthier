@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const GET_HISTORIES = "GET_HISTORIES";
-export const GET_HISTORY_BY_ID = "GET_HISTORY_BY_ID";
 export const CREATE_HISTORY = "CREATE_HISTORY";
 export const UPDATE_HISTORY = "UPDATE_HISTORY";
 export const DELETE_HISTORY = "DELETE_HISTORY";
@@ -33,16 +32,16 @@ export function getHistoryByUser(userId) {
     }
   }
 
-export function getHistoryById(id) {
-  return async function (dispatch) {
-    const {data} = axios.get(`
-        http://localhost:3001/history/getHistory/${id}`);
-    await dispatch({
-        type: GET_HISTORY_BY_ID,
-        payload: data
-    });
-  }
-}
+// export function getHistoryById(id) {
+//   return async function (dispatch) {
+//     const {data} = axios.get(`
+//         http://localhost:3001/history/getHistory/${id}`);
+//     await dispatch({
+//         type: GET_HISTORY_BY_ID,
+//         payload: data
+//     });
+//   }
+// }
 
 // export function getOrderByUser(id) {
 //   return function (dispatch) {
