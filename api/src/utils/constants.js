@@ -1,5 +1,5 @@
-const API_DOMAIN = 'http//localhost:3001'
-const CLIENT_DOMAIN = 'http://localhost:3000'
+const API_DOMAIN = 'https://healthierclub.herokuapp.com'
+const CLIENT_DOMAIN = 'https://healthier.vercel.app/'
 
 module.exports = {
     API_DOMAIN,
