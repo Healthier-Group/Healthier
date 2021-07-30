@@ -24,6 +24,7 @@ export default function CartScreen(props) {
   const history = useHistory();
   const dispatch = useDispatch();
   const qty = props.location.search;
+  console.log('quantity: ', qty);
 
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
@@ -34,8 +35,24 @@ export default function CartScreen(props) {
   const { currentUser } = useSelector((state) => state.userReducer);
   const orderId = currentUser?.order?.id;
   const { orderProducts } = useSelector((state) => state.orderProductReducer);
-
+  
   const productos = [];
+  const updateProducts = () => {
+    orderProducts?.forEach((OP) => {
+      return OP.product ? 
+       productos.push({
+        id: OP.id,
+        name: OP.product.name,
+        image: OP.product.image,
+        price: OP.product.price,
+        product: OP.product.id,
+        countInStock: OP.product.stock,
+        qty: OP.quantity,
+      }) : null
+    });
+    console.log(productos);
+  };
+  /* const productos = [];
   const updateProducts = () => {
     orderProducts?.forEach((OP) => {
        productos.push({
@@ -49,7 +66,7 @@ export default function CartScreen(props) {
       });
     });
     console.log(productos);
-  };
+  }; */
 
   updateProducts();
 

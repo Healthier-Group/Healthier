@@ -12,7 +12,6 @@ const CreateUser = (props) => {
 
   const dispatch = useDispatch();
   const { userDetail } = useSelector((state) => state.userReducer);
-  console.log("que llega aca?user paso 1:", userDetail);
 
   var wipedInput = {
     name: "",

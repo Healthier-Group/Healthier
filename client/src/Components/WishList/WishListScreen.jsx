@@ -17,9 +17,15 @@ import {
 } from "../../redux/wishlist/actionsWishList";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import swal from 'sweetalert';
+import { getProducts } from "../../redux/products/productActions";
+import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
+
 
 export default function WishListScreen(props) {
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.userReducer);
+  const orderId = currentUser?.order?.id;
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
   let qty = 1;
@@ -38,8 +44,21 @@ export default function WishListScreen(props) {
     dispatch(removeFromWishList(id));
   };
 
-  const addToCartHandler = (id) => {
-    props.history.push(`/cart/${id}?qty=${qty}`);
+  const addToCartHandler = async(id) => {
+    /* props.history.push(`/cart/${id}${1}`); */
+    const orderProduct = {
+      productId: id,
+      orderId: orderId,
+    };
+
+    await dispatch(addOrderProduct(orderProduct));
+    await swal({
+      title: "Carrito de compras",
+      text: "El producto fue añadido",
+      icon: "success",
+      button: "Volver"
+    })
+    await dispatch(getProducts());
     dispatch(removeFromWishList(id));
   };
 
@@ -97,14 +116,24 @@ export default function WishListScreen(props) {
                         </Link>
                       </Grid>
                       <Grid item xs={3} style={{ margin: "auto" }}>
-                        <Button
+                      
+                      { (item.countInStock<1)?
+                        (<Button
+                            variant="contained"
+                            color="primary"
+                            type="button"
+                        >
+                          Sin stock
+                        </Button>) :                     
+                        (<Button
                           variant="contained"
                           color="primary"
                           type="button"
                           onClick={() => addToCartHandler(item.product)}
                         >
                           Enviar al carrito
-                        </Button>
+                        </Button>)
+                        }
                       </Grid>
                       <Grid item xs={2} style={{ margin: "auto" }}>
                         <Button
@@ -142,14 +171,14 @@ export default function WishListScreen(props) {
                     >
                       Ver más productos
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="primary"
                       href="/cart"
                       disable={wishListItems.length === 0}
                     >
                       Ir al carrito
-                    </Button>
+                    </Button> */}
                   </List>
                 </List>
               </Grid>
@@ -225,14 +254,23 @@ export default function WishListScreen(props) {
                         <br />
 
                         <br />
-                        <Button
-                          variant="contained"
-                          style={{ width: "220px" }}
-                          color="primary"
-                          onClick={() => addToCartHandler(item.product)}
-                        >
+                        { (item.countInStock<1)?
+                          (<Button
+                            variant="contained"
+                            color="primary"
+                            type="button"
+                          >
+                          Sin stock
+                          </Button>) :  
+                          (<Button
+                            variant="contained"
+                            color="primary"
+                            type="button"
+                            onClick={() => addToCartHandler(item.product)}
+                          >
                           Enviar al carrito
-                        </Button>
+                        </Button>)
+                        }
                         <br />
                         <Button
                           variant="contained"
@@ -264,10 +302,6 @@ export default function WishListScreen(props) {
                     <Button variant="contained" color="primary" href="/">
                       Ver más productos
                     </Button>
-
-                    <Button variant="contained" color="primary" href="/cart">
-                      Ir al carrito
-                    </Button>
                   </List>
                 </Hidden>
                 <Hidden only={"sm"}>
@@ -287,14 +321,6 @@ export default function WishListScreen(props) {
                       Ver más productos
                     </Button>
                     <br />
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href="/cart"
-                      style={{ minWidth: "190px", display:"flex", margin: "auto" }}
-                    >
-                      Ir al carrito
-                    </Button>
                   </List>
                 </Hidden>
               </Grid>

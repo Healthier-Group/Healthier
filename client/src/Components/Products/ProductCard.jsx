@@ -193,8 +193,7 @@ export default function ProductCard() {
                 >
                   Sin stock
                 </Button>
-              )}
-              {p.stock > 0 ? (
+              )}              
                 <Button
                   className={classes.btn}
                   size="small"
@@ -205,17 +204,6 @@ export default function ProductCard() {
                 >
                   Favoritos <FavoriteBorderIcon />
                 </Button>
-              ) : (
-                <Button
-                  className={classes.btn}
-                  size="small"
-                  color="primary"
-                  //tenemos que mandarlo a la WL
-                  id={p.id}
-                >
-                  Favoritos <FavoriteBorderIcon />
-                </Button>
-              )}
             </CardActions>
           </Card>
         </div>
