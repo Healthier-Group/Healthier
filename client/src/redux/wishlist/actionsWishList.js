@@ -5,7 +5,7 @@ export const WISH_LIST_REMOVE_ITEM='WISH_LIST_REMOVE_ITEM'
 
 export const addToWishList=(id)=>async(dispatch, getState)=>{
     console.log("1.info hacia wl",id)
-    const {data}=await axios.get("http://localhost:3001/products/" + id)
+    const {data}=await axios.get("/products/" + id)
     console.log("2.info hacia wl",data)
        dispatch({
         type:'WISH_LIST_ADD_ITEM',

@@ -11,7 +11,7 @@ export const GET_ORDER_BY_USER = "GET_ORDER_BY_USER";
 export function getOrders() {
   return async function (dispatch) {
     return await axios
-      .get("http://localhost:3001/order/getOrders")
+      .get("/order/getOrders")
       .then((order) => {
         dispatch({
           type: GET_ORDERS,
@@ -24,7 +24,7 @@ export function getOrders() {
 export function getOrderById(id) {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/order/getOrder/" + id)
+      .get("/order/getOrder/" + id)
       .then((order) => {
         dispatch({
           type: GET_ORDER_BY_ID,
@@ -37,7 +37,7 @@ export function getOrderById(id) {
 export function getOrderByUser(id) {
   return function (dispatch) {
     return axios
-      .get("http://localhost:3001/order/getOrderByUser/" + id)
+      .get("/order/getOrderByUser/" + id)
       .then((order) => {
         dispatch({
           type: GET_ORDER_BY_USER,
@@ -50,7 +50,7 @@ export function getOrderByUser(id) {
 export function createOrder(order) {
   return async function (dispatch) {
     const { data } = await axios.post(
-      "http://localhost:3001/order/addOrder",
+      "/order/addOrder",
       order
     );
     dispatch({
@@ -63,7 +63,7 @@ export function createOrder(order) {
 export function deleteOrder(id) {
   return async function (dispatch) {
     const { data } = await axios.delete(
-      "http://localhost:3001/order/deleteOrder"
+      "/order/deleteOrder"
     );
 
     dispatch({
@@ -76,7 +76,7 @@ export function deleteOrder(id) {
 export function updateOrder(order, orderId) {
   return async function (dispatch) {
     const { data } = await axios.put(
-      `http://localhost:3001/order/updateOrder/${orderId}`,
+      `/order/updateOrder/${orderId}`,
       order
     );
     dispatch({
