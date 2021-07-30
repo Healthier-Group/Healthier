@@ -8,7 +8,7 @@ import {
 import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
 import theme from '../../utils/Theme';
-import { Link } from "react-router-dom";
+
 import swal from 'sweetalert'
 import { getHistories, updateHistory } from "../../redux/historyOrders/historyOrderActions";
 
@@ -42,7 +42,7 @@ const AdminHistory = () => {
     dispatch(getHistories());
   }, 
 
-  
+
   // eslint-disable-next-line
   [product]);
   

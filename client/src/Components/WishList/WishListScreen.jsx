@@ -28,7 +28,7 @@ export default function WishListScreen(props) {
   const orderId = currentUser?.order?.id;
   const productId = props.match.params.id;
   //si no le pasamos una propiedad qty nos da 1 por defecto
-  let qty = 1;
+  
   const wishList = useSelector((state) => state.wishList);
   const { wishListItems } = wishList;
   //estado local de la wishList
