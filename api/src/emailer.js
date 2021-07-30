@@ -44,7 +44,7 @@ const sendMailOrder = async (str) => {
         to: `${str}`,
         // to:"sotelosergion@gmail.com",
         subject: 'Tu compra fue aprobada',
-        html: "<p>El correo funciona</p>"
+        html: "<p>¡Gracias por tu compra!</p> <br /> <p>Pronto te llegará la información de seguimiento.</p>"
     })
     console.log("Message sent:", info.messageId);
 

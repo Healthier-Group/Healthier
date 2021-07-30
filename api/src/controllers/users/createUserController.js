@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 		const hashedPassword = await bcrypt.hash(user.password, 12);
 		const createdUser = await User.create({...user, password: hashedPassword, email: user.email.toLowerCase()});
 		await Order.create({userId:createdUser.id})
-		await emailer.sendMailRegister(createdUser)
+		// await emailer.sendMailRegister(createdUser)
 		return res.json(createdUser);
 	} catch (err) {
 		return res.send(err.message).status(409);
