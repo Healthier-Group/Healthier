@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
   let cantidad = 1;
   try {
 	//   esto es lo de nachito que pisa el agregar al carrito
-    // const [createdOP] = await Orderproduct.create({
+    // const [createdOP] = await Orderproduct.findOrCreate({
     //   where: {
     //     quantity: cantidad,
     //     orderId: order,
