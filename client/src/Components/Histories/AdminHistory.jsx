@@ -9,6 +9,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
 import theme from '../../utils/Theme';
 import { Link } from "react-router-dom";
+import swal from 'sweetalert'
 import { getHistories, updateHistory } from "../../redux/historyOrders/historyOrderActions";
 
 const AdminHistory = () => {
@@ -29,7 +30,8 @@ const AdminHistory = () => {
   }));
 
   const product = useSelector((state) => state.historyReducer.histories);
-  console.log(product);
+  const despachar = product[0].id
+  console.log(product[0].id);
 
   // eslint-disable-next-line
   const classes = useStyles();
@@ -40,13 +42,20 @@ const AdminHistory = () => {
     dispatch(getHistories());
   }, 
   // eslint-disable-next-line
-  []);
+  [product]);
   
 
-  const handleDispatch = async (id) => {
-    console.log("Hola")
+
+
+
+  async function handleDispatch(id) {
+   
+    console.log("Hola", id)
     const history = { shippingState: "Dispatched" }
-    dispatch(updateHistory(id, history ));
+    await dispatch(updateHistory(id, history ));
+    await dispatch(getHistories())
+    await swal("Despachada", "La orden fue despachada", "success")
+    .then(()=>{ window.location.href="/private/adminhistory"})
   }
 
   const columns = [
@@ -71,7 +80,7 @@ const AdminHistory = () => {
                 style={{ fontWeight: 1000 }}
                 variant="contained"
                 color="secondary"
-                onClick={console.log("hola")}
+                onClick={()=>handleDispatch(despachar)}
               >
                 Despachar
               </Button>
