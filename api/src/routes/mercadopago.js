@@ -33,9 +33,9 @@ server.post('/', (req, res, next) => {
     items: items_ml,
     external_reference : `${id_orden}`,
     back_urls: {
-        success: 'http://localhost:3001/mercadopago/pagos',
-        failure: 'http://localhost:3001/mercadopago/pagos',
-        pending: 'http://localhost:3001/mercadopago/pagos',
+        success: '/mercadopago/pagos',
+        failure: '/mercadopago/pagos',
+        pending: '/mercadopago/pagos',
     }
   }
   mercadopago.preferences.create(preference)
@@ -74,11 +74,11 @@ server.get("/pagos", async (req, res)=>{
     await emailer.sendMailOrder(mail)
     await console.log("segundo paso (mail)");
     
-    return res.redirect("http://localhost:3000")
+    return res.redirect("/")
   }
   catch(err){
     console.error('error al buscar', err)
-    return res.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`)
+    return res.redirect(`/?error=${err}&where=al+buscar`)
   }
 })
    
