@@ -9,7 +9,7 @@ const userMockUp = async () => {
     try {
 
       await User.findOrCreate({where:{
-            name: 'Nachito Sanchez',
+            name: 'Nachito',
             username: 'nachito',
             email: 'Nacho@gmail.com',
             password: 'Holahola123',
@@ -46,10 +46,10 @@ const adminMockUp = async() => {
             contact: '1127257701',
         }});
         await User.findOrCreate({where:{
-            name: 'System Nacho',
-            username: 'AdminNachito',
+            name: 'System 2',
+            username: 'Admin2',
             isAdmin: true,
-            email: 'vergarajuanignacio02@gmail.com',
+            email: 'admin2@gmail.com',
             password: hashedPasswordB,
             contact: '1127257701',
         }});

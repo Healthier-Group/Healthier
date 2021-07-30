@@ -16,7 +16,9 @@ server.post('/', (req, res, next) => {
   const email = currentUser.email;
   let carrito = req.body.products;
   mail = email;
-  carro = carrito;
+  carro = carrito.map( p => {
+    return `2 x ${p.name} = ${p.price * 2}`
+  });
   orden = bodyOrder;
   console.log("esto es back carrito", carrito)
   console.log("esta es la orden completa:", bodyOrder)

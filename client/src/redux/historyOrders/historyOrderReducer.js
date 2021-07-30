@@ -29,7 +29,8 @@ switch (action.type) {
     }
   case UPDATE_HISTORY:
     return {
-      ...state
+      ...state,
+      currentUserHistories: action.payload
     }
   case DELETE_HISTORY:
     return {

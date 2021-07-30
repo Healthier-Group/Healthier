@@ -9,7 +9,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import { DataGrid } from "@material-ui/data-grid"; //test xgrid: SC & JMN
 import theme from '../../utils/Theme';
 import { Link } from "react-router-dom";
-import { getHistories } from "../../redux/historyOrders/historyOrderActions";
+import { getHistories, updateHistory } from "../../redux/historyOrders/historyOrderActions";
 
 const AdminHistory = () => {
   const useStyles = makeStyles((theme) => ({
@@ -30,23 +30,55 @@ const AdminHistory = () => {
 
   const product = useSelector((state) => state.historyReducer.histories);
   console.log(product);
+
   // eslint-disable-next-line
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(product)
     dispatch(getHistories());
   }, 
   // eslint-disable-next-line
   []);
+  
+
+  const handleDispatch = async (id) => {
+    console.log("Hola")
+    const history = { shippingState: "Dispatched" }
+    dispatch(updateHistory(id, history ));
+  }
 
   const columns = [
     { field: "id", headerName: "#", width: 90 },
     { field: "fullName", headerName: "Destinatario", width: 200 },
-    { field: "address", headerName: "Dirección", width: 180 },
+    { field: "address", headerName: "Dirección", width: 160 },
     { field: "city", headerName: "Ciudad", width: 135 },
-    { field: "postalCode", headerName: "Código Postal", width: 120 },
-    { field: "products", headerName: "Productos", width: 120 },
+    { field: "postalCode", headerName: "Código Postal", width: 135 },
+    { field: "products", headerName: "Productos", width: 200 },
+    { field: "shippingState", headerName: "Estado", width: 115 },
+    {
+      field: "-",
+      headerName: "-",
+      sortable: false,
+      width: 120,
+      headerAlign: "center",
+      disableClickEventBubbling: true,
+      renderCell: () => {
+        return (
+          <ThemeProvider theme={theme}>
+              <Button
+                style={{ fontWeight: 1000 }}
+                variant="contained"
+                color="secondary"
+                onClick={console.log("hola")}
+              >
+                Despachar
+              </Button>
+          </ThemeProvider>
+        );
+      },
+    }
   ];
 
   return (
@@ -61,12 +93,7 @@ const AdminHistory = () => {
                 alignItems: "center",
               }}
             >
-              <h1>Productos</h1>
-              <Link to="/private/form" style={{ textDecoration: "none" }}>
-                <Button variant="contained" color="secondary">
-                  Agregar Nuevo
-                </Button>
-              </Link>
+              <h1>Órdenes</h1>
             </Container>
 
             <Container style={{ height: 400, width: "90%" }}>

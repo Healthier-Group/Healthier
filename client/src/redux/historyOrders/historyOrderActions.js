@@ -78,7 +78,8 @@ export function deleteHistory(id) {
   };
 }
 
-export function updateHistory(history, historyId) {
+export function updateHistory(historyId, history ) {
+  console.log("datos en la action: ", historyId, history)
   return async function (dispatch) {
     const { data } = await axios.put(
         `http://localhost:3001/history/updateHistory/${historyId}`, history);

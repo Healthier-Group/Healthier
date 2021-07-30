@@ -42,7 +42,7 @@ module.exports = sequelize => {
         },
         products: {
             type: DataTypes.ARRAY(DataTypes.JSON),
-            allowNull: false
+            allowNull: true
         }
 	})
 }
