@@ -41,6 +41,8 @@ const AdminHistory = () => {
     console.log(product)
     dispatch(getHistories());
   }, 
+
+  
   // eslint-disable-next-line
   [product]);
   
