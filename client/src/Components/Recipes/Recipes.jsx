@@ -19,7 +19,7 @@ export default function Recipes() {
           justifyContent: "center",
         }}
       >
-        <h1 style={{textAlign:"center"}}>Acá deberían de ir las recetas!!!</h1>
+        <h1 style={{textAlign:"center"}}>Próximamente</h1>
         <Hidden only={["xs", "sm"]}>
         <img
           src={Hierbas}

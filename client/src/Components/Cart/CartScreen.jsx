@@ -196,6 +196,7 @@ export default function CartScreen(props) {
                           </select>
                         ) : null}
                       </Grid>
+                      
                       <Grid xs={2} style={{ margin: "auto" }}>
                         <Button
                           variant="contained"
@@ -210,6 +211,7 @@ export default function CartScreen(props) {
                           Eliminar
                         </Button>
                       </Grid>
+
                     </Grid>
                   </List>
                 ))}

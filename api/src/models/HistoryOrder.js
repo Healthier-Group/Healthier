@@ -43,6 +43,9 @@ module.exports = sequelize => {
         products: {
             type: DataTypes.ARRAY(DataTypes.JSON),
             allowNull: true
+        },
+        mail: {
+            type: DataTypes.STRING
         }
 	})
 }

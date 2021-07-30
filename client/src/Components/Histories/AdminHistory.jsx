@@ -30,8 +30,7 @@ const AdminHistory = () => {
   }));
 
   const product = useSelector((state) => state.historyReducer.histories);
-  const despachar = product[0].id
-  console.log(product[0].id);
+  const despachar = product[0]?.id
 
   // eslint-disable-next-line
   const classes = useStyles();
@@ -41,8 +40,7 @@ const AdminHistory = () => {
     console.log(product)
     dispatch(getHistories());
   }, 
-  // eslint-disable-next-line
-  [product]);
+  []);
   
 
 
@@ -51,11 +49,11 @@ const AdminHistory = () => {
   async function handleDispatch(id) {
    
     console.log("Hola", id)
-    const history = { shippingState: "Dispatched" }
+    const history = { shippingState: "Dispatched", mail: product.mail }
     await dispatch(updateHistory(id, history ));
     await dispatch(getHistories())
     await swal("Despachada", "La orden fue despachada", "success")
-    .then(()=>{ window.location.href="/private/adminhistory"})
+    // .then( () => {window.location.href="/private/adminhistory"})
   }
 
   const columns = [
@@ -64,6 +62,7 @@ const AdminHistory = () => {
     { field: "address", headerName: "Dirección", width: 160 },
     { field: "city", headerName: "Ciudad", width: 135 },
     { field: "postalCode", headerName: "Código Postal", width: 135 },
+    { field: "mail", headerName: "Mail", width: 200 },
     { field: "products", headerName: "Productos", width: 200 },
     { field: "shippingState", headerName: "Estado", width: 115 },
     {

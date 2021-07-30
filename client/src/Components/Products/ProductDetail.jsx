@@ -11,6 +11,7 @@ import {
 import { getProductById } from "../../redux/products/productActions";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import { Link } from 'react-router-dom';
 import { addOrderProduct } from "../../redux/orderProducts/orderProductActions";
 
 const useStyles = makeStyles({
@@ -122,6 +123,9 @@ const ProductDetail = (props) => {
   }, [dispatch, id]);
 
   const product = useSelector((state) => state.productReducer.productDetail);
+  console.log("USUARIO", currentUser);
+  console.log("PRODUCTO", product[0]);
+
 
   const addToWishListHandler = () => {
     props.history.push(`/wishlist/${id}`);
@@ -240,6 +244,25 @@ const ProductDetail = (props) => {
                         Favoritos
                       </Button>
                     )}
+                    <br/>
+                    {
+
+                      <Link to={`/addreview/${p.id}`}> 
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            width: "25vw",
+                            display: "flex",
+                            margin: "auto",
+                            color: "black",
+                            backgroundColor: "#41D26C",
+                          }}
+                        >
+                          Dejar una opinión
+                        </Button>
+                        </Link> 
+                    }
                   </Paper>
                 </div>
                 <Paper

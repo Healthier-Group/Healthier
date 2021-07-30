@@ -53,12 +53,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CreateReview = () => {
+export const CreateReview = (props) => {
   //   const [value, setValue] = React.useState(2);
+
+  const id = props.match.params.id;
+  console.log(id);
+
   const [input, setInput] = useState({
     title: "",
     description: "",
     calification: 3,
+    productId: id
   });
 
   function handleInputChange(e) {
@@ -78,7 +83,8 @@ export const CreateReview = () => {
           title: "",
           description: "",
         });
-        swal("Creado", "Review creada con éxito", "success");
+        swal("Creado", "Review creada con éxito", "success")
+        .then( () => window.location.href="/" );
       })
       .catch((error) => swal("Error", error, "error"));
   }

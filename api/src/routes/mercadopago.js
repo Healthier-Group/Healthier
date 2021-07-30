@@ -15,6 +15,7 @@ server.post('/', (req, res, next) => {
   const id_orden= bodyOrder.id//order.id
   const email = currentUser.email;
   let carrito = req.body.products;
+  console.log(carrito);
   mail = email;
   carro = carrito.map( p => {
     return `2 x ${p.name} = ${p.price * 2}`
@@ -68,7 +69,8 @@ server.get("/pagos", async (req, res)=>{
       state: "Success",
       shippingState: "To-Dispatch",
       products: carro,
-      userId: orden.userId
+      userId: orden.userId,
+      mail
     });
     await console.log("primer paso (create)");
     await emailer.sendMailOrder(mail)

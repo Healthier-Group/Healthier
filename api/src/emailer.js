@@ -30,7 +30,7 @@ const sendMailRegister = async (usuario) => {
         to: `${usuario.email}`,
       
         subject: 'Bienvenido a Healthier Group',
-        html: "<p>Bienvenido a Healthier group</p>"
+        html: "<h3>Su registro ha sido exitoso</h3><br/><h4>Bienvenido a Healthier grouh4</p>"
     })
     console.log("Message sent:", info.messageId);
 
@@ -44,7 +44,7 @@ const sendMailOrder = async (str) => {
         to: `${str}`,
        
         subject: 'Tu compra fue aprobada',
-        html: "<p>¡Gracias por tu compra!</p> <br /> <p>Pronto te llegará la información de seguimiento.</p>"
+        html: "<h3>¡Gracias por tu compra!</h3> <br /> <h4>Pronto te llegará la información de seguimiento.</h4>"
     })
     console.log("Message sent:", info.messageId);
 
@@ -52,14 +52,14 @@ const sendMailOrder = async (str) => {
 }
 
 //compra despachada -- debería ejecutarse cuando la orden pasa a history
-const sendMailOrderSent = async (usuario) => {
+const sendMailOrderSent = async (string) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
         from: '"Healthier Group" <santiagozapata07@gmail.com>',
-        // to: `${usuario.email}`,
-        to: ["sergionicolassud@gmail.com", "santiagozapata07@gmail.com"],
+        // to: ["noriega.95@gmail.com", "edgarmontenegro321@gmail.com"],
+        to: string,
         subject: 'Tu orden está en camino',
-        html: "<p>Bienvenido a Healthier group</p>"
+        html: "<h3>El pago fue aprobado</h3><br /> <h4>Su producto ha sido despachado.</h4>"
     })
     console.log("Message sent:", info.messageId);
 
@@ -69,5 +69,5 @@ const sendMailOrderSent = async (usuario) => {
 
 exports.sendMailRegister = (usuario) => sendMailRegister(usuario)
 exports.sendMailOrder = (str) => sendMailOrder(str)
-exports.sendMailOrderSent = (usuario) => sendMailOrder(usuario)
+exports.sendMailOrderSent = (string) => sendMailOrderSent(string)
 

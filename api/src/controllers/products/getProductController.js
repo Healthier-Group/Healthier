@@ -1,4 +1,4 @@
-const { Product , Category } = require("../../db");
+const { Product , Category, User } = require("../../db");
 const {Op} = require('sequelize')
 
 module.exports = async (req, res, next) => {
@@ -6,9 +6,7 @@ module.exports = async (req, res, next) => {
     const { q } = req.query;
     if (!q) {
       await Product.findAll({
-        include: {
-          model: Category
-      } 
+        include: [User, Category]
       })
       .then(product => res.send(product))
     } else {

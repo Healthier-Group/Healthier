@@ -1,11 +1,11 @@
-const { Product, Category } = require("../../db"); 
+const { Product, Category, User } = require("../../db"); 
 
 module.exports = async (req, res, next) => {
   const { id } = req.params;
   try {
     const productId = await Product.findAll({
       where: { id : id }, // Check if curly brackets are necessary
-      include: Category
+      include: [User, Category]
       //{
         //model: 
         

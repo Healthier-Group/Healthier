@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Redirect } from "react-router";
+import ReviewList from '../Reviews/CreateReview';
 import LandingPage from "../LandingPage/LandingPage";
 import NavBar from "../NavBar/NavBar";
 import ProductCard from "../Products/ProductCard";
@@ -77,6 +78,12 @@ function AppPublic() {
       <Route exact path="/placeorder" component={PlaceOrderScreen}></Route>
       <Route path="/order/:id" component={OrderScreen} exact></Route>
       <Route path="/wishlist/:id?" component={WishListScreen} exact></Route>
+
+      {/* ============ Review ==================== */}
+      <Route exact path="/addreview/:id" component={ReviewList}></Route>
+
+
+
     </BrowserRouter>
   );
 }
