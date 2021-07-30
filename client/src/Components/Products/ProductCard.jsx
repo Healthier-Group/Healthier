@@ -79,18 +79,18 @@ const useStyles = makeStyles({
 export default function ProductCard() {
   const classes = useStyles();
   const dispatch = useDispatch();
- const currentOrder = useSelector((state)=>state.orderProductReducer)
+ 
   const product = useSelector((state) => state.productReducer.foundProducts);
   const filteredProducts = useSelector((state) => state.productReducer?.filter);
   //const array = product ? product : filteredProducts;
   // const day = new Date()
   const { currentUser } = useSelector((state) => state.userReducer);
-  const { currentUserOrder } = useSelector((state) => state.orderReducer);
+  
   const { currentOP } = useSelector((state) => state.orderProductReducer);
   
 
   const orderId = currentUser?.order?.id;
-  const { orderProducts } = useSelector((state) => state.orderProductReducer);
+  
   
   useEffect(
     () => {
@@ -98,7 +98,9 @@ export default function ProductCard() {
       dispatch(getOrderById(orderId));
       dispatch(getOrderProductsByOrder(orderId));
       console.log("-------------- CURRENT OP:", currentOP)
-    },[]
+    },
+    // eslint-disable-next-line
+    []
   );
   const addToWishListHandler = async (id) => {
     await dispatch(addToWishList(id));

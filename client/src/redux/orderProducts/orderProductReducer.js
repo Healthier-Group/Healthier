@@ -17,7 +17,7 @@ import {
       case GET_ORDER_PRODUCTS:
         return { 
           ...state,
-          orders: action.payload
+          orderProducts: action.payload
         };
       case GET_ORDER_PRODUCT_BY_ID:
         return { 
@@ -27,7 +27,7 @@ import {
       case GET_ORDER_PRODUCTS_BY_ORDER:
           return {
             ...state,
-            currentOP: action.payload  
+            orderProducts: action.payload
           }
       case CREATE_ORDER_PRODUCT:
         
