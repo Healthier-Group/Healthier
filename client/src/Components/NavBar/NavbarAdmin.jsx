@@ -93,6 +93,11 @@ export default function NavBar() {
           </Toolbar>
           <Toolbar style={{ display: "flex", justifyContent: "flex-end" }}>
             <Toolbar>
+            <Link to="/private/adminhistory" className={classes.buttons}>
+                <span style={{ margin: "0 10px" }} color="secondary">
+                  Órdenes
+                </span>
+              </Link>
               <Link to="/private/userlist" className={classes.buttons}>
                 <span style={{ margin: "0 10px" }} color="secondary">
                   Usuarios
