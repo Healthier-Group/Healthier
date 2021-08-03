@@ -72,5 +72,8 @@ module.exports = sequelize => {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true,
 		},
+		boughtProducts: {
+			type: DataTypes.ARRAY(DataTypes.INTEGER)
+		}
 	});
 };

@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     const { q } = req.query;
     if (!q) {
       await Product.findAll({
-        include: [User, Category]
+        include: [Category]
       })
       .then(product => res.send(product))
     } else {

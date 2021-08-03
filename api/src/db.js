@@ -86,8 +86,6 @@ Orderproduct.belongsTo(Order);
 User.hasMany(Historyorder);
 Historyorder.belongsTo(User);
 
-User.belongsToMany(Product, { through: "c"} );
-Product.belongsToMany(User,  { through: "c"} );
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

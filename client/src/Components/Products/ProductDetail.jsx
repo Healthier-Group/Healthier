@@ -117,12 +117,21 @@ const ProductDetail = (props) => {
       props.history.push(`/cart`);
     }
   };
-
+  const product = useSelector((state) => state.productReducer.productDetail);
   useEffect(() => {
     dispatch(getProductById(id));
+    console.log("hOLAAAAAAAAA", currentUser.boughtProducts)
+    console.log("ID:", id)
   }, [dispatch, id]);
 
-  const product = useSelector((state) => state.productReducer.productDetail);
+  var productosComprados = currentUser.boughtProducts.map( p => {
+    console.log(p, id);
+    if (p == id) return true;
+    else return false;
+  });
+
+  console.log("comprado:", productosComprados);
+
 
 
   const addToWishListHandler = () => {
@@ -244,8 +253,10 @@ const ProductDetail = (props) => {
                     )}
                     <br/>
                     {
-
-                      <Link to={`/addreview/${p.id}`}> 
+                      productosComprados[0] === true ?
+                      <>
+                      <p>✔️ Comprado anteriormente</p>
+                      <Link to={`/addreview/${p.id}`} style={{"textDecoration": "none"}}>
                         <Button
                           variant="contained"
                           color="primary"
@@ -259,7 +270,10 @@ const ProductDetail = (props) => {
                         >
                           Dejar una opinión
                         </Button>
-                        </Link> 
+                        </Link>
+                        </>
+                        :
+                        null
                     }
                   </Paper>
                 </div>

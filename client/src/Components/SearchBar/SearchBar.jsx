@@ -7,7 +7,7 @@ import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    marginTop: "20px",
+    marginTop: "0.5em",
     backgroundColor: "#f1f1f1",
     borderRadius: 4,
   },

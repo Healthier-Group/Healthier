@@ -1,4 +1,4 @@
-const {OrderMp, Historyorder} = require('../db.js');
+const {OrderMp, Historyorder, User} = require('../db.js');
 const server = require('express').Router()
 const mercadopago = require('mercadopago')
 const emailer = require("../../src/emailer")
@@ -8,6 +8,7 @@ mercadopago.configure({access_token: 'TEST-4177121794319246-071405-45ab153c0cd3f
 var mail = "";
 var orden = {};
 var carro = [];
+var comprados = [];
 
 server.post('/', (req, res, next) => {
   const bodyOrder = req.body.currentUserOrder;
@@ -20,6 +21,10 @@ server.post('/', (req, res, next) => {
   carro = carrito.map( p => {
     return `2 x ${p.name} = ${p.price * 2}`
   });
+  carrito.map( p => {
+    comprados.push(p.product)
+  })
+  console.log("------------------COMPRADOS-------", comprados);
   orden = bodyOrder;
   console.log("esto es back carrito", carrito)
   console.log("esta es la orden completa:", bodyOrder)
@@ -72,6 +77,15 @@ server.get("/pagos", async (req, res)=>{
       userId: orden.userId,
       mail
     });
+    await User.update(
+      {boughtProducts: comprados,
+       name: "cambié el nombre"
+      },
+      {where:{
+        id: orden.userId} 
+      }
+    );
+
     await console.log("primer paso (create)");
     await emailer.sendMailOrder(mail)
     await console.log("segundo paso (mail)");

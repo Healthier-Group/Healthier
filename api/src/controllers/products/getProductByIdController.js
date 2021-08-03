@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   try {
     const productId = await Product.findAll({
       where: { id : id }, // Check if curly brackets are necessary
-      include: [User, Category]
+      include: [Category]
       //{
         //model: 
         

@@ -3,7 +3,7 @@ const {User, Historyorder, Order, Product} = require('../../db');
 module.exports = async (req, res, next) => {
     try {
 		const users = await User.findAll({
-			include: [Order, Historyorder, Product]
+			include: [Order, Historyorder]
 		});
 		return res.json(users);
 	} catch (error) {
