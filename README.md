@@ -1,18 +1,17 @@
-Acá vá una descripción del alcance y detalles del proyecto
+https://youtu.be/21vTycn4p0A
 
-Integrantes:
+Developers:
 
+Santiago Cañas - Full stack
 
-Santiago Cañas
+Juan Ignacio Vergara - Full stack
 
-Juan Ignacio Vergara
+Juan Martin Noriega - Full stack
 
-Juan Martin Noriega
+Sacha Cuña - Full stack
 
-Sacha Cuña
+Ramiro Barra - Full stack
 
-Ramiro Barra
+Edgar Montenegro - Full stack
 
-Edgar Montenegro
-
-Sergio Sotelo
+Sergio Sotelo - Full stack
